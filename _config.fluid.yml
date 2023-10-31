@@ -1018,22 +1018,22 @@ links:
   # Member item of page
   items:
     - {
-      title: "Fluid Blog",
-      intro: "主题博客",
-      link: "https://hexo.fluid-dev.com/",
-      avatar: "/img/favicon.png"
+      title: "友链空缺",
+      intro: "快来申请加入友链！",
+      link: "#",
+      avatar: "/img/links/empty.png"
     }
     - {
-      title: "Fluid Docs",
-      intro: "主题使用指南",
-      link: "https://hexo.fluid-dev.com/docs/",
-      avatar: "/img/favicon.png"
+      title: "友链空缺",
+      intro: "快来申请加入友链！",
+      link: "#",
+      avatar: "/img/links/empty.png"
     }
     - {
-      title: "Fluid Repo",
-      intro: "主题 GitHub 仓库",
-      link: "https://github.com/fluid-dev/hexo-theme-fluid",
-      avatar: "/img/favicon.png"
+      title: "友链空缺",
+      intro: "快来申请加入友链！",
+      link: "#",
+      avatar: "/img/links/empty.png"
     }
 
   # 当成员头像加载失败时，替换为指定图片
@@ -1054,6 +1054,7 @@ links:
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus | discuss
     type: disqus
+  subtitle: "从这里，通向世界的桥梁。"
 
 
 #---------------------------
