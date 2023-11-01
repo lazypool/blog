@@ -8,7 +8,7 @@ layout: about
 
 Hi, everyone! This is LazyPool, a cute, furry dragon from sea, a little chatty and anthomaniac.
 
-![](/img/header.png)
+![](/about/pic1.png)
 
 I came to land because I hated seafood and I wasn't good at swimming.
 
@@ -36,7 +36,7 @@ Can occasionally propose some strange and interesting ideas. Imagination precede
 
 ### Contact Me! 📫
 
-![](/img/photo.png)
+![](/about/pic2.png)
 
 QQ: 3416382833
 Email: lazypool@proton.me
