@@ -1,42 +1,40 @@
 ---
-title: About me
-date: 2023-10-31 12:05:33
+title: About Me
 layout: about
 ---
+### 在这呢！ 👋
 
-## Hi there! 👋
-
-Hi, everyone! This is LazyPool, a cute, furry dragon from sea, a little chatty and anthomaniac.
+嗨，大家好！这里是惰池，一条可爱的、毛茸茸的大海龙，有点话唠和花痴。
 
 ![](/about/pic1.png)
 
-I came to land because I hated seafood and I wasn't good at swimming.
+我上岸是因为我讨厌吃海鲜，而且不擅长游泳。
 
-I have been trying to learn the manners of the land so long, and most like to play with the small animals.
+长久以来，我一直在努力学习陆地上的礼仪。我最喜欢和小动物玩。
 
-### Skills! 🌱
+### 技能！ 🌱
 
-Have a similar understanding of most programming languages: C/C++, Python, Golang, Java, Nodejs.
+对大多数编程语言有着差不多的理解：C/C++，Python，Golang，Java，Nodejs。
 
-Sometimes can solve really complicated math problems, but only sometimes.
+有时可以解决非常复杂的数学问题，但只是有时。
 
-Can occasionally propose some strange and interesting ideas. Imagination precedes action.
+能偶尔提出一些奇怪有趣的想法。想象力超过行动力。
 
-### Hobbies! 🔭
+### 爱好！ 🔭
 
-`Animal!`. Like almost all mammals except primates. Would must stop to have a looks when encounter a puppy or kitty.
+`动物！`。喜欢几乎所有的哺乳动物，灵长类动物除外。遇到小狗或小猫，一定要停下来看一看。
 
-`Computer!`. At the age of 20, I switched to ArchLinux and created my own windows manager, text editor, and all sorts of other messy stuff.
+`计算机!`。20岁时，我改用 ArchLinux，创建了我自己的窗口管理器、文本编辑器和其他各种乱七八糟的东西。
 
-`AI!`. I like deep learning and neural networks, especially in the field of NLP. I've read a lot of articles and run my own projects.
+`人工智能!`。我喜欢深度学习和神经网络，尤其是 NLP 领域。我读过很多文章，也经营过自己的项目。
 
-`Martial!`. I can't resist costume dramas and martial arts movies. Sometimes I imagine myself doing chivalrous deeds, wandering around the world.
+`武侠!`。我无法抗拒古装剧和武侠片的诱惑。有时我想象自己在做侠客，周游世界。
 
-`Chess!`. Chinese chess is almost the game I play the most, in wich I have a certain crazy confidence.
+`象棋!`。中国象棋几乎是我玩得最多的游戏，我对它有一种疯狂的自信。
 
-### Contact Me! 📫
+### 联系我！ 📫
 
 ![](/about/pic2.png)
 
-QQ: 3416382833
-Email: lazypool@proton.me
+QQ：3416382833
+邮箱：lazypool@proton.me

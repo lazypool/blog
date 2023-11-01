@@ -1021,19 +1021,19 @@ links:
       title: "友链空缺",
       intro: "快来申请加入友链！",
       link: "#",
-      avatar: "/img/basic/links/empty.png"
+      avatar: "/img/links/empty.png"
     }
     - {
       title: "友链空缺",
       intro: "快来申请加入友链！",
       link: "#",
-      avatar: "/img/basic/links/empty.png"
+      avatar: "/img/links/empty.png"
     }
     - {
       title: "友链空缺",
       intro: "快来申请加入友链！",
       link: "#",
-      avatar: "/img/basic/links/empty.png"
+      avatar: "/img/links/empty.png"
     }
 
   # 当成员头像加载失败时，替换为指定图片
