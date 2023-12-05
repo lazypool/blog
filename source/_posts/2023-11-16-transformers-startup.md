@@ -5,7 +5,7 @@ date: 2023-11-16 02:16:27
 categories:
   - Notes
   - Tool Usage
-tags: [AI, code, study] 
+tags: [AI, code, study, transformer] 
 index_img: /img/index/cat.png
 ---
 
@@ -456,7 +456,7 @@ print(outputs.shape)
 torch.Size([4, 1])
 ```
 
-模型输出了 $4\times1$ 的向量，其中 4 是 batch 的大小，1 是输出的维度，符合我们的预期。
+模型输出了 4X1 的向量，其中 4 是 batch 的大小，1 是输出的维度，符合我们的预期。
 
 ### 训练模型
 
@@ -493,7 +493,7 @@ lr_scheduler = get_scheduler(
 
 优化器选用了 AdamW 并指定了学习率为 learning\_rate（取 1e-5）。
 
-lr\_scheduler 制定了学习率分 epoch\_num\*len(train\_loader) 步进行下降。
+lr\_scheduler 制定了学习率分 epoch\_num \* len(train\_loader) 步进行下降。
 
 ### 训练循环
 
