@@ -2,7 +2,7 @@
 layout: post
 title: 24年1月记
 date: 2024-01-01 19:56:32
-categories: Diary
+categories: 日记
 tags: [life, study, comic, emotion]
 index_img: /img/index/hamster.png
 ---
@@ -305,4 +305,16 @@ Something is meaningful only when we insist on it.
 
 ## 1 月 28 日
 
-早上八点醒。
+早上八点醒，醒后躺在床上看手机。
+
+今日家里杀猪，请了许多师傅到家里，颇热闹。
+
+早上看了地狱客栈第五、六集。下午做了 PEFT 的博客记录。
+
+晚七点左右上床睡觉。
+
+## 1 月 29 日
+
+早上九点左右醒，饭后继续做 PEFT 博客记录。
+
+下午三点左右博客完成，更新了 GitHub 仓库。
