@@ -2,7 +2,7 @@
 layout: post
 title: Hello World
 date: 2023-10-31 14:13:39
-categories: Diary
+categories: 日记
 tags: [blog, life]
 index_img: /img/index/butterfly.png
 ---

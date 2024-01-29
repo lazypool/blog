@@ -2,7 +2,7 @@
 layout: post
 title: 23年11月记
 date: 2023-11-01 20:55:32
-categories: Diary
+categories: 日记
 tags: [life, study, comic, emotion]
 index_img: /img/index/dolphin.png
 ---

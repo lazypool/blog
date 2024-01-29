@@ -2,7 +2,7 @@
 layout: post
 title: 23年12月记
 date: 2023-12-01 19:56:32
-categories: Diary
+categories: 日记
 tags: [life, study, comic, emotion]
 index_img: /img/index/panda.png
 ---

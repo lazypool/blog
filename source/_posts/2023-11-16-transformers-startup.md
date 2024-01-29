@@ -3,8 +3,8 @@ layout: post
 title: Transformers，启动
 date: 2023-11-16 02:16:27
 categories:
-  - Notes
-  - Tool Usage
+  - 笔记
+  - 工具使用
 tags: [AI, code, study, transformer] 
 index_img: /img/index/cat.png
 ---
