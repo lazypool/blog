@@ -4,7 +4,7 @@ title: 24年4月记
 date: 2024-04-03 00:33:57
 categories: 日记
 tags: [life, study, comic, emotion]
-index_img: /img/index/bird2.png
+index_img: /img/index/tuolu.png
 ---
 
 # 24 年 4 月记
