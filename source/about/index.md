@@ -14,6 +14,10 @@ layout: about
 
 ### 技能！ 🌱
 
+<div class="center-container">
+<img src="https://ghchart.rshah.org/409ba5/lazypool" alt="LazyPool's Github chart" />
+</div>
+
 对大多数编程语言有着差不多的理解：C/C++，Python，Golang，Java，Nodejs。
 
 有时可以解决非常复杂的数学问题，但只是有时。

@@ -1,9 +1,8 @@
 ---
 layout: post
-title: Hello World
+title: Hello World：从零开始的博客之旅
 date: 2023-10-31 14:13:39
-categories: 日记
-tags: [blog, life]
+tags: [博客, 日常]
 index_img: /img/index/butterfly.png
 ---
 
