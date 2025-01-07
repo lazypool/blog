@@ -5,7 +5,7 @@ date: 2024-05-13 00:08:04
 categories:
     - 🔧 工具使用
 tags: [Docker, v2raya, 科学上网]
-index_img: /img/index/kaola.png
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/kaola.png
 ---
 
 # 科学上网：Docker + v2raya
