@@ -3,8 +3,7 @@ layout: post
 title: 抱脸社区：Transformers，启动
 date: 2023-11-16 02:16:27
 categories:
-    - 笔记
-    - 工具使用
+    - 🔧 工具使用
 tags: [AI, 人工智能, python, Transformer] 
 index_img: /img/index/cat.png
 ---

@@ -3,8 +3,7 @@ layout: post
 title: 科学上网：利用 Docker 搭建 v2raya 客户端
 date: 2024-05-13 00:08:04
 categories:
-    - 笔记
-    - 工具使用
+    - 🔧 工具使用
 tags: [Docker, v2raya, 科学上网]
 index_img: /img/index/kaola.png
 ---
