@@ -10,7 +10,7 @@ index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/squirrel.png
 
 # “诸侯纷争，群雄割据”：统一前端为何如此困难？
 
-起先，**网景** _(NetSpace)_ 推出其浏览器 Navigator 和脚本语言 Javascript，后被 **微软** _(Microsoft)_ 反编译而催生出 IE 和 JScript。刚开始，网景凭借技术创新而领先。但微软将 IE 与 Windows 98 捆绑销售，便将它打败了。这被称作 **第一次浏览器大战** _(The First Browser War)_ 。本来，EMCA-262 规范了浏览器对 Javascript 的解释行为。但在此次战争中，它实际上被忽视，这导致了后来的 **前端兼容问题** 。在这样的背景下，“前端人士”（在当时只被看作 Javascript 脚本大师）入场了……
+当初，**网景** _(NetSpace)_ 推出其浏览器 Navigator 和脚本语言 Javascript，后被 **微软** _(Microsoft)_ 反编译而催生出 IE 和 JScript。刚开始，网景凭借技术创新而领先。但微软将 IE 与 Windows 98 捆绑销售，便将它打败了。这被称作 **第一次浏览器大战** _(The First Browser War)_ 。本来，EMCA-262 规范了浏览器对 Javascript 的解释行为。但在此次战争中，它实际上被忽视。这直接导致了后来的 **前端兼容问题** 。在这样的背景下，“前端人士”入场了……
 
 ## 最初为解决兼容性问题，后造就 jQuery 工具链 (2005 ~ 2008)
 
