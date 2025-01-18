@@ -10,13 +10,19 @@ index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/squirrel.png
 
 # “诸侯纷争，群雄割据”：统一前端为何如此困难？
 
-当初，**网景** _(NetSpace)_ 推出其浏览器 Navigator 和脚本语言 Javascript，后被 **微软** _(Microsoft)_ 反编译而催生出 IE 和 JScript。刚开始，网景凭借技术创新而领先。但微软将 IE 与 Windows 98 捆绑销售，便将它打败了。这被称作 **第一次浏览器大战** _(The First Browser War)_ 。本来，EMCA-262 规范了浏览器对 Javascript 的解释行为。但在此次战争中，它实际上被忽视。这直接导致了后来的 **前端兼容问题** 。在这样的背景下，“前端人士”入场了……
+当初，**网景** _(NetSpace)_ 推出其浏览器 Navigator 和脚本语言 Javascript，后被 **微软** _(Microsoft)_ 反编译而催生出 IE 和 JScript。刚开始，网景凭借技术创新而领先。但微软将 IE 与 Windows 98 捆绑销售，便将它打败了。这被称作 **第一次浏览器大战** _(The First Browser War)_ 。本来，EMCA-262 规范了浏览器对 Javascript 的解释行为。但在此次战争中，它实际上被两家厂商忽视了。这直接导致了后来的 **前端兼容问题** 。在这样的背景下，“前端人士”入场了……
 
 ## 最初为解决兼容性问题，后造就 jQuery 工具链 (2005 ~ 2008)
 
-- 2005：Prototype（兼容性、动画特效、Ajax 请求）
-- 2006：jQuery（兼容性、选择器引擎、链式操作、CSS 选择器）
-- 2007：SaSS（CSS 预处理器）
+前面提到：由于浏览器大战，微软并没有按照规范来实现 Javascript、HTML 和 CSS，导致前端页面难以兼容不同浏览器。所以 CSS Hack、浏览器判别、特性侦测等技术应运而生。**2005 年，Protype 诞生，它是一个非常优雅的基础类库。** 在当时，它的诞生除了解决兼容问题，还实现了两大影响深远的功能：**动画特效** 和 **Ajax 请求**。自 Protype 之后，Dojo、ExtJS、MooTools 等库也陆续出现。当时前端开发模式是选择一个核心库，找一些组件，或者扒别人的脚本进行开发。
+
+**2006 年，jQuery 发布，它同样是一个 Javascript 基础类库。** 其刚发布之时，并没有如预想般吸引众多人使用。直到 2009 年 **Sizzle 选择器引擎** 研发成功，jQuery 才取得压倒性的优势、击败同期许多竞争对手。jQuery 的主要贡献分为三个方面：
+
+1. 发掘出大量的 **DOM/BOM 兼容方案** （例如 Dean Edwrad 的 addEvent()，IE 的 px 转换方案，domReady 的 doScroll 方案，globalEval 的兼容方案等）。
+2. 以 DOM 为中心的 **链式操作**，解放了前端开发者的编程思维。开发者们开始注重前后端分离，并要求不能污染 Object 原型对象，不能污染 window 全局变量。
+3. 促使人们对 CSS1~CSS3 选择器的学习，促进了浏览器原生选择器引擎的诞生。
+
+jQuery 的出现让前端工程师开发更加轻松。工程师如果想实现一个功能，可以搜索出一个好用的 jQuery 插件来实现。那时候大家就整天介绍 jQuery 插件，很少讨论一些底层的实现。这时，前端发展进入了 **jQuery 小作坊时代**，人们围绕 jQuery 创造出了一条成熟的工具链。
 
 ## 万恶之源？JS 的漫长工程化道路 (2009~2012)
 
