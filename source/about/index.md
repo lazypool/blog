@@ -2,43 +2,24 @@
 title: About Me
 layout: about
 ---
-### 在这呢！ 👋
 
-嗨，大家好！这里是惰池，一条可爱的、毛茸茸的大海龙，有点话唠和花痴。
+<table><thead><tr>
+<th><div align="center"><img alt="photo" src="./pic2.png" width="500" title="me"><h6>秋水时至，百川塞河！ —— 《庄子·秋水》</h6></div></th>
+<th><div align="center">
+      
+[![LazyPool's GitHub stats](https://github-readme-stats.vercel.app/api?username=lazypool&count_private=true&show_icons=true)](https://github.com/lazypool)
 
-![](/about/pic1.png)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=lazypool)](https://github.com/lazypool)
+    
+</div></th></tr></thead></table>
 
-我上岸是因为我讨厌吃海鲜，而且不擅长游泳。
-
-长久以来，我一直在努力学习陆地上的礼仪。我最喜欢和小动物玩。
-
-### 技能！ 🌱
-
-<div class="center-container">
-<img src="https://ghchart.rshah.org/409ba5/lazypool" alt="LazyPool's Github chart" />
+<div align="center">
+  <img alt="html5" src="https://media.giphy.com/media/XAxylRMCdpbEWUAvr8/giphy.gif" width="100" title="html">
+  <img alt="css" src="https://media.giphy.com/media/fsEaZldNC8A1PJ3mwp/giphy.gif" width="100" title="css">
+  <img alt="VSCode" src="https://i.giphy.com/media/IdyAQJVN2kVPNUrojM/200.webp" width="100" title="vscode">
+  <img alt="python" src="https://i.giphy.com/media/LMt9638dO8dftAjtco/200.webp" width="100" title="python">
+  <img alt="javascript" src="https://media3.giphy.com/media/ln7z2eWriiQAllfVcn/200w.webp" width="100" title="javascript">
+  <img alt="sublime" src="https://media.giphy.com/media/jnDKffgCfGYOp6cMTK/giphy.gif" width="100" title="sublime">
+  <img alt="github" src="https://i.giphy.com/media/KzJkzjggfGN5Py6nkT/200.webp" width="100" title="github">
+  <img alt="node" src="https://media.giphy.com/media/kdFc8fubgS31b8DsVu/giphy.gif" width="85" title="node">
 </div>
-
-对大多数编程语言有着差不多的理解：C/C++，Python，Golang，Java，Nodejs。
-
-有时可以解决非常复杂的数学问题，但只是有时。
-
-能偶尔提出一些奇怪有趣的想法。想象力超过行动力。
-
-### 爱好！ 🔭
-
-`动物！` 喜欢几乎所有的哺乳动物，灵长类动物除外。遇到小狗或小猫，一定要停下来看一看。
-
-`计算机!` 20岁时，我改用 ArchLinux，创建了我自己的窗口管理器、文本编辑器和其他各种乱七八糟的东西。
-
-`人工智能!` 我喜欢深度学习和神经网络，尤其是 NLP 领域。我读过很多文章，也经营过自己的项目。
-
-`武侠!` 我无法抗拒古装剧和武侠片的诱惑。有时我想象自己在做侠客，周游世界。
-
-`象棋!` 中国象棋几乎是我玩得最多的游戏，我对它有一种疯狂的自信。
-
-### 联系我！ 📫
-
-![](/about/pic2.png)
-
-QQ：3416382833
-邮箱：lazypool@proton.me
