@@ -41,7 +41,7 @@ echo "选项一\n选项二\n选项三\n选项四" | rofi -dmenu -p "提示文本
 ```bash
 # 主题文件的路径
 dir="$HOME/.config/rofi/powermenu/" # 主题文件夹
-theme="default.rasi"                # 默认主题
+theme="default"                     # 默认主题
 
 # 部分提示信息：
 host=$(hostname)                        # 主机名称
@@ -62,7 +62,54 @@ no='\uf057'        # 取消
 
 ### 呼唤菜单的部分
 
+#### 电源管理菜单
+
+定义了两个函数。run 函数提供了选项列表。cmd 函数指定了 rofi 的提示信息和主题文件。
+
+```bash
+run_powermenu() {
+  echo -e "$lock\n$reboot\n$shutdown\n$hibernate\n$suspend\n$logout" | powermenu_cmd
+}
+
+powermenu_cmd() {
+  rofi -dmenu \
+    -p "\uf007 $USER@$host" \
+    -mesg "\uf017 已运行: $uptime" \
+    -theme ${dir}/${theme}.rasi
+}
+```
+
+#### 确认菜单
+
+与“电源管理菜单”部分相同：定义了两个函数。run 函数提供了选项列表。cmd 函数指定了 rofi 的提示信息和主题文件。不同之处在于，这里通过 -theme-str 指定了少许样式。
+
+```bash
+run_confirm() {
+  echo -e "$yes\n$no" | confirm_cmd
+}
+
+confirm_cmd() {
+  rofi -theme-str "window {location: center; anchor: center; fullscreen: false; width: 350px;}" \
+    -theme-str "mainbox {orientation: vertical; children: [ "message", "listview" ];}" \
+    -theme-str "listview {columns: 2; lines: 1;}" \
+    -theme-str "element-text {horizontal-align: 0.5;}" \
+    -theme-str "textbox {horizontal-align: 0.5;}" \
+    -dmenu \
+    -p "确认界面" \
+    -mesg "你确定吗？" \
+    -theme ${dir}/${theme}.rasi
+}
+```
+
+由于确认菜单在不同主题间高度可共享，将其部分样式指定放在脚本当中以让不同风格的电源管理界面可以共用一套确认菜单。这里的主题主要指定了确认菜单应该以如图所示的方式呈现：
+
+![确认菜单](confirm_menu.png)
+
+该菜单的配色是由给定的主题文件（也就是 `${dir}/{theme}.rasi`）指定的。这样一来，它将会与电源管理菜单的配色风格保持一致。因此，多重主题的电源管理界面将会共享相似但配色方案不同的确认菜单。
+
 ### 执行操作的部分
+
+### main 函数部分
 
 ## rofi 样式配置
 
