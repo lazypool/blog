@@ -78,8 +78,8 @@ run_powermenu() {
 
 powermenu_cmd() {
   rofi -dmenu \
-    -p "\uf007 $USER@$host" \
-    -mesg "\uf017 已运行: $uptime" \
+    -p "$user $USER@$host" \
+    -mesg "$clock 已运行: $uptime" \
     -theme ${dir}/${theme}.rasi
 }
 ```
