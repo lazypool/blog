@@ -36,24 +36,29 @@ echo "选项一\n选项二\n选项三\n选项四" | rofi -dmenu -p "提示文本
 
 ### 基础变量的赋值
 
+这里，定义了电源界面采用的主题、要显示的信息（主机名称和登陆时长）以及可选的选项列表。**各个选项使用 utf-16 编码表示，实际上对应指定的 iconfont。**
+
 ```bash
 # 主题文件的路径
-dir="$HOME/.config/rofi/powermenu/"
+dir="$HOME/.config/rofi/powermenu/" # 主题文件夹
+theme="default.rasi"                # 默认主题
 
 # 部分提示信息：
 host=$(hostname)                        # 主机名称
 uptime=$(uptime -p | sed -e 's/up //g') # 登陆时长
 
 # 选项列表
-hibernate='󰂠' # 休眠
-shutdown=''  # 关机
-reboot='󰈐'    # 重启
-lock=''      # 锁屏
-suspend=''   # 挂起
-logout='󰍃'    # 登出
-yes=''       # 同意
-no='󰜺'        # 取消
+lock='\uf023'      # 锁屏
+reboot='\uf021'    # 重启
+shutdown='\uf011'  # 关机
+hibernate='\uf186' # 休眠
+suspend='\uf0f4'   # 挂起
+logout='\uf08b'    # 登出
+yes='\uf058'       # 同意
+no='\uf057'        # 取消
 ```
+
+这样，在字体支持的情况下，电源界面的各个选项就会以图标方式显示。想知道编码对应的图标，可以使用类似于 `echo -e "\uf057"` 的指令查看。
 
 ### 呼唤菜单的部分
 
