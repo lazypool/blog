@@ -44,8 +44,8 @@ dir="$HOME/.config/rofi/powermenu/" # 主题文件夹
 theme="default"                     # 默认主题
 
 # 部分提示信息：
-host=$(hostname)                        # 主机名称
-uptime=$(uptime -p | sed -e 's/up //g') # 登陆时长
+host="$(hostname)"                        # 主机名称
+uptime="$(uptime -p | sed -e 's/up //g')" # 登陆时长
 
 # 选项列表
 lock='\uf023'      # 锁屏
@@ -56,6 +56,9 @@ suspend='\uf0f4'   # 挂起
 logout='\uf08b'    # 登出
 yes='\uf058'       # 同意
 no='\uf057'        # 取消
+
+# 同意符
+confrim="$(echo -e $yes)"
 ```
 
 这样，在字体支持的情况下，电源界面的各个选项就会以图标方式显示。想知道编码对应的图标，可以使用类似于 `echo -e "\uf057"` 的指令查看。
@@ -109,7 +112,59 @@ confirm_cmd() {
 
 ### 执行操作的部分
 
-### main 函数部分
+```bash
+# 关机操作
+shutdown_action() {
+  isconfirm="$(run_confirm)"
+  if [[ $isconfirm == $confirm ]]; then
+    systemctl poweroff
+  fi
+}
+
+# 重启操作
+reboot_action() {
+  isconfirm="$(run_confirm)"
+  if [[ $isconfirm == $confirm ]]; then
+    systemctl reboot
+  fi
+}
+
+# 休眠操作
+hibernate_action() {
+  isconfirm="$(run_confirm)"
+  if [[ $isconfirm == $confirm ]]; then
+    systemctl hibernate
+  fi
+}
+
+# 挂起操作
+suspend_action() {
+  isconfirm="$(run_confirm)"
+  if [[ $isconfirm == $confirm ]]; then
+    mpc -q pause
+    amixer set Master mute
+    systemctl suspend
+  fi
+}
+
+# 登出操作
+logout_action() {
+  isconfirm="$(run_confirm)"
+  if [[ $isconfirm == $confirm ]]; then
+    dwm_pid="$(pidof -s dwm)"
+    if [[ -n $dwm_pid ]]; then
+      kill -TERM $dwm_pid
+    fi
+  fi
+}
+
+# 锁屏操作
+lock_action() {
+  if [[ -x '/usr/bin/i3lock' ]]; then
+    i3lock
+  fi
+}
+```
 
 ## rofi 样式配置
 
