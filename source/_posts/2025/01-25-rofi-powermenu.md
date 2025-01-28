@@ -168,6 +168,13 @@ lock_action() {
 }
 ```
 
+- 关机操作：是否确认？如是，则运行 `systemctl poweroff` .
+- 重启操作：是否确认？如是，则运行 `systemctl reboot` .
+- 休眠操作：是否确认？如是，则运行 `systemctl hibernate` .
+- 挂起操作：是否确认？如是，则关闭当前播放音频，设置主音量静默，并运行 `systemctl suspend` .
+- 登出操作：是否确认？如是，则找到并 kill 当前的窗口管理器(我这里是 dwm) .
+- 锁屏操作：运行 i3lock. 这里的操作可以自定义.
+
 ## rofi 样式配置
 
 ## dunst 配置
