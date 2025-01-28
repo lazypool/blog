@@ -175,6 +175,25 @@ lock_action() {
 - 登出操作：是否确认？如是，则找到并 kill 当前的窗口管理器(我这里是 dwm) .
 - 锁屏操作：运行 i3lock. 这里的操作可以自定义.
 
+### main 函数部分
+
+```bash
+# 主函数
+main() {
+  chosen="$(run_powermenu)"
+	case $chosen in
+		"$(echo -e $shutdown)") shutdown_action ;;
+		"$(echo -e $reboot)") reboot_action ;;
+		"$(echo -e $hibernate)") hibernate_action ;;
+		"$(echo -e $suspend)") suspend_action ;;
+		"$(echo -e $logout)") logout_action ;;
+		"$(echo -e $lock)") lock_action ;;
+	esac
+}
+```
+
+首先获取 powermenu 返回的文本，然后进入 case 代码块进行文本匹配。**注意：由于之前将 utf-16 编码通过 echo -e 变为字符级表示，这里匹配时也需要首先将其转换。** 匹配到相应的文本就运行相应的函数。主函数的形式十分简单，没什么好讲的。
+
 ## rofi 样式配置
 
 ## dunst 配置
