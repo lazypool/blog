@@ -336,6 +336,8 @@ element selected.normal {
 }
 ```
 
+这里简单提及下这段配置文件做了什么：它利用 children 字段将组件以 `MainBox(ImageBox(Prompt, Message), ListView(Elements))` 的形式组建起来，并用类 css 语言指定各组件的 padding、text-color、background-color、background-img 等，以此丰富界面的视觉效果。
+
 ## dunst 配置
 
 ## 最终成果展示
