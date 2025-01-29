@@ -196,6 +196,146 @@ main() {
 
 ## rofi 样式配置
 
+如果不进行任何样式配置，运行该脚本，我们将会唤出一个非常朴素的电源管理界面。它默认使用 gruvbox-light 的主题，各选项以简单的列表方式呈现。
+
+![](powermenu_simple.png)
+
+该界面是完全可用的。但这实在是太丑了！为此我们需要配置主题文件。在 .config/rofi/powermenu 文件夹（指定的主题文件夹）下创建 mytheme.rasi 文件并往里面写配置语句。**运行 `man rofi-theme` 指令将能获得关于编写 rofi 主题配置异常完备的指南，对于自定义 rofi 样式相当有帮助。** 限于篇幅，这里直接将我的 rofi 配置呈现如下。
+
+```mytheme.rasi
+/*************************
+ * 作者 : 惰池
+ * Github : @lazypool
+ * 
+ * Rofi 主题文件 : 狂飙
+ * Rofi 版本: 1.7.3
+**************************/
+
+
+/*****----- 配置选项 -----*****/
+configuration {
+  show-icons:                false;
+}
+
+/*****----- 全局属性及占位组件 -----*****/
+* {
+  font:                      "JetBrains Mono Nerd Font 16";
+  background:                #3b3a50;
+  background-alt:            #68668c;
+  foreground:                #ffffff;
+  selected:                  #9491c8;
+  active:                    #f3d4d7;
+  urgent:                    #e1939a;
+}
+dummy {
+  background-color:          transpartent;
+}
+
+/*****----- 主窗口 -----*****/
+window {
+  transparency:              "real";
+  location:                  center;
+  anchor:                    center;
+  fullscreen:                false;
+  width:                     640px;
+  x-offset:                  0px;
+  y-offset:                  0px;
+  padding:                   0px;
+  border:                    0px solid;
+  border-radius:             0px;
+  border-color:              @selected;
+  cursor:                    "default";
+  background-color:          @background;
+}
+
+/*****----- 主容器 -----*****/
+mainbox {
+  background-color:          transparent;
+  orientation:               horizontal;
+  children:                  [ "imagebox", "listview" ];
+}
+
+/*****----- 图片容器 -----*****/
+imagebox {
+  expand:                    false;
+  width:                     400px;
+  spacing:                   0px;
+  padding:                   0px;
+  background-color:          transparent;
+  background-image:          url("~/.config/rofi/images/powermenu/kuangbiao.jpg", height);
+  children:                  [ "inputbar", "dummy", "message" ];
+}
+
+/*****----- 输入条 -----*****/
+inputbar {
+  padding:                    20px;
+  border-radius:              0px;
+  background-color:           transparent;
+  text-color:                 @background;
+  children:                   [ "prompt" ];
+}
+prompt {
+  background-color:          transparent;
+  text-color:                inherit;
+}
+
+/*****----- 消息栏 -----*****/
+message {
+  enabled:                   true;
+  margin:                    0px;
+  padding:                   10px;
+  border-radius:             0px;
+  background-color:          @active;
+  text-color:                @background;
+}
+textbox {
+  background-color:          inherit;
+  text-color:                inherit;
+  vertical-align:            0.5;
+  horizontal-align:          0.5;
+}
+
+/*****----- 列表视图 -----*****/
+listview {
+  enabled:                   true;
+  columns:                   1;
+  lines:                     6;
+  cycle:                     true;
+  dynamic:                   true;
+  scrollbar:                 false;
+  layout:                    vertical;
+  reverse:                   false;
+  fixed-height:              true;
+  fixed-columns:             true;
+  spacing:                   30px;
+  margin:                    30px;
+  background-color:          transparent;
+  cursor:                    "default";
+}
+
+/*****----- 元素 -----*****/
+element {
+  enabled:                   true;
+  padding:                   20px 10px;
+  border-radius:             0px;
+  background-color:          @background-alt;
+  text-color:                @foreground;
+  cursor:                    pointer;
+}
+element-text {
+  font:                      "feather bold 32";
+  background-color:          transparent;
+  text-color:                inherit;
+  cursor:                    inherit;
+  vertical-align:            0.5;
+  horizontal-align:          0.5;
+}
+element selected.normal {
+  background-color:          var(selected);
+  text-color:                var(background);
+}
+```
+
 ## dunst 配置
 
 ## 最终成果展示
