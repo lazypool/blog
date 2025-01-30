@@ -180,14 +180,14 @@ lock_action() {
 # 主函数
 main() {
   chosen="$(run_powermenu)"
-	case $chosen in
-		"$(echo -e $shutdown)") shutdown_action ;;
-		"$(echo -e $reboot)") reboot_action ;;
-		"$(echo -e $hibernate)") hibernate_action ;;
-		"$(echo -e $suspend)") suspend_action ;;
-		"$(echo -e $logout)") logout_action ;;
-		"$(echo -e $lock)") lock_action ;;
-	esac
+  case $chosen in
+    $shutdown) shutdown_action ;;
+    $reboot) reboot_action ;;
+    $hibernate) hibernate_action ;;
+    $suspend) suspend_action ;;
+    $logout) logout_action ;;
+    $lock) lock_action ;;
+  esac
 }
 ```
 
