@@ -12,7 +12,7 @@ index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/hamster.png
 
 rofi 是一款轻量级的窗口切换器、运行对话框、ssh 启动器以及 dmenu 的替代品。由于其可以用脚本方式调用，且官方提供了高度自由的样式定制方法，许多厉害的大佬会用它来做各种各样炫酷好玩的东西。在本篇博客中，我尝试用它做一个电源管理界面（powermenu），并用 dunst 丰富其视觉效果。
 
-![Rofi](rofi_artfont.png)
+![Rofi](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0125_rofi_artfont.png)
 
 一切神话，始于安装。arch 的包管理器可以直接获取最新版本的 rofi 编译后文件。
 
@@ -30,7 +30,7 @@ sudo pacman -S rofi
 echo "选项一\n选项二\n选项三\n选项四" | rofi -dmenu -p "提示文本" -mesg "消息文本"
 ```
 
-![Rofi 样例](rofi_menu.png)
+![Rofi 样例](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0125_rofi_menu.png)
 
 如上图所示，该指令唤出了一个十分朴素的菜单。该菜单提供了我们指定的提示文本、消息文本、和选项列表。**当我们选中选项后，rofi 指令会将选项文本返回作为指令的返回值。**该值可以在 shell script 脚本中被获取并调用，这就为我们自定义电源管理界面的启动脚本提供了基础。
 
@@ -107,7 +107,7 @@ confirm_cmd() {
 
 由于确认菜单在不同主题间高度可共享，将其部分样式指定放在脚本当中以让不同风格的电源管理界面可以共用一套确认菜单。这里的主题主要指定了确认菜单应该以如图所示的方式呈现：
 
-![确认菜单](confirm_menu.png)
+![确认菜单](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0125_confirm_menu.png)
 
 该菜单的配色是由给定的主题文件（也就是 `${dir}/{theme}.rasi`）指定的。这样一来，它将会与电源管理菜单的配色风格保持一致。因此，多重主题的电源管理界面将会共享相似但配色方案不同的确认菜单。
 
@@ -197,7 +197,7 @@ main() {
 
 如果不进行任何样式配置，运行该脚本，我们将会唤出一个非常朴素的电源管理界面。它默认使用 gruvbox-light 的主题，各选项以简单的列表方式呈现。
 
-![](powermenu_simple.png)
+![朴素电源管理界面](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0125_powermenu_simple.png)
 
 该界面是完全可用的。但这实在是太丑了！为此我们需要配置主题文件。在 .config/rofi/powermenu 文件夹（指定的主题文件夹）下创建 mytheme.rasi 文件并往里面写配置语句。**运行 `man rofi-theme` 指令将能获得关于编写 rofi 主题配置异常完备的指南，对于自定义 rofi 样式相当有帮助。** 限于篇幅，这里直接将我的 rofi 配置呈现如下。
 
@@ -403,6 +403,6 @@ kill_hint() {
 
 ## 最终成果展示
 
-![最终成果](final_result.gif)
+![最终成果](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0125_final_result.gif)
 
 以上，就是配置一个自用的电源管理界面的大致流程，我们使用到了 rofi、dunst 等工具，利用 shell script 作为我们的脚本语言。事实上，我们可以为我们的 OS 制作很多个不同风格与配色的 powermenu，然后通过环境变量来对其进行管理，使 OS 更加酷炫。
