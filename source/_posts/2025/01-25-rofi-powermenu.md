@@ -402,3 +402,7 @@ kill_hint() {
 这里还编写了 kill_hint 函数。当调用它时，会结束 call_hint 开启的所有进程，包括 xinput 和 dunst。于此同时，它还将通过 `xset r on` 恢复键盘自动锁定功能。
 
 ## 最终成果展示
+
+![最终成果](final_result.gif)
+
+以上，就是配置一个自用的电源管理界面的大致流程，我们使用到了 rofi、dunst 等工具，利用 shell script 作为我们的脚本语言。事实上，我们可以为我们的 OS 制作很多个不同风格与配色的 powermenu，然后通过环境变量来对其进行管理，使 OS 更加酷炫。
