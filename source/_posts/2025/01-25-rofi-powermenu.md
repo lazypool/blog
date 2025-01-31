@@ -339,4 +339,66 @@ element selected.normal {
 
 ## dunst 配置
 
+当电源界面被开启时，运行 call_hint 函数。它会根据按键行为跟踪当前选中的选项（注意：它不跟踪鼠标行为，所以如果用鼠标选中选项它可能会跟踪不准确）。具体来说：
+
+1. 当按键为 Ctrl+u 或 Up 键时，移动到相对于当前选项**上方**的选项，并用 notify 函数发起通知。
+1. 当按键为 Ctrl+e 或 Down 键时，移动到相对于当前选项**下方**的选项，并用 notify 函数发起通知。
+1. 当按键为 Ctrl+n 或 Left 键时，移动到相对于当前选项**左方**的选项，并用 notify 函数发起通知。
+1. 当按键为 Ctrl+i 或 Right 键时，移动到相对于当前选项**右方**的选项，并用 notify 函数发起通知。
+
+```bash
+# 电源管理界面的悬浮提示程序
+notify() {
+  dunstify -r 8 -a bottom-center -t 0 -u normal "$1"
+}
+
+call_hint() {
+  local idx=0
+  local ctrl=0
+  local rows=$1
+  messages=(
+    "$lock  锁屏" "$reboot  重启" "$shutdown  关机"
+    "$hibernate  休眠" "$suspend  挂起" "$logout  登出"
+  )
+
+  [[ -n $(pidof -s dunst) ]] && kill -TERM $(pidof -s dunst)
+  dunst -conf $HOME/.config/dunst/powermenu.dunstrc &
+
+  xset r off # 关闭键盘自动锁定
+  xinput test-xi2 --root 3 | grep -A3 --line-buffered -E 'RawKeyPress|RawKeyRelease' | while read -r line; do
+    if [[ $line == *"type"* ]]; then
+      event=$(echo $line | sed "s/.*(//g" | sed "s/).*//g")
+    elif [[ $line == *"detail"* ]]; then
+      key=$(echo $line | sed "s/[^0-9]*//g")
+      if [[ "$key" == "37" ]]; then
+        [[ "$event" == "RawKeyPress" ]] && ctrl=1 || ctrl=0
+      elif [[ $ctrl == 0 && "$event" == "RawKeyPress" ]]; then
+        case "$key" in
+          "116") idx=$(( (idx + 1) % 6 )) ;;
+          "111") idx=$(( (idx - 1 + 6) % 6 )) ;;
+          "114") idx=$((idx + rows)); (( idx > 5 )) && idx=5 ;;
+          "113") (( idx >= rows )) && idx=$((idx - rows)) ;;
+        esac
+      elif [[ $ctrl -ne 0 && "$event" == "RawKeyPress" ]]; then
+        case "$key" in
+          "45") idx=$(( (idx + 1) % 6 )) ;;
+          "31") idx=$(( (idx - 1 + 6) % 6 )) ;;
+          "46") idx=$((idx + rows)); (( idx > 5 )) && idx=5 ;;
+          "44") (( idx >= rows )) && idx=$((idx - rows)) ;;
+        esac
+      fi
+      notify "${messages[$idx]}"
+    fi
+  done
+}
+
+kill_hint() {
+  xset r on # 启动键盘自动锁定
+  [[ -n $(pidof -s xinput) ]] && kill -TERM $(pidof -s xinput)
+  [[ -n $(pidof -s dunst) ]] && kill -TERM $(pidof -s dunst)
+}
+```
+
+这里还编写了 kill_hint 函数。当调用它时，会结束 call_hint 开启的所有进程，包括 xinput 和 dunst。于此同时，它还将通过 `xset r on` 恢复键盘自动锁定功能。
+
 ## 最终成果展示
