@@ -66,10 +66,47 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
   </m:GetStockPriceResponse>
 </soap:Body>
 
-</soap:Envelope> 
+</soap:Envelope>
 ```
 
 ## RESTful (Representational State Transfer)
+
+SOAP 的语法冗长而复杂，所以在开发轻量级的移动应用程序时显得有点“超重”。与之相对，RESTful 是该领域的王者。我最初接触 RESTful 是在 2023 年，那时我在字节青训的后端组学习。
+
+简单的说，RESTful 是一种 **基于 HTTP 的服务 Web 应用** 的架构，它遵循一套核心原则和约束。如果想要对 RESTful 有更深的理解，可以参考 [RESTful架构详解|菜鸟教程](https://www.runoob.com/w3cnote/restful-architecture.html) 或者去阅读 Roy Fielding 在 2000 年发表的博士论文。
+
+RESTful 的应用场景更加多元和广泛。我们在日常生活中所能接触到的大多数 Web 应用服务，如 Twitter、Youtube 等均有 RESTful API 提供支持。**然而，RESTful 并不适用于对实时的、或高度连接的数据模型进行操作。**
+
+### RESTful 请求 (POST)
+
+```
+POST /api/books HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+  "title": "New Book",
+  "author": "Jerry",
+  "publishedYear": 2023,
+  "description": "Jerry wrote this book."
+}
+```
+
+### RESTful 响应 (POST)
+
+```
+HTTP/1.1 201 Created
+Location: /api/books/3
+Content-Type: application/json
+
+{
+  "id": hM#7P-v2jTn53We,
+  "title": "New Book",
+  "author": "Jerry",
+  "publishedYear": 2023,
+  "description": "Jerry wrote this book."
+}
+```
 
 ## GraphQL
 
