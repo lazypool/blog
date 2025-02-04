@@ -12,7 +12,7 @@ index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/bird1.png
 
 时值旧历新年，四处奔波走动。忙里偷闲，简单地更新一篇博客。这次简单介绍一下目前业界流行的 **6 种 API 架构风格（SOAP、RESTful、GraphQL、gRPC、WebSocket、WebHook）**。作为互联网数字世界的基础支柱，这些 API 架构各有其适应的场景。对它们有一个大致的了解是比较重要的。
 
-![总览：6 种流行的 API 架构](0202_6api_overview.png)
+![总览：6 种流行的 API 架构](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0202_6api_overview.png)
 
 - 关于什么是 API？
 
@@ -160,7 +160,7 @@ Facebook 开发 GraphQL 主要是为了向其数十亿用户提供高效精确�
 
 gRPC 是有 Google 开源的一款高性能远程过程调用（RPC）框架。**它基于 HTTP/2 协议，以 ProtoBuf 作为接口的描述语言。** 传统的网络通信和通用数据交换等应用场景中经常使用的技术是 JSON 或 XML，它们都是基于文本格式的。**而 gRPC 则采用二进制格式 (ProtoBuf)，因此它在端点将会经历序列化和反序列化的操作**。
 
-![Protobuf 示例](0202_protobuf.png)
+![Protobuf 示例](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0202_protobuf.png)
 
 **gRPC 是微服务架构 (microservice) 的最爱。** 像 Netflix 这样的公司就采用 gRPC 来处理其巨大的服务间通信。**此外，gRPC 还适用于物联网、跨编程语言环境、实时数据流等应用场景。** 然而，在浏览器客户端领域，由于浏览器支持有限，gRPC 就显得不再适用。
 
@@ -168,7 +168,7 @@ gRPC 是有 Google 开源的一款高性能远程过程调用（RPC）框架。*
 
 Socket (在一些比较坑爹的教材里被翻译成“套接字”)，是一种全双工通信方式。相信不少中国大学的学生在学网络技术的时候都接触过这个玩意儿。**WebSocket 采用了实时、双向、持久连接的技术，非常适合需要低延迟的数据交换的应用场景，如实时聊天应用程序和在线游戏等。** 相对的，它不适用于无需传递实时数据的应用场景，因为它会产生许多不必要的开销。
 
-![HTTP 对比 Socket](0202_http2socket.png)
+![HTTP 对比 Socket](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0202_http2socket.png)
 
 WebSocket 最早在 2008 年由 Hixie 提出，后来被 W3C 纳入标准化进程，并在 2011 年成为 W3C 推荐标准 (RFC 6455)。由于诞生时间比较早，基本上所有的主流浏览器均支持 WebSocket，包括 Chrome、Firefox、Safari、Edge、Opera 等。**近年来，WebSocket 逐渐得到了越来越多的关注和应用，特别是在需要实时通信功能的 Web 应用程序中，如在线游戏、社交网络、直播等。**
 
