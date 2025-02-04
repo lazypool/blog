@@ -158,6 +158,12 @@ Facebook 开发 GraphQL 主要是为了向其数十亿用户提供高效精确�
 
 ## gRPC (Google Remote Procedure Call)
 
+gRPC 是有 Google 开源的一款高性能远程过程调用（RPC）框架。**它基于 HTTP/2 协议，以 ProtoBuf 作为接口的描述语言。** 传统的网络通信和通用数据交换等应用场景中经常使用的技术是 JSON 或 XML，它们都是基于文本格式的。**而 gRPC 则采用二进制格式 (ProtoBuf)，因此它在端点将会经历序列化和反序列化的操作**。
+
+![Protobuf 示例](0202_protobuf.png)
+
+**gRPC 是微服务架构 (microservice) 的最爱。** 像 Netflix 这样的公司就采用 gRPC 来处理其巨大的服务间通信。**此外，gRPC 还适用于物联网、跨编程语言环境、实时数据流等应用场景。** 然而，在浏览器客户端领域，由于浏览器支持有限，gRPC 就显得不再适用。
+
 ## WebSocket
 
 ## WebHook
