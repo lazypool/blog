@@ -110,6 +110,52 @@ Content-Type: application/json
 
 ## GraphQL
 
+GraphQL 由 Facebook 在 2012 年内部开发，并于 2015 年开源。**它不仅仅是一种 API 架构风格，更是一种查询语言。** GraphQL 非常受前端人员欢迎，主要体现在如下几个方面：
+
+1. **单一端点访问** 在 GraphQL 中，客户端可以通过一个请求获取多个资源的数据，避免多次请求的情况。
+2. **高效数据获取** GraphQL 允许客户根据需要指定特定数据，服务器只返回这些数据，从而避免了过度加载或加载不足。
+3. **实时数据更新** GraphQL 支持实时数据订阅功能，适用于需要实时数据推送的应用场景。
+4. **强类型系统** 使用明确的类型系统定义 API 的结构，确保 API 的查询是可预测的。
+5. **灵活性和可扩展性** GraphQL 的架构方式使得 API 更加灵活和可扩展，能够适应不断变化的需求。
+
+Facebook 开发 GraphQL 主要是为了向其数十亿用户提供高效精确的数据，而现在，它已被 GitHub 和 Shopify 等公司所采用。GraphQL 因其效率和灵活性而成为具有复杂数据要求的应用程序的有力选择。**目前，GraphQL 主要适用于那些页面需要从多个来源获取数据，或者需要进行实时数据推送的应用。** 然而，**GraphQL 的学习路线比较陡峭，对于那些需求比较简单的应用程序而言有些“大材小用”。**
+
+### Operation
+
+```
+{
+  hero {
+    name
+    friends {
+      name
+    }
+  }
+}
+```
+
+### Response
+
+```
+{
+  "data": {
+    "hero": {
+      "name": "R2-D2",
+      "friends": [
+        {
+          "name": "Luke Skywalker"
+        },
+        {
+          "name": "Han Solo"
+        },
+        {
+          "name": "Leia Organa"
+        }
+      ]
+    }
+  }
+}
+```
+
 ## gRPC (Google Remote Procedure Call)
 
 ## WebSocket
