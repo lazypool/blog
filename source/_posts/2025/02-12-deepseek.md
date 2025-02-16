@@ -16,7 +16,9 @@ date: 2025-02-12 21:38:31
 
 DeepSeek-R1 发布于 25 年 1 月份，当时中国人们差不多正在过年。一经发布，DeepSeek 便刷屏各大网站，势头猛烈、非同凡响。其实早在 2024 年，DeepSeek 就陆续发表过许多文章（14 篇），但没有引起很多的关注。而 DeepSeek-R1 则是 DS 团队近两年的科技突破的集大成者。
 
-DeepSeek 官方已经将其系列的相关文章已经整理出来，放在 [Huggingface](https://huggingface.co/collections/Presidentlin/deepseek-papers-674c536aa6acddd9bc98c2ac)，感兴趣的小伙伴可以去查看。以防万一，这里将它抄录在这里 **（从上至下，发布时间由新到旧）**。
+DeepSeek 官方已将其系列的相关文章整理出来，放在 [Huggingface](https://huggingface.co/collections/Presidentlin/deepseek-papers-674c536aa6acddd9bc98c2ac)，感兴趣的小伙伴可以去查看。以防万一，这里将它抄录在这里 **（从上至下，发布时间由新到旧）**。
+
+---
 
 <div style="display:flex; justify-content:left"><div>
 
@@ -47,4 +49,31 @@ DeepSeek 官方已经将其系列的相关文章已经整理出来，放在 [Hug
     - DeepSeekLLM 👉 [论文链接🔗](https://arxiv.org/abs/2401.02954)
 </div></div>
 
+---
+
 *What's UP !? 这么多的论文怎么看的完（我只是一个苦逼大学生）？* 好在已经有前人淌过水了。一些大佬对这些论文的评价是：如果想要快速地对 DeepSeek 有一个直观且较为深入的了解，**可以重点看其中的三篇文章：DeepSeekLLM、DeepSeek-V3、DeepSeek-R1**。
+
+本篇博客将围绕 DeepSeek-V3 这篇“大而全”的技术报告，由详到略依次介绍 DeepSeek 的：
+1) 涉及的实用关键技术，包括：**混合专家模型 (MoE)** 、**多头潜在注意力 (MLA) 机制** 、 **多 Token 预测 (MTP)** 、 **FP8 混合精度训练等**；
+2) 利用强化学习提升模型能力：回馈函数的设计、**群体相对策略优化（GRPO）算法**；
+3) 部分训练细节：…… //to be continued、
+
+## 涉及的实用关键技术
+
+### 混合专家模型 (MoE)
+
+### 多头潜在注意力 (MLA)
+
+### 多 Token 预测 (MTP)
+
+### FP8 混合精度训练
+
+## 利用强化学习提升模型能力
+
+### 回馈函数 RM 的设计
+
+### 群体相对策略优化算法 (GRPO)
+
+## 部分训练的细节
+
+// to be continued
