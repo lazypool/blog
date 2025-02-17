@@ -34,7 +34,7 @@ jQuery 的风靡导致了些许问题。当时，前端工程师编写一个页�
 
 **同样是在 2009 年，Node.js 诞生了。** Node.js 以其处理并发请求的高效性打败了同时代的 PHP，使人们可以使用 JS 编写服务端程序。Node.js 迅速流行，很快冒出海量模块，包括：路由管理、状态管理、数据库 CRUD 操作、MVC 框架等等。前端工程师们欢呼：可以不用传统的后端就能自己写一个网站了！ **自此，Javascript 踏上了漫长的工程化道路。**
 
-![Nodejs](https://cdn.jsdelivr.net/gh/lazypool/blog-pic/blogpost/the2025/0115_nodejs.png)
+![Nodejs](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0115_nodejs.png)
 
 2010 年，智能手机终端激增，移动优先设计理念兴起，响应式 Web 设计渐成主流。人们发现：用旧技术“套模板”后仍需另开发 api 供 APP 使用，不如直接开发 api，让网页也通过调用 api 实现。 **自此，前后端正式分家。** 后端成为了“CRUD Boy”，只负责提供 api；而前端则需要负责静态页面设计、交互逻辑、处理页面路由等等。繁重的工作使前端工程师疲于应付，再依靠纯粹的 jQuery 技术已经无法满足需求了。
 
@@ -44,7 +44,7 @@ jQuery 的风靡导致了些许问题。当时，前端工程师编写一个页�
 
 ## 版本之子入场，前端的业务场景不断膨胀 (2013~2014)
 
-![React VS Vue](https://cdn.jsdelivr.net/gh/lazypool/blog-pic/blogpost/the2025/0115_react_vue.png)
+![React VS Vue](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0115_react_vue.png)
 
 **2013 年，React 由 Facebook 发布。** React 主要用于构建 **单页面应用程序** _(SPA)_ 的交互式界面。它引入虚拟 DOM 的概念、组件化开发、单向数据流、使用 JSX 语法等等。React 的出现极大地改变了前端开发的方式，推动了前端开发向组件化、高性能、高效率的方向发展。React 就像它的 Logo（原子）一样：原子组成了物质世界，而 React 组成了前端世界。它在前端领域的影响巨大，成为目前最受欢迎和广泛应用的前端框架之一。**随后，GitHub 发布 electron。** 它是一个基于 Node.js 和 Chromium 的跨平台桌面应用程序开发框架，允许开发者使用 Web 技术构建原生桌面应用。
 
@@ -56,7 +56,7 @@ jQuery 的风靡导致了些许问题。当时，前端工程师编写一个页�
 
 **2015 年，ES6 在万众期盼下终于发布。** ES6 不仅对 JS 进行了语法改进，还增加了类和继承、Promise 等特性，制定了模块化标准。**这一年，JS 不再是脚本，而是一门语言，前端开发者也成为了实至名归的工程师。** 随后，**React Native (RN) 发布。** RN 基于 React 的框架，使用 JS 和 React 的语法构建同时运行在 iOS 和 Android 平台上的原生应用。**同年，GraphQL 发布。** 它通过自描述，避免了文档和版本控制的困难，使 api 演进更加灵活和可控。
 
-![ES6](https://cdn.jsdelivr.net/gh/lazypool/blog-pic/blogpost/the2025/0115_es6.png)
+![ES6](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0115_es6.png)
 
 在 ES6 这颗“定心丸”的影响下，Webpack 选择支持 ES Module，在前端社区迅速流行。特别是在 React 和 Vue 等流行框架的支持下，Webpack 逐渐成为前端开发的标配。而后，React 和 Vue 两大阵营逐步稳固。后续的众多技术开发都是在这两大阵营各自展开……
 
@@ -72,7 +72,7 @@ jQuery 的风靡导致了些许问题。当时，前端工程师编写一个页�
 
 2018 年，在国内畸形的移动互联网发展背景下，各主流平台纷纷推出自己的小程序平台（微信开发者工具、支付宝小程序 Studio、百度开发者平台、抖音开发者平台、QQ 开发者平台）。这带来了 **程序多平台发布** 的需求。**于是，uni-app 发布了。** uni-app 是一款跨平台应用开发框架，可以使开发者使用基于 Vue 的一套代码开发应用，并快速发布到多个平台。**之后，在 React 阵营，Taro 应运而生。** 它基于 React，其余功能与 uni-app 几乎一样。**此后，uni-app 和 Taro 成为国内开发多平台发布程序的两大重要支柱，在“疫情时期”发挥了重要的作用。**
 
-![vue3](https://cdn.jsdelivr.net/gh/lazypool/blog-pic/blogpost/the2025/0115_vue3.png)
+![vue3](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0115_vue3.png)
 
 2020 年，前端的技术生态完全成熟。**这一年，Vue3 发布。** Vue3 增加了组合式开发模式和 TS 支持，并引入了全新的 Composition API。**同年，现代化前端构建工具 Vite 推出。** Vite 利用模块热更新和按需编译等，为开发者提供了一种快速、轻量级、现代化的前端构建工具，填补了 Webpack 的技术瓶颈。 **2021 年，Svelte 官方推出 SvelteKit。** SvelteKit 直接对标 React 的 Next.js 和 Vue 的 Nust，意在提供 Svelte 风格的全栈框架和应用构建工具。**2022 年，华为推出 ArkTS 语言，并确定该语言用于鸿蒙 APP 的开发。** ArkTS 是基于 TS 扩展的语言，使 Web 前端开发者可以无缝衔接鸿蒙 APP 的开发。华为使用 ArkTS 语言，意味着瞬间拥有了大量的开发者基础。华为此举有可能促进所有的终端开发都采用 TS。
 
