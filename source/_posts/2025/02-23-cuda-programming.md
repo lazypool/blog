@@ -21,43 +21,30 @@ date: 2025-02-23 22:12:23
 
 CUDA（Compute Unified Device Architecture）统一计算设备架构，是由 nvidia 在 2007 年发布的一个新的硬件和软件架构，时至今日已历经十几年演进。 **在当时，它的诞生统一了图形和非图形应用借助 GUP 进行并行计算的方式**，成功使 nvida 的显卡大卖。然而，nvidia 在 linux 系统下的显卡驱动支持一直存在不足，这导致了 linux 用户对 nvidia 的不满情绪，也引发了 “FUCK YOU! NIVDIA!” 事件 😅……
 
-### CUDA 的软件堆栈：API、库、运行依赖、驱动
+### 部分基础知识：CUDA 的软件堆栈和内存读写
 
-刚接触 CUDA 的初学者有一个误区，那就是把 CUDA 仅看作一个 C/C++ 的 API。如果从应用的角度来看，那确实是这样。但事实上，CUDA 是包含硬件和软件同时在内的一整套架构。
+**软件堆栈 (software stack)** CUDA 的软件堆栈由多层组成，从高到底依次是： 1. 应用程序编程接口 (API) &ensp;&ensp; 2. 两个高级的通用数学库 ( CUFFT 🔧 , CUBLA 🧮 ) &ensp;&ensp; 3. 运行时依赖 (Runtime) &ensp;&ensp; 4. 硬件驱动程序 (Driver) ⚙  。其中，CUDA API 和两个高级库像是 C 语言的扩展，以便最小化学习的时间。硬件被设计成支持轻量级的驱动和 Runtime 层面，因而提高性能。
 
-<table><tbody><tr><td>
+![CUDA 软件堆栈](0223_cuda-archtecture.png)
 
-在架构上，CUDA 的软件堆栈由多层组
-成，从高到底依次是：
+**内存读写 (DRAM read/write)** CUDA 最富有意义的设计是其允许 GPU 对 DRAM 进行读写，从而使 GPU 成为可以辅助 CPU 计算的 **协同处理设备**。读写内存的方式有：**寻址**、**缓冲** 和 **共享内存** 。
 
-1) 应用程序编程接口 (API)
-2) 两个高级的通用数学库
-    - CUFFT 🔧
-    - CUBLA 🧮
-3) 运行时依赖 (Runtime) 
-4) 硬件驱动程序 (Driver) ⚙
-</td><td>
-<img width=400 src="0223_cuda-archtecture.png">
-</td></tr></tbody></table>
-
-其中，CUDA API 和两个高级库像是 C 语言的扩展，以便最小化学习的时间。硬件被设计成支持轻量级的驱动和 Runtime 层面，因而提高性能。
-
-### CUDA 的内存读写：一般寻址、缓冲、共享内存
-
-CUDA 最富有意义的设计是其允许 GPU 对 DRAM 进行读写，从而使 GPU 成为可以辅助 CPU 计算的 **协同处理设备**。读写内存的方式有：**寻址**、**缓冲** 和 **共享内存**
-
-<table><tbody><tr><td>
-<img width=500 src="0223_cuda-dram1.png">
-<p align="center">寻址：发散和聚集</p>
-</td><td>
-<img width=400 src="0223_cuda-dram2.png">
-<p align="center">共享内存使 ALU 更接近数据</p>
-</td></tr></tbody></table>
-
- **CUDA 提供一般 DRAM 内存寻址方式：“发散” 和“聚集”内存操作**，从而提供最大的编程灵活性。从编程的观点来看，它可以在 DRAM 的任何区域进行读写数据的操作，就像在 CPU 上一样。此外， **CUDA 还允许并行数据缓冲或者在 On-chip 内存共享**，可以进行快速的常规读写存取，在线程之间共享数据。
+1) **CUDA 提供一般 DRAM 内存寻址方式：“发散” 和“聚集”内存操作**，从而提供最大的编程灵活性。从编程的观点来看，它可以在 DRAM 的任何区域进行读写数据的操作，就像在 CPU 上一样。
+2) 此外， **CUDA 还允许并行数据缓冲或者在 On-chip 内存共享**，可以进行快速的常规读写存取，在线程之间共享数据。
 
 ### CUDA 的概念模型：线程、块、网格
 
+通常，我们约定 📚：把 CPU 所在的系统称作 **主机 (host)** ， 而把 GPU 称作 **设备 (device)** 。当使用 CUDA 进行编译时，GPU 可被看成能够执行大量并行线程的计算设备，它作为主 CPU 的协处理器来工作。简言之，那些原本在主机上运行的 **并行数据处理** 和 **高密度计算的应用程序部分** ，将被卸载到 GPU 这个设备上执行。 **为了方便管理这些线程，CUDA 将它们分批，若干个线程组成一个块 (block)，而若干个块组成一个网格 (grid)。**
+
+#### 线程：执行运算调度的最小单位
+
+*什么是线程 (thread)？* **线程是指操作系统能够进行运算调度的最小单位，它在单时钟周期内执行单次计算操作。** 线程由单处理器 _(单线程)_ 、多处理器 _(多线程)_ 或者多核处理系统并发地执行。在执行过程中，有四种基本状态：产生 (spawn)、阻塞 (block)、非阻塞 (unblock)、结束 (finish)。每个线程都有其自己的 **程序计数器 (program counter)**、**寄存器 (register)** 和 **数据栈 (stack)** ，**这些部件组成一个 CUDA 核心 (或称 ALU、SP)** 。在多线程的情况下，各线程共享代码、数据和文件。
+
+![比较单线程和多线程](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter4/4_01_ThreadDiagram.jpg)
+
+#### 块：从概念到硬件的映射
+
+**块 (block)，即线程批。** 
 
 ## kernel：理解 cuda 的关键
 
