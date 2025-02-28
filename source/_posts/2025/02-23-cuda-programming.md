@@ -44,7 +44,7 @@ CUDA（Compute Unified Device Architecture）统一计算设备架构，是由 n
 
 #### 块：从概念到硬件的映射
 
-**块 (block)，即线程批。** 
+*什么是块？* **块 (block)，即线程批，在概念上是若干线程的组合，在硬件上是流式多处理器 (SM, Streaming Multiprocessor)。** 将一定数量的线程按二维或三维的方式排列便得到了块。譬如，将 $D_x \times D_y$ 个线程排列成二维矩阵 $[D_x, D_y]$，我们便称这个矩阵是一个块。在例子所举的这个块中，坐标位于 $(x, y)$ 的线程，其编号为 $x + yD_x$。如果块是三维矩阵 $[D_x, D_y, D_z]$， 那么坐标为 $(x, y, z)$ 的线程，其编号是 $x + yD_x + zD_xD_y$ 。如图所示：
 
 ## kernel：理解 cuda 的关键
 
