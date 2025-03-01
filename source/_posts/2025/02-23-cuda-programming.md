@@ -48,7 +48,7 @@ CUDA（Compute Unified Device Architecture）统一计算设备架构，是由 n
 
 <div align="center"><img style="height: 388px; width: 666px; object-fit: cover; object-position: 0px -422px;" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Block-thread.svg"/><p style="color: gray; font-size: 14px;">线程编号与块的位置关系：二维</p></div>
 
-*为什么要分块？*
+*为什么要分块？* 在物理层面上，真正执行并行操作的组件是 **流式多处理器 (SM, Streaming Multiprocessor)** ，它包括一个线程束 (Wrap，由 32 个线程，或称 CUDA 核心组成)、一份共享内存和一个寄存器。
 
 ## kernel：理解 cuda 的关键
 
