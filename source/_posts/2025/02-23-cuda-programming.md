@@ -30,7 +30,7 @@ CUDA（Compute Unified Device Architecture）统一计算设备架构，是由 n
 **内存读写 (DRAM read/write)** CUDA 最富有意义的设计是其允许 GPU 对 DRAM 进行读写，从而使 GPU 成为可以辅助 CPU 计算的 **协同处理设备**。读写内存的方式有：**寻址**、**缓冲** 和 **共享内存** 。
 
 1) **CUDA 提供一般 DRAM 内存寻址方式：“发散” 和“聚集”内存操作**，从而提供最大的编程灵活性。从编程的观点来看，它可以在 DRAM 的任何区域进行读写数据的操作，就像在 CPU 上一样。
-2) 此外， **CUDA 还允许并行数据缓冲或者在 On-chip 内存共享**，可以进行快速的常规读写存取，在线程之间共享数据。
+2) **CUDA 还允许并行数据缓冲或者在 On-chip 内存共享**，可以进行快速的常规读写存取，在线程之间共享数据。
 
 ### CUDA 的概念模型：线程、块、网格
 
@@ -45,6 +45,10 @@ CUDA（Compute Unified Device Architecture）统一计算设备架构，是由 n
 #### 块：从概念到硬件的映射
 
 *什么是块？* **块 (block)，即线程批，在概念上是若干线程的组合，在硬件上是流式多处理器 (SM, Streaming Multiprocessor)。** 将一定数量的线程按二维或三维的方式排列便得到了块。譬如，将 $D_x \times D_y$ 个线程排列成二维矩阵 $[D_x, D_y]$，我们便称这个矩阵是一个块。在例子所举的这个块中，坐标位于 $(x, y)$ 的线程，其编号为 $x + yD_x$。如果块是三维矩阵 $[D_x, D_y, D_z]$， 那么坐标为 $(x, y, z)$ 的线程，其编号是 $x + yD_x + zD_xD_y$ 。如图所示：
+
+<div align="center"><img style="height: 388px; width: 666px; object-fit: cover; object-position: 0px -422px;" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Block-thread.svg"/><p style="color: gray; font-size: 14px;">线程编号与块的位置关系：二维</p></div>
+
+*为什么要分块？*
 
 ## kernel：理解 cuda 的关键
 
