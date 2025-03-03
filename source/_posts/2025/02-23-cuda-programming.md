@@ -39,6 +39,17 @@ CUDA 的架构包括软件层和硬件层。软件层包括：**线程 (thread)*
 
 #### 线程和 CUDA 核心：最小的基本运算单位
 
+| GPU term | Quick definition for GPU |
+|-|-|
+| thread&emsp;&emsp;&emsp;&emsp; | The stream of instructions and data that is assigned to one CUDA core; note, a Single Instruction applies to Multiple Threads, acting on multiple data (SIMT). |
+| CUDA core | Unit that processes one data item after another, to execute its portion of a SIMT instruction stream. |
+
+**线程 (thread)** 🧶 不是实物，而是对计算机中 **程序执行流** 的形象比喻，它由 **指令流** 和 **数据流** 交织构成，是 GPU/CPU 通用的原子级概念。CUDA 为线程分配 **寄存器**，以存储临时变量和中间计算结果。此外，CUDA 还允许线程获取全局内存的部分地址充当数据栈 (stack)，用于存储寄存器溢出的内容。最后，在 CUDA 中，线程按束调度： **同束线程共享相同的程序计数器** ，它们同步地执行相同的指令，作用于各自寄存器存储的数据。
+
+![CUDA 核心](0223_cuda-core.png)
+
+**CUDA 核心**，又称 **流处理器 (SP, streaming processor)** ，是 CUDA 中执行标量运算指令的基本单元，其核心组件是 **整数运算单元 (INT Unit)** 和 **浮点数运算单元 (FP Unit)** 。CUDA 核心和线程相对应：**单个 CUDA 核心执行来自单个线程的指令** 。与线程相同，CUDA 核心同样以束为单位调度： **同束核心在同一时刻执行相同的指令** ，但作业于不同的寄存器。&emsp;🪶 这里，我们特别指出：这种 **多个线程在同一时刻执行相同的指令，但作用于不同的数据** 的并行方式，即所谓的 **单指令多线程 (SIMT, Single Instruction MultiThread)** ，这也是 CUDA 所使用的方式。
+
 #### 线程束：连接软件层和硬件层的纽带
 
 #### 线程块和流式多处理器：组织和管理调度
