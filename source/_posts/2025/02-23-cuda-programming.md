@@ -25,13 +25,15 @@ CUDA（Compute Unified Device Architecture）统一计算设备架构，是由 n
 
 **软件堆栈 (software stack)** CUDA 的软件堆栈由多层组成，从高到底依次是： 1. 应用程序编程接口 (API) &ensp;&ensp; 2. 两个高级的通用数学库 ( CUFFT 🔧 , CUBLA 🧮 ) &ensp;&ensp; 3. 运行时依赖 (Runtime) &ensp;&ensp; 4. 硬件驱动程序 (Driver) ⚙  。其中，CUDA API 和两个高级库像是 C 语言的扩展，以便最小化学习的时间。硬件被设计成支持轻量级的驱动和 Runtime 层面，因而提高性能。
 
-![CUDA 软件堆栈](0223_cuda-archtecture.png)
+![CUDA 软件堆栈](0223_cuda-software-architecture.png)
 
 **内存读写 (DRAM read/write)** CUDA 最富有意义的设计是其允许 GPU 对 DRAM 进行读写，从而使 GPU 成为可以辅助 CPU 计算的 **协同处理设备**。读写内存的方式有：**寻址**、**缓冲** 和 **共享内存** 。 (1) **CUDA 提供一般 DRAM 内存寻址方式：“发散” 和“聚集”内存操作**，从而提供最大的编程灵活性。从编程的观点来看，它可以在 DRAM 的任何区域进行读写数据的操作，就像在 CPU 上一样。 (2) **CUDA 还允许并行数据缓冲或者在 On-chip 内存共享**，可以进行快速的常规读写存取，在线程之间共享数据。
 
 ### 详解 CUDA 架构：软件层和硬件层相结合
 
 通常，我们约定 📚：把 CPU 所在的系统称作 **主机 (host)** ， 而把 GPU 称作 **设备 (device)** 。当使用 CUDA 进行编译时，GPU 可被看成 **能够执行大量并行线程** 的计算设备，它作为主 CPU 的协处理器来工作。也就是说，那些原本在主机上运行的 **并行数据处理** 和 **高密度计算的应用程序部分**，将被卸载到 GPU 这个设备上执行 💼。
+
+![CUDA 架构：软件层和硬件层](0223_cuda-architecture.png)
 
 CUDA 的架构包括软件层和硬件层。软件层包括：**线程 (thread)**，**线程块 (block)** 和 **网格 (grid)** 。硬件层包括：**CUDA 核心** (或称流处理器，也即 SP)，**流式多处理器 (SM, streaming multiprocessor)** 和 **GPU**。除这些以外，还有 **线程束 (warp)** 这个极其重要但常被忽视的组件，它充当沟通硬件层和软件层的桥梁。CUDA 的整体架构如上图所示。
 
