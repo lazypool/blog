@@ -68,9 +68,13 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 
 ![线程束分化示意图](./0223_cuda-warpbranches.png)
 
-#### 线程块和流式多处理器：组织和管理调度
+#### 线程块和流式多处理器：对 kernel 的组织和管理调度
 
-<!-- 这一部分的主要内容有：1. 线程块提供了管理线程的良好方式；2. 简要拆建流式多处理器的各个组件与功能。 -->
+| GPU term | Quick definition for GPU |
+|-|-|
+| kernel | Function that runs on the device; a kernel may be subdivided into thread blocks. |
+| thread block | Group of threads organized in 1D, 2D, or 3D dimensions that share memory and synchronize execution. |
+| SM, streaming multiprocessor | Unit capable of executing a thread block of a kernel; multiple SMs may work together on a kernel. |
 
 ## kernel：理解 cuda 的关键
 
