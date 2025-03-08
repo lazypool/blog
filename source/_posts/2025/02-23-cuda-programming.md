@@ -76,6 +76,12 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 | thread block | Group of threads organized in 1D, 2D, or 3D dimensions that share memory and synchronize execution. |
 | SM, streaming multiprocessor | Unit capable of executing a thread block of a kernel; multiple SMs may work together on a kernel. |
 
+**线程块 (thread block)** 🧊 是对许多线程的概念抽象，它将数量繁多的线程按照 1 维、2 维或 3 维的方式组织，为开发者遍历、索引线程提供了极大方便。比线程块更高层的概念是 **网格 (grid)** 🥅，它将许多个线程块按照 1 维、2 维或 3 维的方式排列。由此，我们得到了 **网格-线程块-线程** 的线程层级概念划分，它有助于我们识别和管理各个线程。譬如下图左半部分，对于大小为 $(D_x, D_y)$ 二维线程块，其中索引为 $(x, y)$ 的线程的 **块内线程 ID** 应当是 $x + yD_x$ 。然而，由于线程块的维度和网格的维度能以各种方式组合，在不同组合下获取线程的全局 ID 或者块内 ID 仍然是一个复杂的问题。
+
+![Kernel 批处理（左）与 CUDA 内存模型（右）](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfwJ-XTFD3uN4CxFuFaUOOxF_YFA_1uUAVRWykrYSyrikT9ihmFyRyVXl-s7xZPnx1VGZTIln5MxL83fMearxY1fWc4RHQ7fbokHBgIJWTWi-lymFhYn3zRb64kk2PzugsJJVlzj1PoWI/s1600/gpu2.png)
+
+**Kernel (核函数)** 🥜，特指在 GPU 设备上运行的函数<span style="font-size:xx-small;">（不是核方法里的那个核函数！）</span>，它指示了整个网格内所有线程的行为。程序运行期间，主机向设备连续地发送 kernel 调用的请求，每个 kernel 就作为一个由线程块组成的线程批处理来执行，如上图左半部分所示。单个 kernel 可能由多个线程块来执行，线程块通过快速的 **共享内存有效地分享数据** 并且在制定的内存访问中 **同步它们的执行** 。当然，我们应当清楚： **这实际上是线程块将其交付给 SM，由 SM 划分为线程束并进行调度来实现的。**
+
 ## kernel：理解 cuda 的关键
 
 ## 部分 C 式应用编程 API
