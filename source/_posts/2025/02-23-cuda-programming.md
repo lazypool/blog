@@ -86,7 +86,7 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 
 ![流式多处理器 SM 架构图](./0223_cuda-sm-architecture.png)
 
-最后，我们进入到对 **SM (流式多处理器，Streaming Multiprocessor)** 的介绍。以 Fermi 为例，如上图所示，单个完整的 SM 除了若干个 SP 还应该包括：指令缓存 (I-Cache, Instruction Cache)、线程束调度器和分派单元 (Warp Scheduler & Dispatch Unit)、寄存器文件 (RF, Regsiter File)、加载/存储单元 (Load/Store Units)、特殊功能单元 (SFU, Special Function Unit)、共享内存/L1 缓存 (Shared Memory / L1 Cache)、统一缓存 (Uniform Cache) 等。它们的作用听名字都能猜出来，感兴趣可以自己去查一下，这里不再赘述。
+最后，我们进入到对 **SM (流式多处理器，Streaming Multiprocessor)** 的介绍。以 Fermi 为例，如上图所示，单个完整的 SM 除了若干个 SP 还应该包括：指令缓存 (I-Cache, Instruction Cache)、线程束调度器和分派单元 (Warp Scheduler & Dispatch Unit)、寄存器文件 (RF, Regsiter File)、加载/存储单元 (Load/Store Units)、特殊功能单元 (SFU, Special Function Unit)、共享内存/L1 缓存 (Shared Memory / L1 Cache)、统一缓存 (Uniform Cache) 等。它们的作用听名字都能猜出来，感兴趣可以自己去查一下，这里不再赘述 🐈🐕。
 
 ## kernel：理解 cuda 的关键
 
