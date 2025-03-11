@@ -3,6 +3,16 @@ title: About Me
 layout: about
 ---
 
+## 一些自我介绍
+
+// to be continued...
+
+## 今日事，今日毕！
+
+// to be continued...
+
+## GitHub 主页 🐱🔧
+
 <table><thead><tr>
 <th><div align="center"><img alt="photo" src="./pic2.png" width="500" title="me"><h6>秋水时至，百川塞河！ —— 《庄子·秋水》</h6></div></th>
 <th><div align="center">
