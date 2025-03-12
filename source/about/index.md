@@ -11,8 +11,8 @@ layout: about
 .todo-list-li span::before { float: right; font-size: 1.1rem; content: "O"; }
 .todo-list-li.done span::before { content: "✔"; }
 </style>
-<div style="color: #333; font-family: 'Open Sans', Helvetica, sans-serif;">
-  <div style="">
+<div style="display: flex; flex-direction: row; justify-item: center; justify-content: space-between;">
+  <div style="color: #333; font-family: 'Open Sans', Helvetica, sans-serif;">
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
