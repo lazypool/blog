@@ -3,65 +3,43 @@ title: About Me
 layout: about
 ---
 
+## 今日事，今日毕！
+
+<style>
+.todo-list-li { padding: 10px 0 15px; margin: 0; text-align: left; width: 100%; font-size: 1.1rem; width: 100%; display: block; }
+.todo-list-li.done { color: #ccc; text-decoration: line-through; }
+.todo-list-li span::before { float: right; font-size: 1.1rem; content: "O"; }
+.todo-list-li.done span::before { content: "✔"; }
+</style>
+<div style="color: #333; font-family: 'Open Sans', Helvetica, sans-serif;">
+  <div style="">
+    <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
+      <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
+        <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
+          Friday
+        </h2>
+        <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
+          March 4, 2016
+        </p>
+      </header>
+      <ul style="list-style: none; padding: 0;">
+        <li class="todo-list-li">Open template<span></span></li>
+        <li class="todo-list-li">Build a to-do list<span></span></li>
+        <li class="todo-list-li done">Write something<span></span></li>
+        <li class="todo-list-li">Compelete the task<span></span></li>
+      </ul>
+    </section>
+  </div>
+  <div></div>
+</div>
+
+---
+
 ## 一些自我介绍
 
 // to be continued...
 
-## 今日事，今日毕！
-
-<style>
-.header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.2rem;
-}
-.date {
-    font-size: 1.4rem;
-    color: #333;
-}
-.time {
-    font-size: 1.1rem;
-    color: #666;
-    align-self: flex-end;
-}
-.todo-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-}
-.todo-text {
-    color: #444;
-    font-size: 0.95rem;
-}
-.todo-item.done .todo-text {
-    color: #888;
-    text-decoration: line-through;
-}
-</style>
-
-<div style="background: #f5f5f5; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rpba(0,0,0,.1)">
-  <div>
-    <h2>Friday</h2>
-    <span>2023年9月20日</span>
-  </div>
-  <ul>
-    <li class="todo-item done">
-      <span class="todo-text">购买日用品</span>
-    </li>
-    <li class="todo-item">
-      <span class="todo-text">完成项目报告</span>
-    </li>
-    <li class="todo-item done">
-      <span class="todo-text">预约牙医</span>
-    </li>
-    <li class="todo-item">
-      <span class="todo-text">健身1小时</span>
-    </li>
-  </ul>
-</div>
-
-## GitHub 主页 🐱🔧
+## GitHub 主页
 
 <table><thead><tr>
 <th><div align="center"><img alt="photo" src="./pic2.png" width="500" title="me"><h6>秋水时至，百川塞河！ —— 《庄子·秋水》</h6></div></th>
