@@ -16,17 +16,17 @@ layout: about
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Friday
+          Thursday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 4, 2016
+          March 13, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">Open template<span></span></li>
-        <li class="todo-list-li">Build a to-do list<span></span></li>
-        <li class="todo-list-li done">Write something<span></span></li>
-        <li class="todo-list-li">Compelete the task<span></span></li>
+        <li class="todo-list-li">晨跑五公里 (7 min/km)<span></span></li>
+        <li class="todo-list-li">搜寻小动物图集 🐈🐕<span></span></li>
+        <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
+        <li class="todo-list-li">更新 CUDA 编程<span></span></li>
       </ul>
     </section>
   </div>
