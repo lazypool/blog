@@ -9,7 +9,57 @@ layout: about
 
 ## 今日事，今日毕！
 
-// to be continued...
+<style>
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+}
+.date {
+    font-size: 1.4rem;
+    color: #333;
+}
+.time {
+    font-size: 1.1rem;
+    color: #666;
+    align-self: flex-end;
+}
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+.todo-text {
+    color: #444;
+    font-size: 0.95rem;
+}
+.todo-item.done .todo-text {
+    color: #888;
+    text-decoration: line-through;
+}
+</style>
+
+<div style="background: #f5f5f5; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rpba(0,0,0,.1)">
+  <div>
+    <h2>Friday</h2>
+    <span>2023年9月20日</span>
+  </div>
+  <ul>
+    <li class="todo-item done">
+      <span class="todo-text">购买日用品</span>
+    </li>
+    <li class="todo-item">
+      <span class="todo-text">完成项目报告</span>
+    </li>
+    <li class="todo-item done">
+      <span class="todo-text">预约牙医</span>
+    </li>
+    <li class="todo-item">
+      <span class="todo-text">健身1小时</span>
+    </li>
+  </ul>
+</div>
 
 ## GitHub 主页 🐱🔧
 
