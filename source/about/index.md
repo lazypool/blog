@@ -19,14 +19,14 @@ layout: about
           Thursday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 13, 2025
+          March 14, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">晨跑五公里 (7 min/km)<span></span></li>
-        <li class="done todo-list-li">搜寻小动物图集 🐈🐕<span></span></li>
-        <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">更新 CUDA 编程<span></span></li>
+        <li class="todo-list-li">胸、背部及手臂力量训练<span></span></li>
+        <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
+        <li class="todo-list-li">开新博客：DFS，BFS，UCS，A*<span></span></li>
       </ul>
     </section>
   </div>
