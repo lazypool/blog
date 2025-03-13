@@ -7,3 +7,9 @@ public/
 .deploy*/
 _multiconfig.yml
 source/_drafts/
+source/_posts/**/*.jpg
+source/_posts/**/*.jpeg
+source/_posts/**/*.png
+source/_posts/**/*.gif
+source/_posts/**/*.bmp
+source/_posts/**/*.svg
