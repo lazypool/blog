@@ -24,7 +24,7 @@ layout: about
       </header>
       <ul style="list-style: none; padding: 0;">
         <li class="todo-list-li">晨跑五公里 (7 min/km)<span></span></li>
-        <li class="todo-list-li">搜寻小动物图集 🐈🐕<span></span></li>
+        <li class="done todo-list-li">搜寻小动物图集 🐈🐕<span></span></li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">更新 CUDA 编程<span></span></li>
       </ul>
