@@ -3,7 +3,7 @@ layout: post
 title: Hello World：从零开始的博客之旅⛺
 date: 2023-10-31 14:13:39
 tags: [博客, 日常]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/butterfly.png
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00001.jpg
 ---
 
 # 你好，世界！

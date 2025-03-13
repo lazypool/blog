@@ -5,7 +5,7 @@ date: 2025-01-15 21:01:51
 categories:
     - 🌍️ 网络编程
 tags: [前端, 技术前瞻]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/squirrel.png
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00008.jpg
 ---
 
 # “诸侯纷争，群雄割据”：前端如何一路走来？

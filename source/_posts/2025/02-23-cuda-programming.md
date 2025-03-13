@@ -4,7 +4,7 @@ title: 从零入门 cuda 编程？🦴 看这篇就够了！
 categories:
   - 💻 抠点代码
 tags: [cuda 编程, 并行程序]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/dog0.png
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00012.jpg
 date: 2025-02-23 22:12:23
 ---
 

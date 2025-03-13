@@ -4,7 +4,7 @@ title: DeepSeek 🐬：国产大模型之光？它用到了哪些关键技术？
 categories:
   - 📖 论文阅读
 tags: [大语言模型, NLP, NLP经典论文]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/dolphin.png
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00011.jpg
 date: 2025-02-12 21:38:31
 ---
 
