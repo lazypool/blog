@@ -249,6 +249,7 @@ custom_css:
   # - css/shubiao.css
   - css/scroll.css
   # - css/gradient.css
+  - css/hoverhint.css
 
 # 网页访问统计
 # Analysis of website visitors

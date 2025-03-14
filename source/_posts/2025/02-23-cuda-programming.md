@@ -129,7 +129,7 @@ int main() {
 ```
 </td></tr></tbody></table>
 
-可以看到主要区别有两点：一是函数声明/定义时使用 `__global__`，我们将其称作 **函数执行空间标识符**。二是调用函数时使用 `<<...>>`，我们将其称作 **执行配置**。实际上，CUDA 对 C 的扩展可归纳为四点：1. 函数执行空间标识符；2. 变量存储空间标识符；3. 内置向量类型和内置变量；4. 执行配置。
+可以看到主要区别有两点：一是函数声明/定义时使用 `__global__`，我们将其称作 **函数执行空间标识符**。二是调用函数时使用 `<<...>>`，我们将其称作 **执行配置**。实际上，CUDA 对 C 的扩展可归纳为四点：1. 函数执行空间标识符；2. 变量内存空间标识符；3. 内置向量类型和内置变量；4. 执行配置。
 
 #### 函数执行空间标识符 (Function Execution Space Specifier)
 
@@ -138,6 +138,7 @@ int main() {
 1. 声明一个函数为 kernel，它在设备上执行，从主机调用。
 2. `__global__` 函数必须返回 void 类型，且不能作为类成员方法。
 3. 调用 `__global__` 函数必须给定执行配置。
+4. `__global__` 的调用是异步的，这意味着它会在设备执行完毕前返回。
 
 ##### `__device__`
 
@@ -156,19 +157,65 @@ int main() {
 > 1. 在 `__global__`, `__device__` 或 `__host__ __device__` 内调用 `__host__` 函数；
 > 2. 在 `__host__` 函数内调用 `__device__` 函数。
 
-#### 变量存储空间标识符
+> 其他注意事项⚠️
+> 1. `__device__` 和 `__global__` 函数不支持递归。
+> 2. 不能在 `__device__` 和 `__global__` 函数中声明静态变量。
+> 3. `__device__` 和 `__global__` 函数不能有自变量的一个变量数字。
+> 4. 无法获得 `__device__` 函数的地址，但指向 `__global__` 是合法的。
+
+#### 变量内存空间标识符 (Variable Memory Space Specifiers)
+
+> 默认情况下，未指定标识符的变量会驻留在寄存器上。然而，部分编译器会将其至于本地内存，这会影响并行性能。因此，应当尽可能指定变量的内存空间标识符。
 
 ##### `__device__`
 
+1. 声明一个驻留在设备内存的变量。
+2. 可与至多 1 个<span class="hoverhint" data-hoverhint="__constant__  __shared__  __grid_constant__">其他的变量内存标识符</span>组合使用。
+3. 默认行为 (当它单独使用时)：
+    - 位于全局内存空间。
+    - 生命周期与创建它的 CUDA 上下文相同。
+    - 每个设备有其独立的副本。
+    - 可通过<span class="hoverhint" data-hoverhint="cudaGetSymbolAddress()  cudaGetSymbolSize()  cudaMemcpyToSymbol()  cudaMemcpyFromSymbol()">运行时 API </span>被网格内所有线程和主机访问。
+4. 适合存储需要全局访问的大规模数据。
+
 ##### `__constant__`
+
+1. 必须与 `__device__` 组合使用。
+2. 驻留在常量内存空间。
+3. 生命周期与创建它的 CUDA 上下文相同。
+4. 每个设备有其独立的副本。
+5. 可通过<span class="hoverhint" data-hoverhint="cudaGetSymbolAddress()  cudaGetSymbolSize()  cudaMemcpyToSymbol()  cudaMemcpyFromSymbol()">运行时 API </span>被网格内所有线程和主机访问。
+6. 主机在并发内核访问时修改常量会导致未定义行为。
+7. 适合存储只读数据。
 
 ##### `__shared__`
 
-##### `__grid_constant__`
+1. 必须与 `__device__` 组合使用。
+2. 驻留在线程块的共享内存。
+3. 生命周期与线程块相同。
+4. 每个线程块有独立副本。
+5. 仅块内线程可访问，地址不固定。
 
-##### `__managed__`
+> 在 CUDA 中，通过 `extern` 关键字，可使数组大小在内核启动时由执行配置 `<<<...>>>` 动态指定。以这种方式声明的所有变量都从内存中的相同地址开始，因此必须通过偏移量显式地管理数组中变量的布局。例如，在动态分配的共享内存中，可以用以下方式声明和初始化数组：
 
-##### `__restrict__`
+```cpp
+extern __shared__ float array[];
+__device__ void func() {     // __device__ or __global__ function
+    short* array0 = (short*)array;     // 存储 short
+    float* array1 = (float*)&array0[128]; // 接在 128 个 short 之后，存储 float
+    int* array2 = (int*)&array1[64];    // 接在 64 个 float 之后，存储 int
+}
+```
+
+> 注意，指针需与其所指向类型对齐，故而以下代码不能工作，因为 `array1` 没有对齐到声明 `array` 时所指定的 float 的 4 字节。
+
+```cpp
+extern __shared__ float array[];
+__device__ void func() {     // __device__ or __global__ function
+    short* array0 = (short*)array;
+    float* array1 = (float*)&array0[127];   // 错误！127*2 字节不是 4 字节对齐
+}
+```
 
 #### 内置向量类型和内置变量
 
