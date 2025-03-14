@@ -23,8 +23,8 @@ layout: about
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">更新 CUDA 编程<span></span></li>
-        <li class="todo-list-li">胸、背部及手臂力量训练<span></span></li>
+        <li class="todo-list-li done">更新 CUDA 编程<span></span></li>
+        <li class="todo-list-li done">胸、背部及手臂力量训练<span></span></li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">开新博客：DFS，BFS，UCS，A*<span></span></li>
       </ul>
