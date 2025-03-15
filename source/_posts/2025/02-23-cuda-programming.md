@@ -13,7 +13,8 @@ date: 2025-02-23 22:12:23
 CUDA（全称 Compute Unified Device Architecture，中文译为“统一计算设备架构”），由 nvidia 在 2007 年发布，提供用于编程和管理 GPU 的 C/C++ 语言扩展和 API，服务于 GPU 通用计算，时至今日已历经十几年演进。本博客记录对 CUDA 的学习过程，重点内容包括：
 
 1. CUDA 的架构详述，包括：硬件、软件和各种常见术语。
-2. CUDA 编程方法，包括：语法解释、
+2. CUDA 编程方法，包括：基础语法解释和部分常用的进阶函数。
+3. CUDA 编程实例：用 CUDA 并行计算实现矩阵乘法。
 
 ## 详解 CUDA 架构：软件层和硬件层相结合
 
@@ -219,4 +220,86 @@ __device__ void func() {     // __device__ or __global__ function
 
 #### 内置向量类型和内置变量
 
-#### 执行配置
+##### 内置向量类型 (Built-in Vector Types)
+
+<div style="display:flex;">
+<div style="flex:1; width:60%; margin-right:10%; padding:1px;">
+
+这些是从基本整数和浮点类型派生出来的向量类型。它们是结构体，其第 1、2、3 和 4 个分量分别可以通过字段 x、y、z 和 w 来访问。它们都带有一个构造函数，形式为 `make_<type name>`；例如，
+
+```cpp
+int2 make_int2(int x, int y);
+```
+
+该构造函数会创建一个值为 `(x, y)` 的 `int2` 类型的向量。向量类型的对齐要求在右表中有详细说明。
+</div>
+<div style="flex:2; width:30%;">
+<table style="overflow-y:auto; height:20em;"><thead style="position:sticky;">
+    <tr><th>类型</th><th>对齐</th></tr>
+</thead><tbody>
+    <tr><td>char1, uchar1</td><td>1</td></tr>
+    <tr><td>char2, uchar2</td><td>2</td></tr>
+    <tr><td>char3, uchar3</td><td>1</td></tr>
+    <tr><td>char4, uchar4</td><td>4</td></tr>
+    <tr><td>short1, ushort1</td><td>2</td></tr>
+    <tr><td>short2, ushort2</td><td>4</td></tr>
+    <tr><td>short3, ushort3</td><td>2</td></tr>
+    <tr><td>short4, ushort4</td><td>8</td></tr>
+    <tr><td>int1, uint1</td><td>4</td></tr>
+    <tr><td>int2, uint2</td><td>8</td></tr>
+    <tr><td>int3, uint3</td><td>4</td></tr>
+    <tr><td>int4, uint4</td><td>16</td></tr>
+    <tr><td>long2, ulong2</td><td>8 or 16</td></tr>
+    <tr><td>long3, ulong3</td><td>4 or 8</td></tr>
+    <tr><td>long4, ulong4</td><td>16</td></tr>
+    <tr><td>longlong1, ulonglong1</td><td>8</td></tr>
+    <tr><td>longlong2, ulonglong2</td><td>16</td></tr>
+    <tr><td>longlong3, ulonglong3</td><td>8</td></tr>
+    <tr><td>longlong4, ulonglong4</td><td>16</td></tr>
+    <tr><td>float1</td><td>4</td></tr>
+    <tr><td>float2</td><td>8</td></tr>
+    <tr><td>float3</td><td>4</td></tr>
+    <tr><td>float4</td><td>16</td></tr>
+    <tr><td>double1</td><td>8</td></tr>
+    <tr><td>double2</td><td>16</td></tr>
+    <tr><td>double3</td><td>8</td></tr>
+    <tr><td>double4</td><td>16</td></tr>
+    <tr><td>long1, ulong1</td><td>4 or 8</td></tr>
+</tbody></table>
+</div>
+</div>
+
+除上面常用的向量类型，CUDA 还提供了名为 `dim3` 的向量类型。该类型是一个基于 `uint3` 的整数向量类型，用于指定线程块和网格的尺寸，在后面讲执行配置时我们会看到它的作用。在定义类型为 `dim3` 的变量时，任何未指定的组件都初始化为 1。
+
+##### 内置变量 (Built-in Variables)
+
+- **gridDim**  <span style="margin-left:11px;">：</span>`dim3`，表示网格的维度 `(gridDim.x, gridDim.y, gridDim.z)`。
+- **blockIdx** <span style="margin-left: 6px;">：</span>`uint3`，表示网格中块的坐标 `(blockIdx.x, blockIdx.y, blockIdx.z)`。
+- **blockDim** <span style="margin-left: 0px;">：</span>`dim3`，表示线程块的维度 `(blockDim.x, blockDim.y, blockDim.z)`。
+- **threadIdx**<span style="margin-left: 5px;">：</span>`uint3`，表示线程在块中的坐标 `(threadIdx.x, threadIdx.y, threadIdx.z)`。
+- **warpSize** <span style="margin-left: 3px;">：</span>`int` ，包含了以线程为单位的线程数的大小。
+
+#### 执行配置 (Execution Configuration)
+
+调用 `__global__` 函数必须指定执行配置。执行配置定义了将在设备上执行该函数的网格和块的维度，以及相关的 stream。执行配置通过在函数名和括号参数列表之间插入 `<<< Dg, Db, Ns, S >>>` 形式的表达式来指定，其中：
+
+- **Dg** 是 `dim3` 类型，指定网格的维度大小，使得启动的线程块的块数为 `Dg.x * Dg.y * Dg.z`。
+- **Db** 同样是 `dim3` 类型，指定每个块的维度大小，使得每个块具有 `Db.x * Db.y * Db.z` 个线程。
+- **Ns** 是 `size_t` 类型，指定每个块为此调用 **动态分配的共享内存字节数** 。此动态分配的内存用于任何声明为 `extern` 数组的变量（如 `__shared__` 中所述）；`Ns` 是可选参数，默认为 0。
+- **S** 是 `cudaStream_t` 类型，指定相关的流；`S` 是一个可选参数，默认值为 0。
+
+例如，声明为以下形式的函数，必须像这样调用：
+
+```cpp
+__global__ void Func(float* parameter); // __global__ 声明其为 kernel 函数
+
+Func<<< Dg, Db, Ns >>>(parameter);  // 调用时必须指定执行配置
+```
+
+- 执行配置的参数在实际函数参数之前被评估，以下两种情况将导致函数调用失败：
+    1. `Dg` 或 `Db` 大于设备允许的最大大小（如计算能力中所指定）；
+    2. `Ns` 大于设备上可用的最大共享内存量减去静态分配所需的共享内存量。
+
+### 部分常用的进阶函数
+
+## CUDA 实例：实现高效矩阵乘法
