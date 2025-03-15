@@ -24,7 +24,7 @@ layout: about
       </header>
       <ul style="list-style: none; padding: 0;">
         <li class="todo-list-li done">晨跑 5 公里 (7 min/km)<span></span></li>
-        <li class="todo-list-li">开新博客：DFS，BFS，UCS，A*<span></span></li>
+        <li class="todo-list-li done">开新博客：DFS，BFS，UCS，A*<span></span></li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">利用 vanna 实现本地部署的知识库问答</li>
       </ul>
