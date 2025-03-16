@@ -16,17 +16,17 @@ layout: about
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Saturday
+          Sunday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 15, 2025
+          March 16, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li done">晨跑 5 公里 (7 min/km)<span></span></li>
-        <li class="todo-list-li done">开新博客：DFS，BFS，UCS，A*<span></span></li>
+        <li class="todo-list-li">胸部、背部、手臂力量训练<span></span></li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">利用 vanna 实现本地部署的知识库问答</li>
+        <li class="todo-list-li">完成图片的自动压缩、构建、发布流程<span></span></li>
       </ul>
     </section>
   </div>
