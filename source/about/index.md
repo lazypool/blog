@@ -23,7 +23,7 @@ layout: about
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">胸部、背部、手臂力量训练<span></span></li>
+        <li class="todo-list-li done">胸部、背部、手臂力量训练<span></span></li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">利用 vanna 实现本地部署的知识库问答</li>
         <li class="todo-list-li">完成图片的自动压缩、构建、发布流程<span></span></li>
