@@ -587,5 +587,5 @@ Done!
 
 ## 资料下载
 
-- STSBenchmark 数据集：[点击下载](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/before2024/20231116_Stsbenchmark.tar.gz)
-- 案例代码：[点击下载](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/before2024/20231116_example.tar.gz)
+- STSBenchmark 数据集：[点击下载](Stsbenchmark.tar.gz)
+- 案例代码：[点击下载](example.tar.gz)

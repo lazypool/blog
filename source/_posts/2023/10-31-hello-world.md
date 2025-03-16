@@ -14,7 +14,7 @@ Time is an illusion that helps things make sense. So we're always living in the 
 
 这是我在个人博客发表的第一篇文章，如果你在茫茫互联网中找到了我，恭喜！
 
-![](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/before2024/20231031_pic1.png)
+![你好，世界！](pic1.png)
 
 我的网络之旅始于 2021 年，当时，我在我的个人计算机上第一次安装了 ArchLinux 系统，这也是我生命中第一次使用 Linux 系统。从那以后，我几乎是不可避免地走上了一条与黑客技术紧密相关的道路。对于当时还是一个计算机小白的我来说，这无疑是一次“冒险”。
 

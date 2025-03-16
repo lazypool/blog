@@ -130,7 +130,7 @@ docker stop v2ray # 关闭容器
 
 容器启动后，访问 http://localhost:2017 或者 http://127.0.0.1:2017 就可以进入 v2raya 的客户端 UI 界面。第一次进去会提示你注册用户。请牢记账号和密码，下次再进入时会提示你登入。
 
-![登入界面](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/before2024/20240513_login.png)
+![登入界面](login.png)
 
 登陆成功之后就可以导入订阅地址并开启负载均衡等服务了。记得开启透明代理模式，非常好用，相当推荐！关于 v2raya 的详细使用方法可以查看 [v2rayA 用户文档](https://v2raya.org/docs/prologue/introduction/)，文档比较好懂。总的来说，v2rayA 的实际操作比安装它要简单得多。
 
