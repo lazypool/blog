@@ -20,7 +20,7 @@ CUDA（全称 Compute Unified Device Architecture，中文译为“统一计算�
 
 在 CUDA 中，GPU 作为 CPU 的协处理器工作。通常，我们将 CPU 和 GPU 系统分别称为 **主机(host)** 和 **设备(device)** ，它们是具有各自内存空间的独立平台 📚。一般地，我们在 CPU 上运行串行工作负载，并将并行计算卸载到 GPU 上。
 
-![CUDA 架构：软件层和硬件层](0223_cuda-architecture.png)
+![CUDA 架构：软件层和硬件层](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0223_cuda-architecture.png)
 
 CUDA 的架构包括软件层和硬件层，如上图所示。软件层包括：**线程 (thread)**，**线程块 (block)** 和 **网格 (grid)** 。硬件层包括：**CUDA 核心** (或称流处理器，也即 SP)，**流式多处理器 (SM, streaming multiprocessor)** 和 **GPU**。除这些以外，还有 **线程束 (warp)** ，它充当沟通硬件层和软件层的桥梁。
 
@@ -34,7 +34,7 @@ CUDA 的架构包括软件层和硬件层，如上图所示。软件层包括：
 
 CUDA 核心是 CUDA 中执行标量运算指令的基本单元，其核心组件是 **整数运算单元 (INT)** 和 **浮点数运算单元 (FP)** 。CUDA 核心和线程相对应：**单个 CUDA 核心执行来自单个线程的指令** 。与线程相同，CUDA 核心同样按束调度： **同束核心在同一时刻执行相同的指令** ，但作业于不同的寄存器。
 
-![CUDA 核心](0223_cuda-core.png)
+![CUDA 核心](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0223_cuda-core.png)
 
 > **单指令多线程 (SIMT, Single Instruction MultiThreads)**
 
@@ -54,7 +54,7 @@ CUDA 核心是 CUDA 中执行标量运算指令的基本单元，其核心组件
 
 CUDA 允许设备上的线程以 **寻址、共享、缓冲** 的方式读取 DRAM 和 On-Chip 内存。**更具体的，如下图右半部分，执行在设备上的线程，只允许按如下方式读写内存**：1. 读写每条线程的寄存器和本地内存。 2. 读写每个块的共享内存。 3. 读写每个网格的全局内存。 4. 只读每个网格的常量内存和纹理内存。
 
-![Kernel 批处理（左）与 CUDA 内存模型（右）](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfwJ-XTFD3uN4CxFuFaUOOxF_YFA_1uUAVRWykrYSyrikT9ihmFyRyVXl-s7xZPnx1VGZTIln5MxL83fMearxY1fWc4RHQ7fbokHBgIJWTWi-lymFhYn3zRb64kk2PzugsJJVlzj1PoWI/s1600/gpu2.png)
+![Kernel 批处理（左）与 CUDA 内存模型（右）](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0223_cuda-kernels-memory.png)
 
 > **Kernel (核函数)** 🥜
 
@@ -66,7 +66,7 @@ CUDA 允许设备上的线程以 **寻址、共享、缓冲** 的方式读取 DR
 
 以 Fermi 为例，如下图所示，单个完整的 SM 除了若干个 SP 还应该包括：指令缓存、线程束调度器和分派单元、寄存器文件、加载/存储单元队列、特殊功能单元队列、共享内存/L1 缓存、统一缓存等。它们的作用听名字都能猜出来，感兴趣可以自己去查一下，这里不再赘述 🐈🐕。
 
-![流式多处理器 SM 架构图](./0223_cuda-sm-architecture.png)
+![流式多处理器 SM 架构图](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0223_cuda-sm-architecture.png)
 
 ### 线程束：连接软件层和硬件层的纽带
 
@@ -84,7 +84,7 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 
 **同束线程执行不同指令就叫做线程束分化。** 同束线程执行相同的指令，但处理各自的数据。若它们在执行时遇不同的控制条件，就会进行不同的选择，导致线程束分化。线程束分化严重影响性能。条件分支越多，并行性削弱越严重。因此，应尽量避免同束内线程分化，确保线程分配到线程束是有规律的。
 
-![线程束分化示意图](./0223_cuda-warpbranches.png)
+![线程束分化示意图](https://cdn.jsdelivr.net/gh/lazypool/blog-pics/blogpost/the2025/0223_cuda-warpbranches.png)
 
 ## 正式进入 CUDA 编程，源码到底怎么写？
 
