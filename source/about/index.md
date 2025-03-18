@@ -23,7 +23,7 @@ layout: about
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">RAG-Text2SQL 的 Ollama 部分</li>
+        <li class="todo-list-li done">RAG-Text2SQL 的 Ollama 部分</li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">胸部、背部、手臂力量训练<span></span></li>
         <li class="todo-list-li done">完成 AI 引论的 minmax 搜索<span></span></li>
