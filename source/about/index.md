@@ -23,9 +23,9 @@ layout: about
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">胸部、背部、手臂力量训练<span></span></li>
+        <li class="todo-list-li done">胸部、背部、手臂力量训练<span></span></li>
         <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
-        <li class="todo-list-li">RAG-Text2SQL 的训练接口</li>
+        <li class="todo-list-li">参加讲座，并写心得感悟<span></span></li>
       </ul>
     </section>
   </div>
