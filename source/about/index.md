@@ -16,17 +16,16 @@ layout: about
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Tuesday
+          Wednesday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 18, 2025
+          March 19, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li done">RAG-Text2SQL 的 Ollama 部分</li>
-        <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
         <li class="todo-list-li">胸部、背部、手臂力量训练<span></span></li>
-        <li class="todo-list-li done">完成 AI 引论的 minmax 搜索<span></span></li>
+        <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
+        <li class="todo-list-li">RAG-Text2SQL 的训练接口</li>
       </ul>
     </section>
   </div>
