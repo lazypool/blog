@@ -24,9 +24,9 @@ layout: about
       </header>
       <ul style="list-style: none; padding: 0;">
         <li class="todo-list-li">实现主页的 skyline 可视化<span></span></li>
-        <li class="todo-list-li">更新 DeepSeek 的 MoE 部分<span></span></li>
-        <li class="todo-list-li">更新 CUDA 编程的常用函数<span></span></li>
-        <li class="todo-list-li">胸部、手臂、背部锻炼<span></span></li>
+        <li class="todo-list-li done">更新 DeepSeek 的 MoE 部分<span></span></li>
+        <li class="todo-list-li done">更新 CUDA 编程的常用函数<span></span></li>
+        <li class="todo-list-li done">胸部、手臂、背部锻炼<span></span></li>
       </ul>
     </section>
   </div>
