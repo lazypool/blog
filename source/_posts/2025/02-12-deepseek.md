@@ -64,9 +64,9 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在 [Huggingface]
 
 ### 混合专家模型 (MoE)
 
-### 多头潜在注意力 (MLA)
-
 ### Auxiliary-Loss-Free
+
+### 多头潜在注意力 (MLA)
 
 ### 多 Token 预测 (MTP)
 
