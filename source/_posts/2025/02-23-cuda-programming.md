@@ -13,8 +13,10 @@ date: 2025-02-23 22:12:23
 CUDA（全称 Compute Unified Device Architecture，中文译为“统一计算设备架构”），由 nvidia 在 2007 年发布，提供用于编程和管理 GPU 的 C/C++ 语言扩展和 API，服务于 GPU 通用计算，时至今日已历经十几年演进。本博客记录对 CUDA 的学习过程，重点内容包括：
 
 1. CUDA 的架构详述，包括：硬件、软件和各种常见术语。
-2. CUDA 编程方法，包括：基础语法解释、常用的 runtime API。
-3. CUDA 编程实例：用 CUDA 并行计算实现矩阵乘法。
+2. CUDA 的安装、编译工具和编辑器的配置。
+3. CUDA 的基础语法：函数标识符、变量标识符、内置向量类型和内置变量、执行配置。
+3. CUDA 的 Runtime API：内存和线程管理、设备管理、事件管理、流管理。
+4. CUDA 编程实例：测试 GPU 的乘加性能。
 
 ## 详解 CUDA 架构：软件层和硬件层相结合
 
@@ -86,7 +88,7 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 
 ![线程束分化示意图](cuda-warpbranches.png)
 
-## 正式进入 CUDA 编程，源码到底怎么写？
+## 正式进入 CUDA 编程：安装、编译器、编辑器
 
 我们花了大量的时间和篇幅详述 CUDA 的软件层面和硬件层面的架构，这有助于我们理解接下来的内容。CUDA 的编程主要围绕 Kernel 展开，我们将会逐步深入对它的理解。在此之前，先下载好 CUDA 的编译器 nvcc。
 
@@ -96,7 +98,7 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 sudo pacman -S cuda
 ```
 
-### 基础的 CUDA 语法：C 语言的迷你扩展集
+## 基础的 CUDA 语法：C 语言的迷你扩展集
 
 让我们从 Hello World 程序开始，简单比较一下 C 和 CUDA，理解下 CUDA 在实际编程上的特点。
 
@@ -132,21 +134,21 @@ int main() {
 
 可以看到主要区别有两点：一是函数声明/定义时使用 `__global__`，我们将其称作 **函数执行空间标识符**。二是调用函数时使用 `<<...>>`，我们将其称作 **执行配置**。实际上，CUDA 对 C 的扩展可归纳为四点：1. 函数执行空间标识符；2. 变量内存空间标识符；3. 内置向量类型和内置变量；4. 执行配置。
 
-#### 函数执行空间标识符 (Function Execution Space Specifier)
+### 函数执行空间标识符 (Function Execution Space Specifier)
 
-##### `__global__`
+#### `__global__`
 
 1. 声明一个函数为 kernel，它在设备上执行，从主机调用。
 2. `__global__` 函数必须返回 void 类型，且不能作为类成员方法。
 3. 调用 `__global__` 函数必须给定执行配置。
 4. `__global__` 的调用是异步的，这意味着它会在设备执行完毕前返回。
 
-##### `__device__`
+#### `__device__`
 
 1. 声明一个函数，在设备上执行，也仅可以从设备上调用。
 2. 它不能与 `__global__` 标识符同时使用。
 
-##### `__host__`
+#### `__host__`
 
 1. 声明一个函数，在主机上执行，也仅可以从主机上调用。
 2. 通常该标识符可以省略不写，默认是主机调用并执行函数。
@@ -164,11 +166,11 @@ int main() {
 > 3. `__device__` 和 `__global__` 函数不能有自变量的一个变量数字。
 > 4. 无法获得 `__device__` 函数的地址，但指向 `__global__` 是合法的。
 
-#### 变量内存空间标识符 (Variable Memory Space Specifiers)
+### 变量内存空间标识符 (Variable Memory Space Specifiers)
 
 > 默认情况下，未指定标识符的变量会驻留在寄存器上。然而，部分编译器会将其置于本地内存，这会影响并行性能。因此，应当尽可能指定变量的内存空间标识符。
 
-##### `__device__`
+#### `__device__`
 
 1. 声明一个驻留在设备内存的变量。
 2. 可与至多 1 个<span class="hoverhint" data-hoverhint="__constant__  __shared__  __grid_constant__">其他的变量内存标识符</span>组合使用。
@@ -179,7 +181,7 @@ int main() {
     - 可通过<span class="hoverhint" data-hoverhint="cudaGetSymbolAddress()  cudaGetSymbolSize()  cudaMemcpyToSymbol()  cudaMemcpyFromSymbol()">运行时 API </span>被网格内所有线程和主机访问。
 4. 适合存储需要全局访问的大规模数据。
 
-##### `__constant__`
+#### `__constant__`
 
 1. 必须与 `__device__` 组合使用。
 2. 驻留在常量内存空间。
@@ -189,7 +191,7 @@ int main() {
 6. 主机在并发内核访问时修改常量会导致未定义行为。
 7. 适合存储只读数据。
 
-##### `__shared__`
+#### `__shared__`
 
 1. 必须与 `__device__` 组合使用。
 2. 驻留在线程块的共享内存。
@@ -218,9 +220,9 @@ __device__ void func() {     // __device__ or __global__ function
 }
 ```
 
-#### 内置向量类型和内置变量
+### 内置向量类型和内置变量
 
-##### 内置向量类型 (Built-in Vector Types)
+#### 内置向量类型 (Built-in Vector Types)
 
 <div style="display:flex;">
 <div style="flex:1; width:60%; margin-right:10%; padding:1px;">
@@ -271,7 +273,7 @@ int2 make_int2(int x, int y);
 
 除上面常用的向量类型，CUDA 还提供了名为 `dim3` 的向量类型。该类型是一个基于 `uint3` 的整数向量类型，用于指定线程块和网格的尺寸，在后面讲执行配置时我们会看到它的作用。在定义类型为 `dim3` 的变量时，任何未指定的组件都初始化为 1。
 
-##### 内置变量 (Built-in Variables)
+#### 内置变量 (Built-in Variables)
 
 - **gridDim**  <span style="margin-left:11px;">：</span>`dim3`，表示网格的维度 `(gridDim.x, gridDim.y, gridDim.z)`。
 - **blockIdx** <span style="margin-left: 6px;">：</span>`uint3`，表示网格中块的坐标 `(blockIdx.x, blockIdx.y, blockIdx.z)`。
@@ -279,7 +281,7 @@ int2 make_int2(int x, int y);
 - **threadIdx**<span style="margin-left: 5px;">：</span>`uint3`，表示线程在块中的坐标 `(threadIdx.x, threadIdx.y, threadIdx.z)`。
 - **warpSize** <span style="margin-left: 3px;">：</span>`int` ，包含了以线程为单位的线程数的大小。
 
-#### 执行配置 (Execution Configuration)
+### 执行配置 (Execution Configuration)
 
 调用 `__global__` 函数必须指定执行配置。执行配置定义了将在设备上执行该函数的网格和块的维度，以及相关的 stream。执行配置通过在函数名和括号参数列表之间插入 `<<< Dg, Db, Ns, S >>>` 形式的表达式来指定，其中：
 
@@ -300,6 +302,218 @@ Func<<< Dg, Db, Ns >>>(parameter);  // 调用时必须指定执行配置
     1. `Dg` 或 `Db` 大于设备允许的最大大小（如计算能力中所指定）；
     2. `Ns` 大于设备上可用的最大共享内存量减去静态分配所需的共享内存量。
 
-### 常用的 Runtime API
+## 进阶：部分常用的 Runtime API
 
-## CUDA 实例：实现高效矩阵乘法
+### 内存与线程管理
+
+#### cudaMalloc()
+
+> cudaError_t cudaMalloc(void** devPtr, size_t count);
+
+- 在设备上分配 count 字节的线性内存，并将指向该部分内存的指针交给 devPtr。
+- 分配的内存适合任何类型的变量。
+- 如果分配失败，返回 `cudaErrorAlloction`。
+
+#### cudaFree()
+
+> cudaError_t cudaFree(void* devPtr);
+
+- 释放被 devPtr 指向的内存空间。
+- devPtr 必须被 cudaMalloc() 赋值过，否则会引发错误。
+- cudaFree() 可以重复调用，这将不会执行任何操作。
+
+#### cudaMemcpy()
+
+> cudaError_t cudaMemcpy(void* dst, const void* src, size_t count, enum cudaMemcpyKind kind);
+
+> cudaError_t cudaMemcpyAsync(void* dst,constvoid*src, size_t count, enum cudaMemcpyKind kind, cudaStream_t stream);
+
+- 拷贝 count 字节，从 src 指向的内存区域到 dst 指向的内存区域。
+- kind 可以是 `cudaMemcpyHostToHost`， `cudaMemcpyHostToDevice`，`cudaMemcpyDeviceToHost`，或 `cudaMemcpyDeviceToDevice` 的拷贝方向。
+- `cudaMemcpyAsync()` 是异步的，并且可以作为一个可选参数通过流使用。
+
+#### cudaDeviceSynchronize()
+
+> cudaError_t cudaDeviceSynchronize(void);
+
+- 阻塞，直到设备上所有请求的任务执行完毕。
+- 若任何一个任务失败，`cudaThreadSynchronize()` 都将返回一个错误。
+
+#### 示例：管理设备内存和等待设备执行
+
+```cpp
+# include <stdio.h>
+
+int main() {
+    // 声明 host data 和 device data
+    // 大小为 10 个 float
+    float *h_data, *d_data;
+    size_t size = 10 * sizeof(float);
+
+    // 初始化 host data
+    h_data = (float*)malloc(size)
+    for (int i = 0; i < size; i++) {
+        h_data[i] = 3.14 + i % 10;
+    }
+
+    cudaMalloc(&d_data, size); // 1. 为 device data 开辟空间
+    cudaMemcpy(d_data, h_data, size, cudaMemcpyHostToDevice); // 2. 将 host data 拷贝至 device data
+
+    myKernel<<<...>>>(); // 3. 执行核函数
+
+    cudaDeviceSynchronize(); // 4. 阻塞，直到设备执行完毕
+}
+```
+
+### 设备管理 (Device)
+
+#### cudaGetDeviceCount()
+
+> cudaError_t cudaGetDeviceCount(int* count);
+
+- 将计算兼容性大于等于 1.0 的设备数量赋值到 count 所指向的 int 变量。
+- 如果没有相关设备，返回 1。
+
+#### cudaSetDevice()
+
+> cudaError_t cudaSetDevice(int dev);
+
+- 指示当前所处的主机线程，使用代码为 dev 的设备。
+
+#### cudaGetDevice()
+
+> cudaError_t cudaGetDevice(int* dev);
+
+- 将当前主机线程所用设备的代码赋值到 dev 所指向的 int 变量。
+
+#### cudaGetDeviceProperties()
+
+> cudaError_t cudaGetDeviceProperties(struct cudaDeviceProp* prop, int dev);
+
+- 将代码为 dev 的设备的属性赋值到 prop 所指向的 cudaDeviceProp 结构体。
+- cudaDeviceProp 结构体的定义可参阅 [nvidia 文档](https://docs.nvidia.com/cuda/cuda-runtime-api/structcudaDeviceProp.html)
+
+#### 示例：获悉设备属性
+
+```cpp
+#include <stdio.h>
+
+int main() {
+  int device_count;
+  cudaGetDeviceCount(&device_count);  // 1. 获取设备数量
+  printf("Found %d CUDA devices\n", device_count);
+
+  cudaSetDevice(0);  // 2. 选择 0 号设备
+
+  int dev;
+  cudaGetDevice(&int);  // 3. 获取当前的设备编号
+
+  cudaDeviceProp prop;
+  cudaGetDeviceProperties(&prop, 0);  // 4. 获取设备属性
+  printf("Device Name: %s\n", prop.name);
+  printf("Compute Capability: %d.%d\n", prop.major, prop.minor);
+  
+  return 0;
+}
+```
+
+### 事件管理 (Event)
+
+#### cudaEventCreate()
+
+> cudaError_t cudaEventCreate(cudaEvent_t* eventPtr);
+
+- 创建一个事件对象，它具有 cudaEvent_t 类型，被 eventPtr 指针所指向。
+- cudaEvent_t 类型的定义可参考 [nvidia 文档](https://docs.nvidia.com/cuda/cuda-runtime-api/cudaEvent_t.html)
+
+#### cudaEventRecord()
+
+> cudaError_t cudaEventRecord(cudaEvent_t event, CUstream stream);
+
+- 记录事件 event，注意此处的 event 并非指针，而是 cudaEvent_t 类型。
+- 如果stream 是非零的，当流中所有的操作完毕，事件被记录。
+- 若 stream 为空，当CUDA context 中所有的操作完毕，事件被记录。
+- 该操作是异步的，必须使用 `cudaEventSyncronize()` 来确保事件真的被记录。
+
+#### cudaEventSyncronize()
+
+> cudaError_t cudaEventSyncronize(cudaEvent_t event);
+
+- 阻塞线程，直到事件 event 真的被记录。
+- 如果 `cudaEventRecord()` 从未被调用过，则返回 `cudaErrorInvalidValue`。
+
+#### cudaEventElapsedTime()
+
+> cudaError_t cudaEventElapsedTime(float* time, cudaEvent_t start, cudaEvent_t end);
+
+- 计算两个事件 start 和 end 之间所花费的时间，并赋值到 time 所指的 float 变量。
+- start 和 end 必须都被调用过 `cudaEventRecord()`，并且已经真的被记录了。
+- 否则，将返回 `cudaErrorInvalidValue` 错误。
+- 此外，若 start 和 end 中有被带非零 stream 记录的事件，结果将会是 undefined。
+
+#### cudaEventDestroy()
+
+> cudaError_t cudaEventDestroy(cudaEvent_t event);
+
+- 销毁事件对象 event。
+
+#### 示例：测量内核执行时间
+
+```cpp
+// 1. 创建事件对象
+cudaEvent_t start, stop;
+cudaEventCreate(&start);
+cudaEventCreate(&stop);
+
+cudaEventRecord(start); // 2. 记录起始时间
+myKernel<<<...>>>();  // 执行内核
+cudaEventRecord(stop); // 3. 记录终止时间
+
+cudaEventSynchronize(stop); // 4. 阻塞，直到 stop 被记录
+float milliseconds = 0;
+cudaEventElapsedTime(&milliseconds, start, stop); // 5. 计算时间
+
+// 6. 销毁事件对象
+cudaEventDestroy(start);
+cudaEventDestroy(stop);
+```
+
+### 流管理 (stream)
+
+#### cudaStreamCreate()
+
+> cudaError_t cudaStreamCreate(cudaStream_t* streamPtr);
+
+- 创建一个流对象，它是 cudaStream_t 类型，被 streamPtr 所指向。
+- cudaStream_t 类型的定义可参考 [nvidia 文档](https://docs.nvidia.com/cuda/cuda-runtime-api/cudaStream_t.html)
+
+#### cudaStreamSyncronize()
+
+> cudaError_t cudaStreamSyncronize(cudaStream_t stream);
+
+- 阻塞当前进程，直到设备完成流 stream 中的所有操作。
+
+#### cudaStreamDestroy()
+
+> cudaError_t cudaStreamDestroy(cudaStream_t stream);
+
+- 销毁一个流对象。
+
+#### 示例：异步数据传输
+
+```cpp
+// 1. 创建流对象
+cudaStream_t stream;
+cudaStreamCreate(&stream);
+
+// 异步内存拷贝
+cudaMemcpyAsync(d_data, h_data, size, cudaMemcpyHostToDevice, stream);
+
+// 2. 异步执行内核
+myKernel<<<grid, block, 0, stream>>>();
+
+cudaStreamSynchronize(stream);  // 3. 阻塞，直到流完成
+cudaStreamDestroy(stream); // 4. 销毁流对象
+```
+
+## CUDA 编程实例：测试 GPU 的乘加性能
