@@ -16,17 +16,17 @@ layout: about
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Friday
+          Saturday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 21, 2025
+          March 22, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
         <li class="todo-list-li">实现主页的 skyline 可视化<span></span></li>
-        <li class="todo-list-li done">更新 DeepSeek 的 MoE 部分<span></span></li>
-        <li class="todo-list-li done">更新 CUDA 编程的常用函数<span></span></li>
-        <li class="todo-list-li done">胸部、手臂、背部锻炼<span></span></li>
+        <li class="todo-list-li">搜索部分 MIS 系统的相关资料<span></span></li>
+        <li class="todo-list-li">在 HCI 讨论板上发表内容<span></span></li>
+        <li class="todo-list-li">完成应用量化分析的研究设计<span></span></li>
       </ul>
     </section>
   </div>
