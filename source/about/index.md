@@ -31,17 +31,17 @@ layout: about
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Saturday
+          Sunday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 22, 2025
+          March 23, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li done">实现主页的 skyline 可视化<span></span></li>
-        <li class="todo-list-li done">搜索部分 MIS 系统的相关资料<span></span></li>
-        <li class="todo-list-li">在 HCI 讨论板上发表内容<span></span></li>
         <li class="todo-list-li">完成应用量化分析的研究设计<span></span></li>
+        <li class="todo-list-li">在 HCI 讨论板上发表内容<span></span></li>
+        <li class="todo-list-li">完成 cuda 编程的博客<span></span></li>
+        <li class="todo-list-li">拟订 dwm 的状态栏优化日程<span></span></li>
       </ul>
     </section>
   </div>
