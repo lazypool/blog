@@ -95,7 +95,41 @@ $$总时间成本 = 核心计算的时间 + 束内线程同步的时间 + 对各
 ### 下载 CUDA 库及编译工具 nvcc
 
 ```bash
+# 安装 cuda
 sudo pacman -S cuda
+
+# 验证安装
+nvcc --version # 检查 CUDA 编译器
+nvidia-smi     # 检查 GPU 驱动状态
+```
+
+### 配置环境变量
+
+将以下内容添加到 `~/.bashrc` 或 `~/.zshrc`：
+
+```bash
+export PATH="/opt/cuda/bin:$PATH"
+export LD_LIBRARY_PATH="/opt/cuda/lib64:$LD_LIBRARY_PATH"
+```
+
+然后执行 `source ~/.bashrc` 或重新登录。
+
+### Neovim 启用 CUDA 语法检查
+
+```lua
+require("lspconfig").clangd.setup({
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--query-driver=/usr/local/cuda/bin/nvcc", -- 指定 CUDA 编译器路径
+        "--offset-encoding=utf-16",
+    },
+    filetypes = { "c", "cpp", "cuda", "objc", "objcpp" }, -- 添加 cuda 类型
+})
 ```
 
 ## 基础的 CUDA 语法：C 语言的迷你扩展集
