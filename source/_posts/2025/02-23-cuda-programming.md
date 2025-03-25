@@ -551,3 +551,159 @@ cudaStreamDestroy(stream); // 4. 销毁流对象
 ```
 
 ## CUDA 编程实例：测试 GPU 的乘加性能
+
+利用 cuda 编程测试 GPU 进行乘加浮点运算 `c+=a*b` 的性能，将其量化成 GFLOPS 指标 _(GFLOPS, Giga FLoating-point Operations Per Second，每秒 10 亿次的浮点运算数)_ ，并呈现 GPU 的部分属性。拟对 $2^{24}$ 个元素进行计算，迭代 100 次。
+
+### Cuda 源代码
+
+```cpp
+#include <stdio.h>
+#include <cuda_runtime.h>
+
+#define CHECK(cmd) { \
+	cudaError_t error = cmd; \
+	if (error != cudaSuccess) { \
+		printf("Error: %s:%d, ", __FILE__, __LINE__); \
+		printf("code:%d, reason:%s\n", error, cudaGetErrorString(error)); \
+		exit(1); \
+	} \
+}
+
+__global__ void multiplyAddKernel(float *a, float *b, float *c, int n) {
+	int i = blockIdx.x * blockDim.x + threadIdx.x;
+	if (i < n) {
+		c[i] += a[i] * b[i]; // 乘加操作：c += a * b
+	}
+}
+
+int main() {
+	// 获取GPU属性
+	cudaDeviceProp prop;
+	CHECK(cudaGetDeviceProperties(&prop, 0));
+	
+	// 打印GPU属性
+	printf("GPU 属性:\n");
+	printf("设备名称: %s\n", prop.name);
+	printf("计算能力: %d.%d\n", prop.major, prop.minor);
+	printf("SM 数量: %d\n", prop.multiProcessorCount);
+	printf("全局内存: %.2f GB\n", prop.totalGlobalMem / (1024.0 * 1024.0 * 1024.0));
+	printf("每块最大线程数: %d\n", prop.maxThreadsPerBlock);
+	printf("每线程块共享内存: %zu KB\n\n", prop.sharedMemPerBlock / 1024);
+
+	// 设置数据量
+	const int N = 1 << 24; // 16,777,216 个元素
+	const size_t size = N * sizeof(float);
+	const int blockSize = 256;
+	const int gridSize = (N + blockSize - 1) / blockSize;
+	const int iterations = 100; // 重复执行次数
+
+	// 分配主机内存并初始化
+	float *h_a = (float*)malloc(size);
+	float *h_b = (float*)malloc(size);
+	float *h_c = (float*)malloc(size);
+	for (int i = 0; i < N; ++i) {
+		h_a[i] = 2.0f;
+		h_b[i] = 0.5f;
+		h_c[i] = 0.0f;
+	}
+
+	// 分配设备内存
+	float *d_a, *d_b, *d_c;
+	CHECK(cudaMalloc(&d_a, size));
+	CHECK(cudaMalloc(&d_b, size));
+	CHECK(cudaMalloc(&d_c, size));
+
+	// 拷贝数据到设备
+	CHECK(cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice));
+
+	// 预热运行
+	for (int i = 0; i < 5; ++i) {
+		multiplyAddKernel<<<gridSize, blockSize>>>(d_a, d_b, d_c, N);
+		CHECK(cudaGetLastError());
+	}
+	CHECK(cudaDeviceSynchronize());
+
+	// 创建计时事件
+	cudaEvent_t start, stop;
+	CHECK(cudaEventCreate(&start));
+	CHECK(cudaEventCreate(&stop));
+
+	// 重置结果为初始值
+	CHECK(cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice));
+
+	// 执行并计时
+	CHECK(cudaEventRecord(start));
+	for (int i = 0; i < iterations; ++i) {
+		multiplyAddKernel<<<gridSize, blockSize>>>(d_a, d_b, d_c, N);
+		CHECK(cudaGetLastError());
+	}
+	CHECK(cudaEventRecord(stop));
+	CHECK(cudaEventSynchronize(stop));
+
+	// 计算时间
+	float milliseconds;
+	CHECK(cudaEventElapsedTime(&milliseconds, start, stop));
+	double seconds = milliseconds / 1000.0;
+
+	// 计算性能指标
+	double totalFlops = 2.0 * N * iterations; // 每次迭代每个元素2次浮点操作
+	double gflops = totalFlops / seconds / 1e9;
+
+	printf("性能指标:\n");
+	printf("数据量: %d 个元素\n", N);
+	printf("总运算量: %.2f GFLOP\n", totalFlops / 1e9);
+	printf("总耗时: %.3f ms\n", milliseconds);
+	printf("平均性能: %.2f GFLOPS\n\n", gflops);
+
+	// 验证结果正确性
+	CHECK(cudaMemcpy(h_c, d_c, size, cudaMemcpyDeviceToHost));
+	printf("验证前5个结果:\n");
+	for (int i = 0; i < 5; ++i) {
+		printf("c[%d] = %.1f (预期值: %d)\n", i, h_c[i], iterations);
+	}
+
+	// 释放资源
+	free(h_a);
+	free(h_b);
+	free(h_c);
+	CHECK(cudaFree(d_a));
+	CHECK(cudaFree(d_b));
+	CHECK(cudaFree(d_c));
+	CHECK(cudaEventDestroy(start));
+	CHECK(cudaEventDestroy(stop));
+
+	return 0;
+}
+```
+
+### 编译及输出
+
+```bash
+$ nvcc -ccbin g++ -m64 -gencode arch=compute_35,code=sm_35 a.cu
+
+$ ./a.out
+GPU 属性:
+设备名称: Tesla K20c
+计算能力: 3.5
+SM 数量: 13
+全局内存: 4.63 GB
+每块最大线程数: 1024
+每线程块共享内存: 48 KB
+
+性能指标:
+数据量: 16777216 个元素
+总运算量: 3.36 GFLOP
+总耗时: 181.626 ms
+平均性能: 18.47 GFLOPS
+
+验证前 5 个结果:
+c[0] = 100.0 (预期值: 100)
+c[1] = 100.0 (预期值: 100)
+c[2] = 100.0 (预期值: 100)
+c[3] = 100.0 (预期值: 100)
+c[4] = 100.0 (预期值: 100)
+```
+
+可以看到，Tesla K20c 有 13 块 SM，每块最大线程数为 1024，显存 4.63 GB，每秒可执行 184.7 亿次浮点运算。到此，我们已经掌握了入门 CUDA 所需的全部基础知识了！鼓掌👏👏👏
