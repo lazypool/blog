@@ -39,9 +39,9 @@ layout: about
       </header>
       <ul style="list-style: none; padding: 0;">
         <li class="todo-list-li">在 HCI 讨论板上发表内容<span></span></li>
-        <li class="todo-list-li">完成 cuda 编程的博客<span></span></li>
-        <li class="todo-list-li">拟订 dwm 的状态栏优化日程<span></span></li>
-        <li class="todo-list-li">完成对 HMIS 实体的抽象和定义<span></span></li>
+        <li class="todo-list-li done">完成 cuda 编程的博客<span></span></li>
+        <li class="todo-list-li done">拟订 dwm 的状态栏优化日程<span></span></li>
+        <li class="todo-list-li done">完成对 HMIS 实体的抽象和定义<span></span></li>
       </ul>
     </section>
   </div>
