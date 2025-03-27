@@ -8,14 +8,11 @@ layout: about
 <br style="margin-bottom:20px;">
 
 <style>
-.todo-list-li { padding: 10px 0 15px; margin: 0; text-align: left; width: 100%; font-size: 1.1rem; width: 100%; display: block; }
-.todo-list-li.done { color: #ccc; text-decoration: line-through; }
-.todo-list-li span::before { float: right; font-size: 1.1rem; content: "O"; }
-.todo-list-li.done span::before { content: "✔"; }
-</style>
-<style>
+.heatmap-container { display:flex; gap:10px; }
+.monthlabels { position: relative; height: 20px; margin-bottom: 5px; margin-left: 20px; font-size: 12px; }
+.weekday-labels { display:grid; grid-template-rows:repeat(7, 1fr); gap:3px; font-size:9px; color:#000; padding-top:3px; }
 .heatmap { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; }
-.day { width: 12px; height: 12px; position: relative; }
+.day { width: 16px; height: 16px; position: relative; }
 .day.show:hover::after { 
     content: attr(data-count) "contributions on " attr(data-date); position: absolute;
     top: -30px; left: 50%; transform: translateX(-50%); background: #000; color: #fff;
@@ -25,29 +22,25 @@ layout: about
 .color-2 { background-color: #41b6c4; }
 .color-3 { background-color: #bd93f9; }
 .color-4 { background-color: #ff79c9; }
+.todo-list-li { padding: 10px 0 15px; margin: 0; text-align: left; width: 100%; font-size: 1.1rem; width: 100%; display: block; }
+.todo-list-li.done { color: #ccc; text-decoration: line-through; }
+.todo-list-li span::before { float: right; font-size: 1.1rem; content: "O"; }
+.todo-list-li.done span::before { content: "✔"; }
 </style>
-<div style="display: flex; flex-direction: row; justify-item: center; justify-content: space-between;">
-  <div style="color: #333; font-family: 'Open Sans', Helvetica, sans-serif;">
-    <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
-      <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
-        <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Thursday
-        </h2>
-        <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 27, 2025
-        </p>
-      </header>
-      <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">保研：将简历修改后发给孟老师<span></span></li>
-        <li class="todo-list-li">更新 deepseek 博客：MTP<span></span></li>
-        <li class="todo-list-li">开坑：Kafka 在 B 站的实践<span></span></li>
-        <li class="todo-list-li">dwm 状态栏的根脚本及日期显示脚本<span></span></li>
-      </ul>
-    </section>
-  </div>
-  <div style="padding: 30px; background: #fff; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
-    <div class="heatmap" id="heatmap"></div>
-    <div style="display: flex; margin-top:10px; float:right;">
+
+<div style="padding: 30px; background: #fff; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
+    <div class="heatmap-container">
+        <div class="weekday-labels">
+            <div style="grid-row:1;">Sun</div>
+            <div style="grid-row:4;">Thu</div>
+            <div style="grid-row:7;">Sat</div>
+        </div>
+        <div id="overflow-container" style="overflow-x:auto;">
+            <div class="monthlabels" id="monthlabels"></div>
+	        <div class="heatmap" id="heatmap"></div>
+        </div>
+    </div>
+	<div style="display:flex; margin-top:10px; float:right;">
       <div style="font-size:9px; color: #000;">Less&emsp;</div>
       <div class="day color-0"></div>
       <div class="day color-1"></div>
@@ -55,25 +48,52 @@ layout: about
       <div class="day color-3"></div>
       <div class="day color-4"></div>
       <div style="font-size:9px; color: #000;">&emsp;More</div>
+	</div>
+    <p style="font-size:25pt; margin-top:1.5em;">
+        Thursday
+    &emsp;<span style="font-size:15pt;">
+        March 27, 2025
+    </span></p>
+    <div class="todolist-container" style="display:flex; justify-content:space-between;">
+        <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
+            <ul style="padding-left:.5em;">
+                <li class="todo-list-li done">保研：将简历修改后发给孟老师<span></span></li>
+                <li class="todo-list-li done">修改今日待办列表，使之兼容移动端<span></span></li>
+                <li class="todo-list-li">更新 deepseek 博客：MTP<span></span></li>
+                <li class="todo-list-li">开坑：Kafka 在 B 站的实践<span></span></li>
+                <li class="todo-list-li">dwm 状态栏的根脚本及日期显示脚本<span></span></li>
+            </ul>
+        </div>
+        <div style="margin:auto auto; max-width:40%;">
+            <img src="https://cdn.pixabay.com/photo/2020/11/15/18/51/cat-5746875_1280.png" style="max-height:250px;">
+        </div>
     </div>
-  </div>
 </div>
+
 <script>
-function createHeatmap(data) {
-  const container = document.getElementById('heatmap');
-  data.forEach((day, idx) => {
-    if (idx < 140) return;
-    const div = document.createElement('div');
-    div.className = `day color-${day.level} show`;
-    div.setAttribute('data-count', day.count);
-    div.setAttribute('data-date', day.date);
-    container.appendChild(div);
-  });
-}
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 fetch("https://github-contributions-api.jogruber.de/v4/lazypool?y=last")
-  .then(rsp => rsp.json())
-  .then(data => createHeatmap(data.contributions))
-  .catch(err => console.log(err))
+    .then(rsp => rsp.json())
+    .then(data => {
+        data.contributions.forEach((day, idx) => {
+            if (idx < 77) return;
+            var div = document.createElement('div')
+            div.className = `day color-${day.level} show`;
+            div.setAttribute('data-count', day.count);
+            div.setAttribute('data-date', day.date);
+            document.getElementById('heatmap').appendChild(div);
+            var datetime = new Date(day.date)
+            if (datetime.getDate() !== 1) return;
+            var div = document.createElement('div')
+            div.style.position = 'absolute';
+            div.style.left = `${Math.floor((idx - 77) / 7) * 19}px`;
+            div.textContent = MONTHS[datetime.getMonth()];
+            document.getElementById('monthlabels').appendChild(div);
+        });
+        var container = document.getElementById('overflow-container');
+        container.scrollLeft = container.scrollWidth - container.clientWidth;
+    })
+.catch(err => console.log(err))
 </script>
 
 <br style="margin-top:20px;">
