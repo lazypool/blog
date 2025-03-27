@@ -18,8 +18,6 @@ DeepSeek-R1 发布于 25 年 1 月份，当时中国人们差不多正在过年�
 
 DeepSeek 官方已将其系列的相关文章整理出来，放在 [Huggingface](https://huggingface.co/collections/Presidentlin/deepseek-papers-674c536aa6acddd9bc98c2ac)，感兴趣的小伙伴可以去查看。以防万一，这里将它抄录在这里 **（从上至下，发布时间由新到旧）**。
 
----
-
 <div style="display:flex; justify-content:left"><div>
 
 - **2025.1**
@@ -223,6 +221,52 @@ $$s\_{j,t} = \begin{cases} \mathrm{Sigmoid}(x\_t^\mathrm{T} e\_j)  + b_j, &\quad
 他们是怎么做的呢？他们追踪每个专家被激活的频率，在训练的每一步手动调整专家得分的偏置 bias： **使过载的专家得分减去 $\gamma$，低载的专家得分加上 $\gamma$，这里的 $\gamma$ 是一个超参数。** 回顾我们在之前看的代码，我们在加上偏置之前保留了一份得分的副本 `original_scores` 作为专家的权重，而把 `scores` 加上偏置后去计算专家的索引。**这实际上部分地隔离了专家的得分和激活概率，从而在模型性能和负载平衡之间进行了 trade-off。**
 
 ### 多 Token 预测 (MTP)
+
+当前主流的大模型(LLMs)都是decoder-base的模型结构，也就是无论在模型训练还是在推理阶段，对于一个序列的生成过程，都是token-by-token的。每次在生成一个token的时候，都要频繁跟访存交互，加载KV-Cache，再通过多层网络做完整的前向计算。对于这样的访存密集型的任务，通常会因为访存效率形成训练或推理的瓶颈。
+
+MTP 针对解码阶段进行优化，将原来的 one-token 的生成变成 multi-token 的生成，从而提升训练和推理性能。具体来说：
+
+- 在训练阶段，一次生成多个后续的 token，可以一次学习多个位置的标签，进而提升样本的利用效率，提升训练速度。
+- 在推理阶段，通过一次生成多个 token，实现成倍的推理加速来提升推理性能。
+
+#### DeepSeekMTP 模块细节
+
+![多 token 预测示意图](deepseek-mtp.png)
+
+从网络结构出发，看看 DeepSeek 的 MTP 的设计。如上图所示，DeepSeek 对 MTP 的实现保留了序列推理的连接关系，**在输出阶段，从一个 Module 连接到后继的 Module**。从左往右，分别是主模型、Module1、Module2……，串行的 Module 越多，预测的 token 量也越多，预测深度也就越深。它的详细流程是这样的：
+
+- 对于所有 Module 来说，所有的输入都共享一个嵌入层 $\mathsf{Emb}()$.
+- 对于第 $i$ 个 token $t\_i$，假设当前要预测的深度在第 $k$ 层.
+- 我们有 $h\_i^{'k} = M\_k[\mathsf{RMSNorm}(h\_i^{k-1});\mathsf{RMSNorm}(\mathsf{Emb}(t\_{i+k}))]$
+    - 首先将 $t\_i$ 对第 $k-1$ 层的隐藏层输出 $h\_i^{k-1}\in\mathbb{R}^{d}$ 进行均方根规范化.
+    - 再对第 $i+k$ 位置的 token 嵌入层输出 $\mathsf{Emb}(t\_{i+k})\in\mathbb{R}^{d}$ 也进行均方根规范化.
+    - 将上述两个结果 concat 后，经由矩阵 $M\_k\in\mathbb{R}^{d\times{2d}}$ 线性变换得到 $h\_{i}^{'k}\in\mathsf{R}^{d}$
+- $h\_i^{'k}$ 即为当前 Module 中 Transformer 块的输入.
+    - 主模型包含一个较深的 Transformer 栈，而其余的 Module 都只含 1 个.
+    - 因为是串行，所以各个 Module 将能看到其之前的所有信息.
+- $h\_{1:T-k}^{k} = \mathsf{Trm}(h\_{1:T-k}^{'k})$，它将用于之后的 Module，并且其自身也即将输出.
+    - 这里的下标 $\_{1:T-k}$ 表示输入 token 的范围：从第 1 个 token 到第 $T-k$ 个 token.
+    - $T$ 是预测后的序列长度，显然预测的第 $T$ 个 token 应当对应输入的第 $T-k$ 个 token.
+    - 于是也能知道输入的序列长度总是 $T-k$.
+- 最后，将 $h\_i^{k}$ 通过映射矩阵 $\mathsf{OutHead}\in\mathbb{R}^{V\times{d}}$ 变换和 $\mathsf{Softmax}()$，该矩阵在各 Module 间共享.
+    - $p\_{i+k+1}^{k}=\mathsf{Softmax}(\mathsf{OutHead}(h\_i^{k}))$.
+    - $p\_{i+k+1}^{k}\in\mathbb{R}^V$，是词表 $V$ 维度的概率输出.
+    - 上标 $^{k}$ 表示当前预测深度为 $k$，下标 $\_{i+k+1}$ 表示是对序列的第 $i+k+1$ 处的预测.
+
+![MTP 示意图：预测深度与下标偏移](deepseek-mtp2.png)
+
+#### DeepSeekMTP 训练过程和推理阶段
+
+训练阶段使用的多 Token 预测部分的损失函数 $\mathcal{L}_\mathsf{MTP}$ 是将每个 Module 的 CSE 损失求平均值，并乘上一个权重因子 $\lambda$. 这部分损失将作为主损失 $\mathcal{L}_\mathsf{main}$ 的附加损失，在训练过程中同时计算梯度。
+
+$$\mathcal{L}_\mathsf{MTP}=\frac{\lambda}{D}\sum\_{k=1}^{D}\mathcal{L}\_\mathsf{MTP}^{k}\qquad其中,\mathcal{L}\_\mathsf{MTP}^{k}=\mathsf{CSE}(p\_{2+k:T+1}^{k},t\_{2+k:T+1})=-\frac{1}{T}\sum\_{i=2+k}^{T+1}\log(P\_i^k[t\_i])$$
+
+> 这里计算 CSE 时下标从 $2+k$ 开始到 $T+1$ 结束，很好理解：假设当前预测深度为 $k$，那么我们在第 $k$ 个 Module，此时输入的第 1 个 token 是原序列中的第 $k+1$ 个 token. 对应到真实标签中就是第 $k+2$ 个 token，这意味着前面的 token 将不参与计算. 然而无论预测深度是多少，计算 CSE 时总会除以序列长度 $T$，因此 $k$ 越深，其对总体损失的影响越小.
+
+DeepSeekV3 中强调，**MTP 的设计主要是为了训练过程能加速收敛，更充分的使用训练样本**。所以针对推理阶段只是简单介绍了一段。这里也稍微展开讲下推理的过程。DeepSeekV3 推理可以有两种方法：
+
+- 方法1：直接把 MTP Module 头全部删掉，模型变成了单 token 预测的。然后部署模型，用自回归 autoregressive 做推理。这个就跟正常 LLM 模型推理一样，没有什么加速。
+- 方法2：保留 MTP Module 做 self-speculative 解码 ~(这个可能翻译成“自猜测”，我自己猜测的xwx)~，这样充分使用多 token 预测能力，提升推理加速性能。
 
 ## 训练框架上的优化：极大减少显存占用，实现 “飞速” 训练
 
