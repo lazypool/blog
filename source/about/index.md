@@ -60,7 +60,7 @@ layout: about
                 <li class="todo-list-li done">保研：将简历修改后发给孟老师<span></span></li>
                 <li class="todo-list-li done">修改今日待办列表，使之兼容移动端<span></span></li>
                 <li class="todo-list-li done">更新 deepseek 博客：MTP<span></span></li>
-                <li class="todo-list-li">开坑：Kafka 在 B 站的实践<span></span></li>
+                <li class="todo-list-li done">开坑：Kafka 在 B 站的实践<span></span></li>
                 <li class="todo-list-li">dwm 状态栏的根脚本及日期显示脚本<span></span></li>
             </ul>
         </div>
