@@ -31,17 +31,17 @@ layout: about
     <section style="background: #ffffff; padding: 10px 30px; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15); width: 320px;">
       <header style="text-align: center; padding: 10px 0; border-bottom: 1px solid #ddd;">
         <h2 style="color: #497081; font-weight: 600; font-size: 1.5rem; margin: 4px auto; padding: 0;">
-          Wednesday
+          Thursday
         </h2>
         <p style="padding: 0 0 5px; margin: 4px auto; font-size: 1.0rem;">
-          March 26, 2025
+          March 27, 2025
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li done">在 HCI 讨论板上发表内容<span></span></li>
-        <li class="todo-list-li done">更新 deepseek 博客：MLA<span></span></li>
+        <li class="todo-list-li">保研：将简历修改后发给孟老师<span></span></li>
+        <li class="todo-list-li">更新 deepseek 博客：MTP<span></span></li>
+        <li class="todo-list-li">开坑：Kafka 在 B 站的实践<span></span></li>
         <li class="todo-list-li">dwm 状态栏的根脚本及日期显示脚本<span></span></li>
-        <li class="todo-list-li">完成 HMIS 的 nest 框架初始化<span></span></li>
       </ul>
     </section>
   </div>
