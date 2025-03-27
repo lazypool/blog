@@ -38,8 +38,8 @@ layout: about
         </p>
       </header>
       <ul style="list-style: none; padding: 0;">
-        <li class="todo-list-li">在 HCI 讨论板上发表内容<span></span></li>
-        <li class="todo-list-li">更新 deepseek 博客：MLA<span></span></li>
+        <li class="todo-list-li done">在 HCI 讨论板上发表内容<span></span></li>
+        <li class="todo-list-li done">更新 deepseek 博客：MLA<span></span></li>
         <li class="todo-list-li">dwm 状态栏的根脚本及日期显示脚本<span></span></li>
         <li class="todo-list-li">完成 HMIS 的 nest 框架初始化<span></span></li>
       </ul>
