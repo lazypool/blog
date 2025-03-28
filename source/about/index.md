@@ -58,10 +58,10 @@ layout: about
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li done">保研资料准备：整理参加过的项目发给灰崽<span></span></li>
-                <li class="todo-list-li">更新 deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
+                <li class="todo-list-li done">更新 deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
                 <li class="todo-list-li done">更新 Kafka 在 B 站的实践一文<span></span></li>
-                <li class="todo-list-li">dwm 状态栏的优化插件与脚本进阶<span></span></li>
-                <li class="todo-list-li">参加 linux 俱乐部的工作餐<span></span></li>
+                <li class="todo-list-li done">dwm 状态栏的优化插件与脚本进阶<span></span></li>
+                <li class="todo-list-li done">参加 linux 俱乐部的工作餐<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
