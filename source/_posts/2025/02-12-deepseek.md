@@ -80,18 +80,19 @@ Deepseek 在模型上的改进有两条主线：**一是优化模型表现**，�
 - $c\_t^\mathsf{KV}\in\mathbb{R}^{d\_c}$，是将被缓存的**潜在特征**，其维度远小于 KV 对.
 - $W^\mathsf{DKV}\in\mathbb{R}^{d\_c\times{d}}$，是降维矩阵 _(Down KV matrix)_ ，它将在微调时学习.
 - 缓存后的 $c\_t^\mathsf{KV}$ 将在下次推理时被“释放”，生成用于计算注意力的 $\mathbf{K}$ 和 $\mathbf{V}$.
-- $[\mathbf{k}\_{t,1}^\mathsf{C},\mathbf{k}\_{t,2}^\mathsf{C},\cdots,\mathbf{k}\_{t,h_n}^\mathsf{C}]=\mathbf{k}\_t^\mathsf{C}=W^\mathsf{UK}c\_t^\mathsf{KV}$
+    - $[\mathbf{k}\_{t,1}^\mathsf{C},\mathbf{k}\_{t,2}^\mathsf{C},\cdots,\mathbf{k}\_{t,h_n}^\mathsf{C}]=\mathbf{k}\_t^\mathsf{C}=W^\mathsf{UK}c\_t^\mathsf{KV}$
     - $[\mathbf{v}\_{t,1}^\mathsf{C},\mathbf{v}\_{t,2}^\mathsf{C},\cdots,\mathbf{v}\_{t,h_n}^\mathsf{C}]=\mathbf{v}\_t^\mathsf{C}=W^\mathsf{UV}c\_t^\mathsf{KV}$
     - $h\_n$ 是注意力头的个数 _(heads number)_ ，有多少头就要缓存多少 KV 对.
     - $W^\mathsf{UK}$ 和 $W^\mathsf{UV}$ 是两个升维矩阵 _(Up K matrix 和 Up V matrix)_.
 - 看完右边再来看中间：这里对输入进行了 RoPE 旋转位置编码得到了 $\mathbf{k}\_t^\mathsf{R}$.
 - $\mathbf{k}\_t^\mathsf{R}=\mathsf{RoPE}(W^\mathsf{KR}h\_{t})$，注意它将被缓存.
-- 关于 RoPE 可以去看我的另外一篇博客，里面有 RoPE 的详细代码：[Llama2 RoPE](https://lazypool-blog.netlify.app/2025/01/09/llama123/#RoPE%EF%BC%9A%E4%BB%A5%E7%AE%80%E4%BE%BF%E6%96%B9%E5%BC%8F%E6%9C%89%E6%95%88%E6%8D%95%E6%8D%89%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF).
+    - 关于 RoPE 可以去看我的另外一篇博客，里面有 RoPE 的详细代码：[Llama2 RoPE](https://lazypool-blog.netlify.app/2025/01/09/llama123/#RoPE%EF%BC%9A%E4%BB%A5%E7%AE%80%E4%BE%BF%E6%96%B9%E5%BC%8F%E6%9C%89%E6%95%88%E6%8D%95%E6%8D%89%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF).
     - 拼接 $\mathbf{k}\_t^\mathsf{C}$ 与 $\mathbf{k}\_t^\mathsf{R}$ ，即得到正式参与注意力的 $\mathbf{K}$.
-    - 最后是左边关于 $\mathbf{Q}$ 的处理部分，同样进行了降维、升维与 RoPE.
-        - $c\_t^\mathsf{Q}=W^\mathsf{DQ}h\_t$
-        - $[\mathbf{q}\_{t,1}^\mathsf{C},\mathbf{q}\_{t,2}^\mathsf{C},\cdots,\mathbf{q}\_{t,h_n}^\mathsf{C}]=\mathbf{q}\_t^\mathsf{C}=W^\mathsf{UQ}c\_t^\mathsf{Q}$
-        - $\mathbf{q}\_{t}^\mathsf{R}=\mathsf{RoPE}(W^\mathsf{QR}h\_t)$
+- 最后是左边关于 $\mathbf{Q}$ 的处理部分，同样进行了降维、升维、 RoPE 与 拼接.
+    - $c\_t^\mathsf{Q}=W^\mathsf{DQ}h\_t$
+    - $[\mathbf{q}\_{t,1}^\mathsf{C},\mathbf{q}\_{t,2}^\mathsf{C},\cdots,\mathbf{q}\_{t,h_n}^\mathsf{C}]=\mathbf{q}\_t^\mathsf{C}=W^\mathsf{UQ}c\_t^\mathsf{Q}$
+    - $\mathbf{q}\_{t}^\mathsf{R}=\mathsf{RoPE}(W^\mathsf{QR}h\_t)$
+    - 拼接 $\mathbf{q}\_t^\mathsf{C}$ 与 $\mathbf{q}\_t^\mathsf{R}$ ，即得到正式参与注意力的 $\mathbf{Q}$.
 
 以上部分走完后就是传统的多头注意力机制了，$\mathbf{K}$ 和 $\mathbf{Q}$ 点积缩放归一过后与 $\mathbf{V}$ 相乘，最终的结果再经过一个输出矩阵 $W^\mathsf{O}$ 转化后即得。那么回头来想一下，其实我们废了这么大劲就只是为了使推理时的显存占用变得更小而已：原来的 KV-Cache 缓存完整的 KV 对，而 MLA 仅缓存 KV 对中低维本质的特征。
 
@@ -293,7 +294,21 @@ DeepSeek-V3 的训练由 HAI-LLM 框架支持，该框架是由 DS 团队从零�
 
 #### 跨节点全双工通信
 
-#### 极致的内存优化，极小的代价
+#### 用时间换空间
+
+DS 团队还采用了以下技术优化训练过程的内存占用，**用极小的时间代价实现了极致的内存节约**：
+
+##### 预先计算 RMSNorm 和 MLA 升维操作的结果
+
+RMSNorm 和 MLA 中的升维操作频繁发生在前向传播过程中。**然而，DS 注意到这两项操作的输入有时候是固定的**。 _(比如，对嵌入层输出进行 RMSNorm 时，以及 MLA 中将被缓存的低秩潜在特征升维到高维原始特征时。)_ 这种输入不变性使反向传播过程中的预计算成为可能。于是，DS **在反向传播的过程中预先计算正向传播中 RMSNorm 和 MLA 升维操作的结果，避免保存中间激活值。** 这种策略以极低的时间开销减少了极大的内存存储消耗。
+
+##### CPU 的指数移动平均 (EMA, Exponential Moving Average)
+
+**指数移动平均 EMA** 是一种参数平滑更新技术，是指**通过历史参数的加权平均生成稳定版本，用于缓解训练波动**。DS 采用 CPU 的内存来存储模型参数的 EMA 值，用于学习率衰减阶段的性能预估。EMA 参数通过异步方式更新，在 GPU 训练间隙完成数据传输与参数更新，消除设备内存占用。
+
+##### MTP 阶段共享嵌入 (Embedding) 和输出层 (Output Head)
+
+基于 DualPipe 流水线策略，将模型最浅层（嵌入层）与最深层（输出头）部署于同一流水线并行（PP）层级。**通过物理合并相邻计算单元，使参数存储地址一致。**各 MTP Module 间共享嵌入层/输出头的参数及梯度，减少重复存储开销，同时保留多 Token 预测功能。
 
 ### FP8 混合精度训练
 
