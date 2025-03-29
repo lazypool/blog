@@ -60,7 +60,7 @@ layout: about
                 <li class="todo-list-li">将证据资料打印后递交派出所<span></span></li>
                 <li class="todo-list-li">开新坑：进程、线程、协程概念辨析<span></span></li>
                 <li class="todo-list-li">更新 deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
-                <li class="todo-list-li">更新 Kafka 在 B 站的实践一文<span></span></li>
+                <li class="todo-list-li done">更新 Kafka 在 B 站的实践一文<span></span></li>
                 <li class="todo-list-li">开始信息伦理与隐私保护的大写作<span></span></li>
             </ul>
         </div>
