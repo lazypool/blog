@@ -59,7 +59,7 @@ layout: about
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li done">完坑：进程、线程、协程概念辨析<span></span></li>
                 <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
-                <li class="todo-list-li">完坑：Kafka 在 B 站的实践一文<span></span></li>
+                <li class="todo-list-li done">完坑：Kafka 在 B 站的实践一文<span></span></li>
                 <li class="todo-list-li">完坑：deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
             </ul>
         </div>
