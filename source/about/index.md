@@ -57,9 +57,9 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">完坑：deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
+                <li class="todo-list-li done">完坑：deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
                 <li class="todo-list-li">利用 python 搭建汽车智能问答 demo 原型<span></span></li>
-                <li class="todo-list-li">晚上到新太阳四楼参加心理咨询<span></span></li>
+                <li class="todo-list-li done">晚上到新太阳四楼参加心理咨询<span></span></li>
                 <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
             </ul>
         </div>
