@@ -50,17 +50,17 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Sunday
+        Monday
     &emsp;<span style="font-size:15pt;">
-        March 30, 2025
+        March 31, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li done">完坑：进程、线程、协程概念辨析<span></span></li>
-                <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
-                <li class="todo-list-li done">完坑：Kafka 在 B 站的实践一文<span></span></li>
                 <li class="todo-list-li">完坑：deepseek 博客 FP8 和 Dual Pipe 部分<span></span></li>
+                <li class="todo-list-li">利用 python 搭建汽车智能问答 demo 原型<span></span></li>
+                <li class="todo-list-li">晚上到新太阳四楼参加心理咨询<span></span></li>
+                <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
