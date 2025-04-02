@@ -57,10 +57,10 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">完成国家公共文化服务云的场景分析<span></span></li>
-                <li class="todo-list-li">提交上次参与大数据讲座的照片及心得<span></span></li>
-                <li class="todo-list-li">代码：HMIS 的 Nest 后端规划<span></span></li>
-                <li class="todo-list-li">参加下午的大数据讲座<span></span></li>
+                <li class="todo-list-li done">完成国家公共文化服务云的场景分析<span></span></li>
+                <li class="todo-list-li done">提交上次参与大数据讲座的照片及心得<span></span></li>
+                <li class="todo-list-li done">代码：HMIS 的 Nest 后端规划<span></span></li>
+                <li class="todo-list-li done">参加下午的大数据讲座<span></span></li>
                 <li class="todo-list-li">更新：deepseek 的强化学习部分<span></span></li>
                 <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
             </ul>
