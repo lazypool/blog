@@ -8,15 +8,15 @@ layout: about
 <br style="margin-bottom:20px;">
 
 <style>
-.heatmap-container { display:flex; gap:10px; }
-.monthlabels { position: relative; height: 20px; margin-bottom: 5px; margin-left: 20px; font-size: 12px; }
-.weekday-labels { display:grid; grid-template-rows:repeat(7, 1fr); gap:3px; font-size:9px; color:#000; padding-top:3px; }
+.heatmap-weekday-container { display:flex; gap:10px; width:100%;}
+.monthlabels { position: relative; height: 20px; margin-bottom: 5px; margin-left: 0px; font-size: 12px; }
+.weekday-labels { display:grid; grid-template-rows:repeat(7, 1fr); gap:3px; font-size:9px; color:#000; padding-top:25px; }
 .heatmap { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; }
 .day { width: 16px; height: 16px; position: relative; }
 .day.show:hover::after { 
-    content: attr(data-count) "contributions on " attr(data-date); position: absolute;
+    content: attr(data-count) " contributions on " attr(data-date); position: absolute;
     top: -30px; left: 50%; transform: translateX(-50%); background: #000; color: #fff;
-    padding: 4px 8px; border-radius: 3px; font-size: 12px; white-space: nowrap; z-index: 1; }
+    padding: 4px 8px; border-radius: 3px; font-size: 10px; white-space: nowrap; z-index: 1; }
 .color-0 { background-color: #ebedf0; }
 .color-1 { background-color: #a1dab4; }
 .color-2 { background-color: #41b6c4; }
@@ -29,13 +29,13 @@ layout: about
 </style>
 
 <div style="padding: 30px; background: #fff; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
-    <div class="heatmap-container">
-        <div class="weekday-labels">
+    <div class="heatmap-weekday-container">
+        <div class="weekday-labels" style="max-width:5%">
             <div style="grid-row:1;">Sun</div>
             <div style="grid-row:4;">Thu</div>
             <div style="grid-row:7;">Sat</div>
         </div>
-        <div id="overflow-container" style="overflow-x:auto;">
+        <div id="heatmap-container" style="width:95%">
             <div class="monthlabels" id="monthlabels"></div>
 	        <div class="heatmap" id="heatmap"></div>
         </div>
@@ -50,17 +50,19 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Tuesday
+        Wednesday
     &emsp;<span style="font-size:15pt;">
-        April 1, 2025
+        April 2, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">搭建：利用 python 搭建汽车智能问答 demo 原型<span></span></li>
+                <li class="todo-list-li">完成国家公共文化服务云的场景分析<span></span></li>
+                <li class="todo-list-li">提交上次参与大数据讲座的照片及心得<span></span></li>
+                <li class="todo-list-li">代码：HMIS 的 Nest 后端规划<span></span></li>
+                <li class="todo-list-li">参加下午的大数据讲座<span></span></li>
                 <li class="todo-list-li">更新：deepseek 的强化学习部分<span></span></li>
                 <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
-                <li class="todo-list-li">纠错：解决 HMIS 跨平台不兼容的问题<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
@@ -74,8 +76,10 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 
 fetch("https://github-contributions-api.jogruber.de/v4/lazypool?y=last")
     .then(rsp => rsp.json())
     .then(data => {
+        var width= document.getElementById('heatmap-container').clientWidth;
+        var ignore = Math.floor(data.contributions.length / 7 - width / 19) * 7;
         data.contributions.forEach((day, idx) => {
-            if (idx < 77) return;
+            if (idx < ignore) return;
             var div = document.createElement('div')
             div.className = `day color-${day.level} show`;
             div.setAttribute('data-count', day.count);
@@ -85,12 +89,10 @@ fetch("https://github-contributions-api.jogruber.de/v4/lazypool?y=last")
             if (datetime.getDate() !== 1) return;
             var div = document.createElement('div')
             div.style.position = 'absolute';
-            div.style.left = `${Math.floor((idx - 77) / 7) * 19}px`;
+            div.style.left = `${Math.floor((idx - ignore) / 7) * 19}px`;
             div.textContent = MONTHS[datetime.getMonth()];
             document.getElementById('monthlabels').appendChild(div);
         });
-        var container = document.getElementById('overflow-container');
-        container.scrollLeft = container.scrollWidth - container.clientWidth;
     })
 .catch(err => console.log(err))
 </script>
