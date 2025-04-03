@@ -58,7 +58,7 @@ layout: about
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">代码：HMIS 的 Nest 注册登录鉴权部分<span></span></li>
-                <li class="todo-list-li">提交：昨日参与大数据讲座的照片及心得<span></span></li>
+                <li class="todo-list-li done">提交：昨日参与大数据讲座的照片及心得<span></span></li>
                 <li class="todo-list-li">更新：deepseek 的强化学习部分<span></span></li>
                 <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
             </ul>
