@@ -57,10 +57,10 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">作业：应用量化分析的回归分析<span></span></li>
+                <li class="todo-list-li done">作业：应用量化分析的回归分析<span></span></li>
                 <li class="todo-list-li">审稿：Anals of Data Science 稿件一篇<span></span></li>
                 <li class="todo-list-li">作业：大数据实践的期中报告<span></span></li>
-                <li class="todo-list-li">作业：HMIS 生成虚假数据<span></span></li>
+                <li class="todo-list-li done">作业：HMIS 生成虚假数据<span></span></li>
                 <li class="todo-list-li">更新：deepseek 的强化学习部分<span></span></li>
                 <li class="todo-list-li">开坑：MCP？模型上下文协议，新时代的先声<span></span></li>
             </ul>
