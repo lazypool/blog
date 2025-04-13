@@ -57,7 +57,7 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">休息：剪头发，玩一会儿电脑游戏<span></span></li>
+                <li class="todo-list-li done">休息：剪头发，玩一会儿电脑游戏<span></span></li>
                 <li class="todo-list-li">保研：准备 1～2 封推荐信模板<span></span></li>
                 <li class="todo-list-li">审稿：Anals of Data Science 稿件一篇<span></span></li>
                 <li class="todo-list-li">更新：deepseek 的强化学习部分<span></span></li>
