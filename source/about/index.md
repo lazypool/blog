@@ -57,8 +57,8 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">健身：晨跑五公里并打卡<span></span></li>
-                <li class="todo-list-li">保研：准备 1～2 封推荐信模板<span></span></li>
+                <li class="todo-list-li done">健身：晨跑五公里并打卡<span></span></li>
+                <li class="todo-list-li done">保研：准备 1～2 封推荐信模板<span></span></li>
                 <li class="todo-list-li">作业：人工智能引论 lab2 机器学习算法<span></span></li>
                 <li class="todo-list-li">审稿：Anals of Data Science 稿件一篇<span></span></li>
                 <li class="todo-list-li">更新：deepseek 的强化学习部分<span></span></li>
