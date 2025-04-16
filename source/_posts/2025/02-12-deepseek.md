@@ -362,9 +362,31 @@ DS 提出了面向 FP8 训练的混合精度框架，如下图。该框架将大
 
 ## 利用强化学习提升模型能力：对齐人类水平，挖掘模型潜能
 
+DS 团队的奖励模型 RM 由两部分组成：**基于规则的** 和 **基于模型的**。并使用了 **群体相对策略优化算法** (GRPO) 进行强化学习，区别于过去使用的 PPO 算法。
+
 ### 回馈函数 RM 的设计
 
+`基于规则的` **对于具有明确回答形式和内容的问题**，如数学、代码问题。DS 根据一些特定的规则或者是编译器的反馈来确定模型回答的得分。该得分是明确的、固定的。
+
+`基于模型的` **则是对于那些回答形式以及内容相对自由的问题**，比如“写一首诗”、“帮我总结内容”、“对输入文本进行润色”等涉及创意写作的问题。模型回答的得分将由一个 **概率模型** 估计。通常，该概率模型与 LLM 结构完全相同，仅是将输出头从概率预测变为数值型预测而已。**其参数将被初始化为 LLM 训练过程中的某个 checkpoint，用以保持训练的稳定性。**
+
+显然，对 `基于模型的` 奖励模型来说，需要预先收集 **人类偏好数据** (Human Preference Data)，并确定合适的 **优化目标函数** (Optimization Function) 进行反复迭代。这一点与 ChatGPT 和 LLaMA 等大同小异。然而，DS 更强调思维链（CoT）的质量，因此训练该 RM 的偏好数据**不仅包括最终奖励，还包括导致该奖励的推理过程。**
+
 ### 群体相对策略优化算法 (GRPO)
+
+DS 使用了 **群体相对策略优化算法** (GRPO, Group Relative Policy Optimization)，该算法摒弃了通常与策略模型大小相同的评估模型，而是从组得分中估计 baseline。具体来说，对于每个问题 $q$，GRPO 从旧策略模型 $\pi_{\theta_{old}}$ 中采样一组输出 $\\{o_1,o_2,...,o_G\\}$，然后通过最大化如下目标来优化策略模型 $\pi_{\theta}$：
+
+$$\begin{aligned}
+\mathcal{J}\_{GRPO}(\theta) &= \mathbb{E}[q \sim P(Q), \\{o\\}\_{i=1}^{G} \sim \pi\_{\theta\_{old}} (O | q)] \\\\
+&\frac{1}{G} \sum\_{i=1}^{G} ( \min( \frac{\pi\_{\theta}(o\_i | q)}{\pi\_{\theta\_{old}}(o\_i | q)}, \text{clip}(\frac{\pi\_{\theta}(o\_i | q)}{\pi\_{\theta\_{old}}(o\_i | q)}, 1 - \epsilon, 1 + \epsilon)A\_i) - \beta\mathbb{D}\_{KL}(\pi\_{\theta}||\pi\_{ref})), \\\\
+where.\quad&\mathbb{D}\_{KL}(\pi\_\theta || \pi\_{ref}) = \frac{\pi\_{ref}(o\_i|q)}{\pi\_\theta(o\_i|q)} - \log \frac{\pi\_{ref}(o\_i|q)}{\pi\_\theta(o\_i|q)} - 1
+\end{aligned}$$
+
+其中 $\epsilon$ 和 $\beta$ 是超参数；$\pi\_{ref}$ 是偏好模型；$A\_i$ 是优势估计 (advantage)，基于每个组的输出所对应的奖励集 $\\{r_1,r_2,\cdots,r_G\\}$ 计算：
+
+$$A_i = \frac{r\_i - \text{mean}(\\{r_1,r_2,\cdots,r_G\\})}{\text{std}(\\{r_1,r_2,\cdots,r_G\\})}$$
+
+在强化学习过程中，DS 整合了来自不同领域的提示，例如编码、数学、写作、角色扮演和问题回答。这种方法不仅使模型更接近人类的偏好，而且提高了基准测试的性能，特别当可用的 SFT 数据有限时。
 
 ## DeepSeek-V3 的表现：屠榜同行，时代先声？
 
