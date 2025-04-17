@@ -50,17 +50,14 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Monday
+        Thursday
     &emsp;<span style="font-size:15pt;">
-        April 14, 2025
+        April 17, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li done">体测：10 点左右到邱德拔集合进行体测<span></span></li>
-                <li class="todo-list-li done">会议：下午 3 点到二教 518 参会<span></span></li>
                 <li class="todo-list-li">审稿：Anals of Data Science 稿件一篇<span></span></li>
-                <li class="todo-list-li done">更新：deepseek 的强化学习部分<span></span></li>
                 <li class="todo-list-li">作业：人工智能引论 lab2 机器学习算法<span></span></li>
             </ul>
         </div>
