@@ -57,10 +57,10 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">作业：MPI 实现 allReduce 操作并对比性能<span></span></li>
+                <li class="todo-list-li done">作业：MPI 实现 allReduce 操作并对比性能<span></span></li>
                 <li class="todo-list-li">作业：人工智能引论 lab2 机器学习算法<span></span></li>
                 <li class="todo-list-li">锻炼：跑步 5 公里以上并打卡<span></span></li>
-                <li class="todo-list-li">开新：写篇有关集合与位运算的短篇小博客<span></span></li>
+                <li class="todo-list-li done">开新：写篇有关集合与位运算的短篇小博客<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
