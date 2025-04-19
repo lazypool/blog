@@ -2,7 +2,7 @@
 layout: post
 title: BFS、DFS、UCS、A*：常用的搜索算法简介 🔎
 categories:
-  - 💻 抠点代码
+  - 💻 抠点算法
 tags: [数据结构与算法, 搜索算法, 人工智能]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00013.jpg
 date: 2025-03-15 13:34:24
