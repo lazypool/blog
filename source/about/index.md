@@ -58,7 +58,7 @@ layout: about
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">休息：玩一会儿电脑游戏，放松一下啊<span></span></li>
-                <li class="todo-list-li">作业：人工智能引论 lab2 机器学习算法<span></span></li>
+                <li class="todo-list-li done">作业：人工智能引论 lab2 机器学习算法<span></span></li>
                 <li class="todo-list-li">锻炼：跑步 5 公里以上并打卡<span></span></li>
                 <li class="todo-list-li">更新：有关集合与位运算的短篇小博客<span></span></li>
             </ul>
