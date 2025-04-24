@@ -59,7 +59,7 @@ layout: about
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">锻炼：跑步 5 公里以上并打卡<span></span></li>
                 <li class="todo-list-li">更新：有关集合与位运算的短篇小博客<span></span></li>
-                <li class="todo-list-li">作业：完成 AI 引论的第 4 次课后练习<span></span></li>
+                <li class="todo-list-li done">作业：完成 AI 引论的第 4 次课后练习<span></span></li>
                 <li class="todo-list-li">作业：完成并行程序设计第 4 次作业<span></span></li>
             </ul>
         </div>
