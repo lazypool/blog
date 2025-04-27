@@ -50,17 +50,17 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Sunday
+        Monday
     &emsp;<span style="font-size:15pt;">
-        April 27, 2025
+        April 28, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li done">长跑：早上 7:45 按时参加五四长跑<span></span></li>
-                <li class="todo-list-li done">休息：玩一会儿电脑游戏，休息一下<span></span></li>
-                <li class="todo-list-li done">更新：有关集合与位运算的短篇小博客<span></span></li>
                 <li class="todo-list-li">复习：准备人工智能引论的 CheatSheet<span></span></li>
+                <li class="todo-list-li">考试：下午 1 点到二教 102 参加考试<span></span></li>
+                <li class="todo-list-li">上课：下午 3 点上大数据应用案例分析<span></span></li>
+                <li class="todo-list-li">博客：将 DeepSeek 博客写完整<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
