@@ -58,8 +58,8 @@ layout: about
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li done">复习：准备人工智能引论的 CheatSheet<span></span></li>
-                <li class="todo-list-li">考试：下午 1 点到二教 102 参加考试<span></span></li>
-                <li class="todo-list-li">上课：下午 3 点上大数据应用案例分析<span></span></li>
+                <li class="todo-list-li done">考试：下午 1 点到二教 102 参加考试<span></span></li>
+                <li class="todo-list-li done">上课：下午 3 点上大数据应用案例分析<span></span></li>
                 <li class="todo-list-li">博客：将 DeepSeek 博客写完整<span></span></li>
             </ul>
         </div>
