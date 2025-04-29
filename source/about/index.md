@@ -57,8 +57,8 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">复习：利用上午的时间进行复习<span></span></li>
-                <li class="todo-list-li">考试：下午 1 点到二教 311 考试<span></span></li>
+                <li class="todo-list-li done">复习：利用上午的时间进行复习<span></span></li>
+                <li class="todo-list-li done">考试：下午 1 点到二教 311 考试<span></span></li>
                 <li class="todo-list-li">博客：将 DeepSeek 博客写完整<span></span></li>
                 <li class="todo-list-li">休息：玩一会儿电脑游戏，并整理 ddl<span></span></li>
             </ul>
