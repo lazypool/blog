@@ -50,16 +50,17 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Tuesday
+        Wednesday
     &emsp;<span style="font-size:15pt;">
-        April 29, 2025
+        April 30, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li done">复习：利用上午的时间进行复习<span></span></li>
-                <li class="todo-list-li done">考试：下午 1 点到二教 311 考试<span></span></li>
-                <li class="todo-list-li">博客：将 DeepSeek 博客写完整<span></span></li>
+                <li class="todo-list-li">作业：完成 cuda 编程作业<span></span></li>
+                <li class="todo-list-li">开会：下午 3 点到地学 312 开会<span></span></li>
+                <li class="todo-list-li">锻炼：跑步 5 公里并打卡<span></span></li>
+                <li class="todo-list-li">博客：将 DeepSeek 博客写完<span></span></li>
                 <li class="todo-list-li">休息：玩一会儿电脑游戏，并整理 ddl<span></span></li>
             </ul>
         </div>
