@@ -52,12 +52,12 @@ layout: about
     <p style="font-size:25pt; margin-top:1.5em;">
         Saturday
     &emsp;<span style="font-size:15pt;">
-        May 3, 2025
+        May 6, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">放假：今日放假，尽情放松吧<span></span></li>
+                <li class="todo-list-li">假期结束：收拾东西，返京<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
