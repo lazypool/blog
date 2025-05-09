@@ -57,9 +57,9 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">健身：到健身房进行日常训练<span></span></li>
-                <li class="todo-list-li">写作：编写大数据表演的段子<span></span></li>
-                <li class="todo-list-li">提交：提交换源脚本更新的 commit<span></span></li>
+                <li class="todo-list-li done">健身：到健身房进行日常训练<span></span></li>
+                <li class="todo-list-li done">写作：编写大数据表演的段子<span></span></li>
+                <li class="todo-list-li done">提交：提交换源脚本更新的 commit<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
