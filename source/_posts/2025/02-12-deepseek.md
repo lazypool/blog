@@ -55,8 +55,8 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在 [Huggingface]
 1) 模型上的改进部分，包括：**多头潜在注意力机制** 、**混合专家模型** 、**多 Token 预测** ；
 2) 训练框架上的优化，如 **DualPipe 算法**，以及 **FP8 混合精度训练**；
 3) 利用强化学习提升模型能力：回馈函数的设计、**群体相对策略优化 (GRPO) 算法**；
-4) DeepSeek-V3 的表现： to be continued...
-5) DeepSeek-R1 的相关内容：to be continued...
+4) DeepSeek-V3 的表现：**评分标准**、**对比基线**等。
+5) DeepSeek-R1 的相关内容，特别是其 **对于 LLM 自主学习能力的探索**。
 
 ## 模型上的改进：更快、更好，同时追求速度和质量
 
@@ -390,8 +390,31 @@ $$A_i = \frac{r\_i - \text{mean}(\\{r_1,r_2,\cdots,r_G\\})}{\text{std}(\\{r_1,r_
 
 ## DeepSeek-V3 的表现：屠榜同行，时代先声？
 
-// to be continued...
+![DeepSeek-V3 在主要 Benchmark 上的表现](./performance.png)
+
+评估体系设计覆盖语言模型能力的多维度验证，构建了包含 **指令遵循（IFEval）**、**长文本处理（LongBench v2）**、**专业领域（GPQA、CNMO 数学奥赛）**、**代码能力（SWE-Bench、LiveCodeBench）**等 12 个前沿测试集的综合评价矩阵。
+
+对比实验中，研究选取了 **DeepSeek-V2 系列**、**Qwen2.5 72B**、**LLaMA-3.1 405B**、**Claude-Sonnet-3.5** 及 **GPT-4o** 等当前主流大模型作为基准，通过 API 接口进行系统性能力评测，重点考察模型在 2024 年最新测试数据（如 AIME 数学竞赛、Codeforces 编程题）上的表现。这种多维度的评估策略为全面衡量模型的实际应用能力提供了可靠依据。
 
 ## DeepSeek-R1 的相关内容：强化学习方面的努力与尝试
 
-// to be continued...
+### 两大核心探索：自主学习和知识蒸馏
+
+- **对自主学习能力的探索**
+    - **直接在基础模型上实施两阶段强化学习（RL），颠覆了传统依赖监督微调（SFT）的范式。**
+    - 首阶段段通过自主探索思维链（CoT）形成 _DeepSeek-R1-Zero_ 模型。验证了无需人工标注数据即可通过纯 RL 激励大语言模型发展自我验证、反思、长程推理等能力。
+    - **首次证明模型推理能力可通过强化学习自主演化。**
+    - 第二阶段结合 RL 与 SFT 的混合训练，构建了同时具备人类偏好的对齐和复杂问题解决能力的 DeepSeek-R1 模型。
+- **对知识蒸馏的小模型的探索**
+    - **将大模型推理模式迁移至小模型，实现了小模型性能的突破性提升。**
+    - 基于 DeepSeek-R1 生成的推理数据，对 Qwen2.5 和 Llama3系 列模型进行蒸馏后，不同规模的模型在数学竞赛（如 AIME 2024 达到 72.6%）、代码生成（LiveCodeBench 57.2%）等任务中显著超越同尺寸开源模型，部分指标甚至超过更大参数量的模型。
+
+### DeepSeek-R1-Zero 的自主演化过程
+
+![随着训练次数的增加 DeepSeek 的表现趋于优化](./deepseek-r1_zero_performance.png)
+
+![随着训练次数的增加 DeepSeek 的回答长度增加](./deepseek-r1_zero_reslength.png)
+
+**DS 团队使用 Accuracy Rewards 和 Format Rewards 来作为 DeepSeek-R1-Zero 的奖励模型。** 这两个奖励模型都是基于模板的，前者衡量回答是否正确、后者衡量回答是否具备要求的格式。如果把 DeepSeek-R1-Zero 当作一个 Agent，那它的目标就是尽一切可能获得更高的奖励。允许其使用任何手段，包括人类所未曾想到的，这即是强化学习。
+
+随着训练次数的增加，DS 团队发现了一些有趣的现象。首先是 **DeepSeek 的思考时间和回答的长度都有了显著的增加**。其次，研究人员观察到 DeepSeek 的思考过程中出现了一个有趣的 **“啊哈”时刻**：DS 在思考的过程中，会突然插入一句类似于 **Wait, wait. Wait. That’s an aha moment I can flag here.** 的话。事实证明，这个“啊哈”时刻是很有效的 reminder，可以提醒大模型总结上文，并开启更高层级的后文思考。🤔 _&emsp;&emsp;&emsp;(本博客至此正式文完，2025 年 5 月 10 日)_
