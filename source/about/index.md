@@ -50,17 +50,18 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Thursday
+        Friday
     &emsp;<span style="font-size:15pt;">
-        May 15, 2025
+        May 16, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">作业：完成数据可视化的网络可视化部分<span></span></li>
-                <li class="todo-list-li">上课：今日晚上去上信息伦理的课程，并交作业<span></span></li>
-                <li class="todo-list-li">休息：玩一会儿游戏，放松一下<span></span></li>
-                <li class="todo-list-li">健身：做一些刺激胸部肌肉的力量训练<span></span></li>
+                <li class="todo-list-li">健身：手臂、背、胸部力量训练<span></span></li>
+                <li class="todo-list-li">简历：拍摄日常生活照并整理简历<span></span></li>
+                <li class="todo-list-li">保研：看论文，撰写研究动机说明<span></span></li>
+                <li class="todo-list-li">休息：下午到值班室和税远志打牌<span></span></li>
+                <li class="todo-list-li">博客：尝试撰写 Transformer 论文阅读博客<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
