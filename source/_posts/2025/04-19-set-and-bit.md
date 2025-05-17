@@ -2,7 +2,8 @@
 layout: post
 title: 从集合论到位运算，常见位运算技巧分类总结！
 categories:
-  - 💻 抠点代码
+    - 💻 技术干货
+    - 数据结构与算法
 tags: [集合论, 位运算, 二机制]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00017.jpg
 date: 2025-04-19 12:51:21

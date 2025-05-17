@@ -2,7 +2,8 @@
 layout: post
 title: 从零入门 cuda 编程？🦴 看这篇就够了！
 categories:
-  - 🔧 工具使用
+    - 💻 技术干货
+    - 并行程序计算
 tags: [cuda 编程, 并行程序]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00012.jpg
 date: 2025-02-23 22:12:23

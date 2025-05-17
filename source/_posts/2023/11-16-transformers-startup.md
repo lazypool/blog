@@ -4,6 +4,7 @@ title: 抱脸社区：Transformers，启动🥳
 date: 2023-11-16 02:16:27
 categories:
     - 🔧 工具使用
+    - 科研工具✍️
 tags: [人工智能, Transformer] 
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00002.jpg
 ---
