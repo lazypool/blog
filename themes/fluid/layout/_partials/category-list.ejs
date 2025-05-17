@@ -9,9 +9,9 @@
         id="heading-<%= md5(cat.name) %>" role="tab" data-toggle="collapse" href="#collapse-<%= md5(cat.name) %>"
         aria-expanded="<%= collapsed ? 'false' : 'true' %>"
       >
-        <%= cat.name.trim() %>
-        <span class="list-group-count"><%= params.type === 'post' ? `(${ cat.posts.length })` : '' %></span>
         <i class="iconfont icon-arrowright"></i>
+        <span class="list-group-count"><%= params.type === 'post' ? `(${ cat.posts.length })` : '' %></span>
+        <%= cat.name.trim() %>
       </a>
       <% if(params.type !== 'post') { %>
         <a href="<%= url_for(cat.path) %>" class="category-count col-2 col-md-1 col-xm-1">
