@@ -50,18 +50,17 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Tuesday
+        Wednesday
     &emsp;<span style="font-size:15pt;">
-        May 20, 2025
+        May 21, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">健身：手臂、背、胸部力量训练<span></span></li>
-                <li class="todo-list-li">简历：拍摄日常生活照并整理简历<span></span></li>
-                <li class="todo-list-li">保研：修改研究动机说明<span></span></li>
-                <li class="todo-list-li">作业：完成数据可视化文字说明<span></span></li>
                 <li class="todo-list-li">作业：完成应用量化分析第四次作业<span></span></li>
+                <li class="todo-list-li">作业：看 cuda 编程第五次作业<span></span></li>
+                <li class="todo-list-li">晚上：晚上七点左右和孟老师开会<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
