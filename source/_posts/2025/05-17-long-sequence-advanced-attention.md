@@ -3,7 +3,7 @@ layout: post
 title: 长序列中 Transformers 的高级注意力优化机制
 categories:
     - 💻 技术干货
-    - AGI 相关
+    - AGI 相关话题
 tags: [AGI, Transformer, Attention, 注意力机制]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00018.jpg
 date: 2025-05-17 11:40:04
