@@ -59,7 +59,6 @@ layout: about
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：更新一篇跟 Cuda 访存优化有关的博客<span></span></li>
                 <li class="todo-list-li">复习：复习强化学习、多智能体、仿真部分<span></span></li>
-                <li class="todo-list-li">复习：复习强化学习、多智能体、仿真部分<span></span></li>
                 <li class="todo-list-li">作业：完成 AI 课后练习 5 第一、二题<span></span></li>
                 <li class="todo-list-li">作业：撰写自负责的管理信息系统报告<span></span></li>
             </ul>
