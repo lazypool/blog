@@ -50,15 +50,17 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Friday
+        Saturday
     &emsp;<span style="font-size:15pt;">
-        June 6, 2025
+        June 7, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：更新一篇跟 Cuda 访存优化有关的博客<span></span></li>
-                <li class="todo-list-li">讲座：下午 3 点赴方李邦琴楼 507 听讲座<span></span></li>
+                <li class="todo-list-li">讲座：上传讲座心得及照片<span></span></li>
+                <li class="todo-list-li">作业：整合应用量化分析的作业并邮发老师<span></span></li>
+                <li class="todo-list-li">复习：复习管理信息系统的 PPT<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
