@@ -50,15 +50,17 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Monday
+        Tuesday
     &emsp;<span style="font-size:15pt;">
-        June 9, 2025
+        June 10, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">博客：更新一篇跟 Cuda 访存优化有关的博客<span></span></li>
-                <li class="todo-list-li">考试：MIS 和 AI 引论的考试<span></span></li>
+                <li class="todo-list-li done">考试：参加 DV 的考试<span></span></li>
+                <li class="todo-list-li done">保研：提交北大软微电子版材料<span></span></li>
+                <li class="todo-list-li done">健身：去一次健身房<span></span></li>
+                <li class="todo-list-li">保研：写张、黄、李三人的推荐信<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
