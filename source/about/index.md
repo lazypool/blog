@@ -50,16 +50,13 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Saturday
+        Sunday
     &emsp;<span style="font-size:15pt;">
-        June 14, 2025
+        June 15, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">作业：实现关于汽车的智能对话系统<span></span></li>
-                <li class="todo-list-li">海报：绘制大数据应用实践的海报<span></span></li>
-                <li class="todo-list-li">PPT：制作大数据应用实践的 PPT<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
