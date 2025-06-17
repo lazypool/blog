@@ -50,13 +50,14 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Monday
+        Tuesday
     &emsp;<span style="font-size:15pt;">
-        June 16, 2025
+        June 17, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
+                <li class="todo-list">晚上 6 点半至系楼 414 做汇报<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
