@@ -50,15 +50,15 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Thursday
+        Friday
     &emsp;<span style="font-size:15pt;">
-        June 19, 2025
+        June 20, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list">入党：填写入党志愿书和积极分子考察表<span></span></li>
-                <li class="todo-list">复习：复习并行程序设计原理的 PPT<span></span></li>
+                <li class="todo-list">考试：参加并程设的考试<span></span></li>
+                <li class="todo-list">入党：填写入党材料并上交<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
