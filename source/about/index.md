@@ -50,16 +50,15 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Saturday
+        Sunday
     &emsp;<span style="font-size:15pt;">
-        June 28, 2025
+        June 29, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list">博客：写有关 cuda 访存优化的博客<span></span></li>
                 <li class="todo-list">休息：玩一会儿电子游戏<span></span></li>
-                <li class="todo-list">保研：填报武大人工智能学院夏令营<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
