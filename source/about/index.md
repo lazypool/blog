@@ -58,7 +58,7 @@ layout: about
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：写有关 cuda 访存优化的博客<span></span></li>
-                <li class="todo-list-li">博客：写有关字节前端一面的博客<span></span></li>
+                <li class="todo-list-li done">博客：写有关字节前端一面的博客<span></span></li>
                 <li class="todo-list-li">博客：写有关 leetcode 刷题的博客<span></span></li>
             </ul>
         </div>
