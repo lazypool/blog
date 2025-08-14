@@ -52,15 +52,14 @@ layout: about
     <p style="font-size:25pt; margin-top:1.5em;">
         Thursday
     &emsp;<span style="font-size:15pt;">
-        August 13, 2025
+        August 14, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：写有关 cuda 访存优化的博客<span></span></li>
+                <li class="todo-list-li">博客：写有关字节前端一面的博客<span></span></li>
                 <li class="todo-list-li">博客：写有关 leetcode 刷题的博客<span></span></li>
-                <li class="todo-list-li">刷题：leetcode 刷题 100 道<span></span></li>
-                <li class="todo-list-li">健身：俯卧撑、平板支撑、卷腹<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
