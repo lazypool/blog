@@ -232,15 +232,7 @@ font:
 # 指定自定义 .js 文件路径，支持列表；路径是相对 source 目录，如 /js/custom.js 对应存放目录 source/js/custom.js
 # Specify the path of your custom js file, support list. The path is relative to the source directory, such as `/js/custom.js` corresponding to the directory `source/js/custom.js`
 custom_js:
-  # - script/DynamicLine.min.js # 动态黑色线条
-  - script/DynamicRibbon.min.js # 动态彩带
-  # - script/Ribbon.min.js # 静态彩带
-  - script/runtime.min.js # 运行时间
-  # - script/snowflake.min.js # 小雪花飘落
-  # - script/Cherry.min.js #樱花飘落
-  # - script/containsWord.min.js # 鼠标点击出字
-  - script/love.min.js # 鼠标点击出爱心
-  # - script/star.min.js # 鼠标跟随小星星
+  - js/
 
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
