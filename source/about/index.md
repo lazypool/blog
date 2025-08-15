@@ -50,15 +50,15 @@ layout: about
       <div style="font-size:9px; color: #000;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Thursday
+        Friday
     &emsp;<span style="font-size:15pt;">
-        August 14, 2025
+        August 15, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
+                <li class="todo-list-li">面试：参加字节跳动前端第二次面试<span></span></li>
                 <li class="todo-list-li">博客：写有关 cuda 访存优化的博客<span></span></li>
-                <li class="todo-list-li done">博客：写有关字节前端一面的博客<span></span></li>
                 <li class="todo-list-li">博客：写有关 leetcode 刷题的博客<span></span></li>
             </ul>
         </div>
