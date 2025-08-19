@@ -1,19 +1,13 @@
 ---
 layout: post
 title: picom 服务于 X11 协议的窗口渲染器
-tags:
-  - x11
-  - picom
-  - compositor
-  - 窗口渲染
-  - 动画特效
+tags: [x11 ,picom ,compositor ,窗口渲染 ,动画特效]
 categories:
   - 🔧 工具使用
   - Oh-my-Linux
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00020.jpg
 date: 2025-07-30 15:48:21
 ---
-
 
 # picom 服务于 X11 协议的窗口渲染器
 
