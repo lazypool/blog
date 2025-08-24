@@ -226,7 +226,7 @@ configuration {
   urgent:                    #e1939a;
 }
 dummy {
-  background-color:          transpartent;
+  background-color:          transparent;
 }
 
 /*****----- 主窗口 -----*****/
