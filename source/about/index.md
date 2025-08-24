@@ -69,27 +69,32 @@ layout: about
 
 <script>
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-fetch("https://github-contributions-api.jogruber.de/v4/lazypool?y=last")
-    .then(rsp => rsp.json())
-    .then(data => {
-        var width= document.getElementById('heatmap-container').clientWidth;
-        var ignore = Math.floor(data.contributions.length / 7 - width / 19) * 7;
-        data.contributions.forEach((day, idx) => {
-            if (idx < ignore) return;
-            var div = document.createElement('div')
-            div.className = `day color-${day.level} show`;
-            div.setAttribute('data-count', day.count);
-            div.setAttribute('data-date', day.date);
-            document.getElementById('heatmap').appendChild(div);
-            var datetime = new Date(day.date)
-            if (datetime.getDate() !== 1) return;
-            var div = document.createElement('div')
-            div.style.position = 'absolute';
-            div.style.left = `${Math.floor((idx - ignore) / 7) * 19}px`;
-            div.textContent = MONTHS[datetime.getMonth()];
-            document.getElementById('monthlabels').appendChild(div);
-        });
-    })
+const OneYearAgo = s => new Date(new Date(s).setFullYear(new Date(s).getFullYear() - 1));
+fetch("https://github-contributions-api.jogruber.de/v4/lazypool")
+.then(rsp => rsp.json())
+.then(data => {
+    var width = document.getElementById('heatmap-container').clientWidth;
+    var endDate = new Date().toISOString().slice(0, 10);
+    var startDate = OneYearAgo(endDate).toISOString().slice(0, 10);
+    var contributions = data.contributions.filter(day => day.date >= startDate && day.date <= endDate);
+    var ignore = Math.floor(contributions.length / 7 - width / 19) * 7;
+    contributions.sort((a, b) => a.date.localeCompare(b.date));
+    contributions.forEach((day, idx) => {
+        if (idx < ignore) return;
+        var div = document.createElement('div')
+        div.className = `day color-${day.level} show`;
+        div.setAttribute('data-count', day.count);
+        div.setAttribute('data-date', day.date);
+        document.getElementById('heatmap').appendChild(div);
+        var datetime = new Date(day.date)
+        if (datetime.getDate() !== 1) return;
+        var div = document.createElement('div')
+        div.style.position = 'absolute';
+        div.style.left = `${Math.floor((idx - ignore) / 7) * 19}px`;
+        div.textContent = MONTHS[datetime.getMonth()];
+        document.getElementById('monthlabels').appendChild(div);
+    });
+})
 .catch(err => console.log(err))
 </script>
 
