@@ -28,7 +28,7 @@ layout: about
 .todo-list-li.done span::before { content: "✔"; }
 </style>
 
-<div style="padding: 30px; background-color: #fff; border-radius: 32px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
+<div style="padding: 30px; background-color: var(--heatmap-card-bg-color); border-radius: 32px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
     <div class="heatmap-weekday-container">
         <div class="weekday-labels" style="max-width:5%">
             <div style="grid-row:1;">Sun</div>
