@@ -10,9 +10,9 @@ layout: about
 <style>
 .heatmap-weekday-container { display:flex; gap:10px; width:100%;}
 .monthlabels { position: relative; height: 20px; margin-bottom: 5px; margin-left: 0px; font-size: 12px; }
-.weekday-labels { display:grid; grid-template-rows:repeat(7, 1fr); gap:3px; font-size:9px; color:#000; padding-top:25px; }
+.weekday-labels { display:grid; grid-template-rows:repeat(7, 1fr); gap:3px; font-size:9px; padding-top:25px; }
 .heatmap { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; }
-.day { width: 16px; height: 16px; position: relative; }
+.day { width: 16px; height: 16px; position: relative; border-radius: 3px; }
 .day.show:hover::after { 
     content: attr(data-count) " contributions on " attr(data-date); position: absolute;
     top: -30px; left: 50%; transform: translateX(-50%); background: #000; color: #fff;
@@ -28,7 +28,7 @@ layout: about
 .todo-list-li.done span::before { content: "✔"; }
 </style>
 
-<div style="padding: 30px; background: #fff; border-radius: 5px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
+<div style="padding: 30px; background-color: #fff; border-radius: 32px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
     <div class="heatmap-weekday-container">
         <div class="weekday-labels" style="max-width:5%">
             <div style="grid-row:1;">Sun</div>
@@ -41,13 +41,13 @@ layout: about
         </div>
     </div>
 	<div style="display:flex; margin-top:10px; float:right;">
-      <div style="font-size:9px; color: #000;">Less&emsp;</div>
+      <div style="font-size:9px;">Less&emsp;</div>
       <div class="day color-0"></div>
       <div class="day color-1"></div>
       <div class="day color-2"></div>
       <div class="day color-3"></div>
       <div class="day color-4"></div>
-      <div style="font-size:9px; color: #000;">&emsp;More</div>
+      <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
         Sunday
@@ -62,7 +62,7 @@ layout: about
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
-            <img src="https://cdn.pixabay.com/photo/2020/11/15/18/51/cat-5746875_1280.png" style="max-height:250px;">
+            <img src="https://cdn.pixabay.com/photo/2020/11/15/18/51/cat-5746875_1280.png" style="max-height:250px; background-color: transparent">
         </div>
     </div>
 </div>
