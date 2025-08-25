@@ -57,10 +57,10 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">学习：在图书馆看 Vue 教程<span></span></li>
-                <li class="todo-list-li">日常：找到能够日常推送技术话题的 APP<span></span></li>
-                <li class="todo-list-li">力扣：刷 10 道左右的算法题<span></span></li>
-                <li class="todo-list-li">复习：复习与前端面试相关的题目<span></span></li>
+                <li class="todo-list-li done">学习：在图书馆看 Vue 教程<span></span></li>
+                <li class="todo-list-li done">日常：找到能够日常推送技术话题的 APP<span></span></li>
+                <li class="todo-list-li done">力扣：刷 10 道左右的算法题<span></span></li>
+                <li class="todo-list-li done">复习：复习与前端面试相关的题目<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
