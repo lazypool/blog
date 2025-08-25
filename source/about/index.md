@@ -50,14 +50,16 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Sunday
+        Monday
     &emsp;<span style="font-size:15pt;">
-        August 24, 2025
+        August 25, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li done">博客：写有关 cuda 访存优化的博客<span></span></li>
+                <li class="todo-list-li">学习：在图书馆看 Vue 教程<span></span></li>
+                <li class="todo-list-li">日常：找到能够日常推送技术话题的 APP<span></span></li>
+                <li class="todo-list-li">力扣：刷 10 道左右的算法题<span></span></li>
                 <li class="todo-list-li">复习：复习与前端面试相关的题目<span></span></li>
             </ul>
         </div>
