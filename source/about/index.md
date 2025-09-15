@@ -50,16 +50,16 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Sunday
+        Monday
     &emsp;<span style="font-size:15pt;">
-        September 14, 2025
+        September 15, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">学习：在图书馆看 Vue 教程<span></span></li>
                 <li class="todo-list-li">日常：看一则科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">健身：上午到健身房健身<span></span></li>
+                <li class="todo-list-li">保研：准备武大数智拔尖选拔<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
