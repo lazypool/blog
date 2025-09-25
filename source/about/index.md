@@ -50,16 +50,17 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Wednesday
+        Thursday
     &emsp;<span style="font-size:15pt;">
-        September 24, 2025
+        September 25, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一则科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">健身：上午到健身房健身<span></span></li>
-                <li class="todo-list-li">保研：准备武大数智拔尖选拔<span></span></li>
+                <li class="todo-list-li">论文：看一到两篇髙源老师发表的论文<span></span></li>
+                <li class="todo-list-li">锻炼：尝试进行长跑锻炼<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
