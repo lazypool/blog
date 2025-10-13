@@ -50,16 +50,18 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Sunday
+        Monday
     &emsp;<span style="font-size:15pt;">
-        October 12, 2025
+        October 13, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
+                <li class="todo-list-li">论文：看两篇与减枝技术相关的论文<span></span></li>
                 <li class="todo-list-li">日常：看一则科技新闻并撰写博客<span></span></li>
-                <li class="todo-list-li">健身：上午到健身房健身<span></span></li>
-                <li class="todo-list-li">论文：看一到两篇髙源老师发表的论文<span></span></li>
+                <li class="todo-list-li">博客：编写九月份杂谈博客<span></span></li>
+                <li class="todo-list-li">健身：下午课后到健身房健身<span></span></li>
+                <li class="todo-list-li">组会：晚上八点半到系楼507开会<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
