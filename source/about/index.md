@@ -61,7 +61,7 @@ layout: about
                 <li class="todo-list-li">日常：看一则科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li done">博客：编写九月份杂谈博客<span></span></li>
                 <li class="todo-list-li done">健身：下午课后到健身房健身<span></span></li>
-                <li class="todo-list-li">组会：晚上八点半到系楼507开会<span></span></li>
+                <li class="todo-list-li done">组会：晚上八点半到系楼507开会<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
