@@ -57,11 +57,11 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">论文：看两篇与减枝技术相关的论文<span></span></li>
+                <li class="todo-list-li done">论文：看两篇与减枝技术相关的论文<span></span></li>
                 <li class="todo-list-li">日常：看一则科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li done">快递：午饭前到近邻宝去取快递<span></span></li>
                 <li class="todo-list-li">健身：下午课后到健身房健身<span></span></li>
-                <li class="todo-list-li">组会：制作下周一组会的演示文档<span></span></li>
+                <li class="todo-list-li done">组会：制作下周一组会的演示文档<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
