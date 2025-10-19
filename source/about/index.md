@@ -50,9 +50,9 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Saturday
+        Sunday
     &emsp;<span style="font-size:15pt;">
-        October 18, 2025
+        October 19, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
@@ -61,7 +61,6 @@ layout: about
                 <li class="todo-list-li">组会：制作下周一组会的演示文档<span></span></li>
                 <li class="todo-list-li">健身：下午到健身房健身<span></span></li>
                 <li class="todo-list-li">其他：补充 dunst.conf 文件<span></span></li>
-                <li class="todo-list-li">其他：下午一点到孟老师办公室面谈<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
