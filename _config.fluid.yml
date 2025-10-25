@@ -225,7 +225,7 @@ color:
 # Font
 font:
   font_size: 16px
-  font_family:
+  font_family: LXGW WenKai
   letter_spacing: 0.02em
   code_font_size: 85%
 
@@ -238,6 +238,7 @@ custom_js:
 # The usage is the same as custom_js
 custom_css:
   - css/global.css
+  - css/fonts.css
   - css/hoverhint.css
 
 # 网页访问统计

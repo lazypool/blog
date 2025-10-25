@@ -55,13 +55,13 @@ layout: about
         October 25, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
-        <div style="font-size: 12pt; font-family: 'Open Sans', Helvatica, Sans Serif; max-width:400px; width:100%">
+        <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">博客：完成三大往事博客的撰写<span></span></li>
                 <li class="todo-list-li">科研：看一篇与剪枝技术相关的论文<span></span></li>
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
-                <li class="todo-list-li">健身：下午到健身房做力量训练<span></span></li>
+                <li class="todo-list-li done">健身：下午到健身房做力量训练<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">

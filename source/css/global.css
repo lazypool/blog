@@ -1,6 +1,13 @@
-.center-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-	height: 200px;
+:root {
+  --sys-font-family:-apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;
+  --code-font-family:"JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;
+  --article-font-family:"LXGW WenKai", sans-serif;
+  --base-font-family:"LXGW WenKai", var(--sys-font-family), sans-serif;
+}
+
+body {
+  font-family:var(--base-font-family);
+	font-size: 1.2rem;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale
 }
