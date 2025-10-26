@@ -61,7 +61,7 @@ layout: about
                 <li class="todo-list-li done">博客：完成三大往事博客的撰写<span></span></li>
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
                 <li class="todo-list-li done">编程：解决 omz 对 ueberzugpp 的兼容问题<span></span></li>
-                <li class="todo-list-li">作业：完成数据治理报告第二部分<span></span></li>
+                <li class="todo-list-li done">作业：完成数据治理报告第二部分<span></span></li>
                 <li class="todo-list-li">健身：下午到健身房做力量训练<span></span></li>
             </ul>
         </div>
