@@ -59,7 +59,7 @@ layout: about
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
-                <li class="todo-list-li">博客：撰写 Linux 的字体配置博客<span></span></li>
+                <li class="todo-list-li done">博客：撰写 Linux 的字体配置博客<span></span></li>
                 <li class="todo-list-li">健身：下午到健身房做腹、肱力量训练<span></span></li>
             </ul>
         </div>
