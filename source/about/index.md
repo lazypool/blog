@@ -60,8 +60,8 @@ layout: about
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
                 <li class="todo-list-li">博客：撰写 Linux 的字体配置博客<span></span></li>
-                <li class="todo-list-li">健身：下午到健身房做胸、肩力量训练<span></span></li>
-                <li class="todo-list-li">组会：晚上 20:40 到系楼 507 开组会<span></span></li>
+                <li class="todo-list-li done">健身：下午到健身房做胸、肩力量训练<span></span></li>
+                <li class="todo-list-li done">组会：晚上 20:40 到系楼 507 开组会<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
