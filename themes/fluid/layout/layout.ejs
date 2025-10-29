@@ -1,5 +1,7 @@
 <%
+var banner_img = page.banner_img || theme.index.banner_img
 var banner_img_height = parseFloat(page.banner_img_height || theme.index.banner_img_height)
+var banner_as_bg = page.banner_as_bg || theme.index.banner_as_bg
 var colorSchema = theme.dark_mode && theme.dark_mode.enable && theme.dark_mode.default ? theme.dark_mode.default : ''
 %>
 
@@ -8,7 +10,9 @@ var colorSchema = theme.dark_mode && theme.dark_mode.enable && theme.dark_mode.d
 
 <%- partial('_partials/head.ejs') %>
 
-<body>
+<body <% if(banner_as_bg) { %>
+  style="background: url('<%- url_for(banner_img) %>') fixed center/cover no-repeat;"
+  <% } %>>
   <%- inject_point('bodyBegin') %>
 
   <header>
