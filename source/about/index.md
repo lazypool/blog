@@ -28,7 +28,7 @@ layout: about
 .todo-list-li.done span::before { content: "✔"; }
 </style>
 
-<div style="padding: 30px; background-color: var(--heatmap-card-bg-color); border-radius: 32px; box-shadow: 2px 2px 14px rgba(0,0,0,0.15);">
+<div style="padding: 30px; background-color: var(--heatmap-card-bg-color); border-radius: 32px;">
     <div class="heatmap-weekday-container">
         <div class="weekday-labels" style="max-width:5%">
             <div style="grid-row:1;">Sun</div>
@@ -133,4 +133,3 @@ fetch("https://github-contributions-api.jogruber.de/v4/lazypool")
 > &emsp;&emsp;在老街北门附近，有一面“老街印象”景观墙，墙前有一组青铜雕塑，在向游人诉说着一个个久远的故事：木匠在奋力锯木“木中藏天地，刀下有乾坤”；磨刀匠扛着特制的长凳拉长声音吆喝“磨剪子啦，镪菜刀”；铁匠光着上身“铁衣冷砧铿，烟花繁锦绣”；挑着木炭沿街叫卖的农妇“满面尘灰烟火色，两鬓苍苍十指黑”；落魄秀才徘徊在酒馆门前喃喃自语“温两碗酒，要一碟茴香豆”；挑夫在米铺前呼喊“今日米价两百文”；戴着一只脚眼镜的大夫在为老妇“切脉寸关尺，三指定乾坤”；两个顽童在磨坊门前“鞭长好纠缠，雀跃打螺陀”……
 
 <br style="margin-bottom:15px;">
-
