@@ -58,7 +58,9 @@ var colorSchema = theme.dark_mode && theme.dark_mode.enable && theme.dark_mode.d
   </main>
 
   <footer>
-    <%- inject_point('footer') %>
+    <% if(page.layout !== '404') { %>
+      <%- inject_point('footer') %>
+    <% } %>
   </footer>
 
   <!-- Scripts -->
