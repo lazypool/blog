@@ -59,9 +59,9 @@ layout: about
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
-                <li class="todo-list-li">面试：下午三点找地方会议面试<span></span></li>
-                <li class="todo-list-li">拍照：抽空拍一张好看的生活照<span></span></li>
-                <li class="todo-list-li">健身：晚上到健身房做腹、躬力量训练<span></span></li>
+                <li class="todo-list-li done">面试：下午三点找地方会议面试<span></span></li>
+                <li class="todo-list-li done">拍照：抽空拍一张好看的生活照<span></span></li>
+                <li class="todo-list-li done">健身：晚上到健身房做腹、躬力量训练<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
