@@ -50,9 +50,9 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Friday
+        Saturday
     &emsp;<span style="font-size:15pt;">
-        October 31, 2025
+        November 1, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
