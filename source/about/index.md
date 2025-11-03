@@ -61,8 +61,8 @@ layout: about
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
                 <li class="todo-list-li done">体育：参加十二分钟跑测试<span></span></li>
                 <li class="todo-list-li done">实习：协调调整每周三个全天的实习安排<span></span></li>
-                <li class="todo-list-li">健身：晚上到健身房进行胸、肩力量训练<span></span></li>
-                <li class="todo-list-li">材料：帮税远志完成谈心谈话的编写<span></span></li>
+                <li class="todo-list-li done">健身：晚上到健身房进行胸、肩力量训练<span></span></li>
+                <li class="todo-list-li done">材料：帮税远志完成谈心谈话的编写<span></span></li>
                 <li class="todo-list-li">英语：做完英语课堂展示的 PPT 的 phrase 部分<span></span></li>
             </ul>
         </div>
