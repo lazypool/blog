@@ -50,18 +50,17 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Saturday
+        Sunday
     &emsp;<span style="font-size:15pt;">
-        November 8, 2025
+        November 9, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">科研：看三篇 PBT 剪枝技术的代表性论文<span></span></li>
-                <li class="todo-list-li">健身：晚上到健身房进行背、腿力量训练<span></span></li>
-                <li class="todo-list-li done">英语：做完英语课堂展示的 PPT 的深入讨论部分<span></span></li>
-                <li class="todo-list-li done">工具：完成 slidev 框架的搭建<span></span></li>
+                <li class="todo-list-li">健身：今天应该尝试放松<span></span></li>
+                <li class="todo-list-li">工具：完成 slidev 框架的搭建<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
