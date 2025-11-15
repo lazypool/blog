@@ -59,8 +59,9 @@ layout: about
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
-                <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">健身：到健身房进行腹、肱力量训练<span></span></li>
+                <li class="todo-list-li done">科研：精读一篇论文并泛读一篇论文<span></span></li>
+                <li class="todo-list-li">毕业：设法和老师沟通出具体选题<span></span></li>
+                <li class="todo-list-li done">健身：到健身房进行腹、肱力量训练<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
