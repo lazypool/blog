@@ -208,12 +208,12 @@ int main() {
 #### `__device__`
 
 1. 声明一个驻留在设备内存的变量。
-2. 可与至多 1 个<span class="hoverhint" data-hoverhint="__constant__  __shared__  __grid_constant__">其他的变量内存标识符</span>组合使用。
+2. 可与至多 1 个其他的变量内存标识符组合使用。
 3. 默认行为 (当它单独使用时)：
     - 位于全局内存空间。
     - 生命周期与创建它的 CUDA 上下文相同。
     - 每个设备有其独立的副本。
-    - 可通过<span class="hoverhint" data-hoverhint="cudaGetSymbolAddress()  cudaGetSymbolSize()  cudaMemcpyToSymbol()  cudaMemcpyFromSymbol()">运行时 API </span>被网格内所有线程和主机访问。
+    - 可通过 [运行时 API](#进阶部分常用的-runtime-api) 被网格内所有线程和主机访问。
 4. 适合存储需要全局访问的大规模数据。
 
 #### `__constant__`
@@ -222,7 +222,7 @@ int main() {
 2. 驻留在常量内存空间。
 3. 生命周期与创建它的 CUDA 上下文相同。
 4. 每个设备有其独立的副本。
-5. 可通过<span class="hoverhint" data-hoverhint="cudaGetSymbolAddress()  cudaGetSymbolSize()  cudaMemcpyToSymbol()  cudaMemcpyFromSymbol()">运行时 API </span>被网格内所有线程和主机访问。
+5. 可通过 [运行时 API](#进阶部分常用的-runtime-api) 被网格内所有线程和主机访问。
 6. 主机在并发内核访问时修改常量会导致未定义行为。
 7. 适合存储只读数据。
 
