@@ -50,18 +50,18 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Saturday
+        Sunday
     &emsp;<span style="font-size:15pt;">
-        November 15, 2025
+        November 16, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
-                <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
+                <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">毕业：设法和老师沟通出具体选题<span></span></li>
-                <li class="todo-list-li">健身：晚上七点到健身房参加团课<span></span></li>
+                <li class="todo-list-li">健身：晚上到健身房做背、腿力量训练<span></span></li>
+                <li class="todo-list-li">科研：撰写读博期间的研究计划<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
