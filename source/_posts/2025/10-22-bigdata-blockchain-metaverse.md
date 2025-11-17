@@ -6,7 +6,7 @@ tags:
   - 区块链
   - 元宇宙
   - 技术热潮
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00025.jpg
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00024.jpg
 categories:
   - 📢 技术杂谈
   - 琐碎的杂谈

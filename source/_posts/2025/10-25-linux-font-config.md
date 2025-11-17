@@ -9,7 +9,7 @@ tags:
 categories:
   - 🔧 工具使用
   - Oh-my-Linux
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00027.jpg
+index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00025.jpg
 date: 2025-10-25 12:13:49
 ---
 
