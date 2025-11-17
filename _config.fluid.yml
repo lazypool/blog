@@ -239,6 +239,7 @@ custom_js:
 custom_css:
   - css/global.css
   - css/fonts.css
+  - css/cardmark.css
 
 # 网页访问统计
 # Analysis of website visitors

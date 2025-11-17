@@ -1,0 +1,17 @@
+.index-card::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  transform: translateX(-5px);
+  top: 0;
+  bottom: 0;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff6b6b;
+}
+
+.index-card[data-mark-color="1"]::before { background-color: #ff6b6b; } /* 红色 */
+.index-card[data-mark-color="2"]::before { background-color: #4ecdc4; } /* 青色 */
+.index-card[data-mark-color="3"]::before { background-color: #45b7d1; } /* 蓝色 */
+.index-card[data-mark-color="4"]::before { background-color: #96ceb4; } /* 绿色 */
+.index-card[data-mark-color="5"]::before { background-color: #feca57; } /* 黄色 */
+.index-card[data-mark-color="6"]::before { background-color: #ff9ff3; } /* 粉色 */

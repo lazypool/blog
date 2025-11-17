@@ -5,10 +5,11 @@ if (theme.index.slogan.enable) {
 page.banner_img = theme.index.banner_img
 page.banner_img_height = theme.index.banner_img_height
 page.banner_mask_alpha = theme.index.banner_mask_alpha
+const strToIndex = str => Math.abs([...str].reduce((hash, char) => (hash << 5) - hash + char.charCodeAt(0), 0)) % 6;
 %>
 
 <% page.posts.each(function (post) { %>
-  <div class="row mx-auto index-card">
+  <div class="row mx-auto index-card" data-mark-color="<%= strToIndex(post._id) %>">
     <% var post_url = url_for(post.path), index_img = post.index_img || theme.post.default_index_img %>
     <% if (index_img) { %>
       <div class="col-12 col-md-4 m-auto index-img">
