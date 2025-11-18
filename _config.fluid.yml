@@ -436,15 +436,15 @@ open_graph:
 footer:
   # 页脚第一行文字的 HTML，建议保留 Fluid 的链接，用于向更多人推广本主题
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
-  content: '
-    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-    <i class="iconfont icon-love"></i>
-    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
-    <div>
-      <span id="timeDate">载入天数...</span>
-      <span id="times">载入时分秒...</span>
-    </div>
-  '
+  # content: '
+  #   <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+  #   <i class="iconfont icon-love"></i>
+  #   <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+  #   <div>
+  #     <span id="timeDate">载入天数...</span>
+  #     <span id="times">载入时分秒...</span>
+  #   </div>
+  # '
 
   # 展示网站的 PV、UV 统计数
   # Display website PV and UV statistics
@@ -477,7 +477,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -553,7 +553,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 70
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -917,7 +917,7 @@ discuss:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -930,7 +930,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -962,7 +962,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -981,7 +981,7 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -1003,7 +1003,7 @@ about:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -1015,7 +1015,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 100
   banner_mask_alpha: 0.0
   banner_as_bg: true
@@ -1030,7 +1030,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/basic/banner.png
+  banner_img: /img/basic/banner.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.0
   banner_as_bg: true
