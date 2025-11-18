@@ -60,7 +60,7 @@ layout: about
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">健身：晚上到健身房做胸、肩力量训练<span></span></li>
+                <li class="todo-list-li done">健身：晚上到健身房做胸、肩力量训练<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
