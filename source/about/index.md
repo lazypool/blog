@@ -50,9 +50,9 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Thursday
+        Friday
     &emsp;<span style="font-size:15pt;">
-        November 20, 2025
+        November 21, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
@@ -60,8 +60,8 @@ layout: about
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
                 <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">健身：晚上到健身房做胸、肩力量训练<span></span></li>
-                <li class="todo-list-li">作业：提交英语课 Assignment<span></span></li>
+                <li class="todo-list-li">健身：晚上到健身房做腹、肱力量训练<span></span></li>
+                <li class="todo-list-li">作业：完成大数据应用实践 2000 字期中汇报<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
