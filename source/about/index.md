@@ -58,8 +58,8 @@ layout: about
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
-                <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
-                <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
+                <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
+                <li class="todo-list-li done">科研：精读一篇论文并泛读一篇论文<span></span></li>
                 <li class="todo-list-li">健身：晚上到健身房参加团课<span></span></li>
             </ul>
         </div>
