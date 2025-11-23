@@ -318,7 +318,7 @@ animations = (
 #### 常用选项
 
 和 rules 一样，animations 块也由若干个 `{}` 块构成，每个 `{}` 中包含一个必须存在的选项 `triggers` 和部分可选的其他选项。animations 块中 `{}` 块中的常用选项列表如下。
-*
+
 - **triggers** 触发动画的窗口动作，可选值包括 `open`、`close`、`show`、`hide`、`increase-opacity`、`decrease-opacity`、`size`、`position`、`geometry`。
 - **presets** 预设的动画脚本，可选值包括 `slide-in`、`slide-out`、`fly-in`、`fly-out`、`appear`、`disappear`、`geometry-change`。
 - **offset-x/y**、**shadow-offset-x/y**、**opacity**、**blur-opacity**、**shadow-opacity**、**scale-x/y**、**shadow-scale-x/y**、**crop-x/y/width/height**、**saved-image-blend** 等，自定义窗口的形状变化，其值是一个 `timing function`。
