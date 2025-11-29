@@ -1,6 +1,6 @@
-@font-face {
-    font-family: "LXGW WenKai";
-    src: url('/fonts/LXGWWenKai-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+:root {
+  --sys-font-family: -apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;
+  --code-font-family: "JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;
+  --article-font-family: "LXGW WenKai", sans-serif;
+  --base-font-family: "LXGW WenKai", var(--sys-font-family), sans-serif
 }
