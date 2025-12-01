@@ -50,18 +50,17 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
 	</div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Sunday
+        Monday
     &emsp;<span style="font-size:15pt;">
-        November 30, 2025
+        December 1, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">日常：看一篇科技新闻并撰写博客<span></span></li>
-                <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
+                <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li done">作业：太极拳理论课作业<span></span></li>
-                <li class="todo-list-li done">开会：准备 19 点系楼 414 开会的个人陈述<span></span></li>
+                <li class="todo-list-li">代码：重构 dwm 代码结构<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
