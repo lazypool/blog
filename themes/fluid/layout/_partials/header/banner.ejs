@@ -13,7 +13,7 @@ var subtitle = page.subtitle || page.title
        background: transparent;
      <% } %>">
   <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, <%= banner_as_bg ? 0 : parseFloat(banner_mask_alpha) %>)">
+    <div class="mask flex-center" style="background: linear-gradient(to bottom, rgba(0, 0, 0, <%= banner_mask_alpha %>), rgba(0, 0, 0, 0))">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           <% if(theme.fun_features.typing.enable && in_scope(theme.fun_features.typing.scope)) { %>
