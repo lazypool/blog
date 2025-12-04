@@ -1,0 +1,22 @@
+{
+  "MD007": false,
+  "MD013": {
+    "line_length": 800,
+    "code_blocks": false,
+    "tables": false,
+    "heading_line_length": 80,
+    "stern": false
+  },
+  "MD025": {
+    "front_matter_title": ""
+  },
+  "MD026": {
+    "punctuation": ".,;:。，；："
+  },
+  "MD033": false,
+	"MD036": false,
+	"MD045": false,
+  "MD060": {
+    "style": "compat"
+  }
+}

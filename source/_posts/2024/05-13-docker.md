@@ -3,8 +3,8 @@ layout: post
 title: 科学上网：利用 Docker🐳  搭建 v2raya 客户端
 date: 2024-05-13 00:08:04
 categories:
-    - 🔧 工具使用
-    - 其他工具使用
+  - 🔧 工具使用
+  - 其他工具使用
 tags: [Docker, v2raya, 科学上网]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00006.jpg
 ---
@@ -75,17 +75,17 @@ reboot  #重启后生效
 
 ```json
 {
-	"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
 }
 ```
 
-3. 将 daemon.json 移动到 /etc/docker 文件夹下：**sudo mv daemon.json /etc/docker**
-4. 重新启动 docker 的守护进程： **systemctl restart docker**
-5. 运行 **docker info** 来查看当前 docker 的状态，如果其中包含 Registry Mirrors 字段，且值为 https://docker.mirrors.ustc.edu.cn ，就证明换源成功。
+1. 将 daemon.json 移动到 /etc/docker 文件夹下：**sudo mv daemon.json /etc/docker**
+2. 重新启动 docker 的守护进程： **systemctl restart docker**
+3. 运行 **docker info** 来查看当前 docker 的状态，如果其中包含 Registry Mirrors 字段，且值为 <https://docker.mirrors.ustc.edu.cn> ，就证明换源成功。
 
 ## 构建 v2raya 容器
 
-至此我们终于在电脑上安装了一个方便可用的 docker 工具，接下来可以着手构建 v2raya 容器了。关于使用 docker 启动 v2raya 的详细说明可以参考： https://v2raya.org/docs/prologue/installation/docker/ 。
+至此我们终于在电脑上安装了一个方便可用的 docker 工具，接下来可以着手构建 v2raya 容器了。关于使用 docker 启动 v2raya 的详细说明可以参考： <https://v2raya.org/docs/prologue/installation/docker/> 。
 
 ### 创建容器
 
@@ -129,7 +129,7 @@ docker stop v2ray # 关闭容器
 
 ### 使用 v2raya
 
-容器启动后，访问 http://localhost:2017 或者 http://127.0.0.1:2017 就可以进入 v2raya 的客户端 UI 界面。第一次进去会提示你注册用户。请牢记账号和密码，下次再进入时会提示你登入。
+容器启动后，访问 <http://localhost:2017> 或者 <http://127.0.0.1:2017> 就可以进入 v2raya 的客户端 UI 界面。第一次进去会提示你注册用户。请牢记账号和密码，下次再进入时会提示你登入。
 
 ![登入界面](login.png)
 

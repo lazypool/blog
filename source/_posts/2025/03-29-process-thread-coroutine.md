@@ -2,8 +2,8 @@
 layout: post
 title: 老生常谈🗣：“进程、线程、协程”的相关概念汇总辨析
 categories:
-    - 💻 技术干货
-    - 计算机基础知识👷
+  - 💻 技术干货
+  - 计算机基础知识👷
 tags: [进程, 线程, 协程, 虚拟内存, 进程间通信, 多线程, 有栈协程, 无栈协程, 并发]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00015.jpg
 date: 2025-03-29 12:11:42
@@ -29,10 +29,12 @@ date: 2025-03-29 12:11:42
 <div style="display:flex;"><div style="margin:auto auto;">
 
 ![进程是执行中的程序](what-is-process.webp)
+
 <p align="center">进程是执行中的程序</p>
 </div><div style="margin:auto auto;">
 
 ![PCB 存储 OS 分配的资源](how-does-a-process-work.webp)
+
 <p align="center">PCB 存储 OS 分配的资源</p>
 </div></div>
 
@@ -54,10 +56,12 @@ date: 2025-03-29 12:11:42
 <div style="display:flex;"><div style="margin:auto auto;">
 
 ![线程共享进程资源](multithreaded-process.svg)
+
 <p align="center">多线程共享进程资源</p>
 </div><div style="margin:auto auto;">
 
 ![线程独立堆栈空间](thread-diagram.jpg)
+
 <p align="center">线程拥有独立的执行上下文</p>
 </div></div>
 
@@ -65,7 +69,8 @@ date: 2025-03-29 12:11:42
 
 <div align="center">
 
-**进程 VS 线程特性对比**
+<h6>进程 VS 线程特性对比</h6>
+
 <table style="width:fit-content; margin:auto; margin-bottom:1.5em;"><thead>
     <tr><th>特性</th><th>进程</th><th>线程</th></tr>
 </thead><tbody>
@@ -90,7 +95,7 @@ date: 2025-03-29 12:11:42
 <div>
 <table style="width:fit-content; margin:2.5em auto;"><tbody><tr><td>
 
-**无栈协程编译之前**
+<h6>无栈协程编译之前</h6>
 
 ```cpp
 // 使用 async 关键字
@@ -111,9 +116,10 @@ async void fn() {
     // 协程结束
 }
 ```
+
 </td><td>
 
-**无栈协程编译之后**
+<h6>无栈协程编译之后</h6>
 
 ```cpp
 // 无栈协程其实就是这么实现的
@@ -134,6 +140,7 @@ class fn {
     void fn_part3() { c = a + b; }
 }
 ```
+
 </td></tr></tbody></table>
 </div>
 

@@ -2,8 +2,8 @@
 layout: post
 title: DeepSeek 🐬：国产大模型之光？它用到了哪些关键技术？
 categories:
-    - 📖 论文阅读
-    - LLM 大语言模型
+  - 📖 论文阅读
+  - LLM 大语言模型
 tags: [大语言模型, NLP, NLP经典论文]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00011.jpg
 date: 2025-02-12 21:38:31
@@ -22,42 +22,45 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在 [Huggingface]
 <div style="display:flex; justify-content:left"><div>
 
 - **2025.1**
-    - DeepSeek-R1 👉 [论文链接🔗](https://arxiv.org/abs/2501.12948)
-- **2024.12** 
-    - DeepSeek-V3 👉 [论文链接🔗](https://arxiv.org/abs/2412.19437)
-    - DeepSeek-VL2 👉 [论文链接🔗](https://arxiv.org/abs/2412.10302)
+  - DeepSeek-R1 👉 [论文链接🔗](https://arxiv.org/abs/2501.12948)
+- **2024.12**
+  - DeepSeek-V3 👉 [论文链接🔗](https://arxiv.org/abs/2412.19437)
+  - DeepSeek-VL2 👉 [论文链接🔗](https://arxiv.org/abs/2412.10302)
 - **2024.10 ~ 2024.11**
-    - JanusFlow 👉 [论文链接🔗](https://arxiv.org/abs/2411.07975)
-    - Janus 👉 [论文链接🔗](https://arxiv.org/abs/2410.13848)
+  - JanusFlow 👉 [论文链接🔗](https://arxiv.org/abs/2411.07975)
+  - Janus 👉 [论文链接🔗](https://arxiv.org/abs/2410.13848)
 - **2024.8**
-    - DeepSeek-Prover-V1.5 👉 [论文链接🔗](https://arxiv.org/abs/2408.08152)
+  - DeepSeek-Prover-V1.5 👉 [论文链接🔗](https://arxiv.org/abs/2408.08152)
 - **2024.7**
-    - Let the Expert Stick to His Last 👉 [论文链接🔗](https://arxiv.org/abs/2407.01906)
+  - Let the Expert Stick to His Last 👉 [论文链接🔗](https://arxiv.org/abs/2407.01906)
+
 </div><div>
 
 - **2024.6**
-    - DeepSeek-Coder-V2 👉 [论文链接🔗](https://arxiv.org/abs/2406.11931)
-    - DeepSeek-Prover 👉 [论文链接🔗](https://arxiv.org/abs/2406.14333)
+  - DeepSeek-Coder-V2 👉 [论文链接🔗](https://arxiv.org/abs/2406.11931)
+  - DeepSeek-Prover 👉 [论文链接🔗](https://arxiv.org/abs/2406.14333)
 - **2024.5**
-    - DeepSeek-V2 👉 [论文链接🔗](https://arxiv.org/abs/2405.04434)
+  - DeepSeek-V2 👉 [论文链接🔗](https://arxiv.org/abs/2405.04434)
 - **2024.1 ~ 2024.3**
-    - DeepSeek-VL 👉 [论文链接🔗](https://arxiv.org/abs/2403.05525)
-    - DeepSeekMath 👉 [论文链接🔗](https://arxiv.org/abs/2402.03300)
-    - DeepSeek-Coder 👉 [论文链接🔗](https://arxiv.org/abs/2401.14196)
-    - DeepSeekMoE 👉 [论文链接🔗](https://arxiv.org/abs/2401.06066)
-    - DeepSeekLLM 👉 [论文链接🔗](https://arxiv.org/abs/2401.02954)
+  - DeepSeek-VL 👉 [论文链接🔗](https://arxiv.org/abs/2403.05525)
+  - DeepSeekMath 👉 [论文链接🔗](https://arxiv.org/abs/2402.03300)
+  - DeepSeek-Coder 👉 [论文链接🔗](https://arxiv.org/abs/2401.14196)
+  - DeepSeekMoE 👉 [论文链接🔗](https://arxiv.org/abs/2401.06066)
+  - DeepSeekLLM 👉 [论文链接🔗](https://arxiv.org/abs/2401.02954)
+
 </div></div>
 
 ---
 
-*What's UP !? 这么多的论文怎么看的完（我只是一个苦逼大学生）？* 好在已经有前人淌过水了。一些大佬对这些论文的评价是：如果想要快速地对 DeepSeek 有一个直观且较为深入的了解，**可以重点看其中的三篇文章：DeepSeekLLM、DeepSeek-V3、DeepSeek-R1**。
+_What's UP !? 这么多的论文怎么看的完（我只是一个苦逼大学生）？_ 好在已经有前人淌过水了。一些大佬对这些论文的评价是：如果想要快速地对 DeepSeek 有一个直观且较为深入的了解，**可以重点看其中的三篇文章：DeepSeekLLM、DeepSeek-V3、DeepSeek-R1**。
 
 本篇博客将重点围绕 DeepSeek-V3 这篇“大而全”的技术报告，并结合 DeepSeek-R1 论文的相关内容，由详到略依次介绍 DeepSeek 的：
-1) 模型上的改进部分，包括：**多头潜在注意力机制** 、**混合专家模型** 、**多 Token 预测** ；
-2) 训练框架上的优化，如 **DualPipe 算法**，以及 **FP8 混合精度训练**；
-3) 利用强化学习提升模型能力：回馈函数的设计、**群体相对策略优化 (GRPO) 算法**；
-4) DeepSeek-V3 的表现：**评分标准**、**对比基线**等。
-5) DeepSeek-R1 的相关内容，特别是其 **对于 LLM 自主学习能力的探索**。
+
+1. 模型上的改进部分，包括：**多头潜在注意力机制** 、**混合专家模型** 、**多 Token 预测** ；
+2. 训练框架上的优化，如 **DualPipe 算法**，以及 **FP8 混合精度训练**；
+3. 利用强化学习提升模型能力：回馈函数的设计、**群体相对策略优化 (GRPO) 算法**；
+4. DeepSeek-V3 的表现：**评分标准**、**对比基线**等。
+5. DeepSeek-R1 的相关内容，特别是其 **对于 LLM 自主学习能力的探索**。
 
 ## 模型上的改进：更快、更好，同时追求速度和质量
 
@@ -78,19 +81,19 @@ Deepseek 在模型上的改进有两条主线：**一是优化模型表现**，�
 - $c\_t^\mathsf{KV}\in\mathbb{R}^{d\_c}$，是将被缓存的**潜在特征**，其维度远小于 KV 对.
 - $W^\mathsf{DKV}\in\mathbb{R}^{d\_c\times{d}}$，是降维矩阵 _(Down KV matrix)_ ，它将在微调时学习.
 - 缓存后的 $c\_t^\mathsf{KV}$ 将在下次推理时被“释放”，生成用于计算注意力的 $\mathbf{K}$ 和 $\mathbf{V}$.
-    - $[\mathbf{k}\_{t,1}^\mathsf{C},\mathbf{k}\_{t,2}^\mathsf{C},\cdots,\mathbf{k}\_{t,h_n}^\mathsf{C}]=\mathbf{k}\_t^\mathsf{C}=W^\mathsf{UK}c\_t^\mathsf{KV}$
-    - $[\mathbf{v}\_{t,1}^\mathsf{C},\mathbf{v}\_{t,2}^\mathsf{C},\cdots,\mathbf{v}\_{t,h_n}^\mathsf{C}]=\mathbf{v}\_t^\mathsf{C}=W^\mathsf{UV}c\_t^\mathsf{KV}$
-    - $h\_n$ 是注意力头的个数 _(heads number)_ ，有多少头就要缓存多少 KV 对.
-    - $W^\mathsf{UK}$ 和 $W^\mathsf{UV}$ 是两个升维矩阵 _(Up K matrix 和 Up V matrix)_.
+  - $[\mathbf{k}\_{t,1}^\mathsf{C},\mathbf{k}\_{t,2}^\mathsf{C},\cdots,\mathbf{k}\_{t,h_n}^\mathsf{C}]=\mathbf{k}\_t^\mathsf{C}=W^\mathsf{UK}c\_t^\mathsf{KV}$
+  - $[\mathbf{v}\_{t,1}^\mathsf{C},\mathbf{v}\_{t,2}^\mathsf{C},\cdots,\mathbf{v}\_{t,h_n}^\mathsf{C}]=\mathbf{v}\_t^\mathsf{C}=W^\mathsf{UV}c\_t^\mathsf{KV}$
+  - $h\_n$ 是注意力头的个数 _(heads number)_ ，有多少头就要缓存多少 KV 对.
+  - $W^\mathsf{UK}$ 和 $W^\mathsf{UV}$ 是两个升维矩阵 _(Up K matrix 和 Up V matrix)_.
 - 看完右边再来看中间：这里对输入进行了 RoPE 旋转位置编码得到了 $\mathbf{k}\_t^\mathsf{R}$.
 - $\mathbf{k}\_t^\mathsf{R}=\mathsf{RoPE}(W^\mathsf{KR}h\_{t})$，注意它将被缓存.
-    - 关于 RoPE 可以去看我的另外一篇博客，里面有 RoPE 的详细代码：[Llama2 RoPE](https://lazypool-blog.netlify.app/2025/01/09/llama123/#RoPE%EF%BC%9A%E4%BB%A5%E7%AE%80%E4%BE%BF%E6%96%B9%E5%BC%8F%E6%9C%89%E6%95%88%E6%8D%95%E6%8D%89%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF).
-    - 拼接 $\mathbf{k}\_t^\mathsf{C}$ 与 $\mathbf{k}\_t^\mathsf{R}$ ，即得到正式参与注意力的 $\mathbf{K}$.
+  - 关于 RoPE 可以去看我的另外一篇博客，里面有 RoPE 的详细代码：[Llama2 RoPE](https://lazypool-blog.netlify.app/2025/01/09/llama123/#RoPE%EF%BC%9A%E4%BB%A5%E7%AE%80%E4%BE%BF%E6%96%B9%E5%BC%8F%E6%9C%89%E6%95%88%E6%8D%95%E6%8D%89%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E4%BF%A1%E6%81%AF).
+  - 拼接 $\mathbf{k}\_t^\mathsf{C}$ 与 $\mathbf{k}\_t^\mathsf{R}$ ，即得到正式参与注意力的 $\mathbf{K}$.
 - 最后是左边关于 $\mathbf{Q}$ 的处理部分，同样进行了降维、升维、 RoPE 与 拼接.
-    - $c\_t^\mathsf{Q}=W^\mathsf{DQ}h\_t$
-    - $[\mathbf{q}\_{t,1}^\mathsf{C},\mathbf{q}\_{t,2}^\mathsf{C},\cdots,\mathbf{q}\_{t,h_n}^\mathsf{C}]=\mathbf{q}\_t^\mathsf{C}=W^\mathsf{UQ}c\_t^\mathsf{Q}$
-    - $\mathbf{q}\_{t}^\mathsf{R}=\mathsf{RoPE}(W^\mathsf{QR}h\_t)$
-    - 拼接 $\mathbf{q}\_t^\mathsf{C}$ 与 $\mathbf{q}\_t^\mathsf{R}$ ，即得到正式参与注意力的 $\mathbf{Q}$.
+  - $c\_t^\mathsf{Q}=W^\mathsf{DQ}h\_t$
+  - $[\mathbf{q}\_{t,1}^\mathsf{C},\mathbf{q}\_{t,2}^\mathsf{C},\cdots,\mathbf{q}\_{t,h_n}^\mathsf{C}]=\mathbf{q}\_t^\mathsf{C}=W^\mathsf{UQ}c\_t^\mathsf{Q}$
+  - $\mathbf{q}\_{t}^\mathsf{R}=\mathsf{RoPE}(W^\mathsf{QR}h\_t)$
+  - 拼接 $\mathbf{q}\_t^\mathsf{C}$ 与 $\mathbf{q}\_t^\mathsf{R}$ ，即得到正式参与注意力的 $\mathbf{Q}$.
 
 以上部分走完后就是传统的多头注意力机制了，$\mathbf{K}$ 和 $\mathbf{Q}$ 点积缩放归一过后与 $\mathbf{V}$ 相乘，最终的结果再经过一个输出矩阵 $W^\mathsf{O}$ 转化后即得。那么回头来想一下，其实我们废了这么大劲就只是为了使推理时的显存占用变得更小而已：原来的 KV-Cache 缓存完整的 KV 对，而 MLA 仅缓存 KV 对中低维本质的特征。
 
@@ -104,13 +107,15 @@ Deepseek 在模型上的改进有两条主线：**一是优化模型表现**，�
 
 如上图所示，注意力的输出经残差连接后即进入 MoE 模块 (浅蓝色，Switching FFN layer)。在 MoE 中，路由 Router 将会对各 token 进行判断：~x1 与 FFN2 的亲和度更高，x2 与 FFN1 的亲和度更高……~ MoE 确保所有 token 都只经过与其最适应的前 k 个专家网络，并将这 k 个专家给出的结果按照亲和度线性求和。写成公式就是下面这样，其中下标 $\_t$ 表示第 $t$ 个 token：
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 & y\_t = x\_t + \sum\_{i}^{N} g\_{i,t} \cdot \mathrm{FFN}\_i (x\_t) \qquad\qquad\text{线性求和后残差连接，其中 $\sum\_{i}^{N} g\_{i,t} = 1$}
 \\\\
 & g\_{i,t} = \frac{ s\_{i,t} }{ \sum\_{j}^{N} s\_{j,t} } \qquad\qquad\qquad\qquad\text{将路由得分归一化，$N$ 即专家数，也就是路由出数}
 \\\\
 & s\_{j,t} = \begin{cases} \mathrm{Sigmoid}(x\_t^\mathrm{T} e\_j), &\quad {s\_{j,t} \in \mathrm{topK}} \\\\ 0, &\quad\text{otherwise} \end{cases} \qquad\text{除非得分排名前 k，否则视作 0 分，$e \in \mathbb{R}^{H \times N}$ }
-\end{aligned}$$
+\end{aligned}
+$$
 
 #### DeepSeekMoE
 
@@ -167,13 +172,13 @@ class Gate(nn.Module):
             if self.bias is None:
                 group_scores = scores.amax(dim=-1) # 取最大 group_scores: [B, G, 1]
             else:
-                group_scores = scores.topk(2, dim=-1)[0].sum(dim=-1) # 取前两个最大求和 group_scores: [B, G, 1]
-            indices = group_scores.topk(self.topk_groups, dim=-1)[1] # [B, G-k]
+                group_scores = scores.topk[2, dim=-1](0).sum(dim=-1) # 取前两个最大求和 group_scores: [B, G, 1]
+            indices = group_scores.topk[self.topk_groups, dim=-1](1) # [B, G-k]
             mask = scores.new_ones(x.size(0), self.n_groups, dtype=bool).scatter_(1, indices, False) # [B, G]
             scores = scores.masked_fill_(mask.unsqueeze(-1), float("-inf")).flatten(1) # 弱组专家都变成了 -inf
 
         # 获取激活专家的索引与其权重
-        indices = torch.topk(scores, self.topk, dim=-1)[1] # [B, L, K]
+        indices = torch.topk[scores, self.topk, dim=-1](1) # [B, L, K]
         weights = original_scores.gather(1, indices) # [B, L, K]
         if self.score_func == "sigmoid":
             # 如果之前没有进行归一化，则要进行归一化
@@ -183,6 +188,7 @@ class Gate(nn.Module):
 ```
 
 ##### 混合专家模块 MoE()
+
 ```python
 class MoE(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -237,20 +243,20 @@ MTP 针对解码阶段进行优化，将原来的 one-token 的生成变成 mult
 - 对于所有 Module 来说，所有的输入都共享一个嵌入层 $\mathsf{Emb}()$.
 - 对于第 $i$ 个 token $t\_i$，假设当前要预测的深度在第 $k$ 层.
 - 我们有 $h\_i^{'k} = M\_k[\mathsf{RMSNorm}(h\_i^{k-1});\mathsf{RMSNorm}(\mathsf{Emb}(t\_{i+k}))]$
-    - 首先将 $t\_i$ 对第 $k-1$ 层的隐藏层输出 $h\_i^{k-1}\in\mathbb{R}^{d}$ 进行均方根规范化.
-    - 再对第 $i+k$ 位置的 token 嵌入层输出 $\mathsf{Emb}(t\_{i+k})\in\mathbb{R}^{d}$ 也进行均方根规范化.
-    - 将上述两个结果 concat 后，经由矩阵 $M\_k\in\mathbb{R}^{d\times{2d}}$ 线性变换得到 $h\_{i}^{'k}\in\mathsf{R}^{d}$
+  - 首先将 $t\_i$ 对第 $k-1$ 层的隐藏层输出 $h\_i^{k-1}\in\mathbb{R}^{d}$ 进行均方根规范化.
+  - 再对第 $i+k$ 位置的 token 嵌入层输出 $\mathsf{Emb}(t\_{i+k})\in\mathbb{R}^{d}$ 也进行均方根规范化.
+  - 将上述两个结果 concat 后，经由矩阵 $M\_k\in\mathbb{R}^{d\times{2d}}$ 线性变换得到 $h\_{i}^{'k}\in\mathsf{R}^{d}$
 - $h\_i^{'k}$ 即为当前 Module 中 Transformer 块的输入.
-    - 主模型包含一个较深的 Transformer 栈，而其余的 Module 都只含 1 个.
-    - 因为是串行，所以各个 Module 将能看到其之前的所有信息.
+  - 主模型包含一个较深的 Transformer 栈，而其余的 Module 都只含 1 个.
+  - 因为是串行，所以各个 Module 将能看到其之前的所有信息.
 - $h\_{1:T-k}^{k} = \mathsf{Trm}(h\_{1:T-k}^{'k})$，它将用于之后的 Module，并且其自身也即将输出.
-    - 这里的下标 $\_{1:T-k}$ 表示输入 token 的范围：从第 1 个 token 到第 $T-k$ 个 token.
-    - $T$ 是预测后的序列长度，显然预测的第 $T$ 个 token 应当对应输入的第 $T-k$ 个 token.
-    - 于是也能知道输入的序列长度总是 $T-k$.
+  - 这里的下标 $\_{1:T-k}$ 表示输入 token 的范围：从第 1 个 token 到第 $T-k$ 个 token.
+  - $T$ 是预测后的序列长度，显然预测的第 $T$ 个 token 应当对应输入的第 $T-k$ 个 token.
+  - 于是也能知道输入的序列长度总是 $T-k$.
 - 最后，将 $h\_i^{k}$ 通过映射矩阵 $\mathsf{OutHead}\in\mathbb{R}^{V\times{d}}$ 变换和 $\mathsf{Softmax}()$，该矩阵在各 Module 间共享.
-    - $p\_{i+k+1}^{k}=\mathsf{Softmax}(\mathsf{OutHead}(h\_i^{k}))$.
-    - $p\_{i+k+1}^{k}\in\mathbb{R}^V$，是词表 $V$ 维度的概率输出.
-    - 上标 $^{k}$ 表示当前预测深度为 $k$，下标 $\_{i+k+1}$ 表示是对序列的第 $i+k+1$ 处的预测.
+  - $p\_{i+k+1}^{k}=\mathsf{Softmax}(\mathsf{OutHead}(h\_i^{k}))$.
+  - $p\_{i+k+1}^{k}\in\mathbb{R}^V$，是词表 $V$ 维度的概率输出.
+  - 上标 $^{k}$ 表示当前预测深度为 $k$，下标 $\_{i+k+1}$ 表示是对序列的第 $i+k+1$ 处的预测.
 
 ![MTP 示意图：预测深度与下标偏移](deepseek-mtp2.png)
 
@@ -278,13 +284,11 @@ DeepSeek-V3 的训练由 HAI-LLM 框架支持，该框架是由 DS 团队从零�
 对于 DeepSeek-V3，跨节点专家并行带来的通信开销导致 **计算/通信比** 约为低效的 1:1。为了解决这一挑战，DS 团队设计了一种创新的管道并行算法，称为 DualPipe，它不仅通过有效地重叠前向和后向计算的通信阶段来加速模型训练，而且还 **减少了管道气泡**。
 
 > **计算/通信比**
-指计算操作与通信操作的时间比例⏰。计算常常是高效的，而通信则效率较低。计算/通信比低意味着设备频繁因通信等待而闲置，需通过异步传输重叠计算与通信操作提升计算占比。
-
+> 指计算操作与通信操作的时间比例⏰。计算常常是高效的，而通信则效率较低。计算/通信比低意味着设备频繁因通信等待而闲置，需通过异步传输重叠计算与通信操作提升计算占比。
 > **管道** 🪈
-一种并行训练技术，将模型按照层或模块拆分成多个阶段 _(Stage)_ 分配到不同的设备，数据以微批次 _(Micro-batch)_ 流经各阶段。**管道像流水线一样：各个阶段处理完一个微批次并传递给下个阶段后，就立刻处理下个微批次，而非等待所有阶段完成。** 这样做实现了对计算设备的高效复用。
-
+> 一种并行训练技术，将模型按照层或模块拆分成多个阶段 _(Stage)_ 分配到不同的设备，数据以微批次 _(Micro-batch)_ 流经各阶段。**管道像流水线一样：各个阶段处理完一个微批次并传递给下个阶段后，就立刻处理下个微批次，而非等待所有阶段完成。** 这样做实现了对计算设备的高效复用。
 > **管道气泡**
-指设备等待数据的空闲时间。在管道中，由于各阶段计算速率差异或通信延迟，**设备在处理完当前微批次后可能还需要花时间等待前一阶段的输出，导致该设备空闲**，这被形象地称为“气泡”。管道气泡常成为并行训练的优化瓶颈😐。
+> 指设备等待数据的空闲时间。在管道中，由于各阶段计算速率差异或通信延迟，**设备在处理完当前微批次后可能还需要花时间等待前一阶段的输出，导致该设备空闲**，这被形象地称为“气泡”。管道气泡常成为并行训练的优化瓶颈😐。
 
 #### 计算与通信重叠
 
@@ -331,7 +335,7 @@ DS 提出了面向 FP8 训练的混合精度框架，如下图。该框架将大
 
 ![FP8 混合精度训练框架](fp8-framework.png)
 
-- 首先，核心计算算子，也即通用矩阵乘法 (GEMM，GEneral Matix Multiplication) 部分主要采用 FP8 精度实现。这些 GEMM 操作接受 FP8 的张量输入，并产生 FP16 或 FP32 的输出。
+- 首先，核心计算算子，也即通用矩阵乘法 (GEMM，GEneral Matrix Multiplication) 部分主要采用 FP8 精度实现。这些 GEMM 操作接受 FP8 的张量输入，并产生 FP16 或 FP32 的输出。
 - 线性算子相关三个 GEMM 操作分别是：前向传播 (Fprop)、激活反向传播 (Dgrad)、权重反向传播 (Wgrad)，均以 FP8 执行。该设计理论上可使计算速度较原始 BF16 方法提升一倍。
 - 此外，FP8 格式的 Wgrad 允许以 FP8 存储激活值供反向传播使用，这显著降低了内存消耗。
 - 然而，某些算子因对低精度计算敏感仍需保持更高精度。同时，部分低开销算子使用更高精度也不会显著增加整体训练成本。
@@ -377,11 +381,13 @@ DS 团队的奖励模型 RM 由两部分组成：**基于规则的** 和 **基�
 
 DS 使用了 **群体相对策略优化算法** (GRPO, Group Relative Policy Optimization)，该算法摒弃了通常与策略模型大小相同的评估模型，而是从组得分中估计 baseline。具体来说，对于每个问题 $q$，GRPO 从旧策略模型 $\pi_{\theta_{old}}$ 中采样一组输出 $\\{o_1,o_2,...,o_G\\}$，然后通过最大化如下目标来优化策略模型 $\pi_{\theta}$：
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathcal{J}\_{GRPO}(\theta) &= \mathbb{E}[q \sim P(Q), \\{o\\}\_{i=1}^{G} \sim \pi\_{\theta\_{old}} (O | q)] \\\\
 &\frac{1}{G} \sum\_{i=1}^{G} ( \min( \frac{\pi\_{\theta}(o\_i | q)}{\pi\_{\theta\_{old}}(o\_i | q)}, \text{clip}(\frac{\pi\_{\theta}(o\_i | q)}{\pi\_{\theta\_{old}}(o\_i | q)}, 1 - \epsilon, 1 + \epsilon)A\_i) - \beta\mathbb{D}\_{KL}(\pi\_{\theta}||\pi\_{ref})), \\\\
 where.\quad&\mathbb{D}\_{KL}(\pi\_\theta || \pi\_{ref}) = \frac{\pi\_{ref}(o\_i|q)}{\pi\_\theta(o\_i|q)} - \log \frac{\pi\_{ref}(o\_i|q)}{\pi\_\theta(o\_i|q)} - 1
-\end{aligned}$$
+\end{aligned}
+$$
 
 其中 $\epsilon$ 和 $\beta$ 是超参数；$\pi\_{ref}$ 是偏好模型；$A\_i$ 是优势估计 (advantage)，基于每个组的输出所对应的奖励集 $\\{r_1,r_2,\cdots,r_G\\}$ 计算：
 
@@ -402,13 +408,13 @@ $$A_i = \frac{r\_i - \text{mean}(\\{r_1,r_2,\cdots,r_G\\})}{\text{std}(\\{r_1,r_
 ### 两大核心探索：自主学习和知识蒸馏
 
 - **对自主学习能力的探索**
-    - **直接在基础模型上实施两阶段强化学习（RL），颠覆了传统依赖监督微调（SFT）的范式。**
-    - 首阶段段通过自主探索思维链（CoT）形成 _DeepSeek-R1-Zero_ 模型。验证了无需人工标注数据即可通过纯 RL 激励大语言模型发展自我验证、反思、长程推理等能力。
-    - **首次证明模型推理能力可通过强化学习自主演化。**
-    - 第二阶段结合 RL 与 SFT 的混合训练，构建了同时具备人类偏好的对齐和复杂问题解决能力的 DeepSeek-R1 模型。
+  - **直接在基础模型上实施两阶段强化学习（RL），颠覆了传统依赖监督微调（SFT）的范式。**
+  - 首阶段段通过自主探索思维链（CoT）形成 _DeepSeek-R1-Zero_ 模型。验证了无需人工标注数据即可通过纯 RL 激励大语言模型发展自我验证、反思、长程推理等能力。
+  - **首次证明模型推理能力可通过强化学习自主演化。**
+  - 第二阶段结合 RL 与 SFT 的混合训练，构建了同时具备人类偏好的对齐和复杂问题解决能力的 DeepSeek-R1 模型。
 - **对知识蒸馏的小模型的探索**
-    - **将大模型推理模式迁移至小模型，实现了小模型性能的突破性提升。**
-    - 基于 DeepSeek-R1 生成的推理数据，对 Qwen2.5 和 Llama3系 列模型进行蒸馏后，不同规模的模型在数学竞赛（如 AIME 2024 达到 72.6%）、代码生成（LiveCodeBench 57.2%）等任务中显著超越同尺寸开源模型，部分指标甚至超过更大参数量的模型。
+  - **将大模型推理模式迁移至小模型，实现了小模型性能的突破性提升。**
+  - 基于 DeepSeek-R1 生成的推理数据，对 Qwen2.5 和 Llama3系 列模型进行蒸馏后，不同规模的模型在数学竞赛（如 AIME 2024 达到 72.6%）、代码生成（LiveCodeBench 57.2%）等任务中显著超越同尺寸开源模型，部分指标甚至超过更大参数量的模型。
 
 ### DeepSeek-R1-Zero 的自主演化过程
 

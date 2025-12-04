@@ -3,9 +3,9 @@ layout: post
 title: 抱脸社区：Transformers，启动🥳
 date: 2023-11-16 02:16:27
 categories:
-    - 🔧 工具使用
-    - 科研工具✍️
-tags: [人工智能, Transformer] 
+  - 🔧 工具使用
+  - 科研工具✍️
+tags: [人工智能, Transformer]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00002.jpg
 ---
 
@@ -59,13 +59,13 @@ pip install 'transformers[torch]'
 
 预训练模型下载后通常被放到了 ~/.cache/huggingface/hub 下。
 
-这个文件夹是默认的，除非环境变量 TRANSFORMERS\_CACHE 被指定。
+这个文件夹是默认的，除非环境变量 TRANSFORMERS_CACHE 被指定。
 
 自然地，我们想到需要修改 shell 的环境变量：
 
-1. HUGGINGFACE\_HUB or TRANSFORMERS\_CACHE
-2. HF\_HOME
-3. XDG\_CACHE\_HOME + /huggingface
+1. HUGGINGFACE_HUB or TRANSFORMERS_CACHE
+2. HF_HOME
+3. XDG_CACHE_HOME + /huggingface
 
 Transformers 会按照优先级选择将模型下载到什么地方。
 
@@ -84,7 +84,7 @@ sed -i '/deactivate () {/a unset TRANSFORMERS_CACHE' .env/bin/activate
 
 其实离线模式就是将模型下载到本地缓存起来，然后调用。
 
-需要指定环境变量 TRANSFORMERS\_OFFLINE = 1 以开启。
+需要指定环境变量 TRANSFORMERS_OFFLINE = 1 以开启。
 
 ```bash
 echo "export TRANSFORMERS_OFFLINE=1" >> .env/bin/activate
@@ -140,6 +140,7 @@ classifier = pipeline("sentiment-analysis")
 
 classifier("We are very happy to show you the 🤗 Transformers library.")
 ```
+
 ```output
 [{'label': 'POSITIVE', 'score': 0.9998}]
 ```
@@ -152,7 +153,7 @@ classifier("We are very happy to show you the 🤗 Transformers library.")
 
 而 AutoClass 是 transformers 的基本类，包括 Tokenizer 类, Model 类和 Configuration 类。
 
-所有相关的类都衍生自这 3 个类，它们都有 save\_pretrained() 和 from\_pretrained() 方法。
+所有相关的类都衍生自这 3 个类，它们都有 save_pretrained() 和 from_pretrained() 方法。
 
 #### Tokenizer 类
 
@@ -171,6 +172,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 encoding = tokenizer("We are very happy to show you the 🤗 Transformers library.")
 print(encoding)
 ```
+
 ```output
 {'input_ids': [101, 11312, 10320, 12495, 19308, 10114, 11391, 10855, 10103, 100, 58263, 13299, 119, 102],
  'token_type_ids': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -179,9 +181,9 @@ print(encoding)
 
 按照约定，Tokenizer 返回一个包含如下字段的字典：
 
-- input\_ids: token 的数字表示。
-- token\_type\_ids: token 属于句子 A 还是句子 B
-- attention\_mask: 表示哪一个 token 需要被注意。
+- input_ids: token 的数字表示。
+- token_type_ids: token 属于句子 A 还是句子 B
+- attention_mask: 表示哪一个 token 需要被注意。
 
 Tokenzier 能够接受一个 list 并返回一个 batch，只需指定是否填充和截断。
 
@@ -222,6 +224,7 @@ from torch import nn
 pt_predictions = nn.functional.softmax(pt_outputs.logits, ndim=-1)
 print(pt_predictions)
 ```
+
 ```output
 tensor([[0.0021, 0.0018, 0.0115, 0.2121, 0.7725],
         [0.2084, 0.1826, 0.1969, 0.1755, 0.2365]], grad_fn=<SoftmaxBackward0>)
@@ -233,7 +236,7 @@ tensor([[0.0021, 0.0018, 0.0115, 0.2121, 0.7725],
 
 这是因为当你从一个 Config 类初始化模型时，它是从头开始的。
 
-你只需引入 AutoConfig 类并调用 from\_pretrained() 函数。
+你只需引入 AutoConfig 类并调用 from_pretrained() 函数。
 
 ```python
 from transformers import AutoConfig
@@ -241,7 +244,7 @@ from transformers import AutoConfig
 my_config = AutoConfig.from_pretrained("distilbert-base-uncased", n_heads=12)
 ```
 
-然后将其通过 from\_config() 函数调用。
+然后将其通过 from_config() 函数调用。
 
 ```python
 from transformers import AutoModel
@@ -251,7 +254,7 @@ my_model = AutoModel.from_config(my_config)
 
 ### Save/From 函数
 
-模型训练完后，通过调用 tokenizer 的 save\_pretrained() 函数即可保存。
+模型训练完后，通过调用 tokenizer 的 save_pretrained() 函数即可保存。
 
 ```python
 pt_save_directory = "./pt_save_pretrained"
@@ -259,7 +262,7 @@ tokenizer.save_pretrained(pt_save_directory)
 pt_model.save_pretrained(pt_save_directory)
 ```
 
-如需复用模型，通过 from\_pretrained() 函数即可。这也是从远程下载模型的函数。
+如需复用模型，通过 from_pretrained() 函数即可。这也是从远程下载模型的函数。
 
 ```python
 tf_model = TFAutoModelForSequenceClassification.from_pretrained("./tf_save_pretrained")
@@ -276,9 +279,9 @@ tf_model = TFAutoModelForSequenceClassification.from_pretrained("./tf_save_pretr
 STSBenchmark 以 CSV 个格式存储。其中，第 4 列是两个语句的相似度，为从 0 到 5 的浮点数。第 5 列和第 6 列是两个英文语句。
 
 ```csv
-main-captions	MSRvid	2012test	0000	5.000	A man with a hard hat is dancing.	A man wearing a hard hat is dancing.
-main-captions	MSRvid	2012test	0002	4.750	A young child is riding a horse.	A child is riding a horse.
-main-captions	MSRvid	2012test	0003	5.000	A man is feeding a mouse to a snake.	The man is feeding a mouse to the snake.
+main-captions MSRvid 2012test 0000 5.000 A man with a hard hat is dancing. A man wearing a hard hat is dancing.
+main-captions MSRvid 2012test 0002 4.750 A young child is riding a horse. A child is riding a horse.
+main-captions MSRvid 2012test 0003 5.000 A man is feeding a mouse to a snake. The man is feeding a mouse to the snake.
 ```
 
 #### Dataset
@@ -311,6 +314,7 @@ class STS(Dataset):
 sts_dev = STS("data/stsbenchmark/sts-dev.csv")
 print(sts_dev[0])
 ```
+
 ```output
 {'score': '5.000', 'sent1': 'A man with a hard hat is dancing.', 'sent2': 'A man wearing a hard hat is dancing.'}
 ```
@@ -359,11 +363,12 @@ print('batch_y shape:', batch_y.shape)
 print(batch_X)
 print(batch_y)
 ```
+
 ```output
 batch_X shape: {'input_ids': torch.Size([4, 40]), 'token_type_ids': torch.Size([4, 40]), 'attention_mask': torch.Size([4, 40])}
 batch_y shape: torch.Size([4])
 {'input_ids': tensor(
-		[[  101,  6304,  2008,  3477,  1996,  1002,  1015,  1010, 20636,  4211,
+  [[  101,  6304,  2008,  3477,  1996,  1002,  1015,  1010, 20636,  4211,
           7408,  2131, 22434,  2494,  2007,  2184,  5080,  7396,  3229, 15943,
           1012,   102,  7027, 20874,  2005, 22434,  2494,  2007,  2184,  5080,
           7396,  3229, 15943,  2003,  1002,  1015,  1010, 20636,  1012,   102],
@@ -378,18 +383,18 @@ batch_y shape: torch.Size([4])
         [  101,  1996,  7726,  2231,  3090,  1011,  1011,  1996,  7726,  4517,
           2565,  3464,  9379,  1012,   102,  1996,  7726,  2231,  2758,  1996,
           4517,  2565,  2003,  9379,  1012,   102,     0,     0,     0,     0,
-             0,     0,     0,     0,     0,     0,     0,     0,     0,     0]]), 
+             0,     0,     0,     0,     0,     0,     0,     0,     0,     0]]),
 'token_type_ids': tensor(
-		[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+  [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-         1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]), 
+         1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]),
 'attention_mask': tensor(
-		[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
          1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -402,11 +407,11 @@ tensor([4.3330, 4.0000, 3.4000, 5.0000])
 
 DataLoader 按照我们设置的 batch size 每次对 4 个样本进行编码。
 
-并且通过填充和截断的操作使得每个样本的长度相同，填充位置 0 并且相应的 attention\_mask 置 0。
+并且通过填充和截断的操作使得每个样本的长度相同，填充位置 0 并且相应的 attention_mask 置 0。
 
 这里我们选择的是 BERT 的编码器，因此每个样本都被处理成了"[CLS] sent1 [SEP] sent2 [SEP]" 的形式。
 
-[CLS] 对应的 input\_ids 是 101, 而 [SEP] 对应的 input\_ids 是 102。
+[CLS] 对应的 input_ids 是 101, 而 [SEP] 对应的 input_ids 是 102。
 
 ### 构建模型
 
@@ -441,7 +446,7 @@ def build_model():
 
 BERT 首先会将输入编码为 768 维的向量，之后利用一层全连接将 768 维映射成一个实数来进行回归。
 
-注意，此时我们的模型是 Transformers 预训练模型的子类，因此需要通过预置的 from\_pretrained 函数来加载模型参数。
+注意，此时我们的模型是 Transformers 预训练模型的子类，因此需要通过预置的 from_pretrained 函数来加载模型参数。
 
 这种方式使得我们可以更灵活地操作模型细节，例如这里 Dropout 层就可以直接加载 BERT 模型自带的参数值。
 
@@ -452,6 +457,7 @@ model = build_model()
 outputs = model(batch_X)
 print(outputs.shape)
 ```
+
 ```output
 torch.Size([4, 1])
 ```
@@ -462,7 +468,7 @@ torch.Size([4, 1])
 
 #### 训练组件
 
-总的来说，训练模型需要 loss\_fn（损失函数）、optimizer（优化器）、lr\_scheduler（学习率调整器）。
+总的来说，训练模型需要 loss_fn（损失函数）、optimizer（优化器）、lr_scheduler（学习率调整器）。
 
 其中，损失函数用于计算梯度，优化器用于平滑梯度，学习率调整器用于在训练过程中调整学习率。
 
@@ -491,9 +497,9 @@ lr_scheduler = get_scheduler(
 
 在这里，损失函数使用了 torch.nn 提供的均方误差 MSE。
 
-优化器选用了 AdamW 并指定了学习率为 learning\_rate（取 1e-5）。
+优化器选用了 AdamW 并指定了学习率为 learning_rate（取 1e-5）。
 
-lr\_scheduler 制定了学习率分 epoch\_num \* len(train\_loader) 步进行下降。
+lr_scheduler 制定了学习率分 epoch_num \* len(train_loader) 步进行下降。
 
 ### 训练循环
 
@@ -509,7 +515,7 @@ def train_loop(dataloader, model, loss_fn, optimizer, lr_scheduler, epoch, total
     progress_bar = tqdm(range(len(dataloader)))
     progress_bar.set_description(f'loss: {0:>7f}')
     finish_step_num = (epoch-1)*len(dataloader)
-    
+
     model.train()
     for step, (X, y) in enumerate(dataloader, start=1):
         pred = model(X)

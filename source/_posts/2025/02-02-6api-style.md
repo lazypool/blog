@@ -3,8 +3,8 @@ layout: post
 title: 最流行 🐦 的 6 种 API 架构风格
 date: 2025-02-02 23:18:05
 categories:
-    - 📢 技术杂谈
-    - 关于前端岗🎨
+  - 📢 技术杂谈
+  - 关于前端岗🎨
 tags: [前端, API, 互联网]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00010.jpg
 ---
@@ -25,11 +25,11 @@ SOAP 是 **基于 XML** 的简易对象访问协议，它是一种用于应用�
 
 **广泛适用于安全性和可靠性至关重要的金融服务和支付网关领域。** 特别是需要实现事务处理和消息传递机制的场景，如 B2B 交易、客户/服务器通讯、基于 Web 的电子商务应用、企业应用集成等。
 
-**SOAP 实例：** 在下面的例子中，一个 GetStockPrice 请求被发送到了服务器。此请求有一个 StockName 参数，而在响应中则会返回一个 Price 参数。此功能的命名空间被定义在此地址中："http://www.example.org/stock"。
+**SOAP 实例：** 在下面的例子中，一个 GetStockPrice 请求被发送到了服务器。此请求有一个 StockName 参数，而在响应中则会返回一个 Price 参数。此功能的命名空间被定义在此地址中："<http://www.example.org/stock"。>
 
 ### SOAP 请求
 
-```
+```xml
 POST /InStock HTTP/1.1
 Host: www.example.org
 Content-Type: application/soap+xml; charset=utf-8
@@ -46,12 +46,12 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
   </m:GetStockPrice>
 </soap:Body>
 
-</soap:Envelope> 
+</soap:Envelope>
 ```
 
 ### SOAP 响应
 
-```
+```text
 HTTP/1.1 200 OK
 Content-Type: application/soap+xml; charset=utf-8
 Content-Length: nnn
@@ -80,7 +80,7 @@ RESTful 的应用场景更加多元和广泛。我们在日常生活中所能接
 
 ### RESTful 请求 (POST)
 
-```
+```text
 POST /api/books HTTP/1.1
 Host: example.com
 Content-Type: application/json
@@ -95,7 +95,7 @@ Content-Type: application/json
 
 ### RESTful 响应 (POST)
 
-```
+```text
 HTTP/1.1 201 Created
 Location: /api/books/3
 Content-Type: application/json
@@ -123,7 +123,7 @@ Facebook 开发 GraphQL 主要是为了向其数十亿用户提供高效精确�
 
 ### Operation
 
-```
+```text
 {
   hero {
     name
@@ -136,7 +136,7 @@ Facebook 开发 GraphQL 主要是为了向其数十亿用户提供高效精确�
 
 ### Response
 
-```
+```text
 {
   "data": {
     "hero": {
@@ -173,8 +173,6 @@ Socket (在一些比较坑爹的教材里被翻译成“套接字”)，是一�
 
 WebSocket 最早在 2008 年由 Hixie 提出，后来被 W3C 纳入标准化进程，并在 2011 年成为 W3C 推荐标准 (RFC 6455)。由于诞生时间比较早，基本上所有的主流浏览器均支持 WebSocket，包括 Chrome、Firefox、Safari、Edge、Opera 等。**近年来，WebSocket 逐渐得到了越来越多的关注和应用，特别是在需要实时通信功能的 Web 应用程序中，如在线游戏、社交网络、直播等。**
 
-### 工作原理
-
 WebSocket 连接是通过一次 HTTP 升级请求（UpgradeRequest）从传统的 HTTP 连接升级而来。
 
 1. 握手过程始于客户端发起的HTTP请求，其中包含 Upgrade 字段，表示希望升级为 WebSocket 连接。
@@ -186,8 +184,6 @@ WebSocket 连接是通过一次 HTTP 升级请求（UpgradeRequest）从传统�
 **WebHook 是一种很棒的回调机制，它基于 HTTP 协议。** 如果是经常使用 pip 和 pacman 等工具进行包管理的同学可能会对到底啥是 Hook (钩子) 比较熟悉。**简单来说，Webhook 允许一个系统（源）在特定事件发生时，通过 HTTP 请求与另一个系统（目标）进行“对话”，并共享有关该事件的信息。** 这种机制实现了不同系统间的数据实时同步和交互，极大地提高了数据传输的效率和便捷性。
 
 WebHook 的一切都与事件驱动、HTTP 回调和异步操作有关。例如：每当 push 新的 commit 时，GitHub 都会使用 WebHook 通知其他系统处理相关任务，比如 Workflow 和发送通知邮件等。这样做的好处在于，使用异步操作分派任务，在提供多样服务的同时保证了高效性。
-
-### 工作原理
 
 Webhook的工作原理可以简单概括为以下几个步骤：
 

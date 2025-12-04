@@ -89,7 +89,7 @@ $$Attention(Q,K,V) = \textsf{softmax}(\frac{QG(K^T)}{\sqrt{d\_k}})G(V)$$
 
 > 效能优化方式试图引入某些新的机制，来增强注意力机制的长序列容忍度和抗噪声能力。形象的比喻是：给学生配备高效的学习工具，来让他拥有更专注的注意力，能够处理更多、更难的任务。
 
-### 递归记忆 (Recurssion Memory)
+### 递归记忆 (Reccurssion Memory)
 
 在 Transformers 中加入记忆可以让他们记住过去的计算，增强他们在较长序列中保持上下文的能力。
 

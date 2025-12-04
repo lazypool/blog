@@ -2,8 +2,8 @@
 layout: post
 title: BFS、DFS、UCS、A*：常用的搜索算法简介 🔎
 categories:
-    - 💻 技术干货
-    - 数据结构与算法
+  - 💻 技术干货
+  - 数据结构与算法
 tags: [数据结构与算法, 搜索算法, 人工智能]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00013.jpg
 date: 2025-03-15 13:34:24
@@ -11,9 +11,9 @@ date: 2025-03-15 13:34:24
 
 > 正文前的碎碎念：DeepSeek 和 CUDA 两篇博客有点过于硬核了，更新速度一直缓慢，整个 2 月份居然没有开新博客！！今天开一个小一点的话题，讲一下深搜、广搜、UCS 和 A\*。
 
-# 搜索算法简介：BFS、DFS、UCS、A* 🔎
+# 搜索算法简介：BFS、DFS、UCS、A\* 🔎
 
-在人工智能中，搜索算法是解决复杂问题的核心工具。无论是迷宫求解、拼图问题还是路径规划，搜索算法都能帮助我们找到从初始状态到目标状态的最佳路径。本文将简要介绍四种常见的搜索算法：广度优先搜索（BFS）、深度优先搜索（DFS）、一致代价搜索（UCS）和 A* 搜索。
+在人工智能中，搜索算法是解决复杂问题的核心工具。无论是迷宫求解、拼图问题还是路径规划，搜索算法都能帮助我们找到从初始状态到目标状态的最佳路径。本文将简要介绍四种常见的搜索算法：广度优先搜索（BFS）、深度优先搜索（DFS）、一致代价搜索（UCS）和 A\* 搜索。
 
 ## 搜索问题表述和图搜索形式
 
@@ -29,6 +29,7 @@ date: 2025-03-15 13:34:24
 <div>
 
 > 示例：迷宫求解
+>
 > - 初始状态：机器人在迷宫的起点。
 > - 动作：向上、下、左、右移动。
 > - 转换模型：根据移动方向更新机器人位置。
@@ -37,7 +38,9 @@ date: 2025-03-15 13:34:24
 
 </div>
 <div>
+<!-- markdownlint-disable MD013 -->
   <svg width="200" height="200" viewBox="0 0 400 400"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="#e0e0e0" stroke="#000000" stroke-width="1"></rect></pattern></defs><rect width="400" height="400" fill="url(#grid)"></rect><g fill="#000000"><rect x="0" y="0" width="400" height="50"></rect><rect x="0" y="0" width="50" height="400"></rect><rect x="350" y="0" width="50" height="400"></rect><rect x="0" y="350" width="400" height="50"></rect><rect x="100" y="50" width="50" height="150"></rect><rect x="200" y="200" width="50" height="150"></rect><rect x="250" y="50" width="50" height="100"></rect><rect x="50" y="250" width="100" height="50"></rect></g><circle cx="75" cy="375" r="20" fill="#ff0000"></circle><rect x="350" y="50" width="50" height="50" fill="#00ff00"></rect></svg>
+<!-- markdownlint-enable MD013 -->
 </div>
 </div>
 
@@ -140,7 +143,7 @@ def ucs(initState, getActions, transModel, goalTest, pathCost):
     return None
 ```
 
-<br>**证明：UCS 能保证最优性**
+<br><h6>证明：UCS 能保证最优性</h6>
 
 - 假设在搜索树中存在最优终点 $T_a$ 和次优终点 $T_b$（下标为代价，$a<b$）
 - 若 $T_a$ 已在队列中，则无论 $T_b$ 入队与否，$T_a$ 总是先出队，从而返回最优路径
@@ -174,7 +177,7 @@ def aStar(initState, getActions, transModel, goalTest, pathCost, heuristic):
             for action in getActions(curState):
                 nextState = transModel(curState, action)
                 g = gCost + pathCost(curState, action)
-                h = heursitic(nextState)
+                h = heuristic(nextState)
                 heapq.heappush(frontier, (g + h, g, nextState, lstActions + [action]))
 ```
 
@@ -183,21 +186,21 @@ def aStar(initState, getActions, transModel, goalTest, pathCost, heuristic):
 - A\* 能保证最优，当且仅当给定的启发 $h(n)$ 是可接受的 (addmissible)
 - 所谓“可接受”，是指：**对于搜索树中的所有节点 $n$，$0 \le h(n) \le h^\star(n)$ 恒成立**
 - 其中，$h^\star(n)$ 为从节点 $n$ 到终点的真实代价，也即 $h^\star(n) = g(T) - g(n)$
-- 可以证明：当 $h(n)$ 可接受时，A* 能够保证搜索到的结果最优，思路与证明 UCS 时一致：
-    - 同样考虑 $T_a$, $T_b$ 和节点 $n$，已知 $h(·)$ 是可接受的
-    - 我们总是有：$f(n) = g(n) + h(n) \le g(n) + h^\star(n) = f(T_a) < f(T_b)$
-    - 因此除非 $T_a$ 及其所有前序都出队，否则 $T_b$ 滞留，故 A\* 能够保证最优
+- 可以证明：当 $h(n)$ 可接受时，A\* 能够保证搜索到的结果最优，思路与证明 UCS 时一致：
+  - 同样考虑 $T_a$, $T_b$ 和节点 $n$，已知 $h(·)$ 是可接受的
+  - 我们总是有：$f(n) = g(n) + h(n) \le g(n) + h^\star(n) = f(T_a) < f(T_b)$
+  - 因此除非 $T_a$ 及其所有前序都出队，否则 $T_b$ 滞留，故 A\* 能够保证最优
 - 相较于 UCS，A\* 引入启发来估计节点到终点的距离，**好的启发应当是接近真实距离的**
 - 启发越接近真实值，A\* 的搜索效率就越高，就能越快找到最优路径
 
 ## 总结与反思
 
-|算法|数据结构|最优性|时间复杂度|空间复杂度|
-|-|-|-|-|-|
-|BFS|队列|动作数最少|$O(b^d)$|$O(b^d)$|
-|DFS|栈|非最优|$O(b^m)$|$O(bm)$|
-|UCS|优先队列|保证最优|$O(b^{C^\star/\epsilon})$|$O(b^{C^\star/\epsilon})$|
-|A*|优先队列|启发可接受时最优|$O(b^d)$|$O(b^d)$|
+| 算法 | 数据结构 | 最优性           | 时间复杂度                | 空间复杂度                |
+| ---- | -------- | ---------------- | ------------------------- | ------------------------- |
+| BFS  | 队列     | 动作数最少       | $O(b^d)$                  | $O(b^d)$                  |
+| DFS  | 栈       | 非最优           | $O(b^m)$                  | $O(bm)$                   |
+| UCS  | 优先队列 | 保证最优         | $O(b^{C^\star/\epsilon})$ | $O(b^{C^\star/\epsilon})$ |
+| A\*  | 优先队列 | 启发可接受时最优 | $O(b^d)$                  | $O(b^d)$                  |
 
 > 注：$b$ 为分支因子，$d$ 为最优解深度，$m$ 为最大深度，$C^\star$ 为最优解成本，$\epsilon$ 为最小单步成本。
 

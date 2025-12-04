@@ -13,7 +13,7 @@ layout: about
 .weekday-labels { display:grid; grid-template-rows:repeat(7, 1fr); gap:3px; font-size:9px; padding-top:25px; }
 .heatmap { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; }
 .day { width: 16px; height: 16px; position: relative; border-radius: 3px; }
-.day.show:hover::after { 
+.day.show:hover::after {
     content: attr(data-count) " contributions on " attr(data-date); position: absolute;
     top: -30px; left: 50%; transform: translateX(-50%); background: #000; color: #fff;
     padding: 4px 8px; border-radius: 3px; font-size: 10px; white-space: nowrap; z-index: 1; }
@@ -37,10 +37,10 @@ layout: about
         </div>
         <div id="heatmap-container" style="width:95%">
             <div class="monthlabels" id="monthlabels"></div>
-	        <div class="heatmap" id="heatmap"></div>
+            <div class="heatmap" id="heatmap"></div>
         </div>
     </div>
-	<div style="display:flex; margin-top:10px; float:right;">
+    <div style="display:flex; margin-top:10px; float:right;">
       <div style="font-size:9px;">Less&emsp;</div>
       <div class="day color-0"></div>
       <div class="day color-1"></div>
@@ -48,7 +48,7 @@ layout: about
       <div class="day color-3"></div>
       <div class="day color-4"></div>
       <div style="font-size:9px;">&emsp;More</div>
-	</div>
+    </div>
     <p style="font-size:25pt; margin-top:1.5em;">
         Thursday
     &emsp;<span style="font-size:15pt;">
@@ -58,14 +58,14 @@ layout: about
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：撰写对有关线段树数据结构的博客<span></span></li>
-                <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
+                <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
                 <li class="todo-list-li">代码：重构 dwm 代码结构<span></span></li>
-                <li class="todo-list-li">代码：重构 nvim 的 lsp 引用方式<span></span></li>
+                <li class="todo-list-li done">代码：重构 nvim 的 lsp 引用方式<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
-            <img src="https://cdn.pixabay.com/photo/2020/11/15/18/51/cat-5746875_1280.png" style="max-height:250px; background-color: transparent">
+            <img src="https://cdn.pixabay.com/photo/2020/11/15/18/51/cat-5746875_1280.png" style="max-height:250px; background-color: transparent" alt="">
         </div>
     </div>
 </div>
@@ -110,11 +110,11 @@ fetch("https://github-contributions-api.jogruber.de/v4/lazypool")
 <table><thead><tr>
 <th><div align="center"><img alt="photo" src="./pic2.png" width="500" title="me"><h6>秋水时至，百川塞河！ —— 《庄子·秋水》</h6></div></th>
 <th><div align="center">
-      
+
 [![LazyPool's GitHub stats](https://github-readme-stats.vercel.app/api?username=lazypool&count_private=true&show_icons=true)](https://github.com/lazypool)
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=lazypool)](https://github.com/lazypool)
-    
+
 </div></th></tr></thead></table>
 
 <div align="center">

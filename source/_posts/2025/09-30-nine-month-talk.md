@@ -12,7 +12,6 @@ index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00023.jpg
 date: 2025-09-30 10:00:06
 ---
 
-
 # 九月份杂谈：秋招滑铁卢、武大Offer、躺平加拖延
 
 > “Some people believe holding on and hanging in there are signs of great strength. However, there are times when it takes much more strength to know when to let go and then do it.”

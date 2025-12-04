@@ -1,7 +1,7 @@
 ---
 layout: post
 title: picom 服务于 X11 协议的窗口渲染器
-tags: [x11 ,picom ,compositor ,窗口渲染 ,动画特效]
+tags: [x11, picom, compositor, 窗口渲染, 动画特效]
 categories:
   - 🔧 工具使用
   - Oh-my-Linux
@@ -73,15 +73,15 @@ detect-rounded-corners = true;
 ```
 
 - **backend** + **vsync**
-    指定渲染后端，可选 `xrender` 和 `glx`。前者更稳定但效率极低，通常选择后者。开启垂直同步。
+  指定渲染后端，可选 `xrender` 和 `glx`。前者更稳定但效率极低，通常选择后者。开启垂直同步。
 - **detect-client-leader**
-    检测窗口的 WM_CLIENT_LEADER 以保证同组窗口在同一时刻被同时 focused/unfocused。
+  检测窗口的 WM_CLIENT_LEADER 以保证同组窗口在同一时刻被同时 focused/unfocused。
 - **detect-client-transient**
-    用法与上类似，主要是检测瞬时窗口，如弹出的提示框、悬浮框等。
+  用法与上类似，主要是检测瞬时窗口，如弹出的提示框、悬浮框等。
 - **detect-client-opacity**
-    检测窗口的 _NET_WM_WINDOW_OPACITY，避免对默认半透明的窗口施加透明渲染。
+  检测窗口的 \_NET_WM_WINDOW_OPACITY，避免对默认半透明的窗口施加透明渲染。
 - **detect-rounded-corners**
-    检测窗口是否本身具有圆角属性，避免对形变窗口继续施加形变。
+  检测窗口是否本身具有圆角属性，避免对形变窗口继续施加形变。
 
 ### 通用的视觉设置
 
@@ -108,31 +108,31 @@ blur-kern = "3x3box";
 ```
 
 - **阴影 (shadow)**
-    使窗口更加立体化，部分喜欢平面化设计的用户 ~(比如我)~ 会选择禁用它。
-    `shadow-radius 阴影的尺寸，单位是像素。`
-    `shadow-offset-x/y 阴影的偏移，可以选择阴影显示的地方。`
-    `shadow-opacity 阴影的不透明度，可以对阴影施加透明化效果。`
+  使窗口更加立体化，部分喜欢平面化设计的用户 ~(比如我)~ 会选择禁用它。
+  `shadow-radius 阴影的尺寸，单位是像素。`
+  `shadow-offset-x/y 阴影的偏移，可以选择阴影显示的地方。`
+  `shadow-opacity 阴影的不透明度，可以对阴影施加透明化效果。`
 
 - **圆角 (corner)**
-    使窗口四个角圆化，通常作为现代用户的默认喜好。
-    `corner-radius 圆角的尺寸，单位是像素，可被 rules 覆盖。`
+  使窗口四个角圆化，通常作为现代用户的默认喜好。
+  `corner-radius 圆角的尺寸，单位是像素，可被 rules 覆盖。`
 
 - **淡入淡出 (fading)**
-    当窗口开启或显示时，窗口逐渐由完全透明变得不透明。当窗口关闭或隐藏时，则相反。
-    `fade-in/out-step 窗口淡入淡出时，每步窗口透明度增加或减小的量。`
-    `fade-delta 窗口淡入淡出时，每步所耗费的时间，单位是毫秒，默认是 12。`
+  当窗口开启或显示时，窗口逐渐由完全透明变得不透明。当窗口关闭或隐藏时，则相反。
+  `fade-in/out-step 窗口淡入淡出时，每步窗口透明度增加或减小的量。`
+  `fade-delta 窗口淡入淡出时，每步所耗费的时间，单位是毫秒，默认是 12。`
 
 - **模糊 (blur)**
-    当窗口半透明时，将桌面背景模糊化，形成类似于毛玻璃似的特效。
-    `blur-method 模糊化方法，可选 none、gaussian、box、kernel、dual_kawase 五种。`
-    `blur-size 模糊尺寸，gaunssian 和 box 需要，尺寸需要是单数。`
-    `deviatioin 高斯偏差，gaunssian 模糊方法需要指定偏差，默认 0.840。`
-    `strength 模糊强度，dual_kawase 需要，强度越高模糊力度越大。`
-    `kernel 卷积核，kernel 需要，需要自行指定卷积核的大小和卷积矩阵的参数。`
+  当窗口半透明时，将桌面背景模糊化，形成类似于毛玻璃似的特效。
+  `blur-method 模糊化方法，可选 none、gaussian、box、kernel、dual_kawase 五种。`
+  `blur-size 模糊尺寸，gaunssian 和 box 需要，尺寸需要是单数。`
+  `deviatioin 高斯偏差，gaunssian 模糊方法需要指定偏差，默认 0.840。`
+  `strength 模糊强度，dual_kawase 需要，强度越高模糊力度越大。`
+  `kernel 卷积核，kernel 需要，需要自行指定卷积核的大小和卷积矩阵的参数。`
 
 ### 匹配窗口类型的设置
 
-详见 [picom 配置手册](https://picom.app/) 中的 **WINDOW RULES** 和 **FORMAT OF CONDITONS** 两节。
+详见 [picom 配置手册](https://picom.app/) 中的 **WINDOW RULES** 和 **FORMAT OF CONDITIONS** 两节。
 
 #### 窗口规则实际样例
 
@@ -140,20 +140,20 @@ blur-kern = "3x3box";
 # 窗口规则
 rules = (
 # 基础透明度
-	{ match = "!focused && !_NET_WM_WINDOW_OPACITY", opacity = 0.65 },
-	{ match = "focused || group_focused || wmwin || override_redirect", opacity = 0.95 },
-	{ match = "fullscreen", opacity = 1.00, corner-radius = 0.0 },
+ { match = "!focused && !_NET_WM_WINDOW_OPACITY", opacity = 0.65 },
+ { match = "focused || group_focused || wmwin || override_redirect", opacity = 0.95 },
+ { match = "fullscreen", opacity = 1.00, corner-radius = 0.0 },
 
 # 应用窗口配置
-	{ match = "class_g = 'dwm'", opacity = 1.00, corner-radius = 12.0, fade = false },
-	{ match = "class_g = 'fcitx'", opacity = 1.00, corner-radius = 0.0, fade = false },
-	{ match = "class_g = 'obs'", opacity = 1.00, corner-radius = 0.0, fade = false },
-	{ match = "class_g = 'Gimp'", opacity = 1.00, corner-radius = 0.0, fade = false },
-	{ match = "class_g = 'Rofi'", opacity = 1.00, fade = false },
+ { match = "class_g = 'dwm'", opacity = 1.00, corner-radius = 12.0, fade = false },
+ { match = "class_g = 'fcitx'", opacity = 1.00, corner-radius = 0.0, fade = false },
+ { match = "class_g = 'obs'", opacity = 1.00, corner-radius = 0.0, fade = false },
+ { match = "class_g = 'Gimp'", opacity = 1.00, corner-radius = 0.0, fade = false },
+ { match = "class_g = 'Rofi'", opacity = 1.00, fade = false },
 
 # 窗口类型设置
-	{ match = "window_type = 'dock'", opacity = 1.00, blur-background = false },
-	{ match = "window_type = 'desktop'", opacity = 1.00, blur-background = false },
+ { match = "window_type = 'dock'", opacity = 1.00, blur-background = false },
+ { match = "window_type = 'desktop'", opacity = 1.00, blur-background = false },
 )
 ```
 
@@ -161,9 +161,9 @@ picom 允许在配置文件中设置 **窗口类型特定的部分设置**，以
 
 ```picom.conf
 rules = (
-	{ match = "focused"; opacity = 1; },
-	{ match = "name = 'firefox'"; shadow = true; },
-	# ... and so on
+ { match = "focused"; opacity = 1; },
+ { match = "name = 'firefox'"; shadow = true; },
+ # ... and so on
 )
 ```
 
@@ -178,7 +178,7 @@ rules 块中，包含若干个 `{}` 块，而每个 `{}` 块都需要包含 `mat
 - **opacity** 0.0-1.0，设置被匹配窗口的不透明度。
 - **dim** 0.0-1.0，设置被匹配窗口的暗化程度。
 - **corner-radius** 单位为像素，设置被匹配窗口的圆角大小。
-- **blur-backgro*und** true 或 false，是否是被匹配窗口拥有模糊背景的效果。
+- **blur-backgro\*und** true 或 false，是否是被匹配窗口拥有模糊背景的效果。
 - **invert-color** true 或 false，是否是被匹配窗口反色。
 - **clip-shadow-above** true 或 false，是否防止被匹配窗口被阴影覆盖。
 - **unredir** 用于控制被匹配窗口的重定向和非从定向行为，通常不用设置。
@@ -196,7 +196,7 @@ Term <- Item ('&&' Item)*
 Item <- '!'? Target '@'? ('[' Index ']')? (Operator Pattern)? | '(' Condition ')'
 ```
 
-上述规则比较抽象，简单来说：**Condition** 由若干个 **Item**，由逻辑操作符 &&（and）和 ||（or）连接。 **&& 的优先级高于 ||。这两个运算符都是左优先的。括号可以用来提高优先级。**  如果 **Item** 具有前导非运算符（!），则该项的结果取反。
+上述规则比较抽象，简单来说：**Condition** 由若干个 **Item**，由逻辑操作符 &&（and）和 ||（or）连接。 **&& 的优先级高于 ||。这两个运算符都是左优先的。括号可以用来提高优先级。** 如果 **Item** 具有前导非运算符（!），则该项的结果取反。
 
 最后，我们注意到：每个 **Item** 都由 **Target**、\[**Index**\] 和 **Operator Pattern** 组成。其中，**Target** 是必须的，\[**Index**\] 和 **Operator Pattern** 则是可选的。⚠️（**Target** 可以是预定义的关键名，也可以是窗口的属性名，如 `_NET_WM_WINDOW_OPACITY` 等）。
 
@@ -238,80 +238,80 @@ Item <- '!'? Target '@'? ('[' Index ']')? (Operator Pattern)? | '(' Condition ')
 ```picom.conf
 animations = (
 # 关闭及隐藏窗口
-	{ triggers = ["close", "hide"];
-		opacity = {
-			curve = "linear";
-			duration = 0.4;
-			start = "window-raw-opacity-before";
-			end = 0;
-		};
-		shadow-opacity = "opacity";
-		scale-x = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.6;
-			start = 1;
-			end = 0;
-		};
-		scale-y = "scale-x";
-		shadow-scale-x = "scale-x";
-		shadow-scale-y = "scale-y";
-	},
+ { triggers = ["close", "hide"];
+  opacity = {
+   curve = "linear";
+   duration = 0.4;
+   start = "window-raw-opacity-before";
+   end = 0;
+  };
+  shadow-opacity = "opacity";
+  scale-x = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.6;
+   start = 1;
+   end = 0;
+  };
+  scale-y = "scale-x";
+  shadow-scale-x = "scale-x";
+  shadow-scale-y = "scale-y";
+ },
 
 # 开启及展示窗口
-	{	triggers = ["open", "show"];
-		opacity = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.8;
-			start = 0;
-			end = "window-raw-opacity";
-		};
-		shadow-opacity = "opacity";
-		offset-x = "(1 - scale-x) / 2 * window-width";
-		offset-y = "(1 - scale-y) / 2 * window-height";
-		scale-x = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.8;
-			start = 0;
-			end = 1;
-		};
-		scale-y = "scale-x";
-		shadow-offset-x = "offset-x";
-		shadow-offset-y = "offset-y";
-		shadow-scale-x = "scale-x";
-		shadow-scale-y = "scale-y";
-	},
+ { triggers = ["open", "show"];
+  opacity = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.8;
+   start = 0;
+   end = "window-raw-opacity";
+  };
+  shadow-opacity = "opacity";
+  offset-x = "(1 - scale-x) / 2 * window-width";
+  offset-y = "(1 - scale-y) / 2 * window-height";
+  scale-x = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.8;
+   start = 0;
+   end = 1;
+  };
+  scale-y = "scale-x";
+  shadow-offset-x = "offset-x";
+  shadow-offset-y = "offset-y";
+  shadow-scale-x = "scale-x";
+  shadow-scale-y = "scale-y";
+ },
 
 # 窗口缩放及移动
-	{	triggers = ["geometry"];
-		scale-x = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.8;
-			start = "window-width-before / window-width";
-			end = 1;
-		};
-		scale-y = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.8;
-			start = "window-height-before / window-height";
-			end = 1;
-		};
-		offset-x = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.8;
-			start = "window-x-before - window-x";
-			end = 1;
-		};
-		offset-y = {
-			curve = "cubic-bezier(0.25,0.8,0.25,1)";
-			duration = 0.8;
-			start = "window-y-before - window-y";
-			end = 1;
-		};
-		shadow-offset-x = "offset-x";
-		shadow-offset-y = "offset-y";
-		shadow-scale-x = "scale-x";
-		shadow-scale-y = "scale-y";
-	},
+ { triggers = ["geometry"];
+  scale-x = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.8;
+   start = "window-width-before / window-width";
+   end = 1;
+  };
+  scale-y = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.8;
+   start = "window-height-before / window-height";
+   end = 1;
+  };
+  offset-x = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.8;
+   start = "window-x-before - window-x";
+   end = 1;
+  };
+  offset-y = {
+   curve = "cubic-bezier(0.25,0.8,0.25,1)";
+   duration = 0.8;
+   start = "window-y-before - window-y";
+   end = 1;
+  };
+  shadow-offset-x = "offset-x";
+  shadow-offset-y = "offset-y";
+  shadow-scale-x = "scale-x";
+  shadow-scale-y = "scale-y";
+ },
 )
 ```
 
