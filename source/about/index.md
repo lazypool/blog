@@ -50,9 +50,9 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
     </div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Friday
+        Saturday
     &emsp;<span style="font-size:15pt;">
-        December 5, 2025
+        December 6, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
@@ -61,7 +61,7 @@ layout: about
                 <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
                 <li class="todo-list-li">代码：重构 dwm 代码结构<span></span></li>
-                <li class="todo-list-li">代码：解决 nvim 的图标显示和 lua_ls 问题<span></span></li>
+                <li class="todo-list-li">作业：补全大数据实践的讲座<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
