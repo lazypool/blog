@@ -57,10 +57,10 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">博客：撰写对有关线段树数据结构的博客<span></span></li>
-                <li class="todo-list-li">刷题：做一道力扣算法题<span></span></li>
+                <li class="todo-list-li done">博客：撰写对有关线段树数据结构的博客<span></span></li>
+                <li class="todo-list-li done">刷题：做一道力扣算法题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">代码：重构 dwm 代码结构<span></span></li>
+                <li class="todo-list-li done">代码：重构 dwm 代码结构<span></span></li>
                 <li class="todo-list-li">作业：补全大数据实践的讲座<span></span></li>
             </ul>
         </div>
