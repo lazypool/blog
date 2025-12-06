@@ -1,6 +1,30 @@
 body {
   font-family: var(--base-font-family);
-	font-size: 1.2rem;
+  font-size: 1.2rem;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.markdown-body strong {
+  color: darkorange;
+}
+
+.markdown-body em {
+  color: hotpink;
+}
+
+.markdown-body h3 {
+  color: darkcyan;
+}
+
+.markdown-body h4 {
+  color: darkkhaki;
+}
+
+.markdown-body h5 {
+  color: darkseagreen;
+}
+
+.markdown-body h6 {
+	color: darkgoldenrod;
 }
