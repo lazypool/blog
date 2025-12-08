@@ -58,8 +58,8 @@ layout: about
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：撰写有关科技新闻杂谈的博客<span></span></li>
-                <li class="todo-list-li">力扣：每日刷一道中等难度的题<span></span></li>
-                <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
+                <li class="todo-list-li done">力扣：每日刷一道中等难度的题<span></span></li>
+                <li class="todo-list-li done">科研：精读一篇论文并泛读一篇论文<span></span></li>
                 <li class="todo-list-li">代码：重构 dwm 代码结构<span></span></li>
             </ul>
         </div>
