@@ -50,18 +50,17 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
     </div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Thursday
+        Friday
     &emsp;<span style="font-size:15pt;">
-        December 11, 2025
+        December 12, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
                 <li class="todo-list-li">博客：撰写有关 git commit 信息的博客<span></span></li>
-                <li class="todo-list-li done">力扣：每日刷一道中等难度的题<span></span></li>
+                <li class="todo-list-li">力扣：每日刷一道中等难度的题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li done">代码：重构 dwm 代码结构<span></span></li>
-                <li class="todo-list-li done">开会：下午 1 点到资源西楼开会<span></span></li>
+                <li class="todo-list-li">代码：重构 dwm 代码结构<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
