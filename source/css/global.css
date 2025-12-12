@@ -5,11 +5,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.markdown-body strong {
+.markdown-body p strong {
   color: darkorange;
 }
 
-.markdown-body em {
+.markdown-body p em {
   color: hotpink;
 }
 
