@@ -50,9 +50,9 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
     </div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Monday
+        Tuesday
     &emsp;<span style="font-size:15pt;">
-        December 15, 2025
+        December 16, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
@@ -60,7 +60,7 @@ layout: about
                 <li class="todo-list-li">博客：起草一篇有关讲模型压缩的博客<span></span></li>
                 <li class="todo-list-li">力扣：每日刷一道中等难度的题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">代码：补全 dwm 的 clkstatusbar 行为<span></span></li>
+                <li class="todo-list-li">代码：解决 dunstify 进程卡死的问题<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
