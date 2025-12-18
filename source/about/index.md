@@ -50,9 +50,9 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
     </div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Wednesday
+        Thursday
     &emsp;<span style="font-size:15pt;">
-        December 17, 2025
+        December 18, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
@@ -61,7 +61,7 @@ layout: about
                 <li class="todo-list-li">力扣：每日刷一道中等难度的题<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
                 <li class="todo-list-li">代码：补全 DWM/statusbar.sh 脚本<span></span></li>
-                <li class="todo-list-li">课程：过一遍数据治理案例汇报<span></span></li>
+                <li class="todo-list-li">课程：提交数据治理案例报告和 PPT<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
