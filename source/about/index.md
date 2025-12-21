@@ -50,17 +50,16 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
     </div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Saturday
+        Sunday
     &emsp;<span style="font-size:15pt;">
-        December 20, 2025
+        December 21, 2025
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">博客：起草一篇有关讲模型压缩的博客<span></span></li>
-                <li class="todo-list-li">力扣：每日刷一道中等难度的题<span></span></li>
+                <li class="todo-list-li">博客：起草一篇讲模型压缩的博客<span></span></li>
                 <li class="todo-list-li">科研：精读一篇论文并泛读一篇论文<span></span></li>
-                <li class="todo-list-li">代码：开启 winrule 的 PR 并提交 commit<span></span></li>
+                <li class="todo-list-li">作业：撰写大数据应用实践的提纲<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
