@@ -993,6 +993,10 @@ about:
   # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
   icons:
     - { class: "iconfont icon-github-fill", link: "https://github.com/lazypool", tip: "GitHub" }
+    - { class: "iconfont icon-bilibili-fill", link: "https://space.bilibili.com/13819285", tip: "Bilibili" }
+    - { class: "iconfont icon-wechat-fill", qrcode: "" }
+    - { class: "iconfont icon-qq-fill", qrcode: "" }
+    - { class: "iconfont icon-steam", link: "https://steamcommunity.com/profiles/76561199204729755/", tip: "Steam" }
   subtitle: "惰池者，溺为也。"
 
 
