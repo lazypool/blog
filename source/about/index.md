@@ -57,10 +57,10 @@ layout: about
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">力扣：力扣刷题一道<span></span></li>
-                <li class="todo-list-li">博客：撰写 12 月杂谈<span></span></li>
-                <li class="todo-list-li">代码：dwm 调整布局<span></span></li>
-                <li class="todo-list-li">论文：阅读一篇量化论文<span></span></li>
+                <li class="todo-list-li done">力扣：力扣刷题一道<span></span></li>
+                <li class="todo-list-li done">博客：撰写 12 月杂谈<span></span></li>
+                <li class="todo-list-li done">代码：dwm 调整布局<span></span></li>
+                <li class="todo-list-li done">论文：阅读一篇量化论文<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
