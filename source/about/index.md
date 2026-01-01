@@ -50,14 +50,17 @@ layout: about
       <div style="font-size:9px;">&emsp;More</div>
     </div>
     <p style="font-size:25pt; margin-top:1.5em;">
-        Wednesday
+        Thursday
     &emsp;<span style="font-size:15pt;">
-        December 31, 2025
+        Janurary 1, 2026
     </span></p>
     <div class="todolist-container" style="display:flex; justify-content:space-between;">
         <div style="font-size: 12pt; max-width:400px; width:100%">
             <ul style="padding-left:.5em;">
-                <li class="todo-list-li">考试：下午 2 点二教 527 考试<span></span></li>
+                <li class="todo-list-li">力扣：力扣刷题一道<span></span></li>
+                <li class="todo-list-li">博客：撰写 12 月杂谈<span></span></li>
+                <li class="todo-list-li">代码：dwm 调整布局<span></span></li>
+                <li class="todo-list-li">论文：阅读一篇量化论文<span></span></li>
             </ul>
         </div>
         <div style="margin:auto auto; max-width:40%;">
