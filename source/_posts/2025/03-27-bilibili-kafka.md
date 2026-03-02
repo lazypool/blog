@@ -3,7 +3,7 @@ layout: post
 title: Kafka 技术在 B 站 📺 的探索与实现
 categories:
   - 📢 技术杂谈
-  - 关于后端岗👒
+  - 互联网前后端🎨
 tags: [Kafka, B站, 大数据技术]
 index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00014.jpg
 date: 2025-03-27 20:13:19
