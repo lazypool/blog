@@ -563,6 +563,9 @@ post:
   # Path of the default post cover when `index_img` is not set. If both are empty, no image will be displayed
   default_index_img:
 
+  # 文章在首页的封面图的默认 cnd 前缀，当没有指定时会使用绝对 url 路径
+  index_img_cdn_prefix: https://cdn.jsdmirror.com/gh/lazypool/blog-pics
+
   # 文章标题下方的元信息
   # Meta information below title
   meta:

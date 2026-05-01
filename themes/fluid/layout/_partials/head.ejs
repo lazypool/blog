@@ -9,8 +9,8 @@ var description = page.description || page.excerpt || (is_post() && page.content
 if (description) {
   description = strip_html(description).substring(0, 200).trim().replace(/\n/g, ' ')
 }
-var ogImage = page.og_img || page.index_img
-var ogConfig = Object.assign({ image: ogImage && url_for(ogImage) }, theme.open_graph)
+var ogImage = process_index_img(page.og_img || page.index_img)
+var ogConfig = Object.assign({ image: ogImage || undefined }, theme.open_graph)
 %>
 
 <head>

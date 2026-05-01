@@ -11,10 +11,11 @@ const strToIndex = str => Math.abs([...str].reduce((hash, char) => (hash << 5) -
 <% page.posts.each(function (post) { %>
   <div class="row mx-auto index-card" data-mark-color="<%= strToIndex(post._id) %>">
     <% var post_url = url_for(post.path), index_img = post.index_img || theme.post.default_index_img %>
+    <% index_img = process_index_img(index_img) %>
     <% if (index_img) { %>
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="<%= post_url %>" target="<%- theme.index.post_url_target %>">
-          <img src="<%= url_for(index_img) %>" alt="<%= post.title %>">
+          <img src="<%= index_img %>" alt="<%= post.title %>">
         </a>
       </div>
     <% } %>
