@@ -5,7 +5,7 @@ categories:
     - 📢 技术杂谈
     - 琐碎的杂谈
 tags: [AGI, Transformer, Attention, 注意力机制]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00018.jpg
+index_img: animals/00018.jpg
 date: 2025-05-17 11:40:04
 ---
 

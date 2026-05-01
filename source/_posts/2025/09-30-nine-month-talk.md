@@ -8,7 +8,7 @@ tags:
 categories:
   - ⛺ 心灵之旅
   - 博客日常
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00023.jpg
+index_img: animals/00023.jpg
 date: 2025-09-30 10:00:06
 ---
 

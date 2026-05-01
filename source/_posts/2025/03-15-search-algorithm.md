@@ -5,7 +5,7 @@ categories:
   - 💻 技术干货
   - 数据结构与算法
 tags: [数据结构与算法, 搜索算法, 人工智能]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00013.jpg
+index_img: animals/00013.jpg
 date: 2025-03-15 13:34:24
 ---
 

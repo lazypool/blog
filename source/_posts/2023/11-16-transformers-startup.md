@@ -6,7 +6,7 @@ categories:
   - 🔧 工具使用
   - 实用工具指南
 tags: [人工智能, Transformer]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00002.jpg
+index_img: animals/00002.jpg
 ---
 
 # Transformers，启动

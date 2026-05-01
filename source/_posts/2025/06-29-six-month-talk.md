@@ -5,7 +5,7 @@ categories:
   - ⛺ 心灵之旅
   - 博客日常
 tags: [杂谈, 感受, 心情]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00019.jpg
+index_img: animals/00019.jpg
 date: 2025-06-29 13:13:21
 ---
 

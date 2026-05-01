@@ -6,7 +6,7 @@ categories:
   - ⛺ 心灵之旅
   - 博客日常
 tags: [博客, 日常]
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00001.jpg
+index_img: animals/00001.jpg
 ---
 
 # 你好，世界！

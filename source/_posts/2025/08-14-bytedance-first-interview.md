@@ -5,7 +5,7 @@ tags: [博客, 日常, 面试, 字节跳动, 前端]
 categories:
   - ⛺ 心灵之旅
   - 大厂面经
-index_img: https://cdn.jsdelivr.net/gh/lazypool/blog-pics/animals/00021.jpg
+index_img: animals/00021.jpg
 date: 2025-08-14 08:47:07
 ---
 
