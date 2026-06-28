@@ -8,3 +8,8 @@ public/
 _multiconfig.yml
 source/_drafts/
 *.bak
+source/about/
+source/photo/
+source/css/
+source/js/
+source/img/
