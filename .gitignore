@@ -13,3 +13,4 @@ source/photo/
 source/css/
 source/js/
 source/img/
+.playwright-mcp/
