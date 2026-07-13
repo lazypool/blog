@@ -6,7 +6,7 @@ categories:
   - 📢 技术杂谈
   - 互联网前后端🎨
 tags: [前端, API, 互联网]
-index_img: animals/00010.jpg
+index_img: img/index/00010.jpg
 ---
 
 # 最流行 🐦 的 6 种 API 架构风格

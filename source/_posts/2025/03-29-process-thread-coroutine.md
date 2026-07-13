@@ -5,7 +5,7 @@ categories:
   - 💻 技术干货
   - 计算机基础知识👷
 tags: [进程, 线程, 协程, 虚拟内存, 进程间通信, 多线程, 有栈协程, 无栈协程, 并发]
-index_img: animals/00015.jpg
+index_img: img/index/00015.jpg
 date: 2025-03-29 12:11:42
 ---
 

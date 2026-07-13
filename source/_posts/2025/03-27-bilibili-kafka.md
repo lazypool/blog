@@ -5,7 +5,7 @@ categories:
   - 📢 技术杂谈
   - 互联网前后端🎨
 tags: [Kafka, B站, 大数据技术]
-index_img: animals/00014.jpg
+index_img: img/index/00014.jpg
 date: 2025-03-27 20:13:19
 ---
 

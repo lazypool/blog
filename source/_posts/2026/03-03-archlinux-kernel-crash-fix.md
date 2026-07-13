@@ -11,7 +11,7 @@ tags:
 categories:
     - 📢 技术杂谈
     - 纠错日常
-index_img: animals/00029.jpg
+index_img: img/index/00029.jpg
 ---
 
 # 一次 pacman 中断引发的内核崩溃与修复记录

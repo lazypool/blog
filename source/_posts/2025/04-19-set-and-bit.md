@@ -5,7 +5,7 @@ categories:
   - 💻 技术干货
   - 数据结构与算法
 tags: [集合论, 位运算, 二进制]
-index_img: animals/00017.jpg
+index_img: img/index/00017.jpg
 date: 2025-04-19 12:51:21
 ---
 

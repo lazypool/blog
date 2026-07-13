@@ -6,7 +6,7 @@ categories:
   - 📢 技术杂谈
   - 互联网前后端🎨
 tags: [前端, 技术前瞻]
-index_img: animals/00008.jpg
+index_img: img/index/00008.jpg
 ---
 
 # “诸侯纷争，群雄割据”：前端如何一路走来？

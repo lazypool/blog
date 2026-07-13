@@ -5,7 +5,7 @@ categories:
   - 📖 论文阅读
   - LLM 大语言模型
 tags: [大语言模型, NLP, NLP经典论文]
-index_img: animals/00011.jpg
+index_img: img/index/00011.jpg
 date: 2025-02-12 21:38:31
 ---
 

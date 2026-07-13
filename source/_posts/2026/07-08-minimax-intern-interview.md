@@ -5,7 +5,7 @@ tags: [面试, MiniMax, 推理优化, CUDA, 矩阵乘法, 面经]
 categories:
   - ⛺ 心灵之旅
   - 大厂面经
-index_img: animals/00031.jpg
+index_img: img/index/00032.jpg
 date: 2026-07-08 22:00:00
 ---
 
