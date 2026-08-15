@@ -9,8 +9,8 @@ tags:
     - 内核
     - 系统修复
 categories:
-    - 📢 技术杂谈
-    - 纠错日常
+    - 🔧 工具使用
+    - 🔩 系统故障排查
 index_img: img/index/00029.jpg
 ---
 

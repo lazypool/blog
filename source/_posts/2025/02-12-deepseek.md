@@ -3,7 +3,7 @@ layout: post
 title: DeepSeek 🐬：国产大模型之光？它用到了哪些关键技术？
 categories:
   - 📖 论文阅读
-  - LLM 大语言模型
+  - 🦙 LLM 架构与训练
 tags: [大语言模型, NLP, NLP经典论文]
 index_img: img/index/00011.jpg
 date: 2025-02-12 21:38:31

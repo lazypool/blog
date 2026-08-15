@@ -8,7 +8,7 @@ tags:
   - fontconfig
 categories:
   - 🔧 工具使用
-  - Oh-my-Linux
+  - 🐧 Oh-my-Linux
 index_img: img/index/00025.jpg
 date: 2025-10-25 12:13:49
 ---

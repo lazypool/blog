@@ -3,7 +3,7 @@ layout: post
 title: 从零入门 cuda 编程？🦴访存优化！
 categories:
   - 💻 技术干货
-  - 并行程序计算
+  - 🧮 并行程序计算
 tags: [cuda 编程, 并行程序]
 index_img: img/index/00022.jpg
 date: 2025-08-19 20:21:13

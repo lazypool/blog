@@ -2,8 +2,8 @@
 layout: post
 title: Kafka 技术在 B 站 📺 的探索与实现
 categories:
-  - 📢 技术杂谈
-  - 互联网前后端🎨
+  - 📢 行业观察
+  - 🌐 互联网与软件工程
 tags: [Kafka, B站, 大数据技术]
 index_img: img/index/00014.jpg
 date: 2025-03-27 20:13:19

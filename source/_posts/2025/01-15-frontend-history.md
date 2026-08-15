@@ -3,8 +3,8 @@ layout: post
 title: 一篇博客带你回顾前端发展的 20 年🫕
 date: 2025-01-15 21:01:51
 categories:
-  - 📢 技术杂谈
-  - 互联网前后端🎨
+  - 📢 行业观察
+  - 🌐 互联网与软件工程
 tags: [前端, 技术前瞻]
 index_img: img/index/00008.jpg
 ---

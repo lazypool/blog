@@ -8,8 +8,8 @@ tags:
   - 技术热潮
 index_img: img/index/00024.jpg
 categories:
-  - 📢 技术杂谈
-  - 琐碎的杂谈
+  - 📢 行业观察
+  - 🔭 技术趋势与评论
 date: 2025-10-22 13:54:50
 ---
 

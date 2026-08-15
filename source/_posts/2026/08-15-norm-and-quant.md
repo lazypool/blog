@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Normalization 与 Quantization 的隐秘战争：Transformer 量化中归一化层的角色与困境
+title: Normalization 与 Quantization 的隐秘战争
 categories:
   - 📖 论文阅读
-  - LLM 大语言模型
+  - 🏃 LLM 效率与优化
 tags: [大语言模型, 量化, Quantization, Normalization, RMSNorm, Transformer]
 index_img: img/index/00025.jpg
 date: 2026-08-15 10:00:00
