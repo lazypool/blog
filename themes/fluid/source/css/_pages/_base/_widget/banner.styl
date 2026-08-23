@@ -16,6 +16,14 @@
     -webkit-backface-visibility hidden
     transition transform .05s ease-out
 
+@media (max-width: 991.98px)
+  body.banner-as-bg
+    background none !important
+
+  .banner.banner-as-bg
+    background var(--banner-img) no-repeat center center !important
+    background-size cover !important
+
 if $banner-width-height-ratio > 0
   @media (max-width: unit($banner-width-height-ratio * 100, "vh"))
     .header-inner

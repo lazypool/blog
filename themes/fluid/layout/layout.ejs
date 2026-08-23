@@ -10,7 +10,7 @@ var colorSchema = theme.dark_mode && theme.dark_mode.enable && theme.dark_mode.d
 
 <%- partial('_partials/head.ejs') %>
 
-<body <% if(banner_as_bg) { %>
+<body class="<%= banner_as_bg ? 'banner-as-bg' : '' %>" <% if(banner_as_bg) { %>
   style="background: url('<%- url_for(banner_img) %>') fixed center/cover no-repeat;"
   <% } %>>
   <%- inject_point('bodyBegin') %>

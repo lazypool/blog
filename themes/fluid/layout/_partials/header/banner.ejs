@@ -6,12 +6,12 @@ var banner_as_bg = page.banner_as_bg || theme.index.banner_as_bg
 var subtitle = page.subtitle || page.title
 %>
 
-<div id="banner" class="banner" <%- theme.banner && theme.banner.parallax && 'parallax=true' %>
+<div id="banner" class="banner <%= banner_as_bg ? 'banner-as-bg' : '' %>" <%- theme.banner && theme.banner.parallax && 'parallax=true' %>
      style="<% if (!banner_as_bg) { %>
-       background: url('<%- url_for(banner_img) %>') no-repeat center center; background-size: cover;
-     <% } else { %>
-       background: transparent;
-     <% } %>">
+        background: url('<%- url_for(banner_img) %>') no-repeat center center; background-size: cover;
+      <% } else { %>
+        --banner-img: url('<%- url_for(banner_img) %>'); background: transparent;
+      <% } %>">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background: linear-gradient(to bottom, rgba(0, 0, 0, <%= banner_mask_alpha %>), rgba(0, 0, 0, 0))">
       <div class="banner-text text-center fade-in-up">
