@@ -9,6 +9,11 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "format": "prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
+    "format:check": "prettier --check --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
+    "lint": "npm run lint:markdown && npm run lint:ejs",
+    "lint:ejs": "ejslint \"themes/fluid/layout/**/*.ejs\"",
+    "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#public\"",
     "server": "hexo server"
   },
   "hexo": {
@@ -24,5 +29,10 @@
     "hexo-renderer-marked": "^7.0.1",
     "hexo-renderer-stylus": "^3.0.0",
     "hexo-server": "^3.0.0"
+  },
+  "devDependencies": {
+    "ejs-lint": "^2.0.1",
+    "markdownlint-cli2": "^0.23.2",
+    "prettier": "^3.8.3"
   }
 }
