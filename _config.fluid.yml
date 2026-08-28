@@ -1043,10 +1043,10 @@ links:
   # Member item of page
   items:
     - {
-      title: "友链空缺",
-      intro: "快来申请加入友链！",
-      link: "#",
-      avatar: "/img/links/empty.png"
+      title: "寒冰是喵喵",
+      intro: "🍀 这里是寒冰，很高兴认识你！",
+      link: "https://blog.hanbings.io",
+      avatar: "https://blog.hanbings.io/img/avatar.jpg"
     }
     - {
       title: "友链空缺",
