@@ -45,6 +45,8 @@ post_asset_folder: true
 marked:
   prependRoot: true
   postAsset: true
+  # 渲染单个换行时不要转成 <br>，避免源码里为行宽换行的地方在正文中强制作换行
+  breaks: false
 relative_link: false
 future: true
 highlight:
