@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * check-site.js — site-level consistency linter for the blog.
  *
@@ -194,4 +193,4 @@ function main() {
   if (errs.length) process.exitCode = 1;
 }
 
-main();
+if (require.main === module) main();

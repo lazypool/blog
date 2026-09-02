@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * check-math.js — Math formula linter / normalizer for blog Markdown.
  *
@@ -267,4 +266,4 @@ function main() {
   if (nErr > 0) process.exitCode = 1;
 }
 
-main();
+if (require.main === module) main();
