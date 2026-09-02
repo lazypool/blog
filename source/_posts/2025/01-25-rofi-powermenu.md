@@ -5,7 +5,7 @@ date: 2025-01-25 21:58:08
 categories:
   - 🔧 工具使用
   - 🐧 Oh-my-Linux
-tags: [dwm, rofi, dunst, 电源管理界面]
+tags: [DWM, rofi, dunst, 电源管理界面]
 index_img: img/index/00009.jpg
 ---
 

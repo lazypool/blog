@@ -14,6 +14,7 @@
     "lint": "npm run lint:markdown && npm run lint:ejs",
     "check:math": "node scripts/check-math.js",
     "check:math:fix": "node scripts/check-math.js --fix",
+    "check:site": "node scripts/check-site.js",
     "lint:ejs": "ejslint \"themes/fluid/layout/**/*.ejs\"",
     "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#public\"",
     "server": "hexo server"
