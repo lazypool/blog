@@ -14,3 +14,6 @@ source/css/
 source/js/
 source/img/
 .playwright-mcp/
+
+# symlinked tooling copy (created for the markdown worktree)
+node_modules
