@@ -1,0 +1,24 @@
+{
+  // MD013 (line length): wrapping Chinese prose at the default 80 would insert
+  // spaces between CJK characters once rendered, so the cap is raised to 200
+  // (flags only clearly overlong lines). Code blocks, tables and headings are
+  // exempt from the length rule.
+  "MD013": {
+    "line_length": 200,
+    "code_blocks": false,
+    "tables": false,
+    "headings": false,
+    "stern": false
+  },
+  // MD025 (single title): the `title` in YAML front matter is not a rendered
+  // heading. Keep it out of the top-level-heading count so a post enforces
+  // exactly one H1 inside its body.
+  "MD025": {
+    "front_matter_title": ""
+  },
+  // MD033 (no inline HTML): posts embed MathML formulas, SVG diagrams, flex
+  // two-column layouts, raw <table> markup and <u>/<small> styling that plain
+  // Markdown cannot express. Rewriting them would lose formatting, so the rule
+  // stays disabled.
+  "MD033": false
+}
