@@ -108,19 +108,16 @@ Deepseek 在模型上的改进有两条主线：**一是优化模型表现**，�
 如上图所示，注意力的输出经残差连接后即进入 MoE 模块 (浅蓝色，Switching FFN layer)。在 MoE 中，路由 Router 将会对各 token 进行判断：~~x1 与 FFN2 的亲和度更高，x2 与 FFN1 的亲和度更高……~~ MoE 确保所有 token 都只经过与其最适应的前 k 个专家网络，并将这 k 个专家给出的结果按照亲和度线性求和。
 写成公式就是下面这样，其中下标 $_t$ 表示第 $t$ 个 token：
 
-<!-- markdownlint-disable MD013 -->
-
 $$
 \begin{aligned}
 & y_t = x_t + \sum_{i}^{N} g_{i,t} \cdot \mathrm{FFN}_i (x_t) \qquad\qquad\text{线性求和后残差连接，其中 $\sum_{i}^{N} g_{i,t} = 1$}
 \\\\
 & g_{i,t} = \frac{ s_{i,t} }{ \sum_{j}^{N} s_{j,t} } \qquad\qquad\qquad\qquad\text{将路由得分归一化，$N$ 即专家数，也就是路由出数}
 \\\\
-& s_{j,t} = \begin{cases} \mathrm{Sigmoid}(x_t^\mathrm{T} e_j), &\quad {s_{j,t} \in \mathrm{topK}} \\\\ 0, &\quad\text{otherwise} \end{cases} \qquad\text{除非得分排名前 k，否则视作 0 分，$e \in \mathbb{R}^{H \times N}$ }
+& s_{j,t} = \begin{cases} \mathrm{Sigmoid}(x_t^\mathrm{T} e_j), &\quad {s_{j,t} \in \mathrm{topK}} \\\\ 0, &\quad\text{otherwise} \end{cases}
+\qquad\text{除非得分排名前 k，否则视作 0 分，$e \in \mathbb{R}^{H \times N}$ }
 \end{aligned}
 $$
-
-<!-- markdownlint-enable MD013 -->
 
 #### DeepSeekMoE
 
@@ -394,17 +391,14 @@ DS 团队的奖励模型 RM 由两部分组成：**基于规则的** 和 **基�
 DS 使用了 **群体相对策略优化算法** (GRPO, Group Relative Policy Optimization)，该算法摒弃了通常与策略模型大小相同的评估模型，而是从组得分中估计 baseline。
 具体来说，对于每个问题 $q$，GRPO 从旧策略模型 $\pi_{\theta_{old}}$ 中采样一组输出 $\\{o_1,o_2,...,o_G\\}$，然后通过最大化如下目标来优化策略模型 $\pi_{\theta}$：
 
-<!-- markdownlint-disable MD013 -->
-
 $$
 \begin{aligned}
 \mathcal{J}_{GRPO}(\theta) &= \mathbb{E}[q \sim P(Q), \\{o\\}_{i=1}^{G} \sim \pi_{\theta_{old}} (O | q)] \\\\
-&\frac{1}{G} \sum_{i=1}^{G} ( \min( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, \text{clip}(\frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, 1 - \epsilon, 1 + \epsilon)A_i) - \beta\mathbb{D}_{KL}(\pi_{\theta}||\pi_{ref})), \\\\
+&\frac{1}{G} \sum_{i=1}^{G} ( \min( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)},
+\text{clip}(\frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, 1 - \epsilon, 1 + \epsilon)A_i) - \beta\mathbb{D}_{KL}(\pi_{\theta}||\pi_{ref})), \\\\
 where.\quad&\mathbb{D}_{KL}(\pi_\theta || \pi_{ref}) = \frac{\pi_{ref}(o_i|q)}{\pi_\theta(o_i|q)} - \log \frac{\pi_{ref}(o_i|q)}{\pi_\theta(o_i|q)} - 1
 \end{aligned}
 $$
-
-<!-- markdownlint-enable MD013 -->
 
 其中 $\epsilon$ 和 $\beta$ 是超参数；$\pi_{ref}$ 是偏好模型；$A_i$ 是优势估计 (advantage)，基于每个组的输出所对应的奖励集 $\\{r_1,r_2,\cdots,r_G\\}$ 计算：
 

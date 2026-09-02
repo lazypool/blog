@@ -38,9 +38,26 @@ date: 2025-03-15 13:34:24
 
 </div>
 <div>
-<!-- markdownlint-disable MD013 -->
-  <svg width="200" height="200" viewBox="0 0 400 400"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><rect width="50" height="50" fill="#e0e0e0" stroke="#000000" stroke-width="1"></rect></pattern></defs><rect width="400" height="400" fill="url(#grid)"></rect><g fill="#000000"><rect x="0" y="0" width="400" height="50"></rect><rect x="0" y="0" width="50" height="400"></rect><rect x="350" y="0" width="50" height="400"></rect><rect x="0" y="350" width="400" height="50"></rect><rect x="100" y="50" width="50" height="150"></rect><rect x="200" y="200" width="50" height="150"></rect><rect x="250" y="50" width="50" height="100"></rect><rect x="50" y="250" width="100" height="50"></rect></g><circle cx="75" cy="375" r="20" fill="#ff0000"></circle><rect x="350" y="50" width="50" height="50" fill="#00ff00"></rect></svg>
-<!-- markdownlint-enable MD013 -->
+<svg width="200" height="200" viewBox="0 0 400 400">
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <rect width="50" height="50" fill="#e0e0e0" stroke="#000000" stroke-width="1"></rect>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#grid)"></rect>
+  <g fill="#000000">
+    <rect x="0" y="0" width="400" height="50"></rect>
+    <rect x="0" y="0" width="50" height="400"></rect>
+    <rect x="350" y="0" width="50" height="400"></rect>
+    <rect x="0" y="350" width="400" height="50"></rect>
+    <rect x="100" y="50" width="50" height="150"></rect>
+    <rect x="200" y="200" width="50" height="150"></rect>
+    <rect x="250" y="50" width="50" height="100"></rect>
+    <rect x="50" y="250" width="100" height="50"></rect>
+  </g>
+  <circle cx="75" cy="375" r="20" fill="#ff0000"></circle>
+  <rect x="350" y="50" width="50" height="50" fill="#00ff00"></rect>
+</svg>
 </div>
 </div>
 
