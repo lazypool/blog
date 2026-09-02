@@ -62,14 +62,14 @@ date: 2025-04-19 12:51:21
 
 调用这些函数的时间复杂度都是 O(1)。
 
-| 术语         | Python                  | Java                                 | C++                     | Go                      |
-| ------------ | ----------------------- | ------------------------------------ | ----------------------- | ----------------------- |
-| 集合大小     | `s.bit_count()`         | `Integer.bitCount(s)`                | `__builtin_popcount(s)` | `bits.OnesCount(s)`     |
-| 二进制长度   | `s.bit_length()`        | `32-Integer.numberOfLeadingZeros(s)` | `__lg(s)+1`             | `bits.Len(s)`           |
-| 集合最大元素 | `s.bit_length()-1`      | `31-Integer.numberOfLeadingZeros(s)` | `__lg(s)`               | `bits.Len(s)-1`         |
-| 集合最小元素 | `(s&-s).bit_length()-1` | `Integer.numberOfTrailingZeros(s)`   | `__builtin_ctz(s)`      | `bits.TrailingZeros(s)` |
+以 Python 为例，对应的写法如下：
 
-请特别注意 `s=0` 的情况。对于 C++ 来说，`__lg(0)` 和 `__builtin_ctz(0)` 是未定义行为。其他语言请查阅 API 文档。此外，对于 C++ 的 `long long`，需使用相应的 `__builtin_popcountll` 等函数，即函数名后缀添加 `ll`（两个小写字母 L）。`__lg` 支持 `long long`。
+- 集合大小：`s.bit_count()`
+- 二进制长度：`s.bit_length()`
+- 集合最大元素：`s.bit_length() - 1`
+- 集合最小元素：`(s & -s).bit_length() - 1`
+
+> 注意 `s = 0` 时：`s.bit_length()` 为 0，`(s & -s).bit_length() - 1` 会得到 `-1`，需要时请自行判断。若使用 C++（`__builtin_popcount`、`__lg`、`__builtin_ctz`）或 Java（`Integer.bitCount`、`numberOfLeadingZeros`、`numberOfTrailingZeros`）等其它语言，函数名与语义略有差异，请查阅各自文档。
 
 **除上述所举操作外，还有获取集合的只包含最小元素的子集的操作。** 即二进制最低 1 及其后面的 0，也叫 lsb (最低有效位)，可以用 `s&-s` 算出，它用到了二进制中补码的定义。补码就是按位取反后加 1，举例说明：$1011\\&0101=0001$。
 

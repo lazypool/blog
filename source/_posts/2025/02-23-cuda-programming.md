@@ -263,52 +263,13 @@ __device__ void func() {     // __device__ or __global__ function
 
 #### 内置向量类型 (Built-in Vector Types)
 
-<div style="display:flex;">
-<div style="flex:1; width:60%; margin-right:10%; padding:1px;">
-
 这些是从基本整数和浮点类型派生出来的向量类型。它们是结构体，其第 1、2、3 和 4 个分量分别可以通过字段 x、y、z 和 w 来访问。它们都带有一个构造函数，形式为 `make_<type name>`；例如，
 
 ```cpp
 int2 make_int2(int x, int y);
 ```
 
-该构造函数会创建一个值为 `(x, y)` 的 `int2` 类型的向量。向量类型的对齐要求在右表中有详细说明。
-</div>
-<div style="flex:2; width:30%;">
-<table style="overflow-y:auto; height:20em;"><thead style="position:sticky;">
-    <tr><th>类型</th><th>对齐</th></tr>
-</thead><tbody>
-    <tr><td>char1, uchar1</td><td>1</td></tr>
-    <tr><td>char2, uchar2</td><td>2</td></tr>
-    <tr><td>char3, uchar3</td><td>1</td></tr>
-    <tr><td>char4, uchar4</td><td>4</td></tr>
-    <tr><td>short1, ushort1</td><td>2</td></tr>
-    <tr><td>short2, ushort2</td><td>4</td></tr>
-    <tr><td>short3, ushort3</td><td>2</td></tr>
-    <tr><td>short4, ushort4</td><td>8</td></tr>
-    <tr><td>int1, uint1</td><td>4</td></tr>
-    <tr><td>int2, uint2</td><td>8</td></tr>
-    <tr><td>int3, uint3</td><td>4</td></tr>
-    <tr><td>int4, uint4</td><td>16</td></tr>
-    <tr><td>long2, ulong2</td><td>8 or 16</td></tr>
-    <tr><td>long3, ulong3</td><td>4 or 8</td></tr>
-    <tr><td>long4, ulong4</td><td>16</td></tr>
-    <tr><td>longlong1, ulonglong1</td><td>8</td></tr>
-    <tr><td>longlong2, ulonglong2</td><td>16</td></tr>
-    <tr><td>longlong3, ulonglong3</td><td>8</td></tr>
-    <tr><td>longlong4, ulonglong4</td><td>16</td></tr>
-    <tr><td>float1</td><td>4</td></tr>
-    <tr><td>float2</td><td>8</td></tr>
-    <tr><td>float3</td><td>4</td></tr>
-    <tr><td>float4</td><td>16</td></tr>
-    <tr><td>double1</td><td>8</td></tr>
-    <tr><td>double2</td><td>16</td></tr>
-    <tr><td>double3</td><td>8</td></tr>
-    <tr><td>double4</td><td>16</td></tr>
-    <tr><td>long1, ulong1</td><td>4 or 8</td></tr>
-</tbody></table>
-</div>
-</div>
+该构造函数会创建一个值为 `(x, y)` 的 `int2` 类型的向量。
 
 除上面常用的向量类型，CUDA 还提供了名为 `dim3` 的向量类型。该类型是一个基于 `uint3` 的整数向量类型，用于指定线程块和网格的尺寸，在后面讲执行配置时我们会看到它的作用。在定义类型为 `dim3` 的变量时，任何未指定的组件都初始化为 1。
 
