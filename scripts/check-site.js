@@ -9,7 +9,8 @@
  *   3. tag / category hygiene — empty values, duplicate entries in one post,
  *      and near-duplicate tags that differ only by case / spaces.
  *
- * Usage:  npm run check:site        (scans source/_posts)
+ * Usage:  npm run check:site            (scans source/_posts)
+ *         node scripts/check-site.js --tags   (also print tag frequency)
  *         node scripts/check-site.js [file …]
  *
  * Exit code is 1 when errors (missing images, date mismatches) are found.
@@ -21,7 +22,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const givenFiles = process.argv.slice(2);
+const givenFiles = process.argv.slice(2).filter((a) => a !== '--tags');
+const listTags = process.argv.includes('--tags');
 
 function walk(dir, out = []) {
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -159,7 +161,7 @@ function main() {
   const totalTags = new Map();
   const normMap = new Map(); // normalized -> [{v, file}]
   const normOf = (v) => v.toLowerCase().replace(/[\s_\-/]+/g, '');
-  if (givenFiles.length === 0) {
+  if (listTags) {
     for (const file of files) {
       const meta = frontMatter(fs.readFileSync(file, 'utf8'));
       for (const key of ['tags', 'categories']) {
