@@ -2,8 +2,8 @@
 layout: post
 title: 长序列中 Transformers 的高级注意力优化机制
 categories:
-    - 📖 论文阅读
-    - 🏃 LLM 效率与优化
+  - 📖 论文阅读
+  - 🏃 LLM 效率与优化
 tags: [AGI, Transformer, Attention, 注意力机制]
 index_img: img/index/00018.jpg
 date: 2025-05-17 11:40:04

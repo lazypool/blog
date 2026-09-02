@@ -105,7 +105,8 @@ Deepseek 在模型上的改进有两条主线：**一是优化模型表现**，�
 
 ![MoE 示例](moe-explanation.png)
 
-如上图所示，注意力的输出经残差连接后即进入 MoE 模块 (浅蓝色，Switching FFN layer)。在 MoE 中，路由 Router 将会对各 token 进行判断：~x1 与 FFN2 的亲和度更高，x2 与 FFN1 的亲和度更高……~ MoE 确保所有 token 都只经过与其最适应的前 k 个专家网络，并将这 k 个专家给出的结果按照亲和度线性求和。写成公式就是下面这样，其中下标 $_t$ 表示第 $t$ 个 token：
+如上图所示，注意力的输出经残差连接后即进入 MoE 模块 (浅蓝色，Switching FFN layer)。在 MoE 中，路由 Router 将会对各 token 进行判断：~~x1 与 FFN2 的亲和度更高，x2 与 FFN1 的亲和度更高……~~ MoE 确保所有 token 都只经过与其最适应的前 k 个专家网络，并将这 k 个专家给出的结果按照亲和度线性求和。
+写成公式就是下面这样，其中下标 $_t$ 表示第 $t$ 个 token：
 
 $$
 \begin{aligned}
@@ -113,7 +114,8 @@ $$
 \\\\
 & g_{i,t} = \frac{ s_{i,t} }{ \sum_{j}^{N} s_{j,t} } \qquad\qquad\qquad\qquad\text{将路由得分归一化，$N$ 即专家数，也就是路由出数}
 \\\\
-& s_{j,t} = \begin{cases} \mathrm{Sigmoid}(x_t^\mathrm{T} e_j), &\quad {s_{j,t} \in \mathrm{topK}} \\\\ 0, &\quad\text{otherwise} \end{cases} \qquad\text{除非得分排名前 k，否则视作 0 分，$e \in \mathbb{R}^{H \times N}$ }
+& s_{j,t} = \begin{cases} \mathrm{Sigmoid}(x_t^\mathrm{T} e_j), &\quad {s_{j,t} \in \mathrm{topK}} \\\\ 0, &\quad\text{otherwise} \end{cases}
+\qquad\text{除非得分排名前 k，否则视作 0 分，$e \in \mathbb{R}^{H \times N}$ }
 \end{aligned}
 $$
 
@@ -223,7 +225,8 @@ class MoE(nn.Module):
 
 $$s_{j,t} = \begin{cases} \mathrm{Sigmoid}(x_t^\mathrm{T} e_j)  + b_j, &\quad {s_{j,t} \in \mathrm{topK}} \\\\ 0, &\quad\text{otherwise} \end{cases}$$
 
-他们是怎么做的呢？他们追踪每个专家被激活的频率，在训练的每一步手动调整专家得分的偏置 bias： **使过载的专家得分减去 $\gamma$，低载的专家得分加上 $\gamma$，这里的 $\gamma$ 是一个超参数。** 回顾我们在之前看的代码，我们在加上偏置之前保留了一份得分的副本 `original_scores` 作为专家的权重，而把 `scores` 加上偏置后去计算专家的索引。**这实际上部分地隔离了专家的得分和激活概率，从而在模型性能和负载平衡之间进行了 trade-off。**
+他们是怎么做的呢？他们追踪每个专家被激活的频率，在训练的每一步手动调整专家得分的偏置 bias： **使过载的专家得分减去 $\gamma$，低载的专家得分加上 $\gamma$，这里的 $\gamma$ 是一个超参数。**
+回顾我们在之前看的代码，我们在加上偏置之前保留了一份得分的副本 `original_scores` 作为专家的权重，而把 `scores` 加上偏置后去计算专家的索引。**这实际上部分地隔离了专家的得分和激活概率，从而在模型性能和负载平衡之间进行了 trade-off。**
 
 ### 多 Token 预测 (MTP)
 
@@ -266,12 +269,13 @@ MTP 针对解码阶段进行优化，将原来的 one-token 的生成变成 mult
 
 $$\mathcal{L}_\mathsf{MTP}=\frac{\lambda}{D}\sum_{k=1}^{D}\mathcal{L}_\mathsf{MTP}^{k}\qquad其中,\mathcal{L}_\mathsf{MTP}^{k}=\mathsf{CSE}(p_{2+k:T+1}^{k},t_{2+k:T+1})=-\frac{1}{T}\sum_{i=2+k}^{T+1}\log(P_i^k[t_i])$$
 
-> 这里计算 CSE 时下标从 $2+k$ 开始到 $T+1$ 结束，很好理解：假设当前预测深度为 $k$，那么我们在第 $k$ 个 Module，此时输入的第 1 个 token 是原序列中的第 $k+1$ 个 token. 对应到真实标签中就是第 $k+2$ 个 token，这意味着前面的 token 将不参与计算. 然而无论预测深度是多少，计算 CSE 时总会除以序列长度 $T$，因此 $k$ 越深，其对总体损失的影响越小.
+> 这里计算 CSE 时下标从 $2+k$ 开始到 $T+1$ 结束，很好理解：假设当前预测深度为 $k$，那么我们在第 $k$ 个 Module，此时输入的第 1 个 token 是原序列中的第 $k+1$ 个 token. 对应到真实标签中就是第 $k+2$ 个 token，
+> 这意味着前面的 token 将不参与计算. 然而无论预测深度是多少，计算 CSE 时总会除以序列长度 $T$，因此 $k$ 越深，其对总体损失的影响越小.
 
 DeepSeekV3 中强调，**MTP 的设计主要是为了训练过程能加速收敛，更充分的使用训练样本**。所以针对推理阶段只是简单介绍了一段。这里也稍微展开讲下推理的过程。DeepSeekV3 推理可以有两种方法：
 
 - 方法1：直接把 MTP Module 头全部删掉，模型变成了单 token 预测的。然后部署模型，用自回归 autoregressive 做推理。这个就跟正常 LLM 模型推理一样，没有什么加速。
-- 方法2：保留 MTP Module 做 self-speculative 解码 ~(这个可能翻译成“自猜测”，我自己猜测的xwx)~，这样充分使用多 token 预测能力，提升推理加速性能。
+- 方法2：保留 MTP Module 做 self-speculative 解码 ~~(这个可能翻译成“自猜测”，我自己猜测的xwx)~~，这样充分使用多 token 预测能力，提升推理加速性能。
 
 ## 训练框架上的优化：极大减少显存占用，实现 “飞速” 训练
 
@@ -309,7 +313,8 @@ DeepSeek-V3 的训练由 HAI-LLM 框架支持，该框架是由 DS 团队从零�
 
 #### 跨节点全双工通信
 
-DualPipe 通过定制跨节点通信的 kernel 与网络拓扑协同设计实现高效通信。系统将每个 token 的传输路径限制在至多 4 个节点，优先通过 IB 网络跨节点传输至目标节点对应的 GPU，随后立即通过高带宽 NVLink 转发到具体专家 GPU，使 IB 与 NVLink 的通信完全重叠。这种设计使得每个节点平均可处理 3.2 个专家，在保持通信成本不变的情况下将专家选择规模扩展至 13 个，同时仅需 20 个 SM 即可充分利用带宽。
+DualPipe 通过定制跨节点通信的 kernel 与网络拓扑协同设计实现高效通信。系统将每个 token 的传输路径限制在至多 4 个节点，优先通过 IB 网络跨节点传输至目标节点对应的 GPU，随后立即通过高带宽 NVLink 转发到具体专家 GPU，使 IB 与 NVLink 的通信完全重叠。
+这种设计使得每个节点平均可处理 3.2 个专家，在保持通信成本不变的情况下将专家选择规模扩展至 13 个，同时仅需 20 个 SM 即可充分利用带宽。
 
 系统采用动态资源分配策略优化通信效率，将 20 个 SM 划分为 10 个通信信道，通过 warp specialization 技术实现发送、转发、接收任务并行处理。通信过程中根据实时负载动态调整各环节的硬件资源配比，并配合定制 PTX 指令与自动优化的通信块大小，显著减少 L2 缓存占用和对其他计算任务的干扰。调度与组合内核还与计算流形成重叠执行，进一步降低通信对整体计算性能的影响。
 
@@ -317,7 +322,8 @@ DualPipe 通过定制跨节点通信的 kernel 与网络拓扑协同设计实现
 
 > 预先计算 RMSNorm 和 MLA 升维操作的结果
 
-RMSNorm 和 MLA 中的升维操作频繁发生在前向传播过程中。**然而，DS 注意到这两项操作的输入有时候是固定的**。 _(比如，对嵌入层输出进行 RMSNorm 时，以及 MLA 中将被缓存的低秩潜在特征升维到高维原始特征时。)_ 这种输入不变性使反向传播过程中的预计算成为可能。于是，DS **在反向传播的过程中预先计算正向传播中 RMSNorm 和 MLA 升维操作的结果，避免保存中间激活值。** 这种策略以极低的时间开销减少了极大的内存存储消耗。
+RMSNorm 和 MLA 中的升维操作频繁发生在前向传播过程中。**然而，DS 注意到这两项操作的输入有时候是固定的**。 _(比如，对嵌入层输出进行 RMSNorm 时，以及 MLA 中将被缓存的低秩潜在特征升维到高维原始特征时。)_ 这种输入不变性使反向传播过程中的预计算成为可能。
+于是，DS **在反向传播的过程中预先计算正向传播中 RMSNorm 和 MLA 升维操作的结果，避免保存中间激活值。** 这种策略以极低的时间开销减少了极大的内存存储消耗。
 
 > CPU 的指数移动平均 (EMA, Exponential Moving Average)
 
@@ -348,12 +354,15 @@ DS 提出了面向 FP8 训练的混合精度框架，如下图。该框架将大
 
 > 细粒度的量化方法 (Fine-Grained Quantization)
 
-将浮点数从 FP16/32 的高精度转向 FP8 的低精度通常会导致数值的上溢或者下溢。针对该问题，通常的做法是将输入张量的最大绝对值缩放到 FP8 的最大可表示值 (例如 E4M3 为 $S.1111.110_2=480$)，来将输入的分布对齐到 FP8 的可表示范围，这一操作被称为**量化**。由此我们引入了 **放缩因子 Scaling Factor** 的概念，它的计算方式是：$$放缩因子=\frac{\text{FP8}的最大可表示值}{输入张量的最大绝对值}$$ 放缩时，输入张量中的所有浮点数都应当乘上这个放缩因子。然而，**全局放缩带来一个问题：当输入张量中某个数异常大时，放缩因子会格外地小，导致其它其他正常值被过度压缩，严重丢失精度。**为此，DS 提出应当进行更细粒度的放缩而非全局放缩。具体来说，如下图 (a) 所示：
+将浮点数从 FP16/32 的高精度转向 FP8 的低精度通常会导致数值的上溢或者下溢。针对该问题，通常的做法是将输入张量的最大绝对值缩放到 FP8 的最大可表示值 (例如 E4M3 为 $S.1111.110_2=480$)，来将输入的分布对齐到 FP8 的可表示范围，这一操作被称为**量化**。
+由此我们引入了 **放缩因子 Scaling Factor** 的概念，它的计算方式是：$$放缩因子=\frac{\text{FP8}的最大可表示值}{输入张量的最大绝对值}$$ 放缩时，输入张量中的所有浮点数都应当乘上这个放缩因子。然而，**全局放缩带来一个问题：当输入张量中某个数异常大时，放缩因子会格外地小，导致其它其他正常值被过度压缩，严重丢失精度。**
+为此，DS 提出应当进行更细粒度的放缩而非全局放缩。具体来说，如下图 (a) 所示：
 
 - 将输入张量 Input 划分为若干大小为 $N_c$ 的段，每段只对自身进行量化，从而避免异常值干扰全局。
 - 类似地，将权重张量 Weight 划分为若干个 $N_c\times{N_c}$ 块，每块只对自身量化。
 
-**在实际操作中，DS 采用了在线量化 (Online Quantization) 而非延时量化 (Delay Quantization) 的方式**，即：在量化各输入分片和各权重分块时，根据当前的数据块的最大绝对值，而非依赖历史的统计值来计算各数据块的放缩因子。这以少量的时间开销换取了更高的量化精度。🤔 DS 的这种细粒度的量化策略与 Nvidia 最近宣布的新一代 GPU 将支持的微缩放格式的理念高度一致，或可为未来研究适配最新硬件提供参考。另一方面，**这种细粒度的量化策略还与 DS 提出的另一个 FP32 精确累加策略配合良好。**
+**在实际操作中，DS 采用了在线量化 (Online Quantization) 而非延时量化 (Delay Quantization) 的方式**，即：在量化各输入分片和各权重分块时，根据当前的数据块的最大绝对值，而非依赖历史的统计值来计算各数据块的放缩因子。这以少量的时间开销换取了更高的量化精度。
+🤔 DS 的这种细粒度的量化策略与 Nvidia 最近宣布的新一代 GPU 将支持的微缩放格式的理念高度一致，或可为未来研究适配最新硬件提供参考。另一方面，**这种细粒度的量化策略还与 DS 提出的另一个 FP32 精确累加策略配合良好。**
 
 ![利用量化等操作提升计算精确度](fp8-improvement.png)
 
@@ -379,12 +388,14 @@ DS 团队的奖励模型 RM 由两部分组成：**基于规则的** 和 **基�
 
 ### 群体相对策略优化算法 (GRPO)
 
-DS 使用了 **群体相对策略优化算法** (GRPO, Group Relative Policy Optimization)，该算法摒弃了通常与策略模型大小相同的评估模型，而是从组得分中估计 baseline。具体来说，对于每个问题 $q$，GRPO 从旧策略模型 $\pi_{\theta_{old}}$ 中采样一组输出 $\\{o_1,o_2,...,o_G\\}$，然后通过最大化如下目标来优化策略模型 $\pi_{\theta}$：
+DS 使用了 **群体相对策略优化算法** (GRPO, Group Relative Policy Optimization)，该算法摒弃了通常与策略模型大小相同的评估模型，而是从组得分中估计 baseline。
+具体来说，对于每个问题 $q$，GRPO 从旧策略模型 $\pi_{\theta_{old}}$ 中采样一组输出 $\\{o_1,o_2,...,o_G\\}$，然后通过最大化如下目标来优化策略模型 $\pi_{\theta}$：
 
 $$
 \begin{aligned}
 \mathcal{J}_{GRPO}(\theta) &= \mathbb{E}[q \sim P(Q), \\{o\\}_{i=1}^{G} \sim \pi_{\theta_{old}} (O | q)] \\\\
-&\frac{1}{G} \sum_{i=1}^{G} ( \min( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, \text{clip}(\frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, 1 - \epsilon, 1 + \epsilon)A_i) - \beta\mathbb{D}_{KL}(\pi_{\theta}||\pi_{ref})), \\\\
+&\frac{1}{G} \sum_{i=1}^{G} ( \min( \frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, \text{clip}(\frac{\pi_{\theta}(o_i | q)}{\pi_{\theta_{old}}(o_i | q)}, 1 - \epsilon, 1 + \epsilon)A_i)
+- \beta\mathbb{D}_{KL}(\pi_{\theta}||\pi_{ref})), \\\\
 where.\quad&\mathbb{D}_{KL}(\pi_\theta || \pi_{ref}) = \frac{\pi_{ref}(o_i|q)}{\pi_\theta(o_i|q)} - \log \frac{\pi_{ref}(o_i|q)}{\pi_\theta(o_i|q)} - 1
 \end{aligned}
 $$
@@ -424,4 +435,6 @@ $$A_i = \frac{r_i - \text{mean}(\\{r_1,r_2,\cdots,r_G\\})}{\text{std}(\\{r_1,r_2
 
 **DS 团队使用 Accuracy Rewards 和 Format Rewards 来作为 DeepSeek-R1-Zero 的奖励模型。** 这两个奖励模型都是基于模板的，前者衡量回答是否正确、后者衡量回答是否具备要求的格式。如果把 DeepSeek-R1-Zero 当作一个 Agent，那它的目标就是尽一切可能获得更高的奖励。允许其使用任何手段，包括人类所未曾想到的，这即是强化学习。
 
-随着训练次数的增加，DS 团队发现了一些有趣的现象。首先是 **DeepSeek 的思考时间和回答的长度都有了显著的增加**。其次，研究人员观察到 DeepSeek 的思考过程中出现了一个有趣的 **“啊哈”时刻**：DS 在思考的过程中，会突然插入一句类似于 **Wait, wait. Wait. That’s an aha moment I can flag here.** 的话。事实证明，这个“啊哈”时刻是很有效的 reminder，可以提醒大模型总结上文，并开启更高层级的后文思考。🤔 _&emsp;&emsp;&emsp;(本博客至此正式文完，2025 年 5 月 10 日)_
+随着训练次数的增加，DS 团队发现了一些有趣的现象。首先是 **DeepSeek 的思考时间和回答的长度都有了显著的增加**。
+其次，研究人员观察到 DeepSeek 的思考过程中出现了一个有趣的 **“啊哈”时刻**：DS 在思考的过程中，会突然插入一句类似于 **Wait, wait. Wait. That’s an aha moment I can flag here.** 的话。事实证明，这个“啊哈”时刻是很有效的 reminder，可以提醒大模型总结上文，并开启更高层级的后文思考。
+🤔 _&emsp;&emsp;&emsp;(本博客至此正式文完，2025 年 5 月 10 日)_

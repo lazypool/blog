@@ -2,8 +2,8 @@
 layout: post
 title: 从零入门 cuda 编程？🦴 看这篇就够了！
 categories:
-    - 💻 技术干货
-    - 🧮 并行程序计算
+  - 💻 技术干货
+  - 🧮 并行程序计算
 tags: [cuda 编程, 并行程序]
 index_img: img/index/00012.jpg
 date: 2025-02-23 22:12:23
@@ -16,8 +16,8 @@ CUDA（全称 Compute Unified Device Architecture，中文译为“统一计算�
 1. CUDA 的架构详述，包括：硬件、软件和各种常见术语。
 2. CUDA 的安装、编译工具和编辑器的配置。
 3. CUDA 的基础语法：函数标识符、变量标识符、内置向量类型和内置变量、执行配置。
-3. CUDA 的 Runtime API：内存和线程管理、设备管理、事件管理、流管理。
-4. CUDA 编程实例：测试 GPU 的乘加性能。
+4. CUDA 的 Runtime API：内存和线程管理、设备管理、事件管理、流管理。
+5. CUDA 编程实例：测试 GPU 的乘加性能。
 
 ## 详解 CUDA 架构：软件层和硬件层相结合
 
@@ -139,7 +139,7 @@ require("lspconfig").clangd.setup({
 
 <table><tbody><tr><td>
 
-**C/C++**
+<b>C/C++</b>
 
 ```cpp
 void c_hello(){
@@ -151,9 +151,10 @@ int main() {
     return 0;
 }
 ```
+
 </td><td>
 
-**CUDA**
+<b>CUDA</b>
 
 ```cpp
 __global__ void cuda_hello(){
@@ -161,10 +162,11 @@ __global__ void cuda_hello(){
 }
 
 int main() {
-    cuda_hello<<<1,1>>>(); 
+    cuda_hello<<<1,1>>>();
     return 0;
 }
 ```
+
 </td></tr></tbody></table>
 
 可以看到主要区别有两点：一是函数声明/定义时使用 `__global__`，我们将其称作 **函数执行空间标识符**。二是调用函数时使用 `<<...>>`，我们将其称作 **执行配置**。实际上，CUDA 对 C 的扩展可归纳为四点：1. 函数执行空间标识符；2. 变量内存空间标识符；3. 内置向量类型和内置变量；4. 执行配置。
@@ -178,7 +180,7 @@ int main() {
 3. 调用 `__global__` 函数必须给定执行配置。
 4. `__global__` 的调用是异步的，这意味着它会在设备执行完毕前返回。
 
-#### `__device__`
+#### `__device__`（函数）
 
 1. 声明一个函数，在设备上执行，也仅可以从设备上调用。
 2. 它不能与 `__global__` 标识符同时使用。
@@ -192,10 +194,12 @@ int main() {
 
 > Undefined behavior (未定义行为)
 > 以下函数调用方式会被编译器解释为未定义行为：
+>
 > 1. 在 `__global__`, `__device__` 或 `__host__ __device__` 内调用 `__host__` 函数；
 > 2. 在 `__host__` 函数内调用 `__device__` 函数。
-
+>
 > 其他注意事项⚠️
+>
 > 1. `__device__` 和 `__global__` 函数不支持递归。
 > 2. 不能在 `__device__` 和 `__global__` 函数中声明静态变量。
 > 3. `__device__` 和 `__global__` 函数不能有自变量的一个变量数字。
@@ -205,15 +209,15 @@ int main() {
 
 > 默认情况下，未指定标识符的变量会驻留在寄存器上。然而，部分编译器会将其置于本地内存，这会影响并行性能。因此，应当尽可能指定变量的内存空间标识符。
 
-#### `__device__`
+#### `__device__`（变量）
 
 1. 声明一个驻留在设备内存的变量。
 2. 可与至多 1 个其他的变量内存标识符组合使用。
 3. 默认行为 (当它单独使用时)：
-    - 位于全局内存空间。
-    - 生命周期与创建它的 CUDA 上下文相同。
-    - 每个设备有其独立的副本。
-    - 可通过 [运行时 API](#进阶部分常用的-runtime-api) 被网格内所有线程和主机访问。
+   - 位于全局内存空间。
+   - 生命周期与创建它的 CUDA 上下文相同。
+   - 每个设备有其独立的副本。
+   - 可通过 [运行时 API](#进阶部分常用的-runtime-api) 被网格内所有线程和主机访问。
 4. 适合存储需要全局访问的大规模数据。
 
 #### `__constant__`
@@ -310,7 +314,7 @@ int2 make_int2(int x, int y);
 
 #### 内置变量 (Built-in Variables)
 
-- **gridDim**  <span style="margin-left:11px;">：</span>`dim3`，表示网格的维度 `(gridDim.x, gridDim.y, gridDim.z)`。
+- **gridDim** <span style="margin-left:11px;">：</span>`dim3`，表示网格的维度 `(gridDim.x, gridDim.y, gridDim.z)`。
 - **blockIdx** <span style="margin-left: 6px;">：</span>`uint3`，表示网格中块的坐标 `(blockIdx.x, blockIdx.y, blockIdx.z)`。
 - **blockDim** <span style="margin-left: 0px;">：</span>`dim3`，表示线程块的维度 `(blockDim.x, blockDim.y, blockDim.z)`。
 - **threadIdx**<span style="margin-left: 5px;">：</span>`uint3`，表示线程在块中的坐标 `(threadIdx.x, threadIdx.y, threadIdx.z)`。
@@ -334,8 +338,8 @@ Func<<< Dg, Db, Ns >>>(parameter);  // 调用时必须指定执行配置
 ```
 
 - 执行配置的参数在实际函数参数之前被评估，以下两种情况将导致函数调用失败：
-    1. `Dg` 或 `Db` 大于设备允许的最大大小（如计算能力中所指定）；
-    2. `Ns` 大于设备上可用的最大共享内存量减去静态分配所需的共享内存量。
+  1. `Dg` 或 `Db` 大于设备允许的最大大小（如计算能力中所指定）；
+  2. `Ns` 大于设备上可用的最大共享内存量减去静态分配所需的共享内存量。
 
 ## 进阶：部分常用的 Runtime API
 
@@ -359,9 +363,9 @@ Func<<< Dg, Db, Ns >>>(parameter);  // 调用时必须指定执行配置
 
 #### cudaMemcpy()
 
-> cudaError_t cudaMemcpy(void* dst, const void* src, size_t count, enum cudaMemcpyKind kind);
-
-> cudaError_t cudaMemcpyAsync(void* dst,constvoid*src, size_t count, enum cudaMemcpyKind kind, cudaStream_t stream);
+> cudaError_t cudaMemcpy(void*dst, const void* src, size_t count, enum cudaMemcpyKind kind);
+>
+> cudaError_t cudaMemcpyAsync(void*dst,constvoid*src, size_t count, enum cudaMemcpyKind kind, cudaStream_t stream);
 
 - 拷贝 count 字节，从 src 指向的内存区域到 dst 指向的内存区域。
 - kind 可以是 `cudaMemcpyHostToHost`， `cudaMemcpyHostToDevice`，`cudaMemcpyDeviceToHost`，或 `cudaMemcpyDeviceToDevice` 的拷贝方向。
@@ -447,7 +451,7 @@ int main() {
   cudaGetDeviceProperties(&prop, 0);  // 4. 获取设备属性
   printf("Device Name: %s\n", prop.name);
   printf("Compute Capability: %d.%d\n", prop.major, prop.minor);
-  
+
   return 0;
 }
 ```
@@ -553,7 +557,7 @@ cudaStreamDestroy(stream); // 4. 销毁流对象
 
 ## CUDA 编程实例：测试 GPU 的乘加性能
 
-利用 cuda 编程测试 GPU 进行乘加浮点运算 `c+=a*b` 的性能，将其量化成 GFLOPS 指标 _(GFLOPS, Giga FLoating-point Operations Per Second，每秒 10 亿次的浮点运算数)_ ，并呈现 GPU 的部分属性。拟对 $2^{24}$ 个元素进行计算，迭代 100 次。
+利用 cuda 编程测试 GPU 进行乘加浮点运算 `c+=a*b` 的性能，将其量化成 GFLOPS 指标 (GFLOPS, Giga FLoating-point Operations Per Second，每秒 10 亿次的浮点运算数)，并呈现 GPU 的部分属性。拟对 $2^{24}$ 个元素进行计算，迭代 100 次。
 
 ### Cuda 源代码
 
@@ -562,120 +566,120 @@ cudaStreamDestroy(stream); // 4. 销毁流对象
 #include <cuda_runtime.h>
 
 #define CHECK(cmd) { \
-	cudaError_t error = cmd; \
-	if (error != cudaSuccess) { \
-		printf("Error: %s:%d, ", __FILE__, __LINE__); \
-		printf("code:%d, reason:%s\n", error, cudaGetErrorString(error)); \
-		exit(1); \
-	} \
+ cudaError_t error = cmd; \
+ if (error != cudaSuccess) { \
+  printf("Error: %s:%d, ", __FILE__, __LINE__); \
+  printf("code:%d, reason:%s\n", error, cudaGetErrorString(error)); \
+  exit(1); \
+ } \
 }
 
 __global__ void multiplyAddKernel(float *a, float *b, float *c, int n) {
-	int i = blockIdx.x * blockDim.x + threadIdx.x;
-	if (i < n) {
-		c[i] += a[i] * b[i]; // 乘加操作：c += a * b
-	}
+ int i = blockIdx.x * blockDim.x + threadIdx.x;
+ if (i < n) {
+  c[i] += a[i] * b[i]; // 乘加操作：c += a * b
+ }
 }
 
 int main() {
-	// 获取GPU属性
-	cudaDeviceProp prop;
-	CHECK(cudaGetDeviceProperties(&prop, 0));
-	
-	// 打印GPU属性
-	printf("GPU 属性:\n");
-	printf("设备名称: %s\n", prop.name);
-	printf("计算能力: %d.%d\n", prop.major, prop.minor);
-	printf("SM 数量: %d\n", prop.multiProcessorCount);
-	printf("全局内存: %.2f GB\n", prop.totalGlobalMem / (1024.0 * 1024.0 * 1024.0));
-	printf("每块最大线程数: %d\n", prop.maxThreadsPerBlock);
-	printf("每线程块共享内存: %zu KB\n\n", prop.sharedMemPerBlock / 1024);
+ // 获取GPU属性
+ cudaDeviceProp prop;
+ CHECK(cudaGetDeviceProperties(&prop, 0));
 
-	// 设置数据量
-	const int N = 1 << 24; // 16,777,216 个元素
-	const size_t size = N * sizeof(float);
-	const int blockSize = 256;
-	const int gridSize = (N + blockSize - 1) / blockSize;
-	const int iterations = 100; // 重复执行次数
+ // 打印GPU属性
+ printf("GPU 属性:\n");
+ printf("设备名称: %s\n", prop.name);
+ printf("计算能力: %d.%d\n", prop.major, prop.minor);
+ printf("SM 数量: %d\n", prop.multiProcessorCount);
+ printf("全局内存: %.2f GB\n", prop.totalGlobalMem / (1024.0 * 1024.0 * 1024.0));
+ printf("每块最大线程数: %d\n", prop.maxThreadsPerBlock);
+ printf("每线程块共享内存: %zu KB\n\n", prop.sharedMemPerBlock / 1024);
 
-	// 分配主机内存并初始化
-	float *h_a = (float*)malloc(size);
-	float *h_b = (float*)malloc(size);
-	float *h_c = (float*)malloc(size);
-	for (int i = 0; i < N; ++i) {
-		h_a[i] = 2.0f;
-		h_b[i] = 0.5f;
-		h_c[i] = 0.0f;
-	}
+ // 设置数据量
+ const int N = 1 << 24; // 16,777,216 个元素
+ const size_t size = N * sizeof(float);
+ const int blockSize = 256;
+ const int gridSize = (N + blockSize - 1) / blockSize;
+ const int iterations = 100; // 重复执行次数
 
-	// 分配设备内存
-	float *d_a, *d_b, *d_c;
-	CHECK(cudaMalloc(&d_a, size));
-	CHECK(cudaMalloc(&d_b, size));
-	CHECK(cudaMalloc(&d_c, size));
+ // 分配主机内存并初始化
+ float *h_a = (float*)malloc(size);
+ float *h_b = (float*)malloc(size);
+ float *h_c = (float*)malloc(size);
+ for (int i = 0; i < N; ++i) {
+  h_a[i] = 2.0f;
+  h_b[i] = 0.5f;
+  h_c[i] = 0.0f;
+ }
 
-	// 拷贝数据到设备
-	CHECK(cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice));
-	CHECK(cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice));
-	CHECK(cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice));
+ // 分配设备内存
+ float *d_a, *d_b, *d_c;
+ CHECK(cudaMalloc(&d_a, size));
+ CHECK(cudaMalloc(&d_b, size));
+ CHECK(cudaMalloc(&d_c, size));
 
-	// 预热运行
-	for (int i = 0; i < 5; ++i) {
-		multiplyAddKernel<<<gridSize, blockSize>>>(d_a, d_b, d_c, N);
-		CHECK(cudaGetLastError());
-	}
-	CHECK(cudaDeviceSynchronize());
+ // 拷贝数据到设备
+ CHECK(cudaMemcpy(d_a, h_a, size, cudaMemcpyHostToDevice));
+ CHECK(cudaMemcpy(d_b, h_b, size, cudaMemcpyHostToDevice));
+ CHECK(cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice));
 
-	// 创建计时事件
-	cudaEvent_t start, stop;
-	CHECK(cudaEventCreate(&start));
-	CHECK(cudaEventCreate(&stop));
+ // 预热运行
+ for (int i = 0; i < 5; ++i) {
+  multiplyAddKernel<<<gridSize, blockSize>>>(d_a, d_b, d_c, N);
+  CHECK(cudaGetLastError());
+ }
+ CHECK(cudaDeviceSynchronize());
 
-	// 重置结果为初始值
-	CHECK(cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice));
+ // 创建计时事件
+ cudaEvent_t start, stop;
+ CHECK(cudaEventCreate(&start));
+ CHECK(cudaEventCreate(&stop));
 
-	// 执行并计时
-	CHECK(cudaEventRecord(start));
-	for (int i = 0; i < iterations; ++i) {
-		multiplyAddKernel<<<gridSize, blockSize>>>(d_a, d_b, d_c, N);
-		CHECK(cudaGetLastError());
-	}
-	CHECK(cudaEventRecord(stop));
-	CHECK(cudaEventSynchronize(stop));
+ // 重置结果为初始值
+ CHECK(cudaMemcpy(d_c, h_c, size, cudaMemcpyHostToDevice));
 
-	// 计算时间
-	float milliseconds;
-	CHECK(cudaEventElapsedTime(&milliseconds, start, stop));
-	double seconds = milliseconds / 1000.0;
+ // 执行并计时
+ CHECK(cudaEventRecord(start));
+ for (int i = 0; i < iterations; ++i) {
+  multiplyAddKernel<<<gridSize, blockSize>>>(d_a, d_b, d_c, N);
+  CHECK(cudaGetLastError());
+ }
+ CHECK(cudaEventRecord(stop));
+ CHECK(cudaEventSynchronize(stop));
 
-	// 计算性能指标
-	double totalFlops = 2.0 * N * iterations; // 每次迭代每个元素2次浮点操作
-	double gflops = totalFlops / seconds / 1e9;
+ // 计算时间
+ float milliseconds;
+ CHECK(cudaEventElapsedTime(&milliseconds, start, stop));
+ double seconds = milliseconds / 1000.0;
 
-	printf("性能指标:\n");
-	printf("数据量: %d 个元素\n", N);
-	printf("总运算量: %.2f GFLOP\n", totalFlops / 1e9);
-	printf("总耗时: %.3f ms\n", milliseconds);
-	printf("平均性能: %.2f GFLOPS\n\n", gflops);
+ // 计算性能指标
+ double totalFlops = 2.0 * N * iterations; // 每次迭代每个元素2次浮点操作
+ double gflops = totalFlops / seconds / 1e9;
 
-	// 验证结果正确性
-	CHECK(cudaMemcpy(h_c, d_c, size, cudaMemcpyDeviceToHost));
-	printf("验证前5个结果:\n");
-	for (int i = 0; i < 5; ++i) {
-		printf("c[%d] = %.1f (预期值: %d)\n", i, h_c[i], iterations);
-	}
+ printf("性能指标:\n");
+ printf("数据量: %d 个元素\n", N);
+ printf("总运算量: %.2f GFLOP\n", totalFlops / 1e9);
+ printf("总耗时: %.3f ms\n", milliseconds);
+ printf("平均性能: %.2f GFLOPS\n\n", gflops);
 
-	// 释放资源
-	free(h_a);
-	free(h_b);
-	free(h_c);
-	CHECK(cudaFree(d_a));
-	CHECK(cudaFree(d_b));
-	CHECK(cudaFree(d_c));
-	CHECK(cudaEventDestroy(start));
-	CHECK(cudaEventDestroy(stop));
+ // 验证结果正确性
+ CHECK(cudaMemcpy(h_c, d_c, size, cudaMemcpyDeviceToHost));
+ printf("验证前5个结果:\n");
+ for (int i = 0; i < 5; ++i) {
+  printf("c[%d] = %.1f (预期值: %d)\n", i, h_c[i], iterations);
+ }
 
-	return 0;
+ // 释放资源
+ free(h_a);
+ free(h_b);
+ free(h_c);
+ CHECK(cudaFree(d_a));
+ CHECK(cudaFree(d_b));
+ CHECK(cudaFree(d_c));
+ CHECK(cudaEventDestroy(start));
+ CHECK(cudaEventDestroy(stop));
+
+ return 0;
 }
 ```
 

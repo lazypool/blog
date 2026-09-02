@@ -11,10 +11,11 @@ index_img: img/index/00027.jpg
 date: 2025-12-10 17:31:24
 ---
 
-
 # 确保编写有意义的 commit message
 
-最近我在编写我的 dwm 下一代的代码，开了很多 feature 分支，也做了很多 commit。在实际项目中，我注意到我过去提交的很多信息都很混乱，缺乏统一规范，比如有的使用了中文，有的表述不清，等等。实际上，关于 git 的提交信息已经有一个很成熟的约定了，那就是 『[conventional commits](https://www.conventionalcommits.org/zh-hant/v1.0.0/)』。这个约定被大家默默地遵守了很多年，已经可以称得上是现今 git 提交信息的书写规范了。我觉得这个内容比较有趣且重要，所以把它写下来以提醒自己 **时刻保持良好的 commit 信息书写规范**。
+最近我在编写我的 dwm 下一代的代码，开了很多 feature 分支，也做了很多 commit。在实际项目中，我注意到我过去提交的很多信息都很混乱，缺乏统一规范，比如有的使用了中文，有的表述不清，等等。
+实际上，关于 git 的提交信息已经有一个很成熟的约定了，那就是 『[conventional commits](https://www.conventionalcommits.org/zh-hant/v1.0.0/)』。这个约定被大家默默地遵守了很多年，已经可以称得上是现今 git 提交信息的书写规范了。
+我觉得这个内容比较有趣且重要，所以把它写下来以提醒自己 **时刻保持良好的 commit 信息书写规范**。
 
 ## 为什么要写更好的提交信息
 
@@ -44,18 +45,18 @@ date: 2025-12-10 17:31:24
 （摘自开源项目 [conventional-changelog-metahub](https://github.com/pvdlg/conventional-changelog-metahub#commit-types)）
 
 | Commit Type | Title                    | Description                                                                                                 | Emoji | Release                        | Include in changelog |
-|:-----------:|--------------------------|-------------------------------------------------------------------------------------------------------------|:-----:|--------------------------------|:--------------------:|
-|   `feat`    | Features                 | A new feature                                                                                               |   ✨   | `minor`                       |        `true`        |
+| :---------: | ------------------------ | ----------------------------------------------------------------------------------------------------------- | :---: | ------------------------------ | :------------------: |
+|   `feat`    | Features                 | A new feature                                                                                               |  ✨   | `minor`                        |        `true`        |
 |    `fix`    | Bug Fixes                | A bug Fix                                                                                                   |  🐛   | `patch`                        |        `true`        |
 |   `docs`    | Documentation            | Documentation only changes                                                                                  |  📚   | `patch` if `scope` is `readme` |        `true`        |
 |   `style`   | Styles                   | Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)      |  💎   | -                              |        `true`        |
 | `refactor`  | Code Refactoring         | A code change that neither fixes a bug nor adds a feature                                                   |  📦   | -                              |        `true`        |
 |   `perf`    | Performance Improvements | A code change that improves performance                                                                     |  🚀   | `patch`                        |        `true`        |
 |   `test`    | Tests                    | Adding missing tests or correcting existing tests                                                           |  🚨   | -                              |        `true`        |
-|   `build`   | Builds                   | Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)         |  🛠   | `patch`                        |        `true`        |
+|   `build`   | Builds                   | Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)         |   🛠   | `patch`                        |        `true`        |
 |    `ci`     | Continuous Integrations  | Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs) |  ⚙️   | -                              |        `true`        |
 |   `chore`   | Chores                   | Other changes that don't modify src or test files                                                           |  ♻️   | -                              |        `true`        |
-|  `revert`   | Reverts                  | Reverts a previous commit                                                                                   |  🗑   | -                              |        `true`        |
+|  `revert`   | Reverts                  | Reverts a previous commit                                                                                   |   🗑   | -                              |        `true`        |
 
 ### 范围 (scope)
 
@@ -86,7 +87,7 @@ date: 2025-12-10 17:31:24
 
 ## 有些通用的原则
 
-1. **让我们说英文** (不要尝试在 commit 信息里写中文，~尽管你看到别人这样做~)
+1. **让我们说英文** (不要尝试在 commit 信息里写中文，~~尽管你看到别人这样做~~)
 2. description 不应该过长，不要超过 20 个单词
 3. 没有规定 description 开头要不要大写，不要纠结
 4. 有一点你应当知道，那就是 description 不应该带句号

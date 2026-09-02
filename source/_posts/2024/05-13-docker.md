@@ -55,7 +55,8 @@ Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docke
 systemctl enable docker
 ```
 
-这条指令会创建一条链接： /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service。这里在 multi-user.target.wants 下创建了 docker.service，它指向 /usr/.. 下的 docker.service，会在电脑开机时自动启动。运行完该指令后之后记得重启电脑确保 daemon 启动。重启后可通过 **systemctl status docker** 来查看 docker.service 是否启动。
+这条指令会创建一条链接： /etc/systemd/system/multi-user.target.wants/docker.service → /usr/lib/systemd/system/docker.service。这里在 multi-user.target.wants 下创建了 docker.service，它指向 /usr/.. 下的 docker.service，
+会在电脑开机时自动启动。运行完该指令后之后记得重启电脑确保 daemon 启动。重启后可通过 **systemctl status docker** 来查看 docker.service 是否启动。
 
 ### 将工作用户加入 docker 组
 
@@ -68,7 +69,8 @@ reboot  #重启后生效
 
 ### 配置 Docker 镜像
 
-完成上述工作后，正常来说就能够使用 docker 了。鉴于国内网络问题，每次使用 docker pull 命令 pull 镜像时，docker daemon 都会去 docker Hub 拉取镜像快照，十分缓慢，建议配置国内镜像加速。我们可以使用中科大的镜像源来加速，相比阿里云公开免费。详细说明可在 [科大镜像帮助：Docker Hub](https://mirrors.ustc.edu.cn/help/dockerhub.html) 查看，这里简要叙述做法。
+完成上述工作后，正常来说就能够使用 docker 了。鉴于国内网络问题，每次使用 docker pull 命令 pull 镜像时，docker daemon 都会去 docker Hub 拉取镜像快照，十分缓慢，建议配置国内镜像加速。我们可以使用中科大的镜像源来加速，相比阿里云公开免费。
+详细说明可在 [科大镜像帮助：Docker Hub](https://mirrors.ustc.edu.cn/help/dockerhub.html) 查看，这里简要叙述做法。
 
 1. 首先确保具有 /etc/docker 文件夹，如果没有则创建一个。
 2. 编写 daemon.json 文件，内容如下：

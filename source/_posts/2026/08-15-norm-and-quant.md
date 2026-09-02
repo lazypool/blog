@@ -62,7 +62,6 @@ RMSNorm 的优势在于计算更简单、训练更稳定，因此被 LLaMA、Qwe
 
 ![离群值降低了量化的分辨率](outliers-impact-to-low-bit-quantization.png)
 
-
 一个关键的问题是：**这些离群值是如何产生的？** 归一化层在其中扮演了什么角色？
 
 ---
@@ -126,6 +125,7 @@ $$\text{LN}(z) \cdot W = \frac{z - \mu}{\sigma} \cdot (\gamma \odot W) + \beta \
 **Step 2**：这些样本的残差中离群值较少（kurtosis 值较低），即分布更"平坦"
 
 **Step 3**：RMSNorm 的作用机制：
+
 - RMS 分母 $\text{RMS}(r^{(l)})$ 较小（因为整体幅度小）
 - γ 参数对离群维度赋予较小的权重（这是训练中学到的模式）
 - 但对于"平坦"的分布，γ 的抑制作用反而使得归一化后的幅度相对更大
@@ -137,6 +137,7 @@ $$\text{LN}(z) \cdot W = \frac{z - \mu}{\sigma} \cdot (\gamma \odot W) + \beta \
 $$h^{(l)} = \text{RMSNorm}^{(l)}(r^{(l)}) = \frac{r^{(l)}}{\text{RMS}(r^{(l)})} \odot \gamma$$
 
 对于残差幅度小的样本：
+
 - 分子 $r^{(l)}$ 小 → 被 RMS 分母"放大"
 - γ 对离群维度的抑制在这种情况下效果有限
 - 结果：$\|h^{(l)}\|$ 反而比"正常"样本更大
@@ -182,11 +183,11 @@ Layer L:   累积效应 → 最终输出误差巨大
 
 关于 LLM 中激活离群值的来源，学术界存在两种对立的观点：
 
-**观点 A：归一化层产生离群值**
+#### 观点 A：归一化层产生离群值
 
 Outlier Suppression (NeurIPS 2022) 和 Outlier Suppression+ (EMNLP 2023) 认为，LayerNorm/RMSNorm 中的 γ 参数是离群值的主要来源。γ 在训练过程中学会了对某些通道施加极大的缩放，导致这些通道的激活值异常大。
 
-**观点 B：归一化层抑制离群值**
+#### 观点 B：归一化层抑制离群值
 
 2026 年 HAL-Inria 的 Spike Aware 论文通过对 LLaMA 架构的细致分析发现，在 LLaMA 模型中，RMSNorm 实际上**削弱**了输入中的 spike 幅度，而不是放大它们。离群值最初由 FFN 中的 down_proj 层产生，然后通过残差连接传播，RMSNorm 反而起到了抑制作用。
 
@@ -194,17 +195,18 @@ Outlier Suppression (NeurIPS 2022) 和 Outlier Suppression+ (EMNLP 2023) 认为�
 
 经过仔细分析，我认为两种观点并不矛盾，它们描述的是**不同层面的现象**：
 
-| 层面 | 归一化层的作用 | 描述 |
-|------|--------------|------|
-| **通道层面** | 放大 | γ 确实放大了特定通道的离群值（观点 A）|
-| **张量层面** | 可能抑制 | 除以 RMS 可以降低整体幅度（观点 B）|
-| **样本层面** | 反转 | 改变了样本间的相对幅度关系（EMNLP 2025）|
+| 层面         | 归一化层的作用 | 描述                                     |
+| ------------ | -------------- | ---------------------------------------- |
+| **通道层面** | 放大           | γ 确实放大了特定通道的离群值（观点 A）   |
+| **张量层面** | 可能抑制       | 除以 RMS 可以降低整体幅度（观点 B）      |
+| **样本层面** | 反转           | 改变了样本间的相对幅度关系（EMNLP 2025） |
 
 关键在于：
 
 > **归一化层同时执行了多个操作，每个操作的效果不同，最终的净效果取决于具体的数据分布**。
 
 这就解释了为什么：
+
 - 对于离群值严重的样本：γ 的通道级放大占主导 → 归一化层产生离群值
 - 对于离群值较少的样本：RMS 的全局缩放占主导 → 归一化层抑制幅度
 - 对于样本间的相对关系：反转效应 → 小幅度样本变大幅度
@@ -264,7 +266,7 @@ Spike Aware 论文还揭示了 LLaMA 架构的一个特殊现象：
 
 ### 第一类：修改归一化层本身
 
-**Single-Scale RMSNorm (OSP, ACL 2025)**
+#### Single-Scale RMSNorm (OSP, ACL 2025)
 
 核心思想：用标量 $\gamma \in \mathbb{R}$ 替代向量 $\gamma \in \mathbb{R}^d$，消除通道间的缩放差异。
 
@@ -274,7 +276,7 @@ $$\text{Single-Scale RMSNorm}(z) = \frac{z}{\text{RMS}(z)} \cdot \gamma$$
 
 局限：**只能在预训练时使用**，对已有的模型无能为力。且标量 γ 降低了模型的表达能力。
 
-**Quantizable Transformers (NeurIPS 2023)**
+#### Quantizable Transformers (NeurIPS 2023)
 
 核心思想：修改注意力机制，使其学会"什么都不做" (do nothing)，从而避免离群值的产生。
 
@@ -284,11 +286,11 @@ $$\text{Single-Scale RMSNorm}(z) = \frac{z}{\text{RMS}(z)} \cdot \gamma$$
 
 ### 第二类：迁移归一化层的参数
 
-**Gamma Migration (NeurIPS 2022)**
+#### Gamma Migration (NeurIPS 2022)
 
 如前所述，将 γ 从 LayerNorm 中迁移出去，吸收进后续权重。
 
-**Outlier Suppression+ (EMNLP 2023)**
+#### Outlier Suppression+ (EMNLP 2023)
 
 更进一步，不仅迁移 γ，还引入了**通道级平移** (channel-wise shifting) 来消除激活的不对称性：
 
@@ -302,7 +304,7 @@ $$\min_{s} \mathbb{E}\left[\|Q(X_f \oslash s) \cdot (s \odot W) - X_f W\|^2\righ
 
 ### 第三类：在归一化层之后/之前应用变换
 
-**SmoothQuant (ICLR 2023)**
+#### SmoothQuant (ICLR 2023)
 
 核心思想：激活的量化难度可以"迁移"到权重上。通过 per-channel 缩放，将激活中的离群通道缩小，同时将权重中对应的通道放大：
 
@@ -310,7 +312,7 @@ $$Y = (X \oslash s) \cdot (s \odot W)$$
 
 其中 $s$ 通过启发式方法确定：$s_j = \frac{\max(|X_j|)^\alpha}{\max(|W_j|)^{1-\alpha}}$。
 
-**QuaRot / SpinQuant / FlatQuant**
+#### QuaRot / SpinQuant / FlatQuant
 
 旋转类方法，在归一化层之后应用正交变换（Hadamard 或可学习的旋转），将离群值的能量"分散"到多个通道上：
 
@@ -320,7 +322,7 @@ $$Y = \text{RMSNorm}(X) \cdot R \cdot R^T \cdot W = \text{RMSNorm}(X) \cdot W$$
 
 ### 第四类：重新设计归一化+量化的流程
 
-**NSNQuant (NeurIPS 2025)**
+#### NSNQuant (NeurIPS 2025)
 
 针对 KV Cache 量化，提出了 Normalize-Shift-Normalize (NSN) 三步变换：
 
@@ -330,7 +332,7 @@ $$Y = \text{RMSNorm}(X) \cdot R \cdot R^T \cdot W = \text{RMSNorm}(X) \cdot W$$
 
 配合 Hadamard 变换，将分布对齐到标准正态分布，从而可以使用固定的 codebook 进行无校准量化。
 
-**HadaNorm (2025)**
+#### HadaNorm (2025)
 
 针对 Diffusion Transformer，提出在 Hadamard 变换之前进行通道中心化：
 
@@ -348,12 +350,12 @@ $$\text{HadaNorm}(z) = \text{Hadamard}\left(\frac{z - \bar{z}}{\sigma_z}\right)$
 
 具体来说：
 
-| 方法类别 | 核心思路 | 局限 |
-|---------|---------|------|
-| 修改归一化层 | 让归一化层本身更"友好" | 需要重新训练，不适用于已有模型 |
-| 参数迁移 | 将 γ 等参数迁移到后续层 | 只解决了 γ 的问题，没解决分布变换的问题 |
-| 后置变换 | 在归一化后应用额外变换 | 是"打补丁"式的方案，增加了复杂度 |
-| 重设计流程 | 重新组织归一化和量化 | 针对特定场景（KV Cache），不通用 |
+| 方法类别     | 核心思路                | 局限                                    |
+| ------------ | ----------------------- | --------------------------------------- |
+| 修改归一化层 | 让归一化层本身更"友好"  | 需要重新训练，不适用于已有模型          |
+| 参数迁移     | 将 γ 等参数迁移到后续层 | 只解决了 γ 的问题，没解决分布变换的问题 |
+| 后置变换     | 在归一化后应用额外变换  | 是"打补丁"式的方案，增加了复杂度        |
+| 重设计流程   | 重新组织归一化和量化    | 针对特定场景（KV Cache），不通用        |
 
 **根本矛盾**在于：
 
@@ -378,7 +380,7 @@ $$\text{HadaNorm}(z) = \text{Hadamard}\left(\frac{z - \bar{z}}{\sigma_z}\right)$
 
 ### 可能的实现路径
 
-**路径一：可学习的目标分布归一化**
+#### 路径一：可学习的目标分布归一化
 
 标准 RMSNorm 将激活归一化到单位 RMS。但单位 RMS 并不是对量化最优的分布。我们可以设计一种归一化层，将激活映射到一个**对量化最优的目标分布**：
 
@@ -390,18 +392,18 @@ $$\min_\theta \mathcal{L}_{\text{task}} + \lambda \cdot \mathcal{L}_{\text{quant
 
 其中 $\mathcal{L}_{\text{quant}}$ 衡量归一化后激活的量化误差。
 
-**路径二：两阶段归一化**
+#### 路径二：两阶段归一化
 
 受 NSNQuant 启发，设计一种两阶段归一化：
 
-```
+```text
 阶段 1: h = RMSNorm(z)              — 标准归一化，保持训练稳定性
 阶段 2: h' = QuantScale(h; θ)       — 可学习的量化感知缩放
 ```
 
 其中 QuantScale 通过 STE (Straight-Through Estimator) 穿过量化器进行训练，直接最小化量化后的任务损失。
 
-**路径三：归一化+旋转的联合优化**
+#### 路径三：归一化+旋转的联合优化
 
 将归一化和旋转合并为一个统一的操作：
 
@@ -409,7 +411,7 @@ $$\text{RotNorm}(z) = \text{Hadamard}(\text{RMSNorm}(z)) \odot \gamma'(\theta)$$
 
 其中 $\gamma'$ 是可学习的，补偿 RMSNorm 和 Hadamard 带来的分布偏移。
 
-**路径四：分布匹配归一化**
+#### 路径四：分布匹配归一化
 
 设计一种归一化层，使其输出分布与特定的量化友好分布（如均匀分布）相匹配：
 
@@ -421,13 +423,13 @@ $$\text{DMNorm}(z) = F^{-1}\left(\Phi\left(\frac{z - \mu_z}{\sigma_z}\right); \t
 
 这些路径的理论基础可以从两个角度建立：
 
-**角度一：信息论**
+#### 角度一：信息论
 
 量化误差可以被建模为信息损失。最优的量化方案应该最大化保留的信息量。对于一个归一化层，其输出分布应该最大化量化后的互信息：
 
 $$\max_\theta I(z; Q(\text{QANorm}(z; \theta)))$$
 
-**角度二：Fisher 信息**
+#### 角度二：Fisher 信息
 
 量化误差对最终任务损失的影响可以通过 Fisher 信息来衡量。最优的归一化应该最小化量化后的 Fisher 信息损失：
 

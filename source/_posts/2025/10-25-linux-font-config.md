@@ -13,12 +13,11 @@ index_img: img/index/00025.jpg
 date: 2025-10-25 12:13:49
 ---
 
-
 # 理解 Linux 字体配置：我的 fontconfig 实践 🧭
 
 说来惭愧，linux 系统我也用了将近 4 年了，但是它的字体配置一直没有搞得很清楚。特别是终端中的 emoji 显示，总是时好时坏，让人困扰。最近在查阅资料时，我参考了 luboQAQ 关于 fontconfig 的博客，决定系统性地解决这个问题。
 
-本文将分享我的~抄作业~配置实践，帮助大家理解如何在 Linux 下实现完美的字体渲染。
+本文将分享我的~~抄作业~~配置实践，帮助大家理解如何在 Linux 下实现完美的字体渲染。
 
 ## 字体的分类
 
@@ -112,7 +111,7 @@ FC_DEBUG=4 st
 
 `Noto Sans CJK SC` —> `Noto Sans` -> `Twemoji`
 
-这里的``<test>``就是条件判断，`mode="prepend"`指在前添加，`binding="strong"`则是强绑定。
+这里的`<test>`就是条件判断，`mode="prepend"`指在前添加，`binding="strong"`则是强绑定。
 
 ## 开始配置
 

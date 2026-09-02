@@ -11,7 +11,8 @@ date: 2025-07-30 15:48:21
 
 # picom 服务于 X11 协议的窗口渲染器
 
-如你所见，我是一名重度的 **dwm 依赖者**，而 dwm 本身并不提供诸如阴影、圆角、透明等的窗口渲染功能。因此一个常用的方法就是使用 picom，这是一个功能非常强大的渲染工具，B 站上也有很多教学视频。它和 X11 适配良好，其下有着多种分支~（由民间高手各显神通所创造）~，这里我选用 [Yuxuan Shui](https://github.com/yshui/picom) 的最新分支~（这应该是最“官方”、最纯净的）~。直到 2025 年，该分支仍然在被维护！
+如你所见，我是一名重度的 **dwm 依赖者**，而 dwm 本身并不提供诸如阴影、圆角、透明等的窗口渲染功能。因此一个常用的方法就是使用 picom，这是一个功能非常强大的渲染工具，B 站上也有很多教学视频。
+它和 X11 适配良好，其下有着多种分支~（由民间高手各显神通所创造）~~，这里我选用 [Yuxuan Shui](https://github.com/yshui/picom) 的最新分支~~（这应该是最“官方”、最纯净的）~。直到 2025 年，该分支仍然在被维护！
 
 > 本博客写于 2025 年 7 月，主要参考 [picom 配置手册](https://picom.app/) 而编写
 
@@ -50,7 +51,8 @@ ninja -C build
 
 ## picom 的使用方式
 
-接下来该使用 picom 了，运行 `picom` 指令，你即能看到默认配置的渲染效果（约等于几乎没有渲染）。默认的配置文件位于 `/etc/xdg/picom.conf`。通常，picom 会优先找寻 `~/.config/picom/picom.conf` 配置文件，否则再去找寻默认的配置文件。因此，你可以通过修改 `~/.config/picom/picom.conf` 内容来控制 picom 的行为，但更通用的做法是在运行 picom 是通过选项 `--config` 制定配置文件的路径。
+接下来该使用 picom 了，运行 `picom` 指令，你即能看到默认配置的渲染效果（约等于几乎没有渲染）。默认的配置文件位于 `/etc/xdg/picom.conf`。通常，picom 会优先找寻 `~/.config/picom/picom.conf` 配置文件，否则再去找寻默认的配置文件。
+因此，你可以通过修改 `~/.config/picom/picom.conf` 内容来控制 picom 的行为，但更通用的做法是在运行 picom 是通过选项 `--config` 制定配置文件的路径。
 
 ```bash
 picom --config 'path/to/picom.conf'
@@ -108,7 +110,7 @@ blur-kern = "3x3box";
 ```
 
 - **阴影 (shadow)**
-  使窗口更加立体化，部分喜欢平面化设计的用户 ~(比如我)~ 会选择禁用它。
+  使窗口更加立体化，部分喜欢平面化设计的用户 ~~(比如我)~~ 会选择禁用它。
   `shadow-radius 阴影的尺寸，单位是像素。`
   `shadow-offset-x/y 阴影的偏移，可以选择阴影显示的地方。`
   `shadow-opacity 阴影的不透明度，可以对阴影施加透明化效果。`
@@ -198,9 +200,10 @@ Item <- '!'? Target '@'? ('[' Index ']')? (Operator Pattern)? | '(' Condition ')
 
 上述规则比较抽象，简单来说：**Condition** 由若干个 **Item**，由逻辑操作符 &&（and）和 ||（or）连接。 **&& 的优先级高于 ||。这两个运算符都是左优先的。括号可以用来提高优先级。** 如果 **Item** 具有前导非运算符（!），则该项的结果取反。
 
-最后，我们注意到：每个 **Item** 都由 **Target**、\[**Index**\] 和 **Operator Pattern** 组成。其中，**Target** 是必须的，\[**Index**\] 和 **Operator Pattern** 则是可选的。⚠️（**Target** 可以是预定义的关键名，也可以是窗口的属性名，如 `_NET_WM_WINDOW_OPACITY` 等）。
+最后，我们注意到：每个 **Item** 都由 **Target**、\[**Index**\] 和 **Operator Pattern** 组成。其中，**Target** 是必须的，\[**Index**\] 和 **Operator Pattern** 则是可选的。
+⚠️（**Target** 可以是预定义的关键名，也可以是窗口的属性名，如 `_NET_WM_WINDOW_OPACITY` 等）。
 
-**预定义的 Target**
+##### 预定义的 Target
 
 - **x**、**y**、**x2**、**y2**、**width**、**height**、**widthb**、**heightb** 窗口左上/右下角坐标，窗口及其边框的宽高。
 - **fullscreen** 当窗口为全屏是为真。其效果等价于窗口属性 `_NET_WM_STATE_FULLSCREEN`。
@@ -217,15 +220,16 @@ Item <- '!'? Target '@'? ('[' Index ']')? (Operator Pattern)? | '(' Condition ')
 
 如果要在客户端窗口上查找窗口属性，**Target** 后面可以跟一个可选的 `@`。否则将使用框架窗口。
 
-**Index**
+##### Index
 
 要查找的属性的索引号。例如，`[2]` 返回属性的第三个值。如果未指定，则隐式使用第一个值（索引 `[0]`）。使用特殊值 `[*]` 对所有可用的属性值使用逻辑 OR。**预定义的 Target 都没有多个值，所以不要对它们使用索引。**
 
-**Operator Pattern**
+##### Operator Pattern
 
 定义 **Target** 将如何匹配，可省略。对于预定义 **Target**，省略 **Operator Pattern** 等价于写入 **!= 0**。对于非预定义 **Target**，省略 **Operator Pattern** 表示检查窗口属性的存在与否。
 
-**Operator** 分为两类：`=`、`>`、`<`、`>=`、`<=` 以及它们的否定（加上 `!` 前缀）是第一类，搭配是数字的 **Target**；`=`（严格相等）、`*=`（子字符串匹配）、`^=`（开头匹配）、`%=`（glob 匹配）、`~=`（正则匹配），以及它们的**不区分大小写**的变体 `?=`、`?*=`、`?^=`、`?%=`、`?~=`，以及他们的否定是第二类，搭配是字符串的 **Target**。
+**Operator** 分为两类：`=`、`>`、`<`、`>=`、`<=` 以及它们的否定（加上 `!` 前缀）是第一类，搭配是数字的 **Target**；`=`（严格相等）、`*=`（子字符串匹配）、`^=`（开头匹配）、`%=`（glob 匹配）、`~=`（正则匹配），以及它们的**不区分大小写**的变体 `?=`、`?*=`、`?^=`、`?%=`、`?~=`，以及他们的否定是第二类，
+搭配是字符串的 **Target**。
 
 **Pattern** 可以是一个整数，也可以是用单引号或双引号括起来的字符串。字符串支持 python3 风格的转义序列。布尔值被解释为整数，即写真等于 1，写假等于 0。
 
@@ -340,11 +344,11 @@ Timing Function 是一个由 `{}` 块定义的时间变化函数，它包括 **s
 - **window-monitor-x**、**window-monitor-y**、**window-monitor-width**、**window-monitor-height**。
 - **window-raw-opacity-before**、**window-raw-opacity** 窗口的透明度（变化之前和变化之后）。
 
-> Tips：自行定义动画脚本实在是一个很繁琐的工作，为了偷懒，通常我会直接去 github 上看别人是怎么写的。~（小朋友不要学）~
+> Tips：自行定义动画脚本实在是一个很繁琐的工作，为了偷懒，通常我会直接去 github 上看别人是怎么写的。~~（小朋友不要学）~~
 
 ## 其他非官方 picom 的分支
 
-如之前所说，除了官方纯净版本的 Yuxuan Shui 的 Fork，picom 又诞生了许多分支（尽管他们实现了很多炫酷的功能，但维护的积极程度都不如原版）。这里简要介绍一下 picom 的其他 Fork，你不一定要用它们，但你可以试着对照他们实现你自己的 Fork！ ~(OMZ 这太耗时间了)~
+如之前所说，除了官方纯净版本的 Yuxuan Shui 的 Fork，picom 又诞生了许多分支（尽管他们实现了很多炫酷的功能，但维护的积极程度都不如原版）。这里简要介绍一下 picom 的其他 Fork，你不一定要用它们，但你可以试着对照他们实现你自己的 Fork！ ~~(OMZ 这太耗时间了)~~
 
 - [**dccsillag/picom**](https://github.com/dccsillag/picom/tree/implement-window-animations) 基本上继承了原版 picom 的全部功能，并实现了相当丰富的预设动画。正在积极合并其他 Fork 的新功能。
 - [**pijulius/picom**](https://github.com/pijulius/picom) 继承 dccsillag 的动画功能。新增工作区切换动画并提供更多动画类型，适合需要工作区动画的用户。目前该分支的更新已停滞。

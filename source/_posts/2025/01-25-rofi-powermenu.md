@@ -3,8 +3,8 @@ layout: post
 title: 使用 rofi 搭建好看的电源管理界面🐘
 date: 2025-01-25 21:58:08
 categories:
-    - 🔧 工具使用
-    - 🐧 Oh-my-Linux
+  - 🔧 工具使用
+  - 🐧 Oh-my-Linux
 tags: [dwm, rofi, dunst, 电源管理界面]
 index_img: img/index/00009.jpg
 ---
@@ -204,7 +204,7 @@ main() {
 /*************************
  * 作者 : 惰池
  * Github : @lazypool
- * 
+ *
  * Rofi 主题文件 : 狂飙
  * Rofi 版本: 1.7.3
 **************************/

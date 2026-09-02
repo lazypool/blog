@@ -9,7 +9,7 @@ tags: [博客, 日常]
 index_img: img/index/00001.jpg
 ---
 
-# 你好，世界！
+# 你好，世界
 
 Time is an illusion that helps things make sense. So we're always living in the present tense.
 
