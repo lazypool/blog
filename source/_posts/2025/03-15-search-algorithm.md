@@ -44,7 +44,7 @@ date: 2025-03-15 13:34:24
 </div>
 </div>
 
-<br>针对搜索问题，通用的解法是将其转换为 **图搜索** 的形式。图搜索核心逻辑是：
+针对搜索问题，通用的解法是将其转换为 **图搜索** 的形式。图搜索核心逻辑是：
 
 1. 将初始状态 $S$ 加入边界集合 frontier
 2. 从边界集合 frontier 中取出节点 $N$
@@ -143,14 +143,14 @@ def ucs(initState, getActions, transModel, goalTest, pathCost):
     return None
 ```
 
-<br><h6>证明：UCS 能保证最优性</h6>
+### 证明：UCS 能保证最优性
 
 - 假设在搜索树中存在最优终点 $T_a$ 和次优终点 $T_b$（下标为代价，$a<b$）
 - 若 $T_a$ 已在队列中，则无论 $T_b$ 入队与否，$T_a$ 总是先出队，从而返回最优路径
 - 若 $T_a$ 不在队列中，而 $T_b$ 在队列中。我们总是能在队列中找到节点 $n$，它是 $T_a$ 的前序
 - 对任何这样的 $n$，恒有 $g(n) < g(T_a) < g(T_b)$（其中 $g(·)$ 表示到达该节点的代价）
 - **那么 $T_a$ 及其所有的前序节点 $n$ 总是比 $T_b$ 先出队**。也即，除非 $T_a$ 出队，否则 $T_b$ 滞留
-- 该推理证明 UCS 总能保证最优。<text style="color:gray;">该推理过程还能推广到其他所有的中间节点（如 $M_c$ 和 $M_d$）</text>
+- 该推理证明 UCS 总能保证最优。该推理过程还能推广到其他所有的中间节点（如 $M_c$ 和 $M_d$）
 
 ## A-Star 搜索 (A\*)
 
@@ -181,7 +181,7 @@ def aStar(initState, getActions, transModel, goalTest, pathCost, heuristic):
                 heapq.heappush(frontier, (g + h, g, nextState, lstActions + [action]))
 ```
 
-<br>**A\* 与可接受的启发**
+### A\* 与可接受的启发
 
 - A\* 能保证最优，当且仅当给定的启发 $h(n)$ 是可接受的 (addmissible)
 - 所谓“可接受”，是指：**对于搜索树中的所有节点 $n$，$0 \le h(n) \le h^\star(n)$ 恒成立**

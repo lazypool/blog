@@ -314,11 +314,11 @@ int2 make_int2(int x, int y);
 
 #### 内置变量 (Built-in Variables)
 
-- **gridDim** <span style="margin-left:11px;">：</span>`dim3`，表示网格的维度 `(gridDim.x, gridDim.y, gridDim.z)`。
-- **blockIdx** <span style="margin-left: 6px;">：</span>`uint3`，表示网格中块的坐标 `(blockIdx.x, blockIdx.y, blockIdx.z)`。
-- **blockDim** <span style="margin-left: 0px;">：</span>`dim3`，表示线程块的维度 `(blockDim.x, blockDim.y, blockDim.z)`。
-- **threadIdx**<span style="margin-left: 5px;">：</span>`uint3`，表示线程在块中的坐标 `(threadIdx.x, threadIdx.y, threadIdx.z)`。
-- **warpSize** <span style="margin-left: 3px;">：</span>`int` ，包含了以线程为单位的线程数的大小。
+- **gridDim** ：`dim3`，表示网格的维度 `(gridDim.x, gridDim.y, gridDim.z)`。
+- **blockIdx** ：`uint3`，表示网格中块的坐标 `(blockIdx.x, blockIdx.y, blockIdx.z)`。
+- **blockDim** ：`dim3`，表示线程块的维度 `(blockDim.x, blockDim.y, blockDim.z)`。
+- **threadIdx** ：`uint3`，表示线程在块中的坐标 `(threadIdx.x, threadIdx.y, threadIdx.z)`。
+- **warpSize** ：`int` ，包含了以线程为单位的线程数的大小。
 
 ### 执行配置 (Execution Configuration)
 

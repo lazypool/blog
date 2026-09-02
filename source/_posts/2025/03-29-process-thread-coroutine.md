@@ -43,7 +43,7 @@ date: 2025-03-29 12:11:42
 ![进程间通信](approaches-for-inter-process-communication.webp)
 
 **虚拟内存使每个进程都拥有独立的虚拟地址空间，这使得每个进程都认为自己是独占 OS 的，从而使得进程与进程之间处在互不可见的隔离状态下。**有时，会需要多个进程协作完成一项任务，就会不可避免地引入**进程间通信 IPC**。
-常用的进程间通信手段大概有 6 种：<u>共享内存</u>、<u>消息队列</u>、<u>匿名管道</u>、<u>命名管道</u>、<u>Signal 信号</u>和<u>Socket 套接字</u>，这几种方式根据需求的不同各有自己的用武之地。
+常用的进程间通信手段大概有 6 种：**共享内存**、**消息队列**、**匿名管道**、**命名管道**、**Signal 信号**和**Socket 套接字**，这几种方式根据需求的不同各有自己的用武之地。
 
 ## 线程 Thread
 
@@ -67,7 +67,7 @@ date: 2025-03-29 12:11:42
 </div></div>
 
 **线程通过共享内存实现高效协作。**由于共享进程地址空间，线程间通信可直接访问共享内存，无需复杂 IPC 机制，只需要使用一些编程上的技法就可以完成通信：
-<u>互斥锁 (Mutex)</u>、<u>条件变量 (Condition Variable)</u>、<u>信号量 (Semaphore)</u>、<u>原子操作 (Atomic Operations)</u>、<u>阻塞队列 (Blocking Queue)</u>。
+**互斥锁 (Mutex)**、**条件变量 (Condition Variable)**、**信号量 (Semaphore)**、**原子操作 (Atomic Operations)**、**阻塞队列 (Blocking Queue)**。
 
 <div align="center">
 
