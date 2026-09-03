@@ -180,7 +180,7 @@ rules 块中，包含若干个 `{}` 块，而每个 `{}` 块都需要包含 `mat
 - **opacity** 0.0-1.0，设置被匹配窗口的不透明度。
 - **dim** 0.0-1.0，设置被匹配窗口的暗化程度。
 - **corner-radius** 单位为像素，设置被匹配窗口的圆角大小。
-- **blur-backgro\*und** true 或 false，是否是被匹配窗口拥有模糊背景的效果。
+- **blur-background** true 或 false，是否是被匹配窗口拥有模糊背景的效果。
 - **invert-color** true 或 false，是否是被匹配窗口反色。
 - **clip-shadow-above** true 或 false，是否防止被匹配窗口被阴影覆盖。
 - **unredir** 用于控制被匹配窗口的重定向和非从定向行为，通常不用设置。
