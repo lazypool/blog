@@ -16,22 +16,22 @@
   <a title="Npm Downloads" target="_blank" href="https://www.npmjs.com/package/hexo-theme-fluid"><img alt="Npm Downloads" src="https://img.shields.io/npm/dt/hexo-theme-fluid?color=red&label=npm"></a>
   <a title="GitHub Commits" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/commits/master"><img alt="GitHub Commits" src="https://img.shields.io/github/commit-activity/m/fluid-dev/hexo-theme-fluid.svg?style=flat&color=brightgreen&label=commits"></a>
   <br><br>
-  <a title="GitHub Watchers" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/watchers"><img alt="GitHub Watchers" src="https://img.shields.io/github/watchers/fluid-dev/hexo-theme-fluid.svg?label=Watchers&style=social"></a>  
-  <a title="GitHub Stars" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/fluid-dev/hexo-theme-fluid.svg?label=Stars&style=social"></a>  
-  <a title="GitHub Forks" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/network/members"><img alt="GitHub Forks" src="https://img.shields.io/github/forks/fluid-dev/hexo-theme-fluid.svg?label=Forks&style=social"></a>  
+  <a title="GitHub Watchers" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/watchers"><img alt="GitHub Watchers" src="https://img.shields.io/github/watchers/fluid-dev/hexo-theme-fluid.svg?label=Watchers&style=social"></a>
+  <a title="GitHub Stars" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/fluid-dev/hexo-theme-fluid.svg?label=Stars&style=social"></a>
+  <a title="GitHub Forks" target="_blank" href="https://github.com/fluid-dev/hexo-theme-fluid/network/members"><img alt="GitHub Forks" src="https://img.shields.io/github/forks/fluid-dev/hexo-theme-fluid.svg?label=Forks&style=social"></a>
 </p>
 
 <p align="center">🇨🇳 中文简体  |  <a title="English" href="README_en.md">🇬🇧 English</a></p>
 
 <p align="center">
   <span>文档：</span>
-  <a href="https://hexo.fluid-dev.com/docs/guide/">主题配置</a> | 
+  <a href="https://hexo.fluid-dev.com/docs/guide/">主题配置</a> |
   <a href="https://hexo.io/zh-cn/docs/front-matter">文章配置</a>
 </p>
 
 <p align="center">
   <span>预览：</span>
-  <a href="https://hexo.fluid-dev.com/">Fluid's blog</a> | 
+  <a href="https://hexo.fluid-dev.com/">Fluid's blog</a> |
   <a href="https://zkqiang.cn">zkqiang's blog</a>
 </p>
 
@@ -62,9 +62,9 @@ npm install --save hexo-theme-fluid
 如下修改 Hexo 博客目录中的 `_config.yml`：
 
 ```yaml
-theme: fluid  # 指定主题
+theme: fluid # 指定主题
 
-language: zh-CN  # 指定语言，会影响主题显示的语言，按需修改
+language: zh-CN # 指定语言，会影响主题显示的语言，按需修改
 ```
 
 #### 4. 创建「关于页」
@@ -84,7 +84,6 @@ hexo new page about
 title: about
 layout: about
 ---
-
 这里写关于页的正文，支持 Markdown, HTML
 ```
 
