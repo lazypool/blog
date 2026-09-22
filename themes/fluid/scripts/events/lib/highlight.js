@@ -108,7 +108,7 @@ module.exports = (hexo) => {
         });
       }
 
-      // 适配缩进型代码块
+      // Adapt indented code blocks
       page.content = page.content.replace(/<pre><code>/gims, (str) => {
         return '<pre><code class="hljs">';
       });
@@ -145,7 +145,7 @@ module.exports = (hexo) => {
         return `<figure><div class="code-wrapper">${str}</div></figure>`;
       });
 
-      // 适配缩进型代码块
+      // Adapt indented code blocks
       page.content = page.content.replace(/<pre><code>/gims, (str) => {
         return '<pre class="language-none"><code class="language-none">';
       });

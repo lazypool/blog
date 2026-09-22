@@ -1,13 +1,13 @@
-// 从配置文件中获取 umami 的配置
+// Get umami config from CONFIG
 const website_id = CONFIG.web_analytics.umami.website_id;
-// 拼接请求地址
+// Build request URL
 const request_url = `${CONFIG.web_analytics.umami.api_server}/websites/${website_id}/stats`;
 
 const start_time = new Date(CONFIG.web_analytics.umami.start_time).getTime();
 const end_time = new Date().getTime();
 const token = CONFIG.web_analytics.umami.token;
 
-// 检查配置是否为空
+// Validate config
 if (!website_id) {
   throw new Error("Umami website_id is empty");
 }
@@ -21,12 +21,12 @@ if (!token) {
   throw new Error("Umami token is empty");
 }
 
-// 构造请求参数
+// Build request params
 const params = new URLSearchParams({
   startAt: start_time,
   endAt: end_time,
 });
-// 构造请求头
+// Build request headers
 const request_header = {
   method: "GET",
   headers: {
@@ -35,20 +35,20 @@ const request_header = {
   },
 };
 
-// 获取站点统计数据
+// Fetch site statistics
 async function siteStats() {
   try {
     const response = await fetch(`${request_url}?${params}`, request_header);
     const data = await response.json();
-    const uniqueVisitors = data.uniques.value; // 获取独立访客数
-    const pageViews = data.pageviews.value; // 获取页面浏览量
+    const uniqueVisitors = data.uniques.value; // Unique visitors
+    const pageViews = data.pageviews.value; // Page views
 
     let pvCtn = document.querySelector("#umami-site-pv-container");
     if (pvCtn) {
       let ele = document.querySelector("#umami-site-pv");
       if (ele) {
-        ele.textContent = pageViews; // 设置页面浏览量
-        pvCtn.style.display = "inline"; // 将元素显示出来
+        ele.textContent = pageViews; // Set page views
+        pvCtn.style.display = "inline"; // Show element
       }
     }
 
@@ -66,7 +66,7 @@ async function siteStats() {
   }
 }
 
-// 获取页面浏览量
+// Fetch page views
 async function pageStats(path) {
   try {
     const response = await fetch(`${request_url}?${params}&url=${path}`, request_header);
@@ -89,9 +89,9 @@ async function pageStats(path) {
 
 siteStats();
 
-// 获取页面容器
+// Get page view container
 let viewCtn = document.querySelector("#umami-page-views-container");
-// 如果页面容器存在，则获取页面浏览量
+// Fetch page views if container exists
 if (viewCtn) {
   let path = window.location.pathname;
   let target = decodeURI(path.replace(/\/*(index.html)?$/, "/"));

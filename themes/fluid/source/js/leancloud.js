@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-console
 
 (function(window, document) {
-  // 查询存储的记录
+  // Query stored record
   function getRecord(Counter, target) {
     return new Promise(function(resolve, reject) {
       Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ target })))
@@ -34,7 +34,7 @@
     });
   }
 
-  // 发起自增请求
+  // Send increment request
   function increment(Counter, incrArr) {
     return new Promise(function(resolve, reject) {
       Counter('post', '/batch', {
@@ -52,7 +52,7 @@
     });
   }
 
-  // 构建自增请求体
+  // Build increment request body
   function buildIncrement(objectId) {
     return {
       'method': 'PUT',
@@ -66,7 +66,7 @@
     };
   }
 
-  // 校验是否为有效的 Host
+  // Validate host
   function validHost() {
     if (CONFIG.web_analytics.leancloud.ignore_local) {
       var hostname = window.location.hostname;
@@ -77,12 +77,12 @@
     return true;
   }
 
-  // 校验是否为有效的 UV
+  // Validate UV
   function validUV() {
     var key = 'LeanCloud_UV_Flag';
     var flag = localStorage.getItem(key);
     if (flag) {
-      // 距离标记小于 24 小时则不计为 UV
+      // Skip if last visit was within 24 hours
       if (new Date().getTime() - parseInt(flag, 10) <= 86400000) {
         return false;
       }
@@ -96,7 +96,7 @@
     var getterArr = [];
     var incrArr = [];
 
-    // 请求 PV 并自增
+    // Fetch and increment PV
     var pvCtn = document.querySelector('#leancloud-site-pv-container');
     if (pvCtn) {
       var pvGetter = getRecord(Counter, 'site-pv').then((record) => {
@@ -110,7 +110,7 @@
       getterArr.push(pvGetter);
     }
 
-    // 请求 UV 并自增
+    // Fetch and increment UV
     var uvCtn = document.querySelector('#leancloud-site-uv-container');
     if (uvCtn) {
       var uvGetter = getRecord(Counter, 'site-uv').then((record) => {
@@ -125,7 +125,7 @@
       getterArr.push(uvGetter);
     }
 
-    // 如果有页面浏览数节点，则请求浏览数并自增
+    // Fetch and increment page views if container exists
     var viewCtn = document.querySelector('#leancloud-page-views-container');
     if (viewCtn) {
       var path = eval(CONFIG.web_analytics.leancloud.path || 'window.location.pathname');
@@ -141,7 +141,7 @@
       getterArr.push(viewGetter);
     }
 
-    // 如果启动计数自增，批量发起自增请求
+    // Batch increment if enabled
     if (enableIncr) {
       Promise.all(getterArr).then(() => {
         incrArr.length > 0 && increment(Counter, incrArr);

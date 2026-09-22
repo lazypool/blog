@@ -62,18 +62,18 @@
   };
 
   function getDefaultColorSchema() {
-    // 取默认字段的值
+    // Get default value from HTML attribute
     var schema = getSchemaFromHTML();
-    // 如果明确指定了 schema 则返回
+    // Return if explicitly specified
     if (validColorSchemaKeys[schema]) {
       return schema;
     }
-    // 默认优先按 prefers-color-scheme
+    // Prefer prefers-color-scheme
     schema = getSchemaFromCSSMediaQuery();
     if (validColorSchemaKeys[schema]) {
       return schema;
     }
-    // 否则按本地时间是否大于 18 点或凌晨 0 ~ 6 点
+    // Fall back to time-based: after 18:00 or between 00:00-06:00 use dark
     var hours = new Date().getHours();
     if (hours >= 18 || (hours >= 0 && hours <= 6)) {
       return 'dark';
@@ -82,11 +82,11 @@
   }
 
   function applyCustomColorSchemaSettings(schema) {
-    // 接受从「开关」处传来的模式，或者从 localStorage 读取，否则按默认设置值
+    // Accept mode from toggle button, or read from localStorage, or use default
     var current = schema || getLS(colorSchemaStorageKey) || getDefaultColorSchema();
 
     if (current === getDefaultColorSchema()) {
-      // 当用户切换的显示模式和默认模式相同时，则恢复为自动模式
+      // Reset to auto mode when user's choice matches the default
       resetSchemaAttributeAndLS();
     } else if (validColorSchemaKeys[current]) {
       rootElement.setAttribute(
@@ -94,18 +94,18 @@
         current
       );
     } else {
-      // 特殊情况重置
+      // Reset on invalid value
       resetSchemaAttributeAndLS();
       return;
     }
 
-    // 根据当前模式设置图标
+    // Set toggle button icon
     setButtonIcon(current);
 
-    // 设置代码高亮
+    // Set code highlight style
     setHighlightCSS(current);
 
-    // 设置其他应用
+    // Set other applications
     setApplications(current);
   }
 
@@ -122,23 +122,23 @@
     var currentSetting = getLS(colorSchemaStorageKey);
 
     if (validColorSchemaKeys[currentSetting]) {
-      // 从 localStorage 中读取模式，并取相反的模式
+      // Read mode from localStorage and invert it
       currentSetting = invertColorSchemaObj[currentSetting];
     } else if (currentSetting === null) {
-      // 当 localStorage 中没有相关值，或者 localStorage 抛了 Error
-      // 先按照按钮的状态进行切换
+      // When localStorage has no value or throws Error
+      // Switch based on current button state
       var iconElement = document.querySelector(colorToggleIconSelector);
       if (iconElement) {
         currentSetting = iconElement.getAttribute('data');
       }
       if (!iconElement || !validColorSchemaKeys[currentSetting]) {
-        // 当 localStorage 中没有相关值，或者 localStorage 抛了 Error，则读取默认值并切换到相反的模式
+        // When localStorage has no value or throws Error, read default and invert
         currentSetting = invertColorSchemaObj[getSchemaFromCSSMediaQuery()];
       }
     } else {
       return;
     }
-    // 将相反的模式写入 localStorage
+    // Write inverted mode to localStorage
     setLS(colorSchemaStorageKey, currentSetting);
 
     return currentSetting;
@@ -146,7 +146,7 @@
 
   function setButtonIcon(schema) {
     if (validColorSchemaKeys[schema]) {
-      // 切换图标
+      // Toggle icon
       var icon = getIconClass('dark');
       if (schema) {
         icon = getIconClass(schema);
@@ -162,7 +162,7 @@
           invertColorSchemaObj[schema]
         );
       } else {
-        // 如果图标不存在则说明图标还没加载出来，等到页面全部加载再尝试切换
+        // Icon not loaded yet, wait for full page load
         Fluid.utils.waitElementLoaded(colorToggleIconSelector, function() {
           var iconElement = document.querySelector(colorToggleIconSelector);
           if (iconElement) {
@@ -185,7 +185,7 @@
   }
 
   function setHighlightCSS(schema) {
-    // 启用对应的代码高亮的样式
+    // Enable corresponding code highlight style
     var lightCss = document.getElementById('highlight-css');
     var darkCss = document.getElementById('highlight-css-dark');
     if (schema === 'dark') {
@@ -205,7 +205,7 @@
     }
 
     setTimeout(function() {
-      // 设置代码块组件样式
+      // Set code block widget style
       document.querySelectorAll('.markdown-body pre').forEach((pre) => {
         var cls = Fluid.utils.getBackgroundLightness(pre) >= 0 ? 'code-widget-light' : 'code-widget-dark';
         var widget = pre.querySelector('.code-widget-light, .code-widget-dark');
@@ -218,17 +218,17 @@
   }
 
   function setApplications(schema) {
-    // 设置 remark42 评论主题
+    // Set remark42 comment theme
     if (window.REMARK42) {
       window.REMARK42.changeTheme(schema);
     }
 
-    // 设置 cusdis 评论主题
+    // Set cusdis comment theme
     if (window.CUSDIS) {
       window.CUSDIS.setTheme(schema);
     }
 
-    // 设置 utterances 评论主题
+    // Set utterances comment theme
     var utterances = document.querySelector('.utterances-frame');
     if (utterances) {
       var utterancesTheme = schema === 'dark' ? window.UtterancesThemeDark : window.UtterancesThemeLight;
@@ -239,7 +239,7 @@
       utterances.contentWindow.postMessage(message, 'https://utteranc.es');
     }
 
-    // 设置 giscus 评论主题
+    // Set giscus comment theme
     var giscus = document.querySelector('iframe.giscus-frame');
     if (giscus) {
       var giscusTheme = schema === 'dark' ? window.GiscusThemeDark : window.GiscusThemeLight;
@@ -253,20 +253,20 @@
     }
   }
 
-  // 当页面加载时，将显示模式设置为 localStorage 中自定义的值（如果有的话）
+  // Set display mode to custom value from localStorage on page load
   applyCustomColorSchemaSettings();
 
   Fluid.utils.waitElementLoaded(colorToggleIconSelector, function() {
     applyCustomColorSchemaSettings();
     var button = document.querySelector(colorToggleButtonSelector);
     if (button) {
-      // 当用户点击切换按钮时，获得新的显示模式、写入 localStorage、并在页面上生效
+      // On toggle button click, get new mode, write to localStorage, and apply
       button.addEventListener('click', function() {
         applyCustomColorSchemaSettings(toggleCustomColorSchema());
       });
       var icon = document.querySelector(colorToggleIconSelector);
       if (icon) {
-        // 光标悬停在按钮上时，切换图标
+        // Toggle icon on hover
         button.addEventListener('mouseenter', function() {
           var current = icon.getAttribute('data');
           icon.classList.replace(getIconClass(invertColorSchemaObj[current]), getIconClass(current));
@@ -282,5 +282,5 @@
   Fluid.utils.waitElementLoaded(iframeSelector, function() {
     applyCustomColorSchemaSettings();
   });
-  
+
 })(window, document);
