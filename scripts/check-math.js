@@ -20,12 +20,12 @@
  *    (prefer \lt \gt \le \ge so they don't collide with HTML parsing).
  *
  * Usage:
- *   npm run check:math                 # check everything under source/
+ *   npm run lint:math                  # check everything under source/
  *   node scripts/check-math.js FILE…   # check specific files
- *   npm run check:math:fix             # also auto-fix the safe structural
- *                                      # issues (blank lines inside display
- *                                      # math, wrapped rows that begin with a
- *                                      # list marker)
+ *   node scripts/check-math.js --fix   # auto-fix the safe structural issues
+ *                                      # (blank lines inside display math,
+ *                                      # wrapped rows that begin with a list
+ *                                      # marker); also part of `npm run fix`
  *
  * Exit code is 1 when errors (not warnings) are found.
  */

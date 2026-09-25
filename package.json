@@ -9,16 +9,15 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "server": "hexo server",
     "format": "prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
-    "format:check": "prettier --check --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
-    "lint": "npm run lint:markdown && npm run lint:ejs && npm run check:math && npm run check:site",
-    "check": "npm run check:math && npm run check:site",
-    "check:math": "node scripts/check-math.js",
-    "check:math:fix": "node scripts/check-math.js --fix",
-    "check:site": "node scripts/check-site.js",
+    "lint": "npm run lint:ejs && npm run lint:markdown && npm run lint:content",
+    "lint:content": "npm run lint:math && npm run lint:site",
     "lint:ejs": "ejslint \"themes/fluid/layout/**/*.ejs\"",
     "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#public\"",
-    "server": "hexo server"
+    "lint:math": "node scripts/check-math.js",
+    "lint:site": "node scripts/check-site.js",
+    "fix": "node scripts/check-math.js --fix && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\""
   },
   "hexo": {
     "version": "8.1.2"

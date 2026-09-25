@@ -1,0 +1,16 @@
+---
+extends: default
+
+ignore: |
+  node_modules/
+  themes/fluid/
+  _config.fluid.yml
+
+rules:
+  # Hexo / Fluid configs intentionally omit the "---" document start.
+  document-start: disable
+  # Long config lines are left to prettier.
+  line-length: disable
+  # One space before an inline comment is accepted.
+  comments:
+    min-spaces-from-content: 1

@@ -36,7 +36,7 @@ repos:
 
       - id: math-site
         name: Check LaTeX and site consistency
-        entry: npm run check
+        entry: npm run lint:content
         language: system
         pass_filenames: false
         files: ^(source/|scripts/|package(-lock)?\.json)
