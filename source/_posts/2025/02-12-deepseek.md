@@ -144,8 +144,8 @@ Deepseek 在模型上的改进有两条主线：**一是优化模型表现**，�
 ![MoE 示例](moe-explanation.png)
 
 如上图所示，注意力的输出经残差连接后即进入 MoE 模块 (浅蓝色，Switching FFN
-layer)。在 MoE 中，路由 Router 将会对各 token 进行判断：~~x1 与 FFN2 的亲和度更
-高，x2 与 FFN1 的亲和度更高……~~ MoE 确保所有 token 都只经过与其最适应的前 k 个专
+layer)。在 MoE 中，路由 Router 将会对各 token 进行判断：~x1 与 FFN2 的亲和度更
+高，x2 与 FFN1 的亲和度更高……~ MoE 确保所有 token 都只经过与其最适应的前 k 个专
 家网络，并将这 k 个专家给出的结果按照亲和度线性求和。写成公式就是下面这样，其中
 下标 $_t$ 表示第 $t$ 个 token：
 
@@ -356,8 +356,8 @@ DeepSeekV3 中强调，**MTP 的设计主要是为了训练过程能加速收敛
 
 - 方法1：直接把 MTP Module 头全部删掉，模型变成了单 token 预测的。然后部署模型，
   用自回归 autoregressive 做推理。这个就跟正常 LLM 模型推理一样，没有什么加速。
-- 方法2：保留 MTP Module 做 self-speculative 解码 ~~(这个可能翻译成“自猜测”，我
-  自己猜测的xwx)~~，这样充分使用多 token 预测能力，提升推理加速性能。
+- 方法2：保留 MTP Module 做 self-speculative 解码 ~(这个可能翻译成“自猜测”，我
+  自己猜测的xwx)~，这样充分使用多 token 预测能力，提升推理加速性能。
 
 ## 训练框架上的优化：极大减少显存占用，实现 “飞速” 训练
 
