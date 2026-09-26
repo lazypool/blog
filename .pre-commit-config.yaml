@@ -34,6 +34,12 @@ repos:
         language: system
         types: [markdown]
 
+      - id: format-md
+        name: Normalize Markdown math and paragraphs
+        entry: node scripts/format-md.js --write
+        language: system
+        files: ^source/.*\.md$
+
       - id: math-site
         name: Check LaTeX and site consistency
         entry: npm run lint:content

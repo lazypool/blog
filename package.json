@@ -17,7 +17,8 @@
     "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#public\"",
     "lint:math": "node scripts/check-math.js",
     "lint:site": "node scripts/check-site.js",
-    "fix": "node scripts/check-math.js --fix && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\""
+    "fix": "node scripts/check-math.js --fix && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
+    "format:md": "node scripts/format-md.js --write"
   },
   "hexo": {
     "version": "8.1.2"
@@ -34,6 +35,8 @@
     "hexo-server": "^3.0.0"
   },
   "devDependencies": {
+    "@unified-latex/unified-latex": "^1.8.4",
+    "@unified-latex/unified-latex-util-print-raw": "^1.8.4",
     "ejs-lint": "^2.0.1",
     "katex": "^0.16.47",
     "markdownlint-cli2": "^0.23.2",

@@ -114,6 +114,10 @@ hexo.extend.filter.register('before_post_render', function (data) {
   let inCodeBlock = false;
   let buffer = [];
   let inBlockquote = false;
+  // Track the character position where list-item content starts so that
+  // indented continuation lines are merged with the item, not treated as
+  // independent "special" lines.
+  let listContentPos = null;
 
   const flush = () => {
     if (buffer.length > 0) {
@@ -122,6 +126,7 @@ hexo.extend.filter.register('before_post_render', function (data) {
       buffer = [];
     }
     inBlockquote = false;
+    listContentPos = null;
   };
 
   for (const line of lines) {
@@ -146,11 +151,41 @@ hexo.extend.filter.register('before_post_render', function (data) {
       continue;
     }
 
+    // List item: buffer the marker and merge continuation lines.
+    const listMatch = /^(\s*)([-*+]|\d+\.)\s/.exec(line);
+    if (listMatch) {
+      if (listContentPos === null || listMatch.index + listMatch[0].length !== line.replace(/^\s*/, '').length + (line.length - line.replace(/^\s*/, '').length)) {
+        // Simple check: start of a new list item.
+      }
+      flush();
+      listContentPos = listMatch[0].length;
+      buffer.push(line.trim());
+      continue;
+    }
+    // Indented continuation of a list item — but not if the line is itself a
+    // list marker at the same column as the parent content start.
+    if (listContentPos !== null && /^\s+/.test(line)) {
+      const first = line.search(/\S/);
+      if (first >= 0 && first >= listContentPos) {
+        if (first === listContentPos && /^(\s*(?:[-*+]|\d+\.)\s)/.test(line)) {
+          // New sub-list item — fall through to flush.
+        } else {
+          // Preserve indentation so ordered-list continuations stay aligned.
+          const indent = line.match(/^\s*/)[0];
+          buffer.push(indent + line.trim());
+          continue;
+        }
+      }
+    }
+    // Non-continuation: end the list item context.
+    if (listContentPos !== null) {
+      flush();
+      listContentPos = null;
+    }
+
     // Special syntax lines: no merge, keep as-is
     if (
       /^#{1,6}\s/.test(line) ||       // Heading
-      /^[-*+]\s/.test(line) ||        // Unordered list
-      /^\d+\.\s/.test(line) ||        // Ordered list
       /^\|/.test(line) ||             // Table
       /^<{2,}/.test(line) ||          // HTML tag
       /^\[.*\]:\s/.test(line)         // Link reference

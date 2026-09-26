@@ -19,13 +19,17 @@ Huggingface 在 2023 年大放异彩，成为 AI 领域最活跃的开源网站�
 
 现如今，Transformers 已经被封装成一个独立的包，由 Huggingface 以社区的形式维护。
 
-学习 Transformers 十分重要！作为在各个领域霸榜的存在，任何与 AI 打交道的人都不可能绕开它。
+学习 Transformers 十分重要！作为在各个领域霸榜的存在，任何与 AI 打交道的人都不可
+能绕开它。
 
-被封装好的 Transformers 十分便利！三行训练一个模型！随时随地导出！在多个框架间共享！
+被封装好的 Transformers 十分便利！三行训练一个模型！随时随地导出！在多个框架间共
+享！
 
-Hugginface 覆盖了绝大多数的 Transformers 的衍生模型，并维护了一个良好的开发生态 Hub。
+Hugginface 覆盖了绝大多数的 Transformers 的衍生模型，并维护了一个良好的开发生态
+Hub。
 
-最重要的是，Hugginface 提供了一个简明易懂的[官方文档](https://hugginface.co/docs/transformers/index)。
+最重要的是，Hugginface 提供了一个简明易懂
+的[官方文档](https://hugginface.co/docs/transformers/index)。
 
 ## 安装方法
 
@@ -72,7 +76,7 @@ Transformers 会按照优先级选择将模型下载到什么地方。
 由于我们使用虚拟环境下安装，推荐的做法是将环境变量的指定添加到 activate 文件中。
 
 ```bash
-echo "export TRANSFORMERS_CACHE=$(echo $VIRTUAL_ENV|sed 's/\.env/\.cache/')" >> .env/bin/activate
+echo "export TRANSFORMERS_CACHE=$(echo$VIRTUAL_ENV|sed 's/\.env/\.cache/')" >> .env/bin/activate
 sed -i '/deactivate () {/a unset TRANSFORMERS_CACHE' .env/bin/activate
 ```
 
@@ -105,7 +109,8 @@ sed -i '/deactivate () {/a unset TRANSFORMERS_OFFLINE' .env/bin/activate
 
 因此，我们需要先安装 LFS 工具，它是与 git 集成的。
 
-关于 git-lfs 的安装与配置，请查看 GitHub 的[官方文档](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/about-git-large-file-storage)。
+关于 git-lfs 的安装与配置，请查看 GitHub
+的[官方文档](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/about-git-large-file-storage)。
 
 不过部分 Linux 发行版具有更加简单、安全的安装方式。
 
@@ -114,7 +119,8 @@ sudo pacman -S git-lfs
 git lfs install
 ```
 
-使用 git-lfs 的好处就是可以不用把所有大模型文件都下载下来，而只需要根据需要 pull 即可。
+使用 git-lfs 的好处就是可以不用把所有大模型文件都下载下来，而只需要根据需要 pull
+即可。
 
 这里以 BERT 为例，首先可以把所有的小文件都下载下来。
 
@@ -129,7 +135,8 @@ GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/bert-base-uncased
 
 ### Pipeline 函数
 
-流程函数 Pipeline() 是官方提供的一个懒人函数，可以使用最简单、最便利的方法迅速调用一个模型到指定任务。
+流程函数 Pipeline() 是官方提供的一个懒人函数，可以使用最简单、最便利的方法迅速调
+用一个模型到指定任务。
 
 比如，我想进行一次简单的情感分析任务。
 
@@ -151,15 +158,18 @@ classifier("We are very happy to show you the 🤗 Transformers library.")
 
 事实上，Pipeline() 是对 AutoClass 中各个组件即部分功能的集成。
 
-而 AutoClass 是 transformers 的基本类，包括 Tokenizer 类, Model 类和 Configuration 类。
+而 AutoClass 是 transformers 的基本类，包括 Tokenizer 类, Model 类和
+Configuration 类。
 
-所有相关的类都衍生自这 3 个类，它们都有 save_pretrained() 和 from_pretrained() 方法。
+所有相关的类都衍生自这 3 个类，它们都有 save_pretrained() 和 from_pretrained()
+方法。
 
 #### Tokenizer 类
 
 分词器 Tokenizer 用于将文本处理成一列数字作为模型输入。
 
-Tokenization 的过程须遵循一定规则，具体参见[官方总结](https://huggingface.co/docs/transformers/tokenizer_summary)。
+Tokenization 的过程须遵循一定规则，具体参
+见[官方总结](https://huggingface.co/docs/transformers/tokenizer_summary)。
 
 Tokenizer 须保持和模型一致。譬如，BERT 就需要使用 BERT 的 Tokenzier。
 
@@ -270,13 +280,16 @@ tf_model = TFAutoModelForSequenceClassification.from_pretrained("./tf_save_pretr
 
 ## 项目实例
 
-在这里以语义相似度分析为例，做一个简单的模型搭建与训练案例，预训练模型选用 BERT。
+在这里以语义相似度分析为例，做一个简单的模型搭建与训练案例，预训练模型选用
+BERT。
 
 ### 加载数据
 
-数据集选用的是 STSBenchmark，是经典的语义相似度数据集，可以在[此处](http://ixa2.si.ehu.es/stswiki/images/4/48/Stsbenchmark.tar.gz)获取。
+数据集选用的是 STSBenchmark，是经典的语义相似度数据集，可以
+在[此处](http://ixa2.si.ehu.es/stswiki/images/4/48/Stsbenchmark.tar.gz)获取。
 
-STSBenchmark 以 CSV 个格式存储。其中，第 4 列是两个语句的相似度，为从 0 到 5 的浮点数。第 5 列和第 6 列是两个英文语句。
+STSBenchmark 以 CSV 个格式存储。其中，第 4 列是两个语句的相似度，为从 0 到 5 的
+浮点数。第 5 列和第 6 列是两个英文语句。
 
 ```csv
 main-captions MSRvid 2012test 0000 5.000 A man with a hard hat is dancing. A man wearing a hard hat is dancing.
@@ -286,7 +299,8 @@ main-captions MSRvid 2012test 0003 5.000 A man is feeding a mouse to a snake. Th
 
 #### Dataset
 
-Pytorch 通过 Dataset 类和 DataLoader 类处理数据集和加载样本。同样地，这里我们首先继承 Dataset 类构造自定义数据集，以组织样本和标签。
+Pytorch 通过 Dataset 类和 DataLoader 类处理数据集和加载样本。同样地，这里我们首
+先继承 Dataset 类构造自定义数据集，以组织样本和标签。
 
 ```python
 from torch.utils.data import Dataset
@@ -327,7 +341,8 @@ print(sts_dev[0])
 
 我们需要 DataLoader 按 batch 加载数据，并将样本转换为模型可以接受的输入格式。
 
-对于 NLP 任务，这个环节就是将每个 batch 中的文本按照预训练模型的格式进行编码，并进行填充和截断操作。
+对于 NLP 任务，这个环节就是将每个 batch 中的文本按照预训练模型的格式进行编码，并
+进行填充和截断操作。
 
 ```python
 from torch.utils.data import DataLoader
@@ -407,9 +422,11 @@ tensor([4.3330, 4.0000, 3.4000, 5.0000])
 
 DataLoader 按照我们设置的 batch size 每次对 4 个样本进行编码。
 
-并且通过填充和截断的操作使得每个样本的长度相同，填充位置 0 并且相应的 attention_mask 置 0。
+并且通过填充和截断的操作使得每个样本的长度相同，填充位置 0 并且相应的
+attention_mask 置 0。
 
-这里我们选择的是 BERT 的编码器，因此每个样本都被处理成了"[CLS] sent1 [SEP] sent2 [SEP]" 的形式。
+这里我们选择的是 BERT 的编码器，因此每个样本都被处理成了"[CLS] sent1 [SEP] sent2
+[SEP]" 的形式。
 
 [CLS] 对应的 input_ids 是 101, 而 [SEP] 对应的 input_ids 是 102。
 
@@ -444,11 +461,14 @@ def build_model():
     return model
 ```
 
-BERT 首先会将输入编码为 768 维的向量，之后利用一层全连接将 768 维映射成一个实数来进行回归。
+BERT 首先会将输入编码为 768 维的向量，之后利用一层全连接将 768 维映射成一个实数
+来进行回归。
 
-注意，此时我们的模型是 Transformers 预训练模型的子类，因此需要通过预置的 from_pretrained 函数来加载模型参数。
+注意，此时我们的模型是 Transformers 预训练模型的子类，因此需要通过预置的
+from_pretrained 函数来加载模型参数。
 
-这种方式使得我们可以更灵活地操作模型细节，例如这里 Dropout 层就可以直接加载 BERT 模型自带的参数值。
+这种方式使得我们可以更灵活地操作模型细节，例如这里 Dropout 层就可以直接加载 BERT
+模型自带的参数值。
 
 为了确保模型的输出符合我们的预期，我们尝试将一个 Batch 的数据送入模型。
 
@@ -468,9 +488,11 @@ torch.Size([4, 1])
 
 #### 训练组件
 
-总的来说，训练模型需要 loss_fn（损失函数）、optimizer（优化器）、lr_scheduler（学习率调整器）。
+总的来说，训练模型需要 loss_fn（损失函数）、optimizer（优化
+器）、lr_scheduler（学习率调整器）。
 
-其中，损失函数用于计算梯度，优化器用于平滑梯度，学习率调整器用于在训练过程中调整学习率。
+其中，损失函数用于计算梯度，优化器用于平滑梯度，学习率调整器用于在训练过程中调整
+学习率。
 
 ```python
 import torch.nn as nn
