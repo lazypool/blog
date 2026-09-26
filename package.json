@@ -10,15 +10,14 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "format": "prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
+    "format": "node scripts/format-md.js --write && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
     "lint": "npm run lint:ejs && npm run lint:markdown && npm run lint:content",
     "lint:content": "npm run lint:math && npm run lint:site",
     "lint:ejs": "ejslint \"themes/fluid/layout/**/*.ejs\"",
     "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#public\"",
     "lint:math": "node scripts/check-math.js",
     "lint:site": "node scripts/check-site.js",
-    "fix": "node scripts/check-math.js --fix && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\"",
-    "format:md": "node scripts/format-md.js --write"
+    "fix": "node scripts/check-math.js --fix && node scripts/format-md.js --write && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\""
   },
   "hexo": {
     "version": "8.1.2"
