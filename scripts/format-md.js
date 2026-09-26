@@ -24,7 +24,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { processLatexToAstViaUnified } = require('@unified-latex/unified-latex');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -300,10 +299,16 @@ function needsSpace(prev, next, isFirst) {
   return true;
 }
 
+let _unifiedLatex = null;
+function getLatexParser() {
+  if (!_unifiedLatex) _unifiedLatex = require('@unified-latex/unified-latex');
+  return _unifiedLatex;
+}
+
 // Normalize a single LaTeX math string using the @unified-latex AST.
 // Returns the normalized string.
 function normalizeFormula(tex) {
-  const file = processLatexToAstViaUnified().processSync(tex);
+  const file = getLatexParser().processLatexToAstViaUnified().processSync(tex);
   const root = file.result;
   let c = root.content;
 
