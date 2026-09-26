@@ -37,7 +37,7 @@
     "@unified-latex/unified-latex": "^1.8.4",
     "@unified-latex/unified-latex-util-print-raw": "^1.8.4",
     "ejs-lint": "^2.0.1",
-    "katex": "^0.16.47",
+    "katex": "^0.18.7",
     "markdownlint-cli2": "^0.23.3",
     "prettier": "^3.8.3"
   }
