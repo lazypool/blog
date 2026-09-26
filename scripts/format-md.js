@@ -679,7 +679,8 @@ function formatContent(text, w) {
     }
   }
 
-  return out.join('\n');
+  // Normalize strikethrough: ~~text~~ → ~text~ (user convention)
+  return out.join('\n').replace(/~~/g, '~');
 }
 
 function isSpecial(trimmed) {
