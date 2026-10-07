@@ -19,7 +19,7 @@ repos:
         name: Format Markdown and configuration files
         entry: npx prettier --write
         language: system
-        files: \.(md|markdown|json|ya?ml)$
+        files: \.(json|ya?ml)$
         exclude: ^themes/fluid/_config\.yml$
 
       - id: ejs-lint

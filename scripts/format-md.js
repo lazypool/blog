@@ -181,10 +181,9 @@ function wrapUnits(units, w) {
 function safeBreak(units, e) {
   if (e <= 0 || e >= units.length) return true;
   if (!breakable(units[e - 1], units[e])) return false;
-  const l = lastOf(units[e - 1].text);
-  const r = firstOf(units[e].text);
-  // At line start: + - * followed by backslash → markdown list marker risk
-  if (e < units.length && /^[+\-*]$/.test(units[e].text) && r === '\\') return false;
+  // A continuation line starting with a Markdown list marker ("+ ", "- ", "* ")
+  // or an ordered marker ("1. ") is parsed as a list and splits the paragraph.
+  if (e < units.length && /^(?:[+\-*]|\d+\.)$/.test(units[e].text)) return false;
   return true;
 }
 
@@ -305,9 +304,23 @@ function getLatexParser() {
   return _unifiedLatex;
 }
 
+// @unified-latex greedily folds a following "_" / "^" into a font macro's
+// bare-letter argument, e.g. "\mathbb E_{x_0}" parses as "\mathbb{E_}{x_0}",
+// which prints back as invalid LaTeX. Brace the letter first so the modifier
+// stays attached correctly ("\mathbb{E}_{x_0}").
+const FONT_MACRO =
+  /\\(mathbb|mathcal|mathscr|mathbf|mathsf|mathtt|mathfrak|mathit|mathrm)\s*([0-9A-Za-z])\s*([_^])/g;
+
+// TeX allows brace-less single-token arguments to \frac ("\frac12", "\frac ab"),
+// but @unified-latex does not parse that shorthand correctly — it consumes the
+// run of characters as one argument ("\frac12" -> "\frac{12}") or swallows
+// following tokens. Brace both arguments up front.
+const FRAC_SHORTHAND = /\\([tdc]?frac)\s*([0-9A-Za-z])\s*([0-9A-Za-z])/g;
+
 // Normalize a single LaTeX math string using the @unified-latex AST.
 // Returns the normalized string.
 function normalizeFormula(tex) {
+  tex = tex.replace(FONT_MACRO, '\\$1{$2}$3').replace(FRAC_SHORTHAND, '\\$1{$2}{$3}');
   const file = getLatexParser().processLatexToAstViaUnified().processSync(tex);
   const root = file.result;
   let c = root.content;
@@ -416,6 +429,24 @@ function collectDollar(lines, start) {
   return { indent, inner, end: j };
 }
 
+// A wrapped display-math line that starts with "+", "-", "*", ">", "#" or a
+// numbering ("1.") would be parsed by Markdown as a list/blockquote and split
+// the formula, so fold such a continuation back onto the previous line.
+const BLOCK_START = /^(?:[-+*]|>|#|(?:\d+)\.)\s/;
+
+function foldBlockMarkers(lines) {
+  const out = [];
+  for (const line of lines) {
+    const prev = out[out.length - 1];
+    if (out.length && BLOCK_START.test(line.trim()) && !/\\\\$/.test((prev || '').trim())) {
+      out[out.length - 1] = prev.replace(/\s+$/, '') + ' ' + line;
+    } else {
+      out.push(line);
+    }
+  }
+  return out;
+}
+
 function formatDollarBlock(block, w) {
   if (!block.inner.length) return [`${block.indent}$$`, `${block.indent}$$`];
   const raw = block.inner.join('\n');
@@ -426,7 +457,7 @@ function formatDollarBlock(block, w) {
   }
   const content = normalizeFormula(block.inner.join(' '));
   const wrapped = wrapTex(content, w);
-  const body = wrapped || [content];
+  const body = foldBlockMarkers(wrapped || [content]);
   return [`${block.indent}$$`, ...body.map((l) => (l ? block.indent + l : '')), `${block.indent}$$`];
 }
 

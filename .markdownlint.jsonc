@@ -16,6 +16,12 @@
   "MD025": {
     "front_matter_title": ""
   },
+  // MD024 (no duplicate headings): long reports reuse section names ("引言",
+  // "实验", "结论") under different parent headings (one set per paper).
+  // Only flag true siblings with identical text; nested duplicates are fine.
+  "MD024": {
+    "siblings_only": true
+  },
   // MD033 (no inline HTML): posts embed MathML formulas, SVG diagrams, flex
   // two-column layouts, raw <table> markup and <u>/<small> styling that plain
   // Markdown cannot express. Rewriting them would lose formatting, so the rule
