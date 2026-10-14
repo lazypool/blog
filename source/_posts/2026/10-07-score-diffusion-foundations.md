@@ -84,7 +84,7 @@ $s_\theta : \mathbb{R}^D \to \mathbb{R}^D$ 被训练来逼近数据分
 于能量的模型的梯度（以避免高阶梯度计算）。目标函数
 
 $$
-\frac{1}{2} \, \mathbb{E}_{p_{\text{data}}}
+\frac{1}{2} \mathbb{E}_{p_{\text{data}}}
 [\| s_\theta(x)- \nabla_x \log p_{\text{data}}(x)\|_2^2]
 $$
 
@@ -106,11 +106,11 @@ $s_{\theta^\star}(x)$ 几乎处处等于 $\nabla_x \log p_{\text{data}}(x)$。�
 
 **去噪分数匹配（DSM）** 通过先用固定噪声分布 $q_\sigma(\tilde x \mid x)$ 扰动每
 个数据点、并匹配<em>扰动后</em>密度
-$q_\sigma(\tilde x)= \int q_\sigma(\tilde x \mid x)p_{\text{data}}(x)\, dx$ 的分
+$q_\sigma(\tilde x)= \int q_\sigma(\tilde x \mid x)p_{\text{data}}(x)dx$ 的分
 数，绕开了迹的计算。其目标等价于
 
 $$
-\frac{1}{2} \, \mathbb{E}_{q_\sigma(\tilde x\mid x)p_{\text{data}}(x)}
+\frac{1}{2} \mathbb{E}_{q_\sigma(\tilde x\mid x)p_{\text{data}}(x)}
 [\| s_\theta(\tilde x)- \nabla_{\tilde x} \log q_\sigma(\tilde x \mid x)\|_2^2].
 \tag{SMLD 式 2}
 $$
@@ -122,7 +122,7 @@ $q_\sigma(x)\approx p_{\text{data}}(x)$ 仅在 $\sigma$ 足够小时成立。
 
 $$
 \mathbb{E}_{p_v} \mathbb{E}_{p_{\text{data}}}
-[v^\top \nabla_x s_\theta(x)\, v + \frac{1}{2} \| s_\theta(x)\|_2^2],\tag
+[v^\top \nabla_x s_\theta(x)v + \frac{1}{2} \| s_\theta(x)\|_2^2],\tag
 {SMLD 式 3}
 $$
 
@@ -136,7 +136,7 @@ Langevin 动力学把分数函数变成采样器。给定固定步长 $\epsilon 
 $\tilde x_0 \sim \pi(x)$，
 
 $$
-\tilde x_t = \tilde x_{t-1} + \frac{\epsilon}{2} \nabla_x \log p(\tilde x_{t-1}) + \sqrt{\epsilon} \, z_t,\qquad z_t \sim \mathcal{N}(0,I). \tag{SMLD 式 4}
+\tilde x_t = \tilde x_{t-1} + \frac{\epsilon}{2} \nabla_x \log p(\tilde x_{t-1}) + \sqrt{\epsilon} z_t,\qquad z_t \sim \mathcal{N}(0,I). \tag{SMLD 式 4}
 $$
 
 当 $\epsilon \to 0$、$T \to \infty$ 时，在正则条件下 $\tilde x_T$ 成为精确样本；
@@ -180,8 +180,8 @@ $p_{\text{data}}(R)\approx 0$ 的区域 $R$ 通常没有样本，分数便无法
 > 合。
 
 $$
-p_{\text{data}} = \tfrac{1}{5} \, \mathcal{N}((- 5,- 5),I)+ \tfrac{4}{5} \,
-\mathcal{N}((5,5),I)
+p_{\text{data}} = \tfrac{1}{5} \mathcal{N}((- 5,- 5),I)+ \tfrac{4}{5} \mathcal
+{N}((5,5),I)
 $$
 
 使用 3 层 MLP、以 SSM 训练（图 2），结果表明估计只在模态附近可靠；红色矩形（即
@@ -226,8 +226,8 @@ $$
 $\sigma_1 / \sigma_2 = \cdots = \sigma_{L-1} / \sigma_L > 1$，并令
 
 $$
-q_\sigma(\tilde x)= \int p_{\text{data}}(x)\, \mathcal{N}(\tilde x \mid x,\sigma
-^2 I)\, dx = \frac{1}{N(2\pi\sigma^{2})^{d/2}} \sum_{i=1}^N \exp(- \frac
+q_\sigma(\tilde x)= \int p_{\text{data}}(x)\mathcal{N}(\tilde x \mid x,\sigma^2
+I)dx = \frac{1}{N(2\pi\sigma^{2})^{d/2}} \sum_{i=1}^N \exp(- \frac
 {\|\tilde x-x_{i}\|^{2}}{2\sigma^{2}})
 $$
 
@@ -252,7 +252,7 @@ $\nabla_{\tilde x} \log q_\sigma(\tilde x \mid x)= -(\tilde x - x)/ \sigma^2$，
 逐噪声目标为
 
 $$
-\ell(\theta;\sigma)\triangleq \frac{1}{2} \, \mathbb{E}_{p_{\text{data}}(x)}
+\ell(\theta;\sigma)\triangleq \frac{1}{2} \mathbb{E}_{p_{\text{data}}(x)}
 \mathbb{E}_{\tilde x\sim\mathcal{N}(x,\sigma^2 I)}
 [\| s_\theta(\tilde x,\sigma)+ \frac{\tilde x-x}{\sigma^{2}} \|_2^2]. \tag
 {SMLD 式 5}
@@ -262,7 +262,7 @@ $$
 
 $$
 \mathcal{L}(\theta;\{\sigma_i\}_{i=1}^L)\triangleq \frac{1}{L} \sum_{i=1}^L
-\lambda(\sigma_i)\, \ell(\theta;\sigma_i),\tag{SMLD 式 6}
+\lambda(\sigma_i)\ell(\theta;\sigma_i),\tag{SMLD 式 6}
 $$
 
 其中 $\lambda(\sigma_i)> 0$ 为权重。由于这是 DSM 目标的**锥组合**，最优
@@ -297,8 +297,8 @@ $$
 内层更新（对 $t = 1,\dots,T$）为
 
 $$
-\tilde x_t = \tilde x_{t-1} + \frac{\alpha_{i}}{2} \, s_\theta(\tilde x_{t-1},
-\sigma_i)+ \sqrt{\alpha_{i}} \, z_t .
+\tilde x_t = \tilde x_{t-1} + \frac{\alpha_{i}}{2} s_\theta(\tilde x_{t-1},
+\sigma_i)+ \sqrt{\alpha_{i}} z_t .
 $$
 
 **为什么可以完成第 $i$ 水平后，其终点初始化第 $i + 1$ 水平呢？** 理由具有几何直
@@ -313,9 +313,9 @@ $$
 
 $$
 \mathbb{E}
-[\| \frac{\alpha_{i}}{2} \frac{s_{\theta}(x,\sigma_{i})}{\sqrt{\alpha_{i}}\,z} \|_2^2]
-\approx \mathbb{E}[\frac{\alpha_{i}\,\|s_{\theta}(x,\sigma_{i})\|_{2}^{2}}{4}]
-\propto \frac{1}{4} \, \mathbb{E}[\| \sigma_i s_\theta(x,\sigma_i)\|_2^2]\propto
+[\| \frac{\alpha_{i}}{2} \frac{s_{\theta}(x,\sigma_{i})}{\sqrt{\alpha_{i}}z} \|_2^2]
+\approx \mathbb{E}[\frac{\alpha_{i}\|s_{\theta}(x,\sigma_{i})\|_{2}^{2}}{4}]
+\propto \frac{1}{4} \mathbb{E}[\| \sigma_i s_\theta(x,\sigma_i)\|_2^2]\propto
 \frac{1}{4},
 $$
 
@@ -428,7 +428,7 @@ Sohl-Dickstein 等）：一个用变分推断训练的、参数化的马尔可�
 扩散模型是隐变量模型（$x_{1:T}$ 是隐变量，$p_\theta(x_0)$ 是联合分布的边缘概率）
 
 $$
-p_\theta(x_0): = \int p_\theta(x_{0:T})\, dx_{1:T},
+p_\theta(x_0): = \int p_\theta(x_{0:T})dx_{1:T},
 $$
 
 其中 $x_1,\dots,x_T$ 与 $x_0 \sim q(x_0)$ 同维。**逆向过程**是从
@@ -449,7 +449,7 @@ $$
 
 $$
 q(x_{1:T} \mid x_0): = \prod_{t=1}^T q(x_t \mid x_{t-1}),\qquad q(x_t \mid x_
-{t-1}): = \mathcal{N}(x_t;\sqrt{1-\beta_{t}} \, x_{t-1},\beta_t I).
+{t-1}): = \mathcal{N}(x_t;\sqrt{1-\beta_{t}} x_{t-1},\beta_t I).
 $$
 
 > Jesen 不等式：期望的凹函数大于等于凹函数的期望，凸函数相反，同时适用于离散和积
@@ -462,7 +462,7 @@ $\mathbb{E}_q = \mathbb{E}_{x_0} \mathbb{E}_{q(x_{1:T}\mid x_0)}$，且 $-\log$ 
 $$
 \begin{aligned}
 \mathbb{E}[- \log p_\theta(x_0)]
-& = \mathbb{E}_{x_0}[- \log \int q(x_{1:T} \mid x_0)\frac{p_{\theta}(x_{0:T})}{q(x_{1:T}\mid x_{0})} \, dx_{1:T}]\\\\
+& = \mathbb{E}_{x_0}[- \log \int q(x_{1:T} \mid x_0)\frac{p_{\theta}(x_{0:T})}{q(x_{1:T}\mid x_{0})} dx_{1:T}]\\\\
 & = \mathbb{E}_{x_0}[- \log \mathbb{E}_{q(x_{1:T}\mid x_0)}[\frac{p_{\theta}(x_{0:T})}{q(x_{1:T}\mid x_{0})}]]\\\\
 & \le \mathbb{E}_{x_0} \mathbb{E}_{q(x_{1:T}\mid x_0)}[- \log \frac{p_{\theta}(x_{0:T})}{q(x_{1:T}\mid x_{0})}]\\\\
 & = \mathbb{E}_q[- \log \frac{p_{\theta}(x_{0:T})}{q(x_{1:T}\mid x_{0})}]\\\\
@@ -490,8 +490,8 @@ $\beta_t$ 较小时，高斯条件项保证逆向与前向具有相同的函数�
 $\alpha_t : = 1 - \beta_t$、$\bar \alpha_t : = \prod_{s=1}^t \alpha_s$，则
 
 $$
-q(x_t \mid x_0)= \mathcal{N}(x_t;\sqrt{\bar\alpha_{t}} \, x_0,(1 - \bar \alpha_t
-)I). \tag{DDPM 式 4}
+q(x_t \mid x_0)= \mathcal{N}(x_t;\sqrt{\bar\alpha_{t}} x_0,(1 - \bar \alpha_t)I)
+. \tag{DDPM 式 4}
 $$
 
 因此高效训练可用 $\mathcal{L}$ 的随机项，并通过重写为 KL 散度之和来降低方差（也
@@ -500,8 +500,8 @@ $$
 
 $$
 \begin{aligned}
-\mathcal{L} & = \mathbb{E}_q \Big[\underbrace{D_{\mathrm{KL}}\left(q(x_T\mid x_0)\,\|\,p(x_T)\right)}_{\mathcal{L}_T} \\\\
-& + \sum_{t>1} \underbrace{D_{\mathrm{KL}}\left(q(x_{t-1}\mid x_t,x_0)\,\|\,p_\theta(x_{t-1}\mid x_t)\right)}_{\mathcal{L}_{t-1}} \\\\
+\mathcal{L} & = \mathbb{E}_q \Big[\underbrace{D_{\mathrm{KL}}\left(q(x_T\mid x_0)\|p(x_T)\right)}_{\mathcal{L}_T} \\\\
+& + \sum_{t>1} \underbrace{D_{\mathrm{KL}}\left(q(x_{t-1}\mid x_t,x_0)\|p_\theta(x_{t-1}\mid x_t)\right)}_{\mathcal{L}_{t-1}} \\\\
 & - \underbrace{\log p_\theta(x_0\mid x_1)}_{\mathcal{L}_0} \Big].
 \end{aligned}
 \tag{DDPM 式 5}
@@ -542,8 +542,8 @@ t I),\tag{DDPM 式 6}
 $$
 
 $$
-\tilde \mu_t(x_t,x_0): = \frac{\sqrt{\bar\alpha_{t-1}}\,\beta_{t}}
-{1-\bar\alpha_{t}} x_0 + \frac{\sqrt{\alpha_t}\,(1-\bar\alpha_{t-1})}
+\tilde \mu_t(x_t,x_0): = \frac{\sqrt{\bar\alpha_{t-1}}\beta_{t}}
+{1-\bar\alpha_{t}} x_0 + \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}
 {1-\bar\alpha_{t}} x_t,\qquad \tilde \beta_t : = \frac{1-\bar\alpha_{t-1}}
 {1-\bar\alpha_{t}} \beta_t . \tag{DDPM 式 7}
 $$
@@ -589,8 +589,8 @@ $$
 $\tilde \mu_t$**。借助重参数化
 
 $$
-x_t(x_0,\epsilon)= \sqrt{\bar\alpha_{t}} \, x_0 + \sqrt{1-\bar\alpha_{t}} \,
-\epsilon,\qquad \epsilon \sim \mathcal{N}(0,I),\tag{DDPM 式 9}
+x_t(x_0,\epsilon)= \sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,
+\qquad \epsilon \sim \mathcal{N}(0,I),\tag{DDPM 式 9}
 $$
 
 并代入式 7 得（其中用到
@@ -599,13 +599,13 @@ $\bar \alpha_t = \alpha_t \bar \alpha_{t-1}$，$\beta_t = 1 - \alpha_t$）
 $$
 \begin{aligned}
 \tilde \mu_t(x_t,x_0)
-& : = \frac{\sqrt{\bar\alpha_{t-1}}\,\beta_{t}}{1-\bar\alpha_{t}} x_0 + \frac{\sqrt{\alpha_t}\,(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}} x_t \\\\
-& = \frac{\sqrt{\bar\alpha_{t-1}}\,\beta_{t}}{1-\bar\alpha_{t}} \cdot \frac{x_{t}-\sqrt{1-\bar\alpha_t}\,\epsilon}{\sqrt{\bar\alpha_{t}}}
-\quad + \frac{\sqrt{\alpha_t}\,(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}} x_t \\\\
-& = \frac{\beta_{t}}{(1-\bar\alpha_{t})\sqrt{\alpha_t}} \bigl(x_t - \sqrt{1-\bar\alpha_{t}} \, \epsilon \bigr)+ \frac{\sqrt{\alpha_t}\,(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}} x_t \\\\
-& =[\frac{\beta_{t}}{(1-\bar\alpha_{t})\sqrt{\alpha_t}} + \frac{\sqrt{\alpha_t}\,(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}}]x_t - \frac{\beta_{t}}{\sqrt{\alpha_{t}(1-\bar\alpha_{t})}} \, \epsilon \\\\
-& = \frac{1}{\sqrt{\alpha_{t}}} x_t - \frac{\beta_{t}}{\sqrt{\alpha_{t}(1-\bar\alpha_{t})}} \, \epsilon \\\\
-& = \frac{1}{\sqrt{\alpha_{t}}}(x_t - \frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \, \epsilon).
+& : = \frac{\sqrt{\bar\alpha_{t-1}}\beta_{t}}{1-\bar\alpha_{t}} x_0 + \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}} x_t \\\\
+& = \frac{\sqrt{\bar\alpha_{t-1}}\beta_{t}}{1-\bar\alpha_{t}} \cdot \frac{x_{t}-\sqrt{1-\bar\alpha_t}\epsilon}{\sqrt{\bar\alpha_{t}}}
+\quad + \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}} x_t \\\\
+& = \frac{\beta_{t}}{(1-\bar\alpha_{t})\sqrt{\alpha_t}} \bigl(x_t - \sqrt{1-\bar\alpha_{t}} \epsilon \bigr)+ \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}} x_t \\\\
+& =[\frac{\beta_{t}}{(1-\bar\alpha_{t})\sqrt{\alpha_t}} + \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}{1-\bar\alpha_{t}}]x_t - \frac{\beta_{t}}{\sqrt{\alpha_{t}(1-\bar\alpha_{t})}} \epsilon \\\\
+& = \frac{1}{\sqrt{\alpha_{t}}} x_t - \frac{\beta_{t}}{\sqrt{\alpha_{t}(1-\bar\alpha_{t})}} \epsilon \\\\
+& = \frac{1}{\sqrt{\alpha_{t}}}(x_t - \frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \epsilon).
 \end{aligned}
 $$
 
@@ -624,7 +624,8 @@ $\frac{1}{\sqrt{\alpha_{t}}}(x_t - \frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \ep
 
 $$
 \mu_\theta(x_t,t)= \tilde \mu_t(x_t,\frac{1}{\sqrt{\bar\alpha_{t}}}(x_t - \sqrt
-{1-\bar\alpha_{t}} \, \epsilon_\theta(x_t,t)))= \frac{1}{\sqrt{\alpha_{t}}}(x_t - \frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \epsilon_\theta(x_t,t)).
+{1-\bar\alpha_{t}} \epsilon_\theta(x_t,t)))= \frac{1}{\sqrt{\alpha_{t}}}(x_t -
+\frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \epsilon_\theta(x_t,t)).
 $$
 
 这个时候我们会发现：**如果把式 11 带入式 10 中，$x_t$ 会完全消掉，这就是我们选择
@@ -650,7 +651,7 @@ $$
 & = \mathbb{E}_{x_0,\epsilon}[\frac{1}{2\sigma_{t}^{2}} \| \frac{1}{\sqrt{\alpha_{t}}}(x_t - \frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \epsilon)- \frac{1}{\sqrt{\alpha_{t}}}(x_t -
 \frac{\beta_{t}}{\sqrt{1-\bar\alpha_{t}}} \epsilon_\theta(x_t,t))\|^2]\\\\
 & = \mathbb{E}_{x_0,\epsilon}[\frac{1}{2\sigma_{t}^{2}} \| \frac{\beta_{t}}{\sqrt{\alpha_{t}(1-\bar\alpha_{t})}}(\epsilon_\theta(x_t,t)- \epsilon)\|^2]\\\\
-& = \mathbb{E}_{x_0,\epsilon}[\frac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t}(1-\bar\alpha_{t})} \| \epsilon - \epsilon_\theta(\sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,\, t)\|^2].
+& = \mathbb{E}_{x_0,\epsilon}[\frac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t}(1-\bar\alpha_{t})} \| \epsilon - \epsilon_\theta(\sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,t)\|^2].
 \end{aligned}
 $$
 
@@ -658,7 +659,7 @@ $$
 
 $$
 \mathcal{L}_{t-1} - C = \mathbb{E}_{x_0,\epsilon}
-[\frac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t}(1-\bar\alpha_{t})} \| \epsilon - \epsilon_\theta(\sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,\, t)\|^2]
+[\frac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t}(1-\bar\alpha_{t})} \| \epsilon - \epsilon_\theta(\sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,t)\|^2]
 . \tag{DDPM 式 12}
 $$
 
@@ -684,7 +685,7 @@ $$
 \mathcal{L}_{t-1} - C
 & = \mathbb{E}_{x_0,\epsilon}[\frac{\beta_{t}^{2}}{2\sigma_{t}^{2}\alpha_{t}(1-\bar\alpha_{t})} \| \epsilon - \epsilon_\theta(x_t,t)\|^2]\\\\
 & = \frac{\beta_{t}^{2}}{\sigma_{t}^{2}\alpha_{t}} \cdot \frac{1}{2} \mathbb{E}_{x_0,\epsilon}[\| s_\theta(x_t,t)+ \frac{\epsilon}{\sqrt{1-\bar\alpha_{t}}} \|^2]\\\\
-& = \frac{\beta_{t}^{2}}{\sigma_{t}^{2}\alpha_{t}} \, \ell_{\mathrm{DSM}}(\theta;t),
+& = \frac{\beta_{t}^{2}}{\sigma_{t}^{2}\alpha_{t}} \ell_{\mathrm{DSM}}(\theta;t),
 \end{aligned}
 $$
 
@@ -709,7 +710,7 @@ $\mathcal{N}(x_0;\mu_\theta(x_1,1),\sigma_1^2 I)$ 导出的**独立离散解码�
 
 $$
 p_\theta(x_0 \mid x_1)= \prod_{i=1}^D \int_{\delta_-(x_0^i)}^{\delta_+(x_0^i)}
-\mathcal{N}(x;\mu_\theta^i(x_1,1),\sigma_1^2)\, dx,\tag{DDPM 式 13}
+\mathcal{N}(x;\mu_\theta^i(x_1,1),\sigma_1^2)dx,\tag{DDPM 式 13}
 $$
 
 $$
@@ -733,7 +734,7 @@ $$
 
 $$
 \mathcal{L}_{\text{simple}}(\theta): = \mathbb{E}_{t,x_0,\epsilon}
-[\| \epsilon - \epsilon_\theta(\sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,\, t)\|^2]
+[\| \epsilon - \epsilon_\theta(\sqrt{\bar\alpha_{t}} x_0 + \sqrt{1-\bar\alpha_{t}} \epsilon,t)\|^2]
 ,\tag{DDPM 式 14}
 $$
 
@@ -805,7 +806,7 @@ EBM/分数匹配的 AIS 估计）。既然样本质量仍然很高，作者推�
 
 $$
 x_0 \approx \hat x_0 = \frac
-{x_{t}-\sqrt{1-\bar\alpha_t}\,\epsilon_{\theta}(x_{t})}{\sqrt{\bar\alpha_{t}}},
+{x_{t}-\sqrt{1-\bar\alpha_t}\epsilon_{\theta}(x_{t})}{\sqrt{\bar\alpha_{t}}},
 \tag{DDPM 式 15}
 $$
 
@@ -822,8 +823,8 @@ $t$ 保留大部分内容、大 $t$ 只保留粗特征。
 
 $$
 \begin{aligned}
-\mathcal{L} & = D_{\mathrm{KL}}(q(x_T)\, \| \, p(x_T))\\\\
-& + \mathbb{E}_q[\sum_{t\ge1} D_{\mathrm{KL}}(q(x_{t-1} \mid x_t)\, \| \, p_\theta(x_{t-1} \mid x_t))]\\\\
+\mathcal{L} & = D_{\mathrm{KL}}(q(x_T)\| p(x_T))\\\\
+& + \mathbb{E}_q[\sum_{t\ge1} D_{\mathrm{KL}}(q(x_{t-1} \mid x_t)\| p_\theta(x_{t-1} \mid x_t))]\\\\
 & + H(x_0).
 \end{aligned}
 \tag{DDPM 式 16}
@@ -918,13 +919,13 @@ $1024 \times 1024$ 样本。
 #### 配 Langevin 动力学的去噪分数匹配（SMLD）
 
 令
-$p_\sigma(\tilde x \mid x): = \mathcal{N}(\tilde x;x,\sigma^2 I)$、$p_\sigma(\tilde x): = \int p_{\text{data}}(x)p_\sigma(\tilde x \mid x)\, dx$；
+$p_\sigma(\tilde x \mid x): = \mathcal{N}(\tilde x;x,\sigma^2 I)$、$p_\sigma(\tilde x): = \int p_{\text{data}}(x)p_\sigma(\tilde x \mid x)dx$；
 取噪声尺度 $\sigma_{\min} = \sigma_1 < \cdots < \sigma_N = \sigma_{\max}$，满足
 $p_{\sigma_{\min}} \approx p_{\text{data}}$、$p_{\sigma_{\max}} \approx \mathcal{N}(x;0,\sigma_{\max}^2 I)$。NCSN
 $s_\theta(x,\sigma)$ 以 DSM 目标的加权和训练：
 
 $$
-\theta^* = \arg \min_\theta \sum_{i=1}^N \sigma_i^2 \, \mathbb{E}_
+\theta^* = \arg \min_\theta \sum_{i=1}^N \sigma_i^2 \mathbb{E}_
 {p_{\text{data}}(x)} \mathbb{E}_{p_{\sigma_i}(\tilde x\mid x)}
 [\| s_\theta(\tilde x,\sigma_i)- \nabla_{\tilde x} \log p_{\sigma_i}(\tilde x \mid x)\|_2^2]
 . \tag{SDE 式 1}
@@ -934,8 +935,8 @@ $$
 每个 $p_{\sigma_i}$ 依次运行 $M$ 步 Langevin MCMC：
 
 $$
-x_i^m = x_i^{m-1} + \epsilon_i \, s_{\theta^*}(x_i^{m-1},\sigma_i)+ \sqrt
-{2\epsilon_{i}} \, z_i^m,\qquad m = 1,\dots,M,\tag{SDE 式 2}
+x_i^m = x_i^{m-1} + \epsilon_i s_{\theta^*}(x_i^{m-1},\sigma_i)+ \sqrt
+{2\epsilon_{i}} z_i^m,\qquad m = 1,\dots,M,\tag{SDE 式 2}
 $$
 
 对 $i = N,\dots,1$ 依次进
@@ -955,7 +956,7 @@ $p_\theta(x_{i-1} \mid x_i)= \mathcal{N}(x_{i-1};\frac{1}{\sqrt{1-\beta_{i}}}(x_
 以重加权的 ELBO 训练：
 
 $$
-\theta^* = \arg \min_\theta \sum_{i=1}^N(1 - \alpha_i)\, \mathbb{E}_
+\theta^* = \arg \min_\theta \sum_{i=1}^N(1 - \alpha_i)\mathbb{E}_
 {p_{\text{data}}(x)} \mathbb{E}_{p_{\alpha_i}(\tilde x\mid x)}
 [\| s_\theta(\tilde x,i)- \nabla_{\tilde x} \log p_{\alpha_i}(\tilde x \mid x)\|_2^2]
 . \tag{SDE 式 3}
@@ -965,7 +966,7 @@ $$
 
 $$
 x_{i-1} = \frac{1}{\sqrt{1-\beta_{i}}}(x_i + \beta_i s_{\theta^*}(x_i,i))+ \sqrt
-{\beta_{i}} \, z_i,\qquad i = N,\dots,1. \tag{SDE 式 4}
+{\beta_{i}} z_i,\qquad i = N,\dots,1. \tag{SDE 式 4}
 $$
 
 式 3 正是 DDPM 的 $\mathcal{L}_{\text{simple}}$，此处重写以显现其与式 1 的相似
@@ -992,7 +993,7 @@ $$
 微积分没有的二阶修正项：
 
 $$
-df(t,X_t)=(f_t + b f_x + \frac{1}{2} \sigma^2 f_{xx})dt + \sigma f_x \, dW_t
+df(t,X_t)=(f_t + b f_x + \frac{1}{2} \sigma^2 f_{xx})dt + \sigma f_x dW_t
 $$
 
 提示: 这一步通过泰勒展开得到，展开的所有项中，一次项必须保留，二次项中
@@ -1005,7 +1006,7 @@ $(dX_t)^2$ 由于随机项的平方 $(\sigma dW_T)^2 \approx \sigma^2d_t$ 无法
 据）、$x(T)\sim p_T$（可处理的先验），$x(t)\sim p_t(x)$ 由伊藤 SDE 支配：
 
 $$
-dx = f(x,t)\, dt + g(t)\, dw,\tag{SDE 式 5}
+dx = f(x,t)dt + g(t)dw,\tag{SDE 式 5}
 $$
 
 其中 $w$ 为标准维纳过程，$f(\cdot,t): \mathbb{R}^d \to \mathbb{R}^d$ 为**漂移系
@@ -1023,7 +1024,7 @@ Anderson 定理（Anderson 的时间反转定理，Anderson's Time Reversal Theo
 扩散过程的反向仍是扩散过程，其时间倒流，由**逆向时间 SDE** 给出：
 
 $$
-dx =[f(x,t)- g(t)^2 \nabla_x \log p_t(x)]dt + g(t)\, d \bar w,\tag{SDE 式 6}
+dx =[f(x,t)- g(t)^2 \nabla_x \log p_t(x)]dt + g(t)d \bar w,\tag{SDE 式 6}
 $$
 
 其中 $\bar w$ 是时间从 $T$ 流向 $0$ 的标准维纳过程，$dt$ 为无穷小**负**时间步。
@@ -1077,8 +1078,8 @@ $$
 含时分数模型 $s_\theta(x,t)$ 通过式 1 与式 3 的连续推广来训练：
 
 $$
-\theta^* = \arg \min_\theta \mathbb{E}_t\{\lambda(t)\, \mathbb{E}_{x(0)} \mathbb
-{E}_{x(t)\mid x(0)}
+\theta^* = \arg \min_\theta \mathbb{E}_t\{\lambda(t)\mathbb{E}_{x(0)} \mathbb{E}
+_{x(t)\mid x(0)}
 [\| s_\theta(x(t),t)- \nabla_{x(t)} \log p_{0t}(x(t)\mid x(0))\|_2^2]\},\tag
 {SDE 式 7}
 $$
@@ -1096,19 +1097,19 @@ $$
 #### 示例：VE、VP SDE 及更多
 
 SMLD 的马尔可夫链
-$x_i = x_{i-1} + \sqrt{\sigma_{i}^{2}-\sigma_{i-1}^{2}} \, z_{i-1}$（引入
+$x_i = x_{i-1} + \sqrt{\sigma_{i}^{2}-\sigma_{i-1}^{2}} z_{i-1}$（引入
 $\sigma_0 = 0$）在 $N \to \infty$、$\sigma \to \sigma(t)$ 时变为**方差爆炸型
 （VE）SDE**：
 
 $$
-dx = \sqrt{\frac{d[\sigma^{2}(t)]}{dt}} \, dw . \tag{SDE 式 9}
+dx = \sqrt{\frac{d[\sigma^{2}(t)]}{dt}} dw . \tag{SDE 式 9}
 $$
 
-DDPM 的链 $x_i = \sqrt{1-\beta_{i}} \, x_{i-1} + \sqrt{\beta_{i}} \, z_{i-1}$ 变
-为**方差保持型（VP）SDE**：
+DDPM 的链 $x_i = \sqrt{1-\beta_{i}} x_{i-1} + \sqrt{\beta_{i}} z_{i-1}$ 变为**方
+差保持型（VP）SDE**：
 
 $$
-dx = - \frac{1}{2} \beta(t)x \, dt + \sqrt{\beta(t)} \, dw . \tag{SDE 式 11}
+dx = - \frac{1}{2} \beta(t)x dt + \sqrt{\beta(t)} dw . \tag{SDE 式 11}
 $$
 
 差别在于方差行为：VE 过程当 $t \to \infty$ 时方差爆炸，而 VP 过程方差有界（初值
@@ -1118,8 +1119,8 @@ $\Sigma_{\text{VP}}(t)= I + e^{-\int_0^t\beta(s)ds}(\Sigma_{\text{VP}}(0)- I)$�
 受 VP 启发，作者提出 **sub-VP SDE**：
 
 $$
-dx = - \frac{1}{2} \beta(t)x \, dt + \sqrt
-{\beta(t)\left(1-e^{-2\int_0^t\beta(s)ds}\right)} \, dw,\tag{SDE 式 12}
+dx = - \frac{1}{2} \beta(t)x dt + \sqrt
+{\beta(t)\left(1-e^{-2\int_0^t\beta(s)ds}\right)} dw,\tag{SDE 式 12}
 $$
 
 其方差在任意时刻都上界于对应的 VP SDE（故称 sub-VP），在通常条件下仍收敛到标准高
@@ -1149,8 +1150,8 @@ $t \in[\varepsilon,1]$。）
 | **边缘分布 $q(x_t \mid x_0)$** | $\mathcal{N}(x_0,\sigma^2(t)I)$      | $\mathcal{N}(\sqrt{\alpha_{t}} x_0,(1 - \alpha_t)I)$ | $\mathcal{N}(\sqrt{\alpha_{t}} x_0,(1 - \alpha_t)^2I)$ |
 | **先验 $p_T$**                 | $\mathcal{N}(0,\sigma_{\max}^2 I)$   | $\mathcal{N}(0,I)$                                   | $\mathcal{N}(0,I)$                                     |
 
-其中 Sub-VP 的扩散项里 $\int_0^t \beta$ 即 $\int_0^t \beta(s)\, ds$，且
-$\alpha_t = e^{-\int_0^t\beta(s)\,ds}$。
+其中 Sub-VP 的扩散项里 $\int_0^t \beta$ 即 $\int_0^t \beta(s)ds$，且
+$\alpha_t = e^{-\int_0^t\beta(s)ds}$。
 
 ### 求解逆向 SDE
 
@@ -1217,8 +1218,7 @@ $$
 ODE 可以计算 **精确似然**，ODE 的确定性允许用瞬时变量替换公式：
 
 $$
-\log p_0(x(0))= \log p_T(x(T))+ \int_0^T \nabla \cdot \tilde f_\theta(x(t),t)\,
-dt,
+\log p_0(x(0))= \log p_T(x(T))+ \int_0^T \nabla \cdot \tilde f_\theta(x(t),t)dt,
 $$
 
 其中，散度用 Skilling–Hutchinson 无偏估计，额外代价约一次函数评估。CIFAR-10 上，
@@ -1267,7 +1267,7 @@ $p_0(x(0)\mid y)$ 采样：
 
 $$
 dx =\{f(x,t)- g(t)^2[\nabla_x \log p_t(x)+ \nabla_x \log p_t(y \mid x)]\}dt + g(
-t)\, d \bar w,\tag{SDE 式 14}
+t)d \bar w,\tag{SDE 式 14}
 $$
 
 它源自一般恒等式
