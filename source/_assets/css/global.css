@@ -5,6 +5,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.markdown-body code,
+.markdown-body pre {
+  font-family: var(--code-font-family);
+}
+
 .markdown-body p strong {
   color: darkorange;
 }
