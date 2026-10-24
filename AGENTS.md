@@ -17,6 +17,9 @@
 
 ```text
 ├── source/          # 博客文章和页面源文件
+│   ├── _assets/     # 自定义 CSS / JS / 图片源文件
+│   ├── _pages/      # 独立页面源文件
+│   └── _posts/      # 文章
 ├── themes/          # 主题文件
 ├── scripts/         # 自定义脚本
 ├── public/          # 生成的静态文件
