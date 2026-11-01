@@ -1,0 +1,52 @@
+<%
+  const cover = tide_cover(post);
+  const cats = post.categories ? post.categories.toArray() : [];
+  const tags = post.tags ? post.tags.toArray() : [];
+  const category = cats.length ? cats[cats.length - 1] : null;
+  const reading = tide_reading(post.content);
+  const words = tide_words(post.content);
+%>
+<article class="post-card card">
+  <a class="post-cover<%= cover ? '' : ' post-cover--empty' %>" href="<%- url_for(post.path) %>" tabindex="-1" aria-hidden="true">
+    <% if (cover) { %>
+      <img src="<%= cover %>" alt="" loading="lazy" decoding="async">
+    <% } else { %>
+      <span class="post-cover-mark"><%- tide_icon('wave') %></span>
+      <span class="post-cover-cat"><%= category ? category.name : 'Notes' %></span>
+    <% } %>
+  </a>
+
+  <div class="post-card-body">
+    <div class="post-meta">
+      <% if (category) { %>
+        <a class="meta-item meta-category" href="<%- url_for(category.path) %>">
+          <span><%= category.name %></span>
+        </a>
+      <% } %>
+      <time class="meta-item" datetime="<%= post.date.toISOString() %>">
+        <%- tide_icon('calendar') %><span><%= date(post.date, 'YYYY-MM-DD') %></span>
+      </time>
+      <% if (theme.features && theme.features.reading_time !== false) { %>
+        <span class="meta-item"><%- tide_icon('clock') %><span><%= reading %> 分钟</span></span>
+      <% } %>
+    </div>
+
+    <h2 class="post-card-title">
+      <a href="<%- url_for(post.path) %>"><%= post.title %></a>
+    </h2>
+
+    <p class="post-card-excerpt"><%= tide_excerpt(post.excerpt || post.content, 140) %></p>
+
+    <div class="post-card-foot">
+      <div class="post-card-tags">
+        <% tags.slice(0, 3).forEach(function (tag) { %>
+          <a class="tag-chip tag-chip--sm" href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+        <% }); %>
+      </div>
+      <span class="post-card-read">
+        <span><%= words %> 字</span>
+        <span class="post-card-arrow"><%- tide_icon('arrow-right') %></span>
+      </span>
+    </div>
+  </div>
+</article>

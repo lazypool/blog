@@ -1,0 +1,23 @@
+<%
+  const posts = page.posts ? page.posts.toArray() : [];
+  const tagName = page.tag || '标签';
+%>
+<article class="taxonomy-page">
+  <header class="page-header card" data-reveal>
+    <nav class="breadcrumbs" aria-label="面包屑">
+      <a href="<%- url_for('/') %>">首页</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb-current"><%= tagName %></span>
+    </nav>
+    <p class="page-eyebrow">TAG</p>
+    <h1 class="page-title"><%= tagName %></h1>
+    <div class="archive-summary"><span><strong><%= posts.length %></strong> 篇文章</span></div>
+  </header>
+
+  <div class="post-list" data-next="<%= page.next_link ? url_for(page.next_link) : '' %>">
+    <% posts.forEach(function (post, i) { %>
+      <%- partial('_partials/post-card', { post: post, index: i }) %>
+    <% }); %>
+  </div>
+
+</article>

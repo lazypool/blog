@@ -1,13 +1,4 @@
 ---
-title: About Me
+title: 关于
 layout: about
 ---
-
-<style>
-</style>
-
-<body>
-</body>
-
-<script>
-</script>

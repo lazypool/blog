@@ -1,0 +1,106 @@
+<%
+  const author = theme.author || {};
+  const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/basic/avatar.png');
+  const links = author.links || [];
+  const tree = tide_cat_tree(site.categories);
+  const tagList = site.tags.toArray().sort(function (a, b) { return b.length - a.length; }).slice(0, 21);
+  const tagPages = [];
+  for (let i = 0; i < tagList.length; i += 7) tagPages.push(tagList.slice(i, i + 7));
+%>
+<div class="sidebar-inner">
+  <section class="card author-card">
+    <div class="author-top">
+      <a class="author-avatar" href="<%- url_for('/about/') %>" aria-label="关于 <%= author.name || config.author %>">
+        <img src="<%= avatar %>" alt="<%= author.name || config.author %>" width="96" height="96" loading="lazy" decoding="async">
+        <span class="author-status" title="在线"></span>
+      </a>
+      <div class="author-id">
+        <p class="author-eyebrow">KEEPER OF THE POOL</p>
+        <h2 class="author-name"><%= author.name || config.author %></h2>
+      </div>
+    </div>
+    <p class="author-bio"><%= author.bio || config.description %></p>
+
+    <% if (links.length) { %>
+      <div class="author-links">
+        <% links.forEach(function (link) { %>
+          <a class="author-link" href="<%= link.url %>" target="_blank" rel="noopener noreferrer" aria-label="<%= link.name %>" title="<%= link.name %>">
+            <%- tide_icon(link.icon || 'link') %>
+          </a>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <div class="author-stats">
+      <div class="author-stat"><strong><%= site.posts.length %></strong><span>文章</span></div>
+      <div class="author-stat"><strong><%= site.categories.length %></strong><span>分类</span></div>
+      <div class="author-stat"><strong><%= site.tags.length %></strong><span>标签</span></div>
+    </div>
+  </section>
+
+  <section class="card widget widget-cats" data-carousel>
+    <header class="widget-head">
+      <span class="widget-title"><%- tide_icon('folder') %><span>分类</span></span>
+      <button class="carousel-next" type="button" data-carousel-next aria-label="下一组分类">
+        <%- tide_icon('chevron-right') %>
+      </button>
+    </header>
+    <div class="carousel-pages">
+      <% tree.forEach(function (cat, i) { %>
+        <div class="carousel-page<%= i === 0 ? ' is-active' : '' %>"<%= i === 0 ? '' : ' inert' %>>
+          <a class="cat-link" href="<%- url_for(cat.path) %>">
+            <span class="cat-name"><%= cat.name %></span>
+            <span class="cat-count"><%= cat.count %></span>
+          </a>
+          <% if (cat.children.length) { %>
+            <ul class="cat-children">
+              <% cat.children.forEach(function (child) { %>
+                <li>
+                  <a class="cat-link cat-link--child" href="<%- url_for(child.path) %>">
+                    <span class="cat-name"><%= child.name %></span>
+                    <span class="cat-count"><%= child.count %></span>
+                  </a>
+                </li>
+              <% }); %>
+            </ul>
+          <% } %>
+        </div>
+      <% }); %>
+    </div>
+    <div class="carousel-dots">
+      <% tree.forEach(function (cat, i) { %>
+        <button class="carousel-dot<%= i === 0 ? ' is-active' : '' %>" type="button" data-carousel-dot="<%= i %>" aria-label="第 <%= i + 1 %> 组分类"></button>
+      <% }); %>
+    </div>
+  </section>
+
+  <section class="card widget widget-tags" data-carousel>
+    <header class="widget-head">
+      <span class="widget-title"><%- tide_icon('tag') %><span>标签</span></span>
+      <button class="carousel-next" type="button" data-carousel-next aria-label="下一组标签">
+        <%- tide_icon('chevron-right') %>
+      </button>
+    </header>
+    <div class="carousel-pages">
+      <% tagPages.forEach(function (page, i) { %>
+        <div class="carousel-page<%= i === 0 ? ' is-active' : '' %>"<%= i === 0 ? '' : ' inert' %>>
+          <div class="tag-cloud">
+            <% page.forEach(function (tag) { %>
+              <a class="tag-chip" href="<%- url_for(tag.path) %>" title="<%= tag.name %> · <%= tag.length %> 篇">
+                <span><%= tag.name %></span>
+                <span class="tag-count"><%= tag.length %></span>
+              </a>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <div class="carousel-dots">
+      <% tagPages.forEach(function (page, i) { %>
+        <button class="carousel-dot<%= i === 0 ? ' is-active' : '' %>" type="button" data-carousel-dot="<%= i %>" aria-label="第 <%= i + 1 %> 组标签"></button>
+      <% }); %>
+    </div>
+  </section>
+
+  <%- partial('_partials/footer') %>
+</div>

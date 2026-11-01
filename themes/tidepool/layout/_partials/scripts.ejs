@@ -1,0 +1,14 @@
+<%
+  const features = theme.features || {};
+  const math = theme.math || {};
+%>
+<% if (features.swup !== false) { %>
+  <script defer src="<%- url_for('/js/vendor/swup.min.js') %>"></script>
+  <script defer src="<%- url_for('/js/vendor/swup-head.min.js') %>"></script>
+  <script defer src="<%- url_for('/js/vendor/swup-preload.min.js') %>"></script>
+<% } %>
+<% if (math.enable !== false) { %>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<% } %>
+<script defer src="<%- url_for('/js/app.js') %>"></script>

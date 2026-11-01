@@ -704,8 +704,8 @@ $$
 
 #### 数据缩放、逆向过程解码器与 $L_0$
 
-是 $\{0,\dots,255\}$ 的整数，被线性缩放到 $[- 1,1]$，从而逆向网络在由标准正态先
-验出发的一致尺度上工作。为得到离散对数似然，最后一项逆向过程被设为由高斯
+像素值是 $\{0,\dots,255\}$ 的整数，被线性缩放到 $[- 1,1]$，从而逆向网络在由标准
+正态先验出发的一致尺度上工作。为得到离散对数似然，最后一项逆向过程被设为由高斯
 $\mathcal{N}(x_0;\mu_\theta(x_1,1),\sigma_1^2 I)$ 导出的**独立离散解码器**：
 
 $$
@@ -714,8 +714,8 @@ p_\theta(x_0 \mid x_1)= \prod_{i=1}^D \int_{\delta_-(x_0^i)}^{\delta_+(x_0^i)}
 $$
 
 $$
-\delta_+(x)= \begin{cases}\infty & x=1\\ x+\tfrac{1}{255} & x<1\end{cases},\qquad
-\delta_-(x)= \begin{cases}-\infty & x=-1\\ x-\tfrac{1}{255} & x>-1\end{cases} .
+\delta_+(x)= \begin{cases}\infty & x=1\\\\ x+\tfrac{1}{255} & x<1\end{cases},\qquad
+\delta_-(x)= \begin{cases}-\infty & x=-1\\\\ x-\tfrac{1}{255} & x>-1\end{cases} .
 $$
 
 式 13 的目标是为了将离散的图像数据变成连续空间中的分布。这与 VAE/自回归解码器所

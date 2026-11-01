@@ -1,0 +1,59 @@
+# Tidepool theme — default configuration.
+# Site-specific overrides live in /_config.tidepool.yml at the project root.
+
+menu:
+  Home: /
+  Archives: /archives/
+  Photos: /photo/
+  About: /about/
+
+author:
+  name: LazyPool
+  avatar: /img/basic/avatar.png
+  bio: 一只可爱的，毛茸茸的大海龙。
+  links:
+    - name: GitHub
+      icon: github
+      url: https://github.com/lazypool
+    - name: Bilibili
+      icon: bilibili
+      url: https://space.bilibili.com/13819285
+    - name: Steam
+      icon: steam
+      url: https://steamcommunity.com/profiles/76561199204729755/
+
+home:
+  hero: true
+  eyebrow: TIDEPOOL
+  title: ''
+  albums: 1
+
+search:
+  enable: true
+  path: /search.json
+  placeholder: 搜索文章、标签、分类…
+
+features:
+  swup: true
+  preload: true
+  palette: true
+  progress: true
+  reveal: true
+  toc: true
+  anchor: true
+  code_copy: true
+  image_zoom: true
+  reading_time: true
+  back_to_top: true
+
+math:
+  enable: true
+  engine: katex
+
+palette:
+  default: tide
+
+footer:
+  since: 2023
+  copyright: LazyPool
+  powered_by: true

@@ -1,0 +1,84 @@
+<%
+  const author = theme.author || {};
+  const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/basic/avatar.png');
+  const links = author.links || [];
+  const bodyText = tide_plain(page.content);
+  const tree = tide_cat_tree(site.categories);
+  const githubLink = links.find(function (link) { return link.icon === 'github' || /github\.com/.test(link.url || ''); });
+  const githubUser = githubLink ? githubLink.url.replace(/\/+$/, '').split('/').pop() : '';
+%>
+<article class="about">
+  <section class="about-hero card" data-reveal>
+    <div class="about-avatar-wrap">
+      <img class="about-avatar" src="<%= avatar %>" alt="<%= author.name || config.author %>" width="160" height="160" loading="eager" decoding="async">
+      <span class="about-avatar-ring" aria-hidden="true"></span>
+    </div>
+    <div class="about-copy">
+      <p class="hero-eyebrow"><span class="hero-pulse"></span>ABOUT THE KEEPER</p>
+      <h1 class="about-name"><%= author.name || config.author %></h1>
+      <p class="about-bio"><%= author.bio || config.description %></p>
+      <p class="about-note"><%= config.subtitle || '惰池者，溺为也。' %></p>
+      <div class="about-actions">
+        <% links.forEach(function (link) { %>
+          <a class="btn btn--ghost" href="<%= link.url %>" target="_blank" rel="noopener noreferrer">
+            <%- tide_icon(link.icon || 'link') %><span><%= link.name %></span>
+          </a>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <div class="about-grid">
+    <section class="card about-stats" data-reveal>
+      <p class="widget-kicker">THE POOL IN NUMBERS</p>
+      <div class="about-stat"><strong><%= site.posts.length %></strong><span>篇文章</span></div>
+      <div class="about-stat"><strong><%= site.tags.length %></strong><span>个标签</span></div>
+      <div class="about-stat"><strong><%= site.categories.length %></strong><span>个分类</span></div>
+    </section>
+
+    <section class="card about-cats" data-reveal>
+      <p class="widget-kicker">WRITING ROOMS</p>
+      <ul class="about-cat-list">
+        <% tree.forEach(function (cat) { %>
+          <li>
+            <a href="<%- url_for(cat.path) %>">
+              <span><%= cat.name %></span>
+              <span class="cat-count"><%= cat.count %></span>
+            </a>
+          </li>
+        <% }); %>
+      </ul>
+    </section>
+  </div>
+
+  <% if (githubUser) { %>
+    <section class="card github-card" data-github-heatmap data-github-user="<%= githubUser %>" data-reveal>
+      <header class="github-card-head">
+        <div>
+          <p class="widget-kicker">GITHUB ACTIVITY</p>
+          <a class="github-profile" href="https://github.com/<%= githubUser %>" target="_blank" rel="noopener noreferrer">
+            @<%= githubUser %><%- tide_icon('arrow-up-right') %>
+          </a>
+        </div>
+        <span class="github-total" data-github-total>—</span>
+      </header>
+      <div class="github-chart" data-github-chart>
+        <p class="github-loading">正在加载 GitHub 活动…</p>
+      </div>
+    </section>
+  <% } %>
+
+  <% if (bodyText) { %>
+    <section class="page-content card about-content" data-reveal>
+      <div class="prose" data-article>
+        <%- page.content %>
+      </div>
+    </section>
+  <% } else { %>
+    <section class="card about-empty" data-reveal>
+      <p class="widget-kicker">A NOTE FROM THE POOL</p>
+      <p><%= config.description %></p>
+      <p>这里记录代码、论文、工具与生活。潮水会退，文字会留下。</p>
+    </section>
+  <% } %>
+</article>
