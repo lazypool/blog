@@ -20,13 +20,12 @@ repos:
         entry: npx prettier --write
         language: system
         files: \.(json|ya?ml)$
-        exclude: ^themes/fluid/_config\.yml$
 
       - id: ejs-lint
         name: Validate EJS templates
         entry: npx ejslint
         language: system
-        files: ^themes/fluid/layout/.*\.ejs$
+        files: ^themes/tidepool/layout/.*\.ejs$
 
       - id: markdownlint
         name: Lint Markdown
@@ -52,4 +51,4 @@ repos:
         entry: npm run build
         language: system
         pass_filenames: false
-        files: ^(_config.*\.ya?ml|package(-lock)?\.json|source/|themes/fluid/(layout/|scripts/|source/|_config\.yml))
+        files: ^(_config.*\.ya?ml|package(-lock)?\.json|source/|themes/tidepool/(layout/|scripts/|source/|_config\.yml))

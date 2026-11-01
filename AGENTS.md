@@ -9,8 +9,6 @@
 - 卡片式双栏布局、粘性侧栏、文章目录
 - 客户端 KaTeX 公式、JSON 本地搜索、代码复制、图片灯箱
 
-旧版 Fluid 主题仍保留在 `themes/fluid/`，但 `_config.yml` 已切换到 `tidepool`。
-
 ## 技术栈
 
 - **框架**: Hexo 8.1.2
@@ -25,20 +23,18 @@
 
 ```text
 ├── source/                 # 博客文章和页面源文件
-│   ├── _assets/            # 旧的 Fluid 自定义资源（新主题不再使用）
+│   ├── _assets/            # 共享图片资源（构建时镜像到 source/）
 │   ├── _pages/             # 独立页面源文件（about / photo）
 │   └── _posts/             # 文章
 ├── themes/
-│   ├── tidepool/           # 当前主题
-│   │   ├── layout/         # EJS 布局与 partials
-│   │   ├── scripts/        # Hexo 主题脚本（helper / 搜索索引）
-│   │   └── source/         # CSS / JS / Swup 依赖
-│   └── fluid/              # 旧主题（未启用）
+│   └── tidepool/           # 当前主题
+│       ├── layout/         # EJS 布局与 partials
+│       ├── scripts/        # Hexo 主题脚本（helper / 搜索索引）
+│       └── source/         # CSS / JS / Swup 依赖
 ├── scripts/                # 站点级 Hexo 脚本
 ├── public/                 # 生成的静态文件
 ├── _config.yml             # Hexo 主配置
 ├── _config.tidepool.yml    # Tidepool 主题配置
-└── _config.fluid.yml       # 旧主题配置（未启用）
 ```
 
 ## 常用命令
@@ -53,7 +49,7 @@
 ### 代码质量
 
 - `npm run lint` - 运行所有 lint 检查
-- `npm run lint:ejs` - 检查 Fluid + Tidepool 的 EJS 模板语法
+- `npm run lint:ejs` - 检查 Tidepool 的 EJS 模板语法
 - `npm run lint:markdown` - 检查 Markdown 格式
 - `npm run lint:math` - 检查数学公式
 - `npm run lint:site` - 检查站点配置
@@ -88,6 +84,15 @@
 
 ### 主题开发
 
+> **重要规则：所有颜色和主题视觉修改必须通过 `themes/tidepool/` 完成。**
+>
+> - 颜色 token 统一改 `themes/tidepool/source/css/tokens.css`
+> - 布局/组件/文章样式改 `themes/tidepool/source/css/` 下对应文件
+> - 主题开关和默认项改 `_config.tidepool.yml`（默认值在 `themes/tidepool/_config.yml`）
+> - **禁止在项目根目录创建 `css/`、`js/` 目录或文件**
+> - **禁止新增 `source/css/`、`source/js/`，也不要往 `source/_assets` 放 CSS/JS**；`source/_assets` 只用于共享图片
+> - 主题 JS 统一放在 `themes/tidepool/source/js/`，页面交互统一改 `app.js`
+
 - 修改主题配置使用 `_config.tidepool.yml`，不要改 `themes/tidepool/_config.yml` 中的默认值（除非新增默认项）
 - 布局在 `themes/tidepool/layout/`，页面类型：`index`、`post`、`page`、`about`、`archive`、`category`、`tag`、`404`
 - 样式在 `themes/tidepool/source/css/`，按 tokens / base / layout / components / article / pages 分层
@@ -97,7 +102,7 @@
 
 ### 代码风格
 
-- 使用 Prettier 格式化 Markdown、JSON、YAML 文件
+- Markdown 由 `scripts/format-md.js` 重排；JSON / YAML 使用 Prettier 格式化
 - 遵循 markdownlint 规则
 - EJS 模板使用 ejslint 检查
 - 不引入 jQuery / Bootstrap 等整包依赖

@@ -1,4 +1,4 @@
 node_modules/
 public/
-themes/fluid/node_modules/
-themes/fluid/_config.yml
+db.json
+package-lock.json

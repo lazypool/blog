@@ -10,14 +10,14 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "format": "prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\" && node scripts/format-md.js --write",
+    "format": "prettier --write --ignore-unknown \"**/*.{json,yml,yaml}\" && node scripts/format-md.js --write",
     "lint": "npm run lint:ejs && npm run lint:markdown && npm run lint:content",
     "lint:content": "npm run lint:math && npm run lint:site",
-    "lint:ejs": "ejslint \"themes/fluid/layout/**/*.ejs\" \"themes/tidepool/layout/**/*.ejs\"",
+    "lint:ejs": "ejslint \"themes/tidepool/layout/**/*.ejs\"",
     "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#public\"",
     "lint:math": "node scripts/check-math.js",
     "lint:site": "node scripts/check-site.js",
-    "fix": "node scripts/check-math.js --fix && node scripts/format-md.js --write && prettier --write --ignore-unknown \"**/*.{md,markdown,json,yml,yaml}\""
+    "fix": "node scripts/check-math.js --fix && node scripts/format-md.js --write && prettier --write --ignore-unknown \"**/*.{json,yml,yaml}\""
   },
   "hexo": {
     "version": "8.1.2"
@@ -40,5 +40,12 @@
     "katex": "^0.18.7",
     "markdownlint-cli2": "^0.23.3",
     "prettier": "^3.8.3"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "proseWrap": "preserve",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5"
   }
 }

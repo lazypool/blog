@@ -106,7 +106,7 @@ function main() {
       if (!u) return;
       let found = false;
       if (u.startsWith('/')) {
-        found = exists('source' + u) || exists('themes/fluid/source' + u);
+        found = exists('source' + u) || exists('themes/tidepool/source' + u);
       } else {
         for (const d of assetDirs) {
           if (exists(d + u)) { found = true; break; }
@@ -118,7 +118,7 @@ function main() {
 
     if (meta.index_img && meta.index_img.length) {
       const u = meta.index_img[0];
-      if (u && !exists('source/' + u) && !exists('themes/fluid/source/' + u)) {
+      if (u && !exists('source/' + u) && !exists('themes/tidepool/source/' + u)) {
         errs.push(`${rel}  front matter index_img 图片不存在: ${u}`);
       }
     }

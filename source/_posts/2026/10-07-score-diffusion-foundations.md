@@ -132,7 +132,7 @@ $$
 
 #### 用 Langevin 动力学采样
 
-Langevin 动力学把分数函数变成采样器。给定固定步长 $\epsilon > 0$ 与初值
+Langevin 动力学把分数函数变成采样器。给定固定步长 $\epsilon \gt 0$ 与初值
 $\tilde x_0 \sim \pi(x)$，
 
 $$
@@ -223,7 +223,7 @@ $$
 #### 噪声条件分数网络
 
 设 $\{\sigma_i\}_{i=1}^L$ 为正的等比数列，满足
-$\sigma_1 / \sigma_2 = \cdots = \sigma_{L-1} / \sigma_L > 1$，并令
+$\sigma_1 / \sigma_2 = \cdots = \sigma_{L-1} / \sigma_L \gt 1$，并令
 
 $$
 q_\sigma(\tilde x)= \int p_{\text{data}}(x)\mathcal{N}(\tilde x \mid x,\sigma^2
@@ -265,7 +265,7 @@ $$
 \lambda(\sigma_i)\ell(\theta;\sigma_i),\tag{SMLD 式 6}
 $$
 
-其中 $\lambda(\sigma_i)> 0$ 为权重。由于这是 DSM 目标的**锥组合**，最优
+其中 $\lambda(\sigma_i)\gt 0$ 为权重。由于这是 DSM 目标的**锥组合**，最优
 $s_{\theta^\star}$ 对每个 $i$ 几乎处处都满足
 $s_{\theta^\star}(x,\sigma_i)= \nabla_x \log q_{\sigma_i}(x)$。权重的选取基于如
 下经验观察：训练良好的网络满足 $\| s_\theta(x,\sigma)\|_2 \propto 1 / \sigma$；
@@ -501,7 +501,7 @@ $$
 $$
 \begin{aligned}
 \mathcal{L} & = \mathbb{E}_q \Big[\underbrace{D_{\mathrm{KL}}\left(q(x_T\mid x_0)\|p(x_T)\right)}_{\mathcal{L}_T} \\\\
-& + \sum_{t>1} \underbrace{D_{\mathrm{KL}}\left(q(x_{t-1}\mid x_t,x_0)\|p_\theta(x_{t-1}\mid x_t)\right)}_{\mathcal{L}_{t-1}} \\\\
+& + \sum_{t\gt 1} \underbrace{D_{\mathrm{KL}}\left(q(x_{t-1}\mid x_t,x_0)\|p_\theta(x_{t-1}\mid x_t)\right)}_{\mathcal{L}_{t-1}} \\\\
 & - \underbrace{\log p_\theta(x_0\mid x_1)}_{\mathcal{L}_0} \Big].
 \end{aligned}
 \tag{DDPM 式 5}
@@ -524,12 +524,12 @@ $$
 \begin{aligned}
 \mathcal{L} & = \mathbb{E}_q[- \log \frac{p_{\theta}(x_{0:T})}{q(x_{1:T}|x_{0})}]\\\\
 & = \mathbb{E}_q[- \log p(x_T)- \sum_{t\ge1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t}|x_{t-1})}]\\\\
-& = \mathbb{E}_q[- \log p(x_T)- \sum_{t>1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t}|x_{t-1})} - \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
-& = \mathbb{E}_q[- \log p(x_T)- \sum_{t>1} \log(\frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} \cdot \frac{q(x_{t-1}|x_{0})}{q(x_{t}|x_{0})})- \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
-& = \mathbb{E}_q[- \log p(x_T)- \sum_{t>1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} - \sum_{t>1}(\log q(x_{t-1} |x_0)- \log q(x_t|x_0))- \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
-& = \mathbb{E}_q[- \log p(x_T)- \sum_{t>1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} -(\log q(x_1 | x_0)- \log q(x_T | x_0))- \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
-& = \mathbb{E}_q[- \log \frac{p(x_{T})}{q(x_{T}|x_{0})} - \sum_{t>1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} - \log p_\theta(x_0|x_1)]\\\\
-& = \mathbb{E}_q[D_{\text{KL}}(q(x_T|x_0)\| p(x_T))+ \sum_{t>1} D_{\text{KL}}(q(x_{t-1} |x_t,x_0)\| p_\theta(x_{t-1} |x_t))- \log p_\theta(x_0|x_1)]
+& = \mathbb{E}_q[- \log p(x_T)- \sum_{t\gt 1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t}|x_{t-1})} - \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
+& = \mathbb{E}_q[- \log p(x_T)- \sum_{t\gt 1} \log(\frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} \cdot \frac{q(x_{t-1}|x_{0})}{q(x_{t}|x_{0})})- \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
+& = \mathbb{E}_q[- \log p(x_T)- \sum_{t\gt 1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} - \sum_{t\gt 1}(\log q(x_{t-1} |x_0)- \log q(x_t|x_0))- \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
+& = \mathbb{E}_q[- \log p(x_T)- \sum_{t\gt 1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} -(\log q(x_1 | x_0)- \log q(x_T | x_0))- \log \frac{p_{\theta}(x_{0}|x_{1})}{q(x_{1}|x_{0})}]\\\\
+& = \mathbb{E}_q[- \log \frac{p(x_{T})}{q(x_{T}|x_{0})} - \sum_{t\gt 1} \log \frac{p_{\theta}(x_{t-1}|x_{t})}{q(x_{t-1}|x_{t}, x_{0})} - \log p_\theta(x_0|x_1)]\\\\
+& = \mathbb{E}_q[D_{\text{KL}}(q(x_T|x_0)\| p(x_T))+ \sum_{t\gt 1} D_{\text{KL}}(q(x_{t-1} |x_t,x_0)\| p_\theta(x_{t-1} |x_t))- \log p_\theta(x_0|x_1)]
 \end{aligned}
 $$
 
@@ -571,7 +571,7 @@ $$
 
 #### 逆向过程与 $\mathcal{L}_{1:T-1}$
 
-对 $1 < t \le T$，取
+对 $1 \lt t \le T$，取
 $p_\theta(x_{t-1} \mid x_t)= \mathcal{N}(x_{t-1};\mu_\theta(x_t,t),\Sigma_\theta(x_t,t))$，
 其中 $\Sigma_\theta(x_t,t)= \sigma_t^2 I$ （通道独立假设）为**未经训练、随时间变
 化的常数**。实验上 $\sigma_t^2 = \beta_t$ 与 $\sigma_t^2 = \tilde \beta_t$ 结果
@@ -714,8 +714,8 @@ p_\theta(x_0 \mid x_1)= \prod_{i=1}^D \int_{\delta_-(x_0^i)}^{\delta_+(x_0^i)}
 $$
 
 $$
-\delta_+(x)= \begin{cases}\infty & x=1\\\\ x+\tfrac{1}{255} & x<1\end{cases},\qquad
-\delta_-(x)= \begin{cases}-\infty & x=-1\\\\ x-\tfrac{1}{255} & x>-1\end{cases} .
+\delta_+(x)= \begin{cases}\infty & x=1\\\\ x+\tfrac{1}{255} & x\lt 1\end{cases},\qquad
+\delta_-(x)= \begin{cases}-\infty & x=-1\\\\ x-\tfrac{1}{255} & x\gt -1\end{cases} .
 $$
 
 式 13 的目标是为了将离散的图像数据变成连续空间中的分布。这与 VAE/自回归解码器所
@@ -729,7 +729,8 @@ $p_\theta(x_0 | x_1)$ 采样得到最终生成的图像。
 花费精力推出的 $\mathcal{L}$ 在这里被取缔了）~：
 
 $$
-\mathcal{L}_{\text{completed}} : = \mathcal{L}_T + \sum_{t>1} \mathcal{L}_{t-1} + \mathcal{L}_0 \qquad \text{谁来替我发声！🤬}
+\mathcal{L}_{\text{completed}} : = \mathcal{L}_T + \sum_{t\gt 1} \mathcal{L}_
+{t-1} + \mathcal{L}_0 \qquad \text{谁来替我发声！}
 $$
 
 $$
@@ -739,9 +740,9 @@ $$
 $$
 
 其中 $t$ 在 $1,\dots,T$ 上均匀。$t = 1$ 的情形对应 $\mathcal{L}_0$，即用高斯概率
-密度乘以区间宽度近似式 13 的积分（忽略 $\sigma_1^2$ 与边界效应）；$t > 1$ 的情形
-是式 12 的**未加权**版本，类似于 NCSN 所用的损失加权。由于式 14 丢弃了式 12 的权
-重，它是一个强调不同重建侧面的重加权变分界；在其设置下，该重加权**下调**小 $t$
+密度乘以区间宽度近似式 13 的积分（忽略 $\sigma_1^2$ 与边界效应）；$t \gt 1$ 的情
+形是式 12 的**未加权**版本，类似于 NCSN 所用的损失加权。由于式 14 丢弃了式 12 的
+权重，它是一个强调不同重建侧面的重加权变分界；在其设置下，该重加权**下调**小 $t$
 项（这些项只在极小噪声下去噪），使网络专注于更困难的大 $t$ 去噪。算法 1 给出训练
 循环。
 
@@ -920,7 +921,8 @@ $1024 \times 1024$ 样本。
 
 令
 $p_\sigma(\tilde x \mid x): = \mathcal{N}(\tilde x;x,\sigma^2 I)$、$p_\sigma(\tilde x): = \int p_{\text{data}}(x)p_\sigma(\tilde x \mid x)dx$；
-取噪声尺度 $\sigma_{\min} = \sigma_1 < \cdots < \sigma_N = \sigma_{\max}$，满足
+取噪声尺度 $\sigma_{\min} = \sigma_1 \lt \cdots \lt \sigma_N = \sigma_{\max}$，
+满足
 $p_{\sigma_{\min}} \approx p_{\text{data}}$、$p_{\sigma_{\max}} \approx \mathcal{N}(x;0,\sigma_{\max}^2 I)$。NCSN
 $s_\theta(x,\sigma)$ 以 DSM 目标的加权和训练：
 
@@ -940,13 +942,13 @@ x_i^m = x_i^{m-1} + \epsilon_i s_{\theta^*}(x_i^{m-1},\sigma_i)+ \sqrt
 $$
 
 对 $i = N,\dots,1$ 依次进
-行，$x_N^0 \sim \mathcal{N}(x \mid 0,\sigma_{\max}^2 I)$，当 $i < N$ 时
+行，$x_N^0 \sim \mathcal{N}(x \mid 0,\sigma_{\max}^2 I)$，当 $i \lt N$ 时
 $x_i^0 = x_{i+1}^M$；当 $M \to \infty$、$\epsilon_i \to 0$ 时，$x_1^M$ 成为
 $p_{\sigma_{\min}} \approx p_{\text{data}}$ 的精确样本。
 
 #### 去噪扩散概率模型（DDPM）
 
-取噪声尺度 $0 < \beta_1 < \cdots < \beta_N < 1$，链为
+取噪声尺度 $0 \lt \beta_1 \lt \cdots \lt \beta_N \lt 1$，链为
 $p(x_i \mid x_{i-1})= \mathcal{N}(x_i;\sqrt{1-\beta_{i}} x_{i-1},\beta_i I)$，从
 而
 $p_{\alpha_i}(x_i \mid x_0)= \mathcal{N}(x_i;\sqrt{\alpha_{i}} x_0,(1 - \alpha_i)I)$，
@@ -1084,11 +1086,12 @@ _{x(t)\mid x(0)}
 {SDE 式 7}
 $$
 
-其中 $\lambda :[0,T]\to \mathbb{R}_{>0}$ 为正权重，$t \sim \mathcal{U}[0,T]$。在
-足够数据与容量下 $s_{\theta^*}(x,t)= \nabla_x \log p_t(x)$ 几乎处处成立；常用选
-择为 $\lambda \propto 1 / \mathbb{E}[\| \nabla \log p_{0t} \|_2^2]$。关于权重的
-选择为什么要与分数的范数平方成反比可以参考[此处](#用分数匹配学习-ncsn)。这是**去
-噪**分数匹配，但切片与有限差分分数匹配同样适用。
+其中 $\lambda :[0,T]\to \mathbb{R}_{\gt 0}$ 为正权
+重，$t \sim \mathcal{U}[0,T]$。在足够数据与容量下
+$s_{\theta^*}(x,t)= \nabla_x \log p_t(x)$ 几乎处处成立；常用选择为
+$\lambda \propto 1 / \mathbb{E}[\| \nabla \log p_{0t} \|_2^2]$。关于权重的选择为
+什么要与分数的范数平方成反比可以参考[此处](#用分数匹配学习-ncsn)。这是**去噪**分
+数匹配，但切片与有限差分分数匹配同样适用。
 
 若 $f$ 为仿射，则转移核为高斯且有闭式均值/方差，条件分数可直接计算，因而可直接用
 去噪分数匹配训练；否则可用 Kolmogorov 前向方程，或直接模拟 SDE 采样 $p_{0t}$ 并
