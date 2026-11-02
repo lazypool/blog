@@ -1,129 +1,157 @@
 # AGENTS.md
 
-## 项目概述
+## Project Overview
 
-这是一个基于 Hexo 的静态博客，使用自研 **Tidepool** 主题（潮池），部署在 GitHub Pages 上。主题强调：
+This is a static blog built with Hexo and the custom **Tidepool** theme, deployed to GitHub Pages.
+The theme focuses on:
 
-- 局部替换导航（Swup），无整页刷新
-- 可切换配色 / 明暗模式
-- 卡片式双栏布局、粘性侧栏、文章目录
-- 客户端 KaTeX 公式、JSON 本地搜索、代码复制、图片灯箱
+- partial navigation with Swup, with no full-page reloads
+- switchable color palettes and light/dark mode
+- a card-based two-column layout, a sticky sidebar, and a post table of contents
+- client-side KaTeX, local JSON search, code copy, and an image lightbox
 
-## 技术栈
+## Tech Stack
 
-- **框架**: Hexo 8.1.2
-- **主题**: Tidepool（`themes/tidepool/`）
-- **模板引擎**: EJS
-- **样式**: 原生 CSS（`themes/tidepool/source/css/`）
-- **交互**: 原生 JS + Swup 4 + KaTeX
-- **包管理器**: npm
-- **Node.js 版本**: >=22
+- **Framework**: Hexo 8.1.2
+- **Theme**: Tidepool (`themes/tidepool/`)
+- **Template engine**: EJS
+- **Styling**: plain CSS (`themes/tidepool/source/css/`)
+- **Interactivity**: vanilla JS + Swup 4 + KaTeX
+- **Package manager**: npm
+- **Node.js**: >= 22
 
-## 项目结构
+## Project Structure
 
 ```text
-├── source/                 # 博客文章和页面源文件
-│   ├── _assets/            # 共享图片资源（构建时镜像到 source/）
-│   ├── _pages/             # 独立页面源文件（about / photo）
-│   └── _posts/             # 文章
+├── source/                 # Posts and page sources
+│   ├── _assets/            # Shared images (mirrored into source/ at build time)
+│   ├── _pages/             # Standalone page sources (about / photo)
+│   └── _posts/             # Posts
 ├── themes/
-│   └── tidepool/           # 当前主题
-│       ├── layout/         # EJS 布局与 partials
-│       ├── scripts/        # Hexo 主题脚本（helper / 搜索索引）
-│       └── source/         # CSS / JS / Swup 依赖
-├── scripts/                # 站点级 Hexo 脚本
-├── public/                 # 生成的静态文件
-├── _config.yml             # Hexo 主配置
-├── _config.tidepool.yml    # Tidepool 主题配置
+│   └── tidepool/           # Current theme
+│       ├── layout/         # EJS layouts and partials
+│       ├── scripts/        # Hexo theme scripts (helpers / search index)
+│       └── source/         # CSS / JS / Swup dependencies
+├── scripts/                # Site-level Hexo scripts
+├── public/                 # Generated static files
+├── _config.yml             # Main Hexo configuration
+└── _config.tidepool.yml    # Tidepool theme configuration
 ```
 
-## 常用命令
+## Common Commands
 
-### 开发命令
+### Development
 
-- `npm run server` - 启动本地开发服务器
-- `npm run build` - 生成静态文件
-- `npm run clean` - 清理生成的文件
-- `npm run deploy` - 部署到 GitHub Pages
+- `npm run server` - start the local development server
+- `npm run build` - generate static files
+- `npm run clean` - remove generated files
+- `npm run deploy` - deploy to GitHub Pages
 
-### 代码质量
+### Code Quality
 
-- `npm run lint` - 运行所有 lint 检查
-- `npm run lint:ejs` - 检查 Tidepool 的 EJS 模板语法
-- `npm run lint:markdown` - 检查 Markdown 格式
-- `npm run lint:math` - 检查数学公式
-- `npm run lint:site` - 检查站点配置
-- `npm run format` - 格式化代码
-- `npm run fix` - 自动修复问题
+- `npm run lint` - run all lint checks
+- `npm run lint:ejs` - check Tidepool EJS template syntax
+- `npm run lint:markdown` - check Markdown formatting
+- `npm run lint:math` - check math formulas
+- `npm run lint:site` - check site configuration
+- `npm run format` - format code
+- `npm run fix` - automatically fix issues
 
-## 自定义脚本
+## Custom Scripts
 
-站点级：
+Site-level:
 
-- `scripts/check-math.js` - 检查数学公式格式
-- `scripts/check-site.js` - 检查站点配置和链接
-- `scripts/format-md.js` - 格式化 Markdown 文件
-- `scripts/post-filters.js` - 文章过滤器（CJK / 数学）
-- `scripts/sync-source.js` - 把 `_pages`、`_assets` 同步到 `source/`
+- `scripts/check-math.js` - check math formula formatting
+- `scripts/check-site.js` - check site configuration and links
+- `scripts/format-md.js` - format Markdown files
+- `scripts/post-filters.js` - post filters (CJK / math)
+- `scripts/sync-source.js` - mirror `_pages` and `_assets` into `source/`
 
-主题级（`themes/tidepool/scripts/`）：
+Theme-level (`themes/tidepool/scripts/`):
 
-- `helpers.js` - 图标、摘要、字数/阅读时长、分类树、激活状态等 EJS helper
-- `search-index.js` - 生成 `/search.json` 本地搜索索引
-- `pages.js` - 生成 `/404.html`（避免在 `source/_pages` 放空 markdown）
+- `helpers.js` - EJS helpers for icons, excerpts, word count/reading time, category tree, active state
+- `search-index.js` - generate the `/search.json` local search index
+- `pages.js` - generate `/404.html` (avoids an empty Markdown file in `source/_pages`)
 
-## 开发规范
+## Development Guidelines
 
-### 文章编写
+### Writing Posts
 
-1. 编写文章前，先查看 `README.md` 确定文章分类体系
-2. 文章使用 Markdown，存放在 `source/_posts/`
-3. 文件名格式：`年/月-日-标题.md`
-4. 使用 YAML front matter 设置元数据（`layout`、`title`、`categories`、`tags`、`index_img`）
-5. 数学公式使用 `$...$` / `$$...$$`，由客户端 KaTeX 渲染
+1. Check `README.md` for the category system before writing.
+2. Posts are Markdown files under `source/_posts/`.
+3. File name format: `year/month-day-title.md`.
+4. Use YAML front matter for metadata (`layout`, `title`, `categories`, `tags`, `index_img`).
+5. Use `$...$` / `$$...$$` for math; it is rendered by client-side KaTeX.
 
-### 主题开发
+### Theme Development
 
-> **重要规则：所有颜色和主题视觉修改必须通过 `themes/tidepool/` 完成。**
+> **Important: all color and visual theme changes must go through `themes/tidepool/`.**
 >
-> - 颜色 token 统一改 `themes/tidepool/source/css/tokens.css`
-> - 布局/组件/文章样式改 `themes/tidepool/source/css/` 下对应文件
-> - 主题开关和默认项改 `_config.tidepool.yml`（默认值在 `themes/tidepool/_config.yml`）
-> - **禁止在项目根目录创建 `css/`、`js/` 目录或文件**
-> - **禁止新增 `source/css/`、`source/js/`，也不要往 `source/_assets` 放 CSS/JS**；`source/_assets` 只用于共享图片
-> - 主题 JS 统一放在 `themes/tidepool/source/js/`，页面交互统一改 `app.js`
+> - Color tokens: `themes/tidepool/source/css/tokens.css`
+> - Layout/component/article styles: the corresponding files under `themes/tidepool/source/css/`
+> - Theme features and defaults: `_config.tidepool.yml` (defaults live in `themes/tidepool/_config.yml`)
+> - **Do not create `css/` or `js/` directories or files at the project root.**
+> - **Do not add `source/css/` or `source/js/`, and do not put CSS/JS in `source/_assets`; `source/_assets` is for shared images only.**
+> - Put theme JS under `themes/tidepool/source/js/`; page interactions belong in `app.js`.
 
-- 修改主题配置使用 `_config.tidepool.yml`，不要改 `themes/tidepool/_config.yml` 中的默认值（除非新增默认项）
-- 布局在 `themes/tidepool/layout/`，页面类型：`index`、`post`、`page`、`about`、`archive`、`category`、`tag`、`404`
-- 样式在 `themes/tidepool/source/css/`，按 tokens / base / layout / components / article / pages 分层
-- 交互在 `themes/tidepool/source/js/app.js`，所有随 Swup 替换后需要重新初始化的逻辑都放进 `initPage()`
-- 新增图标：在 `layout/_partials/icons.ejs` 添加 `<symbol id="i-xxx">`，模板中用 `tide_icon('xxx')`
-- 新增页面：在 `source/_pages/<name>/index.md` 设置 `layout`
+- Override theme configuration in `_config.tidepool.yml`; do not change defaults in `themes/tidepool/_config.yml` unless you are adding a new default.
+- Layouts live in `themes/tidepool/layout/`; page types: `index`, `post`, `page`, `about`, `archive`, `category`, `tag`, `404`.
+- Styles live in `themes/tidepool/source/css/`, split into tokens / base / layout / components / article / pages.
+- Interactions live in `themes/tidepool/source/js/app.js`; any logic that must re-run after Swup replaces `#swup` belongs in `initPage()`.
+- New icons: add `<symbol id="i-xxx">` in `layout/_partials/icons.ejs` and use `tide_icon('xxx')`.
+- New pages: set `layout` in `source/_pages/<name>/index.md`.
 
-### 代码风格
+### Code Style
 
-- Markdown 由 `scripts/format-md.js` 重排；JSON / YAML 使用 Prettier 格式化
-- 遵循 markdownlint 规则
-- EJS 模板使用 ejslint 检查
-- 不引入 jQuery / Bootstrap 等整包依赖
+- Markdown is reflowed by `scripts/format-md.js`; JSON/YAML are formatted with Prettier.
+- Follow markdownlint rules.
+- EJS templates are checked with ejslint.
+- Do not introduce full packages such as jQuery or Bootstrap.
 
-### Git 工作流
+### Git Workflow
 
-1. 使用 feature 分支开发
-2. 提交前运行 `npm run lint` 和 `npm run format`
-3. 提交信息使用中文，简洁明了
+1. Develop on a feature branch.
+2. Run `npm run lint` and `npm run format` before committing.
+3. Commit only intended files; check `git status` and `git diff` first.
+4. Never commit local planning files such as `TODO.md` unless explicitly asked.
+5. Do not commit generated output or secrets.
 
-## 部署流程
+#### Commit Message Convention
 
-1. 本地构建：`npm run build`
-2. 生成的文件在 `public/` 目录
-3. 使用 `npm run deploy` 推送到 GitHub Pages
+Follow Conventional Commits and write commit messages in English:
 
-## 注意事项
+```text
+<type>(<scope>): <subject>
 
-- `source/_pages` 与 `source/_assets` 会在 `after_init` 时同步到 `source/`，所以页面源文件应放在 `_pages`
-- 不生成独立的 `/tags/`、`/categories/` 聚合页；标签/分类入口在侧栏，详情页由 Hexo 的 tag/category generator 生成
-- 数学公式需要正确转义，运行 `npm run lint:math` 检查
-- 图片放在 `source/` 下对应文章文件夹（`post_asset_folder: true`）
-- Swup 会替换 `#swup` 的内容，导航/搜索/页脚等全局组件放在 `#swup` 之外
-- 搜索索引在构建时生成；改完搜索逻辑后需要重新 `npm run build`
+- <what changed and why>
+- <another change>
+```
+
+- **Type**: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `chore`, `build`, `ci`, `perf`, or `revert`.
+- **Scope**: use the narrowest affected area, such as `theme`, `sidebar`, `font`, `home`, `post`, `scripts`, or `deps`.
+- **Subject**: imperative, lowercase, no trailing period, concise (about 72 characters or less).
+- **Body**: English only; use a bullet list with `-` and keep lines around 80 characters.
+- Do not use Chinese in commit messages.
+- The repository hook adds `Signed-off-by`; do not add it manually.
+- Match the history style; run `git log --oneline -10` if unsure.
+
+Examples:
+
+- `feat(sidebar): fill tag pages by measured height`
+- `fix(font): prefer LXGW WenKai in the UI stack`
+- `refactor(scripts): merge content filters and unify npm script names`
+
+## Deployment
+
+1. Build locally: `npm run build`.
+2. Generated files are in `public/`.
+3. Deploy to GitHub Pages with `npm run deploy`.
+
+## Notes
+
+- `source/_pages` and `source/_assets` are mirrored into `source/` during `after_init`; put page sources in `_pages`.
+- There is no standalone `/tags/` or `/categories/` index page; tag/category entry points live in the sidebar, and detail pages are generated by Hexo's tag/category generators.
+- Escape math correctly and run `npm run lint:math` to check.
+- Images belong in the post folder under `source/` (`post_asset_folder: true`).
+- Swup replaces `#swup`; global components such as navigation, search, and footer must stay outside `#swup`.
+- The search index is generated at build time; run `npm run build` after changing search logic.
