@@ -6,7 +6,6 @@ categories:
   - 📢 行业观察
   - 🌐 互联网与软件工程
 tags: [前端, API, 互联网]
-index_img: img/index/00010.jpg
 ---
 
 # 最流行 🐦 的 6 种 API 架构风格

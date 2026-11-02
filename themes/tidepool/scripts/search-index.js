@@ -9,6 +9,7 @@
 'use strict';
 
 const { stripHTML, unescapeHTML } = require('hexo-util');
+const { coverUrl } = require('./cover');
 
 function plain(html) {
   return unescapeHTML(
@@ -39,7 +40,7 @@ hexo.extend.generator.register('tidepool-search-index', function (locals) {
       tags: post.tags ? post.tags.toArray().map((item) => item.name) : [],
       excerpt: plain(post.excerpt || post.content).slice(0, 180),
       body,
-      cover: post.index_img || post.cover || post.thumbnail || '',
+      cover: post.cover || post.thumbnail || coverUrl(post, 'light'),
       reading: Math.max(1, Math.round(body.length / 400)),
       search: `${post.title || ''} ${(post.tags ? post.tags.toArray() : []).map((t) => t.name).join(' ')} ${(post.categories ? post.categories.toArray() : []).map((c) => c.name).join(' ')} ${body}`.toLowerCase()
     };

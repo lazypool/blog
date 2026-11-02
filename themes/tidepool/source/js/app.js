@@ -65,10 +65,52 @@
     return ICONS.monitor;
   }
 
+  const coverPreloads = new Map();
+  let coverPreloadIdle = 0;
+
+  function preloadPostCovers() {
+    const connection = navigator.connection;
+    if (connection && (connection.saveData || /(^|-)2g$/.test(connection.effectiveType || ''))) return;
+
+    const dark = root.classList.contains('dark');
+    $$('.post-cover img[data-cover-light]').forEach((img) => {
+      const target = dark ? img.dataset.coverLight : img.dataset.coverDark;
+      if (!target || target === img.getAttribute('src') || coverPreloads.has(target)) return;
+      const preload = new Image();
+      preload.decoding = 'async';
+      preload.src = target;
+      coverPreloads.set(target, preload);
+      if (preload.decode) preload.decode().catch(() => {});
+    });
+  }
+
+  function scheduleCoverPreload() {
+    if (coverPreloadIdle) return;
+    const run = () => {
+      coverPreloadIdle = 0;
+      preloadPostCovers();
+    };
+    if ('requestIdleCallback' in window) {
+      coverPreloadIdle = window.requestIdleCallback(run, { timeout: 1200 });
+    } else {
+      coverPreloadIdle = window.setTimeout(run, 200);
+    }
+  }
+
+  function updatePostCovers() {
+    const dark = root.classList.contains('dark');
+    $$('.post-cover img[data-cover-light]').forEach((img) => {
+      const next = dark ? img.dataset.coverDark : img.dataset.coverLight;
+      if (next && img.getAttribute('src') !== next) img.src = next;
+    });
+  }
+
   function applyTheme(theme) {
     root.dataset.theme = theme;
     root.classList.toggle('dark', resolveDark(theme));
     root.style.colorScheme = resolveDark(theme) ? 'dark' : 'light';
+    updatePostCovers();
+    scheduleCoverPreload();
     $$('[data-theme-icon]').forEach((node) => {
       node.innerHTML = themeIcon(theme);
     });
@@ -87,6 +129,8 @@
         localStorage.setItem('tide-theme', next);
         applyTheme(next);
       });
+      button.addEventListener('pointerenter', preloadPostCovers, { passive: true });
+      button.addEventListener('focus', preloadPostCovers);
     });
     const onSchemeChange = () => {
       if (storedTheme() === 'auto') applyTheme('auto');
@@ -957,6 +1001,8 @@
           card.classList.add('is-appended');
           infiniteList.appendChild(card);
         });
+        updatePostCovers();
+        scheduleCoverPreload();
         infiniteNext = nextList.dataset.next || '';
         infiniteList.dataset.next = infiniteNext;
         if (!infiniteNext) finishInfinite();
@@ -1476,6 +1522,8 @@
     initImages();
     initGithubHeatmap();
     initMath();
+    updatePostCovers();
+    scheduleCoverPreload();
     scrollHandler();
   }
 

@@ -1,5 +1,6 @@
 <%
   const cover = tide_cover(post);
+  const coverDark = tide_cover(post, 'dark');
   const cats = post.categories ? post.categories.toArray() : [];
   const tags = post.tags ? post.tags.toArray() : [];
   const category = cats.length ? cats[cats.length - 1] : null;
@@ -9,7 +10,7 @@
 <article class="post-card card">
   <a class="post-cover<%= cover ? '' : ' post-cover--empty' %>" href="<%- url_for(post.path) %>" tabindex="-1" aria-hidden="true">
     <% if (cover) { %>
-      <img src="<%= cover %>" alt="" loading="lazy" decoding="async">
+      <img src="<%= cover %>" data-cover-light="<%= cover %>" data-cover-dark="<%= coverDark %>" alt="" loading="lazy" decoding="async">
     <% } else { %>
       <span class="post-cover-mark"><%- tide_icon('wave') %></span>
       <span class="post-cover-cat"><%= category ? category.name : 'Notes' %></span>

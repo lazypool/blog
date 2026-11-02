@@ -8,7 +8,6 @@ tags:
 categories:
   - 💻 技术干货
   - 🌳 数据结构与算法
-index_img: img/index/00026.jpg
 date: 2025-12-06 12:37:36
 ---
 

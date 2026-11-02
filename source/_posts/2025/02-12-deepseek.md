@@ -5,7 +5,6 @@ categories:
   - 📖 论文阅读
   - 🦙 LLM 架构与训练
 tags: [大语言模型, NLP, NLP经典论文]
-index_img: img/index/00011.jpg
 date: 2025-02-12 21:38:31
 ---
 
@@ -356,8 +355,8 @@ DeepSeekV3 中强调，**MTP 的设计主要是为了训练过程能加速收敛
 
 - 方法1：直接把 MTP Module 头全部删掉，模型变成了单 token 预测的。然后部署模型，
   用自回归 autoregressive 做推理。这个就跟正常 LLM 模型推理一样，没有什么加速。
-- 方法2：保留 MTP Module 做 self-speculative 解码 ~(这个可能翻译成“自猜测”，我
-  自己猜测的xwx)~，这样充分使用多 token 预测能力，提升推理加速性能。
+- 方法2：保留 MTP Module 做 self-speculative 解码 ~(这个可能翻译成“自猜测”，我自
+  己猜测的xwx)~，这样充分使用多 token 预测能力，提升推理加速性能。
 
 ## 训练框架上的优化：极大减少显存占用，实现 “飞速” 训练
 

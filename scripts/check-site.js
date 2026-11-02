@@ -2,8 +2,9 @@
  * check-site.js — site-level consistency linter for the blog.
  *
  * Verifies things markdownlint / check-math cannot see:
- *   1. image references exist  — `index_img` front matter, `![…](url)` images
- *      and `<img src>` in every post (local paths only; http(s)/data skipped);
+ *   1. image references exist  — `![…](url)` images and `<img src>` in every
+ *      post (local paths only; http(s)/data skipped); `index_img` front matter
+ *      is no longer supported because covers are generated from the title;
  *   2. front matter `date` matches the folder/`MM-DD-` file-name convention;
  *   3. tag / category hygiene — empty values, duplicate entries in one post,
  *      and near-duplicate tags that differ only by case / spaces.
@@ -117,10 +118,7 @@ function main() {
     };
 
     if (meta.index_img && meta.index_img.length) {
-      const u = meta.index_img[0];
-      if (u && !exists('source/' + u) && !exists('themes/tidepool/source/' + u)) {
-        errs.push(`${rel}  front matter index_img 图片不存在: ${u}`);
-      }
+      errs.push(`${rel}  index_img is no longer supported; covers are generated from the title`);
     }
 
     const body = stripCode(text);

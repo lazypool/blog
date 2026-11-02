@@ -6,7 +6,6 @@ categories:
   - 📢 行业观察
   - 🌐 互联网与软件工程
 tags: [前端, 技术前瞻]
-index_img: img/index/00008.jpg
 ---
 
 # “诸侯纷争，群雄割据”：前端如何一路走来？

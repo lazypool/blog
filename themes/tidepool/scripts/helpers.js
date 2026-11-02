@@ -8,6 +8,7 @@
 'use strict';
 
 const { stripHTML, unescapeHTML } = require('hexo-util');
+const { coverUrl } = require('./cover');
 
 const CJK_RE = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g;
 const LATIN_RE = /[A-Za-z0-9_]+/g;
@@ -42,11 +43,13 @@ function excerpt(html, length) {
   return text.length > limit ? `${text.slice(0, limit)}…` : text;
 }
 
-function coverOf(post) {
-  const raw = post && (post.index_img || post.cover || post.thumbnail);
-  if (!raw) return '';
-  if (/^(https?:)?\/\//.test(raw)) return raw;
-  return this.url_for(raw.replace(/^\//, ''));
+function coverOf(post, mode) {
+  const raw = post && (post.cover || post.thumbnail);
+  if (raw) {
+    if (/^(https?:)?\/\//.test(raw)) return raw;
+    return this.url_for(raw.replace(/^\//, ''));
+  }
+  return coverUrl(post, mode);
 }
 
 function isActive(target) {

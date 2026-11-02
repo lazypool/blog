@@ -8,7 +8,6 @@ tags:
 categories:
   - ⛺ 心灵之旅
   - 📝 博客日常
-index_img: img/index/00037.jpg
 date: 2026-10-09 22:00:00
 ---
 

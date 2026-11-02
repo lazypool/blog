@@ -5,7 +5,6 @@ categories:
   - 📖 论文阅读
   - 👁️ CV 计算机视觉
 tags: [人工智能, 生成模型, 扩散模型, Diffusion, Score Matching]
-index_img: img/index/00036.jpg
 date: 2026-10-07 16:00:00
 ---
 

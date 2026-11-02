@@ -5,7 +5,6 @@ categories:
   - 📖 论文阅读
   - 🏃 LLM 效率与优化
 tags: [大语言模型, 量化, Quantization, Normalization, RMSNorm, Transformer]
-index_img: img/index/00025.jpg
 date: 2026-08-15 10:00:00
 ---
 
