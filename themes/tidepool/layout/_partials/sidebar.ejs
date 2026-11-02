@@ -3,9 +3,7 @@
   const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/basic/avatar.png');
   const links = author.links || [];
   const tree = tide_cat_tree(site.categories);
-  const tagList = site.tags.toArray().sort(function (a, b) { return b.length - a.length; }).slice(0, 21);
-  const tagPages = [];
-  for (let i = 0; i < tagList.length; i += 7) tagPages.push(tagList.slice(i, i + 7));
+  const tagList = site.tags.toArray().sort(function (a, b) { return b.length - a.length; }).slice(0, 30);
 %>
 <div class="sidebar-inner">
   <section class="card author-card">
@@ -74,32 +72,26 @@
     </div>
   </section>
 
-  <section class="card widget widget-tags" data-carousel>
+  <section class="card widget widget-tags" data-carousel data-tag-fill>
     <header class="widget-head">
       <span class="widget-title"><%- tide_icon('tag') %><span>标签</span></span>
-      <button class="carousel-next" type="button" data-carousel-next aria-label="下一组标签">
+      <button class="carousel-next" type="button" data-carousel-next aria-label="下一组标签" hidden>
         <%- tide_icon('chevron-right') %>
       </button>
     </header>
     <div class="carousel-pages">
-      <% tagPages.forEach(function (page, i) { %>
-        <div class="carousel-page<%= i === 0 ? ' is-active' : '' %>"<%= i === 0 ? '' : ' inert' %>>
-          <div class="tag-cloud">
-            <% page.forEach(function (tag) { %>
-              <a class="tag-chip" href="<%- url_for(tag.path) %>" title="<%= tag.name %> · <%= tag.length %> 篇">
-                <span><%= tag.name %></span>
-                <span class="tag-count"><%= tag.length %></span>
-              </a>
-            <% }); %>
-          </div>
+      <div class="carousel-page is-active">
+        <div class="tag-cloud">
+          <% tagList.forEach(function (tag) { %>
+            <a class="tag-chip" href="<%- url_for(tag.path) %>" title="<%= tag.name %> · <%= tag.length %> 篇">
+              <span><%= tag.name %></span>
+              <span class="tag-count"><%= tag.length %></span>
+            </a>
+          <% }); %>
         </div>
-      <% }); %>
+      </div>
     </div>
-    <div class="carousel-dots">
-      <% tagPages.forEach(function (page, i) { %>
-        <button class="carousel-dot<%= i === 0 ? ' is-active' : '' %>" type="button" data-carousel-dot="<%= i %>" aria-label="第 <%= i + 1 %> 组标签"></button>
-      <% }); %>
-    </div>
+    <div class="carousel-dots"></div>
   </section>
 
   <%- partial('_partials/footer') %>

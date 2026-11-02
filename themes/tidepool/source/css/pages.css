@@ -328,6 +328,7 @@ html.dark .hero-stat {
   z-index: 94;
   width: min(20rem, calc(100vw - 2rem));
   max-height: min(62vh, 34rem);
+  max-height: min(62dvh, 34rem);
   opacity: 0;
   transform: translateY(14px);
   filter: blur(6px);
@@ -954,6 +955,7 @@ html.dark .hero-stat {
 .lightbox img {
   max-width: min(92vw, 80rem);
   max-height: 88vh;
+  max-height: 88dvh;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   animation: dialog-in 0.3s var(--ease-out);
@@ -1109,6 +1111,7 @@ html.dark .hero-stat {
     bottom: 8.6rem;
     width: auto;
     max-height: 52vh;
+    max-height: 52dvh;
   }
 
   .toc-panel-inner {

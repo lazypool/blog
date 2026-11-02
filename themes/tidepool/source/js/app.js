@@ -427,53 +427,278 @@
    * Sidebar category cards: fade between top-level categories
    * ------------------------------------------------------------------ */
 
-  function initCarousels() {
-    $$('[data-carousel]').forEach((widget) => {
-      const pages = $$('.carousel-page', widget);
-      const dots = $$('.carousel-dot', widget);
-      if (!pages.length) return;
-      if (pages.length < 2) {
-        dots.forEach((dot) => {
-          dot.hidden = true;
-        });
-        return;
-      }
+  function setupCarousel(widget) {
+    const pages = $$('.carousel-page', widget);
+    const dots = $$('.carousel-dot', widget);
+    const nextButton = $('[data-carousel-next]', widget);
 
-      let index = 0;
-      const show = (next) => {
-        index = (next + pages.length) % pages.length;
-        pages.forEach((page, i) => {
-          const active = i === index;
-          page.classList.toggle('is-active', active);
-          if (active) page.removeAttribute('inert');
-          else page.setAttribute('inert', '');
-        });
-        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
-      };
-      const advance = () => show(index + 1);
-      const nextButton = $('[data-carousel-next]', widget);
-      if (nextButton) {
-        nextButton.onclick = (event) => {
-          event.stopPropagation();
-          advance();
-        };
-      }
-      dots.forEach((dot, i) => {
-        dot.onclick = (event) => {
-          event.stopPropagation();
-          show(i);
-        };
+    widget.onclick = null;
+    if (nextButton) nextButton.onclick = null;
+    dots.forEach((dot) => {
+      dot.onclick = null;
+      dot.hidden = pages.length < 2;
+    });
+    if (!pages.length) return;
+
+    if (nextButton) nextButton.hidden = pages.length < 2;
+    if (pages.length < 2) {
+      pages.forEach((page, i) => page.classList.toggle('is-active', i === 0));
+      return;
+    }
+
+    let index = 0;
+    const show = (next) => {
+      index = (next + pages.length) % pages.length;
+      pages.forEach((page, i) => {
+        const active = i === index;
+        page.classList.toggle('is-active', active);
+        if (active) page.removeAttribute('inert');
+        else page.setAttribute('inert', '');
       });
-      widget.onclick = (event) => {
-        if (event.target.closest('a, button')) return;
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+    };
+    const advance = () => show(index + 1);
+    if (nextButton) {
+      nextButton.onclick = (event) => {
+        event.stopPropagation();
         advance();
       };
+    }
+    dots.forEach((dot, i) => {
+      dot.onclick = (event) => {
+        event.stopPropagation();
+        show(i);
+      };
     });
+    widget.onclick = (event) => {
+      if (event.target.closest('a, button')) return;
+      advance();
+    };
+    show(0);
+  }
+
+  function initCarousels() {
+    $$('[data-carousel]').forEach(setupCarousel);
   }
 
   /* ------------------------------------------------------------------ *
-   * Sidebar tag cloud: keep the last row from holding a single tag
+   * Sidebar viewport fit
    * ------------------------------------------------------------------ */
+
+  const sidebarMq = window.matchMedia('(max-width: 1180px)');
+  const SIDEBAR_MIN_SCALE = 0.6;
+  let sidebarFitFrame = 0;
+
+  function fitSidebar() {
+    const grid = $('.site-grid');
+    const sidebar = $('.sidebar');
+    const inner = $('.sidebar-inner');
+    if (!grid || !sidebar || !inner) return;
+
+    body.classList.remove('sidebar-hidden');
+    if (sidebarMq.matches) {
+      body.style.removeProperty('--sidebar-scale');
+      return;
+    }
+
+    const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+    const top = sidebar.getBoundingClientRect().top;
+    const available = window.innerHeight - top - gap;
+
+    body.style.setProperty('--sidebar-scale', '1');
+    const baseWidth = parseFloat(getComputedStyle(inner).width);
+    const natural = inner.getBoundingClientRect().height;
+    if (available <= 0 || !natural || !baseWidth) return;
+
+    let scale = available / natural;
+    for (let i = 0; i < 4; i += 1) {
+      body.style.setProperty('--sidebar-scale', String(scale));
+      const height = inner.getBoundingClientRect().height;
+      if (!height) break;
+      const next = (scale * available) / height;
+      if (Math.abs(next - scale) < 0.001) {
+        scale = next;
+        break;
+      }
+      scale = next;
+    }
+
+    const gridWidth = grid.clientWidth;
+    const minMain = Math.min(512, gridWidth * 0.5);
+    const maxByWidth = Math.max(baseWidth, gridWidth - gap - minMain) / baseWidth;
+    scale = Math.min(scale, maxByWidth);
+
+    if (scale < SIDEBAR_MIN_SCALE) {
+      body.style.removeProperty('--sidebar-scale');
+      body.classList.add('sidebar-hidden');
+      return;
+    }
+
+    body.style.setProperty('--sidebar-scale', scale.toFixed(4));
+  }
+
+  function scheduleSidebarFit() {
+    if (sidebarFitFrame) return;
+    sidebarFitFrame = window.requestAnimationFrame(() => {
+      sidebarFitFrame = 0;
+      fitSidebar();
+    });
+  }
+
+  function initSidebarFit() {
+    scheduleSidebarFit();
+    window.addEventListener('resize', scheduleSidebarFit, { passive: true });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleSidebarFit).catch(() => {});
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
+   * Sidebar tag carousel: fill each page by height
+   * ------------------------------------------------------------------ */
+
+  const TAG_PAGE_ROWS = 4;
+  let tagFillFrame = 0;
+  let tagFillWidth = -1;
+
+  function buildTagPages(widget, force) {
+    const pagesWrap = $('.carousel-pages', widget);
+    const sourceCloud = $('.tag-cloud', pagesWrap);
+    const dotsWrap = $('.carousel-dots', widget);
+    if (!pagesWrap || !sourceCloud || !dotsWrap) return false;
+
+    const width = sourceCloud.offsetWidth;
+    if (!width) return false;
+    if (!force && width === tagFillWidth && pagesWrap.children.length > 1) return false;
+
+    const chips = $$('.tag-chip', widget);
+    if (chips.length < 2) {
+      tagFillWidth = width;
+      return false;
+    }
+
+    const host = document.createElement('div');
+    host.className = 'widget-tags';
+    host.style.cssText = 'position:fixed;left:-9999px;top:0;visibility:hidden;pointer-events:none;';
+    const cloud = document.createElement('div');
+    cloud.className = 'tag-cloud';
+    cloud.style.width = `${width}px`;
+    host.appendChild(cloud);
+    document.body.appendChild(host);
+
+    const heights = new Map();
+    const measure = (start, end) => {
+      const key = `${start},${end}`;
+      if (heights.has(key)) return heights.get(key);
+      cloud.replaceChildren();
+      for (let i = start; i < end; i += 1) cloud.appendChild(chips[i].cloneNode(true));
+      const height = cloud.getBoundingClientRect().height;
+      heights.set(key, height);
+      return height;
+    };
+
+    cloud.replaceChildren();
+    cloud.appendChild(chips[0].cloneNode(true));
+    const chipHeight = cloud.getBoundingClientRect().height;
+    const rowGap = parseFloat(getComputedStyle(cloud).rowGap) || 0;
+    const target = chipHeight * TAG_PAGE_ROWS + rowGap * (TAG_PAGE_ROWS - 1);
+
+    const count = chips.length;
+    let chosen = null;
+    for (let pageCount = 1; pageCount <= count; pageCount += 1) {
+      const maxDp = Array.from({ length: pageCount + 1 }, () => new Array(count + 1).fill(Infinity));
+      const minDp = Array.from({ length: pageCount + 1 }, () => new Array(count + 1).fill(-Infinity));
+      const prev = Array.from({ length: pageCount + 1 }, () => new Array(count + 1).fill(0));
+      maxDp[0][0] = 0;
+      minDp[0][0] = Infinity;
+
+      for (let p = 1; p <= pageCount; p += 1) {
+        for (let i = 1; i <= count; i += 1) {
+          for (let j = p - 1; j < i; j += 1) {
+            if (!Number.isFinite(maxDp[p - 1][j])) continue;
+            const height = measure(j, i);
+            const max = Math.max(maxDp[p - 1][j], height);
+            const min = Math.min(minDp[p - 1][j], height);
+            const sameMax = Math.abs(max - maxDp[p][i]) <= 0.01;
+            const better = max < maxDp[p][i] - 0.01
+              || (sameMax && min > minDp[p][i] + 0.01)
+              || (sameMax && Math.abs(min - minDp[p][i]) <= 0.01 && j > prev[p][i]);
+            if (better) {
+              maxDp[p][i] = max;
+              minDp[p][i] = min;
+              prev[p][i] = j;
+            }
+          }
+        }
+      }
+
+      if (maxDp[pageCount][count] <= target + 0.5) {
+        chosen = { pageCount, prev };
+        break;
+      }
+    }
+
+    if (!chosen) {
+      host.remove();
+      return false;
+    }
+
+    const parts = [];
+    let end = count;
+    for (let p = chosen.pageCount; p >= 1; p -= 1) {
+      const start = chosen.prev[p][end];
+      parts.unshift([start, end]);
+      end = start;
+    }
+
+    pagesWrap.replaceChildren();
+    parts.forEach(([start, stop], i) => {
+      const page = document.createElement('div');
+      page.className = `carousel-page${i === 0 ? ' is-active' : ''}`;
+      if (i > 0) page.setAttribute('inert', '');
+      const pageCloud = document.createElement('div');
+      pageCloud.className = 'tag-cloud';
+      for (let k = start; k < stop; k += 1) pageCloud.appendChild(chips[k].cloneNode(true));
+      page.appendChild(pageCloud);
+      pagesWrap.appendChild(page);
+    });
+
+    dotsWrap.replaceChildren();
+    parts.forEach((part, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `carousel-dot${i === 0 ? ' is-active' : ''}`;
+      dot.setAttribute('aria-label', `第 ${i + 1} 组标签`);
+      dotsWrap.appendChild(dot);
+    });
+
+    host.remove();
+    tagFillWidth = width;
+    setupCarousel(widget);
+    return true;
+  }
+
+  function fillSidebarTags(force) {
+    const widget = $('.widget-tags[data-tag-fill]');
+    if (!widget) return;
+    if (buildTagPages(widget, force)) scheduleSidebarFit();
+  }
+
+  function scheduleTagFill(force) {
+    if (tagFillFrame) return;
+    tagFillFrame = window.requestAnimationFrame(() => {
+      tagFillFrame = 0;
+      fillSidebarTags(force);
+    });
+  }
+
+  function initSidebarTagFill() {
+    scheduleTagFill(true);
+    window.addEventListener('resize', () => scheduleTagFill(false), { passive: true });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => scheduleTagFill(true)).catch(() => {});
+    }
+  }
 
   /* ------------------------------------------------------------------ *
    * Navigation helper
@@ -1208,6 +1433,7 @@
 
     swup.hooks.on('page:view', () => {
       initPage();
+      scheduleSidebarFit();
       settleTop();
       if (window.location.hash) {
         const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
@@ -1260,7 +1486,9 @@
     initMenu();
     initSearch();
     initKeyboard();
+    initSidebarTagFill();
     initCarousels();
+    initSidebarFit();
     initScrollUi();
     initAnchors();
     initSwup();
