@@ -95,7 +95,8 @@ Pages 等静态托管服务。
 │       ├── layout/      # EJS 布局与 partials
 │       ├── scripts/     # helper / 搜索索引 / 404 路由
 │       └── source/      # CSS、JS、Swup 依赖
-├── scripts/             # 站点级 Hexo 脚本
+├── scripts/             # Hexo 运行时脚本
+├── tools/               # 独立 CLI 工具
 ├── docs/                # README 资源
 ├── _config.yml          # Hexo 主配置
 ├── _config.tidepool.yml # Tidepool 主题配置
@@ -114,6 +115,18 @@ Pages 等静态托管服务。
 颜色 token 统一在 `themes/tidepool/source/css/tokens.css` 中维护。颜色和视觉修改必须通过
 `themes/tidepool/` 完成，不要在项目根目录新增 `css/`、`js/`，也不要往 `source/_assets`
 放 CSS/JS。
+
+## 图床
+
+文章图片不进入 Git，统一放在静态图床。复制 `.env.imgbed.example` 为
+`.env.imgbed.host`（已被 gitignore），填写主机、SSH 用户、本地私钥路径、远程根目录和公开基址。
+
+```bash
+npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
+```
+
+命令会输出可直接粘贴进 Markdown 的图片 URL。`npm run server` 预览时仍使用本地图片；
+`npm run build` 时才会把渲染后的文章图片地址替换为图床地址。
 
 ## 致谢
 

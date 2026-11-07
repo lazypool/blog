@@ -15,7 +15,7 @@
  *   3. Wraps long display formulas at top-level element boundaries.
  *
  * Usage:
- *   node scripts/format-md.js [--check] [--write] [--width N] [file ...]
+ *   node tools/format-md.js [--check] [--write] [--width N] [file ...]
  *
  * Default is --check: report files that would change and exit 1.
  */

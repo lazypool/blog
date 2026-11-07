@@ -32,7 +32,8 @@ The theme focuses on:
 │       ├── layout/         # EJS layouts and partials
 │       ├── scripts/        # Hexo theme scripts (helpers / search index)
 │       └── source/         # CSS / JS / Swup dependencies
-├── scripts/                # Site-level Hexo scripts
+├── scripts/                # Hexo runtime scripts loaded at build time
+├── tools/                  # Standalone CLI tools (not loaded by Hexo)
 ├── public/                 # Generated static files
 ├── _config.yml             # Main Hexo configuration
 └── _config.tidepool.yml    # Tidepool theme configuration
@@ -59,13 +60,19 @@ The theme focuses on:
 
 ## Custom Scripts
 
-Site-level:
+Hexo runtime (`scripts/`, loaded at build time):
 
-- `scripts/check-math.js` - check math formula formatting
-- `scripts/check-site.js` - check site configuration and links
-- `scripts/format-md.js` - format Markdown files
 - `scripts/post-filters.js` - post filters (CJK / math)
+- `scripts/rewrite-images.js` - rewrite rendered post images to the image host
 - `scripts/sync-source.js` - mirror `_pages` and `_assets` into `source/`
+
+Standalone CLI tools (`tools/`, not loaded by Hexo):
+
+- `tools/check-math.js` - check math formula formatting
+- `tools/check-site.js` - check site configuration and links
+- `tools/format-md.js` - format Markdown files
+- `tools/upload-image.js` - upload post images to the image host
+- `tools/imgbed-env.js` - parse `.env.imgbed.host`
 
 Theme-level (`themes/tidepool/scripts/`):
 
@@ -103,7 +110,7 @@ Theme-level (`themes/tidepool/scripts/`):
 
 ### Code Style
 
-- Markdown is reflowed by `scripts/format-md.js`; JSON/YAML are formatted with Prettier.
+- Markdown is reflowed by `tools/format-md.js`; JSON/YAML are formatted with Prettier.
 - Follow markdownlint rules.
 - EJS templates are checked with ejslint.
 - Do not introduce full packages such as jQuery or Bootstrap.

@@ -20,9 +20,9 @@
  *    (prefer \lt \gt \le \ge so they don't collide with HTML parsing).
  *
  * Usage:
- *   npm run lint:math                  # check everything under source/
- *   node scripts/check-math.js FILE…   # check specific files
- *   node scripts/check-math.js --fix   # auto-fix the safe structural issues
+ *   npm run lint:math                 # check everything under source/
+ *   node tools/check-math.js FILE…    # check specific files
+ *   node tools/check-math.js --fix    # auto-fix the safe structural issues
  *                                      # (blank lines inside display math,
  *                                      # wrapped rows that begin with a list
  *                                      # marker); also part of `npm run fix`

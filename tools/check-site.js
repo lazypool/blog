@@ -10,8 +10,8 @@
  *      and near-duplicate tags that differ only by case / spaces.
  *
  * Usage:  npm run lint:site             (scans source/_posts)
- *         node scripts/check-site.js --tags   (also print tag frequency)
- *         node scripts/check-site.js [file …]
+ *         node tools/check-site.js --tags   (also print tag frequency)
+ *         node tools/check-site.js [file …]
  *
  * Exit code is 1 when errors (missing images, date mismatches) are found.
  */

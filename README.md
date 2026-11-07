@@ -98,7 +98,8 @@ or any static host.
 │       ├── layout/      # EJS layouts and partials
 │       ├── scripts/     # Helpers, search index, 404 route
 │       └── source/      # CSS, JS and Swup dependencies
-├── scripts/             # Site-level Hexo scripts
+├── scripts/             # Hexo runtime scripts
+├── tools/               # Standalone CLI tools
 ├── docs/                # README assets
 ├── _config.yml          # Main Hexo configuration
 ├── _config.tidepool.yml # Tidepool theme configuration
@@ -117,6 +118,20 @@ Theme options live in `_config.tidepool.yml`:
 Color tokens are maintained in `themes/tidepool/source/css/tokens.css`. Color and visual changes
 must go through `themes/tidepool/`; do not add root-level `css/` or `js/`, and do not put CSS/JS in
 `source/_assets`.
+
+## Image Host
+
+Post images are kept out of git and served from a static image host. Copy
+`.env.imgbed.example` to `.env.imgbed.host` (gitignored) and fill in the host,
+SSH user, local private-key path, remote root and public base URL.
+
+```bash
+npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
+```
+
+The command prints the public Markdown URL. `npm run server` keeps local image
+paths for preview; `npm run build` rewrites rendered post images to the image
+host.
 
 ## Acknowledgements
 

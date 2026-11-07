@@ -14,6 +14,11 @@ source/css/
 source/js/
 source/img/
 .playwright-mcp/
-
-# symlinked tooling copy (created for the markdown worktree)
+.env.imgbed.host
+source/_posts/**/*.jpg
+source/_posts/**/*.jpeg
+source/_posts/**/*.png
+source/_posts/**/*.gif
+source/_posts/**/*.webp
+source/_posts/**/*.svg
 node_modules
