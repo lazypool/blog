@@ -112,7 +112,10 @@ Theme-level (`themes/tidepool/scripts/`):
 
 - Keep post images local during development; `npm run server` must not rewrite or upload them.
 - Sync images with `npm run upload:images` (all post images) or pass file paths for a subset; do not commit images or `.env.imgbed.host`.
-- Keep Markdown image paths relative. During `hexo generate`, `scripts/rewrite-images.js` rewrites them to `${IMGHOST_PUBLIC_BASE_URL}/posts/<year>/<slug>/<file>` before Hexo resolves post assets.
+- Keep Markdown image paths relative. During `hexo generate`,
+  `scripts/rewrite-images.js` rewrites them to
+  `${IMGHOST_PUBLIC_BASE_URL}/posts/<year>/<slug>/<file>` before Hexo resolves
+  post assets; `<slug>` is the local post folder name, including its `MM-DD-` prefix.
 - URL rewriting is opt-in: set `IMGHOST_ENABLED=true`. The default `false` keeps local paths.
 - CI only needs `IMGHOST_ENABLED=true` and `IMGHOST_PUBLIC_BASE_URL`; no SSH key is needed there.
 - Builds do not upload images automatically; uploads run from the development machine.

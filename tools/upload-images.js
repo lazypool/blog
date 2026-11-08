@@ -22,7 +22,7 @@ function usage() {
     'usage: node tools/upload-images.js [--overwrite] [--dry-run] [--slug <slug>] [--year <year>] [file ...]',
     '  --overwrite  replace existing remote files',
     '  --dry-run    show what would be uploaded without changing the server',
-    '  --slug       only sync one post slug (or override the slug for file arguments)',
+    '  --slug       only sync one post folder (or override the folder name for file arguments)',
     '  --year       only sync one year (or override the year for file arguments)',
     '',
     'With no file arguments, every image under source/_posts is synced.',
@@ -90,7 +90,7 @@ function normalizeFile(input) {
 
 function locationFor(file) {
   const relative = path.relative(POSTS_DIR, file).split(path.sep).join('/');
-  const match = /^(\d{4})\/\d{2}-\d{2}-([^/]+)\/([^/]+)$/.exec(relative);
+  const match = /^(\d{4})\/([^/]+)\/([^/]+)$/.exec(relative);
   if (!match) return null;
   const [, year, slug, name] = match;
   validateSegment(slug, `slug in ${relative}`);

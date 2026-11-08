@@ -134,11 +134,13 @@ Pages 等静态托管服务。
    ```
 
    这会用一个 SFTP 连接同步 `source/_posts` 下的所有图片到
-   `posts/<year>/<slug>/<file>`。默认跳过远程已存在的文件；可用 `--overwrite`
-   覆盖、`--dry-run` 预览，或用 `--slug` / `--year` 限制范围。单张上传：
+   `posts/<year>/<slug>/<file>`。`<slug>` 与本地文章文件夹同名，包含 `MM-DD-`
+   前缀（例如 `10-09-example`）。默认跳过远程已存在的文件；可用
+   `--overwrite` 覆盖、`--dry-run` 预览，或用 `--slug` / `--year` 限制范围。
+   单张上传：
 
    ```bash
-   npm run upload:images -- source/_posts/2026/10-09-example/figure.png --slug example
+   npm run upload:images -- source/_posts/2026/10-09-example/figure.png
    ```
 
    脚本会输出公网 URL，但 Markdown 里仍保留本地路径；构建不会自动上传。

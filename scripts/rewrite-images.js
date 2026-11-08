@@ -19,14 +19,14 @@ function escapeRegExp(value) {
 
 function postLocation(data) {
   const source = String(data.source || '').split('\\').join('/');
-  const match = /(?:^|\/)(?:_posts|source\/_posts)\/(\d{4})\/\d{2}-\d{2}-([^/]+)\.md$/.exec(source);
+  const match = /(?:^|\/)(?:_posts|source\/_posts)\/(\d{4})\/([^/]+)\.md$/.exec(source);
   if (match) return { year: match[1], slug: match[2] };
 
   const segments = String(data.path || '')
     .replace(/^\/+|\/+$/g, '')
     .split('/');
   if (segments.length >= 4 && /^\d{4}$/.test(segments[0])) {
-    return { year: segments[0], slug: segments[3] };
+    return { year: segments[0], slug: `${segments[1]}-${segments[2]}-${segments[3]}` };
   }
   return null;
 }

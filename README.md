@@ -137,12 +137,14 @@ Post images live outside git. The workflow is:
    ```
 
    This syncs every image under `source/_posts` to
-   `posts/<year>/<slug>/<file>` over one SFTP connection. It skips existing
-   remote files by default; use `--overwrite` to replace them, `--dry-run` to
-   preview, or `--slug` / `--year` to limit the scope. The single-image form is:
+   `posts/<year>/<slug>/<file>` over one SFTP connection. `<slug>` is the local
+   post folder name, including its `MM-DD-` prefix (for example
+   `10-09-example`). It skips existing remote files by default; use
+   `--overwrite` to replace them, `--dry-run` to preview, or `--slug` /
+   `--year` to limit the scope. The single-image form is:
 
    ```bash
-   npm run upload:images -- source/_posts/2026/10-09-example/figure.png --slug example
+   npm run upload:images -- source/_posts/2026/10-09-example/figure.png
    ```
 
    The script prints public URLs, but keep the Markdown paths local. Builds do not upload automatically.
