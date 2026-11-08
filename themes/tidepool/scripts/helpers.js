@@ -53,10 +53,12 @@ function coverOf(post, mode) {
 }
 
 function isActive(target) {
-  const current = `/${(this.page && (this.page.path || '')) || ''}`.replace(/\/+/g, '/');
+  const page = this.page || {};
+  const current = `/${page.path || ''}`.replace(/\/+/g, '/');
   const normalized = target.endsWith('/') ? target : `${target}/`;
   if (normalized === '/') {
-    return current === '/' || current === '/index.html' || current.startsWith('/page/');
+    return current === '/' || current === '/index.html' || current.startsWith('/page/')
+      || Boolean(page.category) || Boolean(page.tag);
   }
   return current === normalized || current.startsWith(normalized);
 }

@@ -20,6 +20,7 @@
     </a>
 
     <div class="nav-links">
+      <span class="nav-indicator" aria-hidden="true"><span class="nav-indicator-dot"></span></span>
       <% items.forEach(function (item) { const label = item[0]; const path = item[1]; %>
         <a class="nav-link<%= tide_active(path) ? ' is-active' : '' %>" href="<%- url_for(path) %>">
           <%- tide_icon(iconMap[label] || 'link') %>

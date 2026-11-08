@@ -197,14 +197,56 @@ html.dark .ambient-blob {
 }
 
 .nav-links {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 2px;
   margin-left: 6px;
 }
 
+.nav-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--ind-w, 0px);
+  height: var(--ind-h, 2.4rem);
+  border-radius: var(--radius-sm);
+  background: var(--primary-soft);
+  opacity: 1;
+  transform: translate3d(var(--ind-x, 0px), var(--ind-y, 0px), 0);
+  pointer-events: none;
+  will-change: transform, width;
+}
+
+.nav-indicator.is-ready {
+  transition:
+    transform 0.44s var(--ease-out),
+    width 0.44s var(--ease-out),
+    height 0.34s var(--ease-out),
+    border-radius 0.34s var(--ease-out),
+    background var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+}
+
+.nav-indicator.is-hidden {
+  opacity: 0;
+}
+
+.nav-indicator-dot {
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  transform: translateX(-50%);
+}
+
 .nav-link {
   position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -251,6 +293,14 @@ html.dark .ambient-blob {
   border-radius: 50%;
   background: var(--primary);
   transform: translateX(-50%);
+}
+
+.nav-links.has-indicator .nav-link.is-active {
+  background: transparent;
+}
+
+.nav-links.has-indicator .nav-link.is-active::after {
+  display: none;
 }
 
 .nav-actions {
@@ -664,18 +714,16 @@ body.sidebar-hidden .main {
 /* -- swup page transition ------------------------------------------------ */
 
 html.is-changing .transition-main {
-  transition: opacity 0.26s var(--ease), transform 0.26s var(--ease);
-  will-change: opacity, transform;
+  transition: opacity 0.2s var(--ease);
+  will-change: opacity;
 }
 
 html.is-animating .transition-main {
   opacity: 0;
-  transform: translateY(10px);
 }
 
 html.is-rendering .transition-main {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* Keep mobile scrolling smooth: drop the expensive ambient paint work. */
