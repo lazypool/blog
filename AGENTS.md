@@ -71,7 +71,7 @@ Standalone CLI tools (`tools/`, not loaded by Hexo):
 - `tools/check-math.js` - check math formula formatting
 - `tools/check-site.js` - check site configuration and links
 - `tools/format-md.js` - format Markdown files
-- `tools/upload-image.js` - upload post images to the image host
+- `tools/upload-images.js` - sync all post images, or specific files, to the image host
 - `tools/imgbed-env.js` - parse `.env.imgbed.host`
 
 Theme-level (`themes/tidepool/scripts/`):
@@ -111,7 +111,7 @@ Theme-level (`themes/tidepool/scripts/`):
 ### Image Host Workflow
 
 - Keep post images local during development; `npm run server` must not rewrite or upload them.
-- Upload images with `npm run upload:image`; do not commit images or `.env.imgbed.host`.
+- Sync images with `npm run upload:images` (all post images) or pass file paths for a subset; do not commit images or `.env.imgbed.host`.
 - Keep Markdown image paths relative. During `hexo generate`, `scripts/rewrite-images.js` rewrites them to `${IMGHOST_PUBLIC_BASE_URL}/posts/<year>/<slug>/<file>` before Hexo resolves post assets.
 - URL rewriting is opt-in: set `IMGHOST_ENABLED=true`. The default `false` keeps local paths.
 - CI only needs `IMGHOST_ENABLED=true` and `IMGHOST_PUBLIC_BASE_URL`; no SSH key is needed there.

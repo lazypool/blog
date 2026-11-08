@@ -130,13 +130,22 @@ Post images live outside git. The workflow is:
    ```
 
 2. Preview with `npm run server`; local image files are used and no upload happens.
-3. Upload the image from the development machine:
+3. Upload images from the development machine:
 
    ```bash
-   npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
+   npm run upload:images
    ```
 
-   The script prints the public URL, but keep the Markdown path local. Builds do not upload automatically.
+   This syncs every image under `source/_posts` to
+   `posts/<year>/<slug>/<file>` over one SFTP connection. It skips existing
+   remote files by default; use `--overwrite` to replace them, `--dry-run` to
+   preview, or `--slug` / `--year` to limit the scope. The single-image form is:
+
+   ```bash
+   npm run upload:images -- source/_posts/2026/10-09-example/figure.png --slug example
+   ```
+
+   The script prints public URLs, but keep the Markdown paths local. Builds do not upload automatically.
 4. Do not commit post images. `.gitignore` ignores post image files, so GitHub holds only text and code.
 5. For a deployment build without local images, set the public image base and enable rewriting:
 

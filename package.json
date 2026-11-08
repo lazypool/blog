@@ -10,7 +10,7 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "upload:image": "node tools/upload-image.js",
+    "upload:images": "node tools/upload-images.js",
     "format": "prettier --write --ignore-unknown \"**/*.{json,yml,yaml}\" && node tools/format-md.js --write",
     "lint": "npm run lint:ejs && npm run lint:markdown && npm run lint:content",
     "lint:content": "npm run lint:math && npm run lint:site",
