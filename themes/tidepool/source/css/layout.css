@@ -536,6 +536,10 @@ html.dark .ambient-blob {
   transform-origin: top left;
 }
 
+.sidebar.is-friends-open {
+  z-index: 80;
+}
+
 @supports (zoom: 1) {
   .sidebar {
     width: calc(var(--sidebar-width) * var(--sidebar-scale, 1));

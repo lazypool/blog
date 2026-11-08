@@ -1,0 +1,36 @@
+<%
+  const items = friendsItems || [];
+  const title = friendsTitle || '友链';
+  const popId = friendsPopId || 'friends-pop';
+  const variant = friendsVariant || '';
+%>
+<% if (items.length) { %>
+  <div class="friends-wrap<%= variant ? ' friends-wrap--' + variant : '' %>">
+    <button class="friends-toggle<%= variant === 'about' ? ' friends-toggle--about btn btn--ghost' : '' %>" type="button" data-friends-toggle aria-label="<%= title %>" aria-expanded="false" aria-controls="<%= popId %>" title="<%= title %>">
+      <span><%= title %></span>
+      <%- tide_icon('link', 'friends-icon') %>
+    </button>
+    <div class="friends-pop" id="<%= popId %>" aria-label="<%= title %>" hidden>
+      <span class="friends-arrow" aria-hidden="true"></span>
+      <p class="friends-title"><span><%= title %></span><%- tide_icon('link', 'friends-icon') %></p>
+      <ul class="friends-list">
+        <% items.forEach(function (friend) { %>
+          <li>
+            <a class="friend-link" href="<%= friend.url %>" target="_blank" rel="noopener noreferrer">
+              <% if (friend.avatar) { %>
+                <img class="friend-avatar" src="<%= friend.avatar %>" alt="" width="28" height="28" loading="lazy" decoding="async">
+              <% } else { %>
+                <span class="friend-avatar friend-avatar--fallback"><%- tide_icon('link') %></span>
+              <% } %>
+              <span class="friend-copy">
+                <span class="friend-name"><%= friend.name %></span>
+                <% if (friend.intro) { %><span class="friend-intro"><%= friend.intro %></span><% } %>
+              </span>
+              <%- tide_icon('arrow-up-right', 'friend-arrow') %>
+            </a>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+<% } %>

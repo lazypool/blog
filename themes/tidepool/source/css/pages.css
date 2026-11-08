@@ -772,7 +772,6 @@ html.dark .hero-stat {
   background:
     radial-gradient(100% 130% at 0% 0%, var(--primary-soft), transparent 55%),
     var(--card-bg);
-  overflow: hidden;
 }
 
 .about-avatar-wrap {
@@ -802,6 +801,7 @@ html.dark .hero-stat {
 }
 
 .about-copy {
+  flex: 1;
   min-width: 0;
 }
 
@@ -1003,6 +1003,10 @@ html.dark .hero-stat {
   .about-hero {
     flex-direction: column;
     text-align: center;
+  }
+
+  .about-copy {
+    width: 100%;
   }
 
   .about-actions {

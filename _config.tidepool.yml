@@ -24,6 +24,15 @@ author:
       icon: steam
       url: https://steamcommunity.com/profiles/76561199204729755/
 
+# 友链（左侧作者卡片中的 Friends 弹层）
+friends:
+  title: 友链
+  items:
+    - name: 寒冰是喵喵
+      url: https://blog.hanbings.io
+      avatar: https://blog.hanbings.io/img/avatar.jpg
+      intro: 🍀 这里是寒冰，很高兴认识你！
+
 # 首页
 home:
   hero: true

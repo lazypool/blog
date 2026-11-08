@@ -1,0 +1,39 @@
+<%
+  const items = friendsItems || [];
+  const title = friendsTitle || '友链';
+  const animate = items.length >= 4;
+  const repeat = animate ? Math.max(1, Math.ceil(12 / items.length)) : 1;
+  const loop = [];
+  for (let r = 0; r < repeat; r += 1) loop.push.apply(loop, items);
+  const duration = (loop.length * 3.2).toFixed(1);
+%>
+<% if (items.length) { %>
+  <div class="friends-carousel<%= animate ? '' : ' is-static' %>" data-friends-carousel aria-label="<%= title %>">
+    <div class="friends-track"<%= animate ? ' style="animation-duration: ' + duration + 's"' : '' %>>
+      <div class="friends-group">
+        <% loop.forEach(function (friend, i) { const dup = animate && i >= items.length; %>
+          <a class="friend-avatar-slide<%= friend.avatar ? '' : ' friend-avatar-slide--fallback' %>" href="<%= friend.url %>" target="_blank" rel="noopener noreferrer" title="<%= friend.name %>" aria-label="<%= friend.name %>"<%= dup ? ' aria-hidden="true" tabindex="-1"' : '' %>>
+            <% if (friend.avatar) { %>
+              <img src="<%= friend.avatar %>" alt="" width="44" height="44" loading="lazy" decoding="async">
+            <% } else { %>
+              <%- tide_icon('link') %>
+            <% } %>
+          </a>
+        <% }); %>
+      </div>
+      <% if (animate) { %>
+        <div class="friends-group" aria-hidden="true">
+          <% loop.forEach(function (friend) { %>
+            <a class="friend-avatar-slide<%= friend.avatar ? '' : ' friend-avatar-slide--fallback' %>" href="<%= friend.url %>" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              <% if (friend.avatar) { %>
+                <img src="<%= friend.avatar %>" alt="" width="44" height="44" loading="lazy" decoding="async">
+              <% } else { %>
+                <%- tide_icon('link') %>
+              <% } %>
+            </a>
+          <% }); %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+<% } %>

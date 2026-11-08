@@ -2,6 +2,8 @@
   const author = theme.author || {};
   const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/basic/avatar.png');
   const links = author.links || [];
+  const friends = (theme.friends && theme.friends.items) || [];
+  const friendsTitle = (theme.friends && theme.friends.title) || '友链';
   const tree = tide_cat_tree(site.categories);
   const tagList = site.tags.toArray().sort(function (a, b) { return b.length - a.length; }).slice(0, 30);
 %>
@@ -19,13 +21,14 @@
     </div>
     <p class="author-bio"><%= author.bio || config.description %></p>
 
-    <% if (links.length) { %>
+    <% if (links.length || friends.length) { %>
       <div class="author-links">
         <% links.forEach(function (link) { %>
           <a class="author-link" href="<%= link.url %>" target="_blank" rel="noopener noreferrer" aria-label="<%= link.name %>" title="<%= link.name %>">
             <%- tide_icon(link.icon || 'link') %>
           </a>
         <% }); %>
+        <%- partial('_partials/friends', { friendsItems: friends, friendsTitle: friendsTitle, friendsPopId: 'friends-pop-sidebar', friendsVariant: 'sidebar' }) %>
       </div>
     <% } %>
 

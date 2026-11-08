@@ -258,6 +258,75 @@
   }
 
   /* ------------------------------------------------------------------ *
+   * Friends popover
+   * ------------------------------------------------------------------ */
+
+  function openFriends(pop, toggle) {
+    closeFriends();
+    window.clearTimeout(pop.friendsHideTimer);
+    pop.closest('.sidebar')?.classList.add('is-friends-open');
+    pop.classList.remove('is-closing');
+    pop.hidden = false;
+    window.requestAnimationFrame(() => pop.classList.add('is-open'));
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function initFriends() {
+    const toggles = $$('[data-friends-toggle]');
+    if (!toggles.length) return;
+
+    toggles.forEach((toggle) => {
+      const pop = document.getElementById(toggle.getAttribute('aria-controls'));
+      if (!pop) return;
+
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const open = pop.hidden || pop.classList.contains('is-closing');
+        if (open) openFriends(pop, toggle);
+        else closeFriends();
+      });
+
+      pop.addEventListener('click', (event) => {
+        if (event.target.closest('a')) window.setTimeout(closeFriends, 120);
+      });
+
+      const wrap = toggle.closest('.friends-wrap');
+      if (wrap) {
+        let hoverTimer = 0;
+        const cancelHoverClose = () => window.clearTimeout(hoverTimer);
+        const scheduleHoverClose = () => {
+          cancelHoverClose();
+          hoverTimer = window.setTimeout(closeFriends, 260);
+        };
+        [wrap, pop].forEach((node) => {
+          node.addEventListener('mouseenter', cancelHoverClose);
+          node.addEventListener('mouseleave', scheduleHoverClose);
+        });
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.friends-wrap')) closeFriends();
+    });
+  }
+
+  function closeFriends() {
+    $$('.friends-pop').forEach((pop) => {
+      const toggle = document.querySelector(`[aria-controls="${pop.id}"]`);
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      if (pop.hidden || pop.classList.contains('is-closing')) return;
+      pop.classList.remove('is-open');
+      pop.classList.add('is-closing');
+      window.clearTimeout(pop.friendsHideTimer);
+      pop.friendsHideTimer = window.setTimeout(() => {
+        pop.hidden = true;
+        pop.classList.remove('is-closing');
+        pop.closest('.sidebar')?.classList.remove('is-friends-open');
+      }, 180);
+    });
+  }
+
+  /* ------------------------------------------------------------------ *
    * Search command palette
    * ------------------------------------------------------------------ */
 
@@ -461,6 +530,7 @@
         closeSearch();
         closeMenu();
         closePalette();
+        closeFriends();
         closeTocPanel();
         closeLightbox();
       }
@@ -1605,6 +1675,7 @@
       closeSearch();
       closeMenu();
       closePalette();
+      closeFriends();
       closeTocPanel();
     });
 
@@ -1673,6 +1744,7 @@
     initTheme();
     initPalette();
     initMenu();
+    initFriends();
     initSearch();
     initKeyboard();
     initSidebarTagFill();

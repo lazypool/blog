@@ -2,6 +2,8 @@
   const author = theme.author || {};
   const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/basic/avatar.png');
   const links = author.links || [];
+  const friends = (theme.friends && theme.friends.items) || [];
+  const friendsTitle = (theme.friends && theme.friends.title) || '友链';
   const bodyText = tide_plain(page.content);
   const tree = tide_cat_tree(site.categories);
   const githubLink = links.find(function (link) { return link.icon === 'github' || /github\.com/.test(link.url || ''); });
@@ -24,6 +26,7 @@
             <%- tide_icon(link.icon || 'link') %><span><%= link.name %></span>
           </a>
         <% }); %>
+        <%- partial('_partials/friends-carousel', { friendsItems: friends, friendsTitle: friendsTitle }) %>
       </div>
     </div>
   </section>
