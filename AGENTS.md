@@ -71,6 +71,7 @@ Standalone CLI tools (`tools/`, not loaded by Hexo):
 - `tools/check-math.js` - check math formula formatting
 - `tools/check-site.js` - check site configuration and links
 - `tools/format-md.js` - format Markdown files
+- `tools/download-images.js` - restore post images from the image host into `source/_posts`
 - `tools/upload-images.js` - sync all post images, or specific files, to the image host
 - `tools/imgbed-env.js` - parse `.env.imgbed.host`
 
@@ -111,6 +112,7 @@ Theme-level (`themes/tidepool/scripts/`):
 ### Image Host Workflow
 
 - Keep post images local during development; `npm run server` must not rewrite or upload them.
+- Restore missing local images from the public image host with `npm run download:images`; existing files are skipped unless `--overwrite` is passed.
 - Sync images with `npm run upload:images` (all post images) or pass file paths for a subset; do not commit images or `.env.imgbed.host`.
 - Keep Markdown image paths relative. During `hexo generate`,
   `scripts/rewrite-images.js` rewrites them to
