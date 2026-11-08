@@ -842,6 +842,42 @@
   }
 
   /* ------------------------------------------------------------------ *
+   * Preload adjacent posts
+   * ------------------------------------------------------------------ */
+
+  let adjacentPreloadIdle = 0;
+
+  function preloadAdjacentPosts() {
+    const swup = window.__tideSwup;
+    if (!swup || typeof swup.preload !== 'function') return;
+
+    const connection = navigator.connection;
+    if (connection && (connection.saveData || /(^|-)2g$/.test(connection.effectiveType || ''))) return;
+
+    const links = $$('.post-nav-item[href]');
+    if (!links.length) return;
+
+    if ('cancelIdleCallback' in window && adjacentPreloadIdle) {
+      window.cancelIdleCallback(adjacentPreloadIdle);
+    } else if (adjacentPreloadIdle) {
+      window.clearTimeout(adjacentPreloadIdle);
+    }
+
+    const run = () => {
+      adjacentPreloadIdle = 0;
+      links.forEach((link) => {
+        swup.preload(link.href).catch(() => {});
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      adjacentPreloadIdle = window.requestIdleCallback(run, { timeout: 2000 });
+    } else {
+      adjacentPreloadIdle = window.setTimeout(run, 600);
+    }
+  }
+
+  /* ------------------------------------------------------------------ *
    * Reveal on scroll
    * ------------------------------------------------------------------ */
 
@@ -1628,6 +1664,7 @@
     initMath();
     updatePostCovers();
     scheduleCoverPreload();
+    preloadAdjacentPosts();
     scrollHandler();
   }
 
