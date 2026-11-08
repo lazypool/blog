@@ -1,0 +1,20 @@
+<%
+  const author = theme.author || {};
+  const footer = theme.footer || {};
+  const since = footer.since || 2023;
+  const now = new Date().getFullYear();
+  const range = since < now ? `${since}–${now}` : `${now}`;
+%>
+<footer class="card sidebar-footer">
+  <p class="sidebar-footer-brand">
+    <span class="sidebar-footer-mark"><%- tide_icon('wave') %></span>
+    <strong><%= author.name || config.author || config.title %></strong>
+    <span>© <%= range %></span>
+  </p>
+  <p class="sidebar-footer-tagline">潮起潮落，文字留痕。</p>
+  <p class="sidebar-footer-meta">
+    Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+    <span>·</span>
+    Theme <a href="#" aria-label="Tidepool">Tidepool</a>
+  </p>
+</footer>

@@ -5,7 +5,6 @@ tags: [x11, picom, compositor, 窗口渲染, 动画特效]
 categories:
   - 🔧 工具使用
   - 🐧 Oh-my-Linux
-index_img: img/index/00020.jpg
 date: 2025-07-30 15:48:21
 ---
 
@@ -14,8 +13,8 @@ date: 2025-07-30 15:48:21
 如你所见，我是一名重度的 **dwm 依赖者**，而 dwm 本身并不提供诸如阴影、圆角、透明
 等的窗口渲染功能。因此一个常用的方法就是使用 picom，这是一个功能非常强大的渲染工
 具，B 站上也有很多教学视频。它和 X11 适配良好，其下有着多种分支~（由民间高手各显
-神通所创造）~，这里我选用 [Yuxuan Shui](https://github.com/yshui/picom) 的最新
-分支~（这应该是最“官方”、最纯净的）~。直到 2025 年，该分支仍然在被维护！
+神通所创造）~，这里我选用 [Yuxuan Shui](https://github.com/yshui/picom) 的最新分
+支~（这应该是最“官方”、最纯净的）~。直到 2025 年，该分支仍然在被维护！
 
 > 本博客写于 2025 年 7 月，主要参考 [picom 配置手册](https://picom.app/) 而编写
 
@@ -134,8 +133,8 @@ blur-strength = 3;
 blur-kern = "3x3box";
 ```
 
-- **阴影 (shadow)** 使窗口更加立体化，部分喜欢平面化设计的用户 ~(比如我)~ 会选
-  择禁用它。 `shadow-radius 阴影的尺寸，单位是像素。`
+- **阴影 (shadow)** 使窗口更加立体化，部分喜欢平面化设计的用户 ~(比如我)~ 会选择
+  禁用它。 `shadow-radius 阴影的尺寸，单位是像素。`
   `shadow-offset-x/y 阴影的偏移，可以选择阴影显示的地方。`
   `shadow-opacity 阴影的不透明度，可以对阴影施加透明化效果。`
 

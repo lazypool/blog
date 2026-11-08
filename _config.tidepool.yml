@@ -1,0 +1,67 @@
+# Tidepool 主题配置
+# 视觉与功能开关，具体样式在 themes/tidepool/source/css/ 中
+
+# 顶部导航
+menu:
+  Home: /
+  Archives: /archives/
+  Photos: /photo/
+  About: /about/
+
+# 作者信息（首页侧栏 / 关于页 / 页脚）
+author:
+  name: LazyPool
+  avatar: /img/basic/avatar.png
+  bio: 一只可爱的，毛茸茸的大海龙。
+  links:
+    - name: GitHub
+      icon: github
+      url: https://github.com/lazypool
+    - name: Bilibili
+      icon: bilibili
+      url: https://space.bilibili.com/13819285
+    - name: Steam
+      icon: steam
+      url: https://steamcommunity.com/profiles/76561199204729755/
+
+# 首页
+home:
+  hero: true
+  eyebrow: TIDEPOOL
+  title: '' # 留空则使用站点标题
+  albums: 1 # 相册数量占位，等相册系统接入后再改
+
+# 搜索（本地 JSON 索引，无需额外插件）
+search:
+  enable: true
+  path: /search.json
+  placeholder: 搜索文章、标签、分类…
+
+# 功能开关
+features:
+  swup: true # 局部替换 / 无刷新导航
+  preload: true # 悬停预加载
+  palette: true # 配色切换
+  progress: true # 阅读进度条
+  reveal: true # 滚动入场动画
+  toc: true # 文章目录
+  anchor: true # 标题锚点
+  code_copy: true # 代码复制
+  image_zoom: true # 图片灯箱
+  reading_time: true # 阅读时长
+  back_to_top: true # 返回顶部
+
+# 数学公式（KaTeX 客户端渲染）
+math:
+  enable: true
+  engine: katex
+
+# 配色方案默认值：tide | abyss | coral | kelp
+palette:
+  default: tide
+
+# 页脚
+footer:
+  since: 2023
+  copyright: LazyPool
+  powered_by: true

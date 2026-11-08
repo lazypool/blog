@@ -12,7 +12,7 @@
  *      lines and insert a space between CJK and non-CJK runs, following the
  *      rules of CSS Text Module Level 3.
  *   3. math-underscore (before_post_render) — escape "_" inside inline and
- *      display math so Markdown does not read it as emphasis before MathJax.
+ *      display math so Markdown does not read it as emphasis before KaTeX.
  */
 
 'use strict';

@@ -20,13 +20,12 @@ repos:
         entry: npx prettier --write
         language: system
         files: \.(json|ya?ml)$
-        exclude: ^themes/fluid/_config\.yml$
 
       - id: ejs-lint
         name: Validate EJS templates
         entry: npx ejslint
         language: system
-        files: ^themes/fluid/layout/.*\.ejs$
+        files: ^themes/tidepool/layout/.*\.ejs$
 
       - id: markdownlint
         name: Lint Markdown
@@ -36,7 +35,7 @@ repos:
 
       - id: format-md
         name: Normalize Markdown math and paragraphs
-        entry: node scripts/format-md.js --write
+        entry: node tools/format-md.js --write
         language: system
         files: ^source/.*\.md$
 
@@ -45,11 +44,11 @@ repos:
         entry: npm run lint:content
         language: system
         pass_filenames: false
-        files: ^(source/|scripts/|package(-lock)?\.json)
+        files: ^(source/|scripts/|tools/|package(-lock)?\.json)
 
       - id: build
         name: Generate Hexo site
         entry: npm run build
         language: system
         pass_filenames: false
-        files: ^(_config.*\.ya?ml|package(-lock)?\.json|source/|themes/fluid/(layout/|scripts/|source/|_config\.yml))
+        files: ^(_config.*\.ya?ml|package(-lock)?\.json|source/|themes/tidepool/(layout/|scripts/|source/|_config\.yml))

@@ -6,7 +6,6 @@ categories:
   - 🔧 工具使用
   - 🐧 Oh-my-Linux
 tags: [DWM, rofi, dunst, 电源管理界面]
-index_img: img/index/00009.jpg
 ---
 
 # 使用 rofi 搭建好看的电源管理界面

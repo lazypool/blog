@@ -1,0 +1,16 @@
+<article class="page">
+  <header class="page-header card" data-reveal>
+    <p class="page-eyebrow">PAGE</p>
+    <h1 class="page-title"><%= page.title %></h1>
+    <% if (page.subtitle) { %><p class="page-subtitle"><%= page.subtitle %></p><% } %>
+    <% if (page.date) { %>
+      <p class="page-date"><%- tide_icon('calendar') %><%= date(page.date, 'YYYY-MM-DD') %></p>
+    <% } %>
+  </header>
+
+  <div class="page-content card">
+    <div class="prose" data-article>
+      <%- page.content %>
+    </div>
+  </div>
+</article>

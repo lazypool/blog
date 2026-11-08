@@ -11,7 +11,6 @@ tags:
 categories:
   - 🔧 工具使用
   - 🔩 系统故障排查
-index_img: img/index/00029.jpg
 ---
 
 # 一次 pacman 中断引发的内核崩溃与修复记录

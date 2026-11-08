@@ -5,7 +5,6 @@ categories:
   - 💻 技术干货
   - 🧮 并行程序计算
 tags: [cuda 编程, 并行程序]
-index_img: img/index/00022.jpg
 date: 2025-08-19 20:21:13
 ---
 

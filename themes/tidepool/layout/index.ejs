@@ -1,0 +1,77 @@
+<%
+  const posts = page.posts ? page.posts.toArray() : [];
+  const hero = theme.home || {};
+  const heroTitle = hero.title || config.title;
+  const heroSub = config.subtitle || '';
+  const heroDesc = config.description || '';
+  const latest = posts.length ? posts[0] : null;
+%>
+<% if (hero.hero !== false) { %>
+  <section class="home-hero" data-reveal>
+    <div class="hero-copy">
+      <p class="hero-eyebrow"><span class="hero-pulse"></span><%= hero.eyebrow || 'TIDEPOOL' %></p>
+      <h1 class="hero-title"><%= heroTitle %></h1>
+      <% if (heroSub) { %><p class="hero-sub"><%= heroSub %></p><% } %>
+      <% if (heroDesc) { %><p class="hero-desc"><%= heroDesc %></p><% } %>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="<%- url_for('/archives/') %>">
+          <%- tide_icon('archive') %><span>浏览归档</span>
+          <%- tide_icon('arrow-right', 'btn-arrow') %>
+        </a>
+        <a class="btn btn--ghost" href="<%- url_for('/about/') %>">
+          <%- tide_icon('user') %><span>关于我</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="hero-stat">
+        <strong><%= site.posts.length %></strong>
+        <span>篇文章</span>
+        <small>POSTS</small>
+      </div>
+      <div class="hero-stat">
+        <strong><%= site.tags.length %></strong>
+        <span>个标签</span>
+        <small>TAGS</small>
+      </div>
+      <div class="hero-stat">
+        <strong><%= site.categories.length %></strong>
+        <span>个分类</span>
+        <small>CATEGORIES</small>
+      </div>
+      <div class="hero-stat">
+        <strong><%= typeof hero.albums === 'number' ? hero.albums : 1 %></strong>
+        <span>个相册</span>
+        <small>ALBUMS</small>
+      </div>
+      <% if (latest) { %>
+        <a class="hero-latest" href="<%- url_for(latest.path) %>">
+          <span class="hero-latest-label">LATEST</span>
+          <span class="hero-latest-title"><%= latest.title %></span>
+          <span class="hero-latest-date"><%= date(latest.date, 'MM-DD') %></span>
+        </a>
+      <% } %>
+    </div>
+    <div class="hero-waves" aria-hidden="true"><span></span><span></span><span></span></div>
+  </section>
+<% } %>
+
+<section class="post-feed">
+  <header class="section-head" data-reveal>
+    <h2 class="section-title"><span class="section-mark"></span>最新文章</h2>
+    <span class="section-count">共 <%= site.posts.length %> 篇</span>
+  </header>
+
+  <% if (posts.length) { %>
+    <div class="post-list" data-next="<%= page.next_link ? url_for(page.next_link) : '' %>">
+      <% posts.forEach(function (post, i) { %>
+        <%- partial('_partials/post-card', { post: post, index: i }) %>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <div class="empty-state card">
+      <%- tide_icon('wave', 'empty-icon') %>
+      <p>潮池还很安静，第一篇文章正在路上。</p>
+    </div>
+  <% } %>
+</section>

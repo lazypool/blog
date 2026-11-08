@@ -1,0 +1,35 @@
+<%
+  const posts = page.posts ? page.posts.toArray() : [];
+  const categoryName = page.category || '分类';
+  const categoryChain = tide_category_chain(page.path, categoryName, site.categories);
+%>
+<article class="taxonomy-page">
+  <header class="page-header card" data-reveal>
+    <nav class="breadcrumbs" aria-label="面包屑">
+      <a href="<%- url_for('/') %>">首页</a>
+      <% if (categoryChain.length) { %>
+        <% categoryChain.forEach(function (cat, i) { %>
+          <span class="crumb-sep">/</span>
+          <% if (i === categoryChain.length - 1) { %>
+            <span class="crumb-current"><%= cat.name %></span>
+          <% } else { %>
+            <a href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+          <% } %>
+        <% }); %>
+      <% } else { %>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-current"><%= categoryName %></span>
+      <% } %>
+    </nav>
+    <p class="page-eyebrow">CATEGORY</p>
+    <h1 class="page-title"><%= categoryName %></h1>
+    <div class="archive-summary"><span><strong><%= posts.length %></strong> 篇文章</span></div>
+  </header>
+
+  <div class="post-list" data-next="<%= page.next_link ? url_for(page.next_link) : '' %>">
+    <% posts.forEach(function (post, i) { %>
+      <%- partial('_partials/post-card', { post: post, index: i }) %>
+    <% }); %>
+  </div>
+
+</article>

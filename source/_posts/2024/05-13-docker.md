@@ -6,7 +6,6 @@ categories:
   - 🔧 工具使用
   - 🛠️ 实用工具指南
 tags: [Docker, v2raya, 科学上网]
-index_img: img/index/00006.jpg
 ---
 
 # 科学上网：Docker + v2raya

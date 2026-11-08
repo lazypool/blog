@@ -12,7 +12,6 @@ tags:
 categories:
   - 🔧 工具使用
   - 🛠️ 实用工具指南
-index_img: img/index/00035.jpg
 ---
 
 # 从源码出发，读懂 uv 是如何管理 python 环境的

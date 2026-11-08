@@ -1,0 +1,68 @@
+<%
+  const features = theme.features || {};
+  const math = theme.math || {};
+  const bool = (value) => (value === false ? 'false' : 'true');
+  const pageType = page.archive ? 'archive' : page.category ? 'category' : page.tag ? 'tag' : (page.layout || 'index');
+%>
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-CN' %>" class="no-js">
+<head>
+  <%- partial('_partials/head') %>
+</head>
+<body
+  class="page-type-<%= pageType %>"
+  data-swup="<%= bool(features.swup) %>"
+  data-preload="<%= bool(features.preload) %>"
+  data-search="<%= bool(theme.search && theme.search.enable) %>"
+  data-progress="<%= bool(features.progress) %>"
+  data-reveal-enabled="<%= bool(features.reveal) %>"
+  data-toc="<%= bool(features.toc) %>"
+  data-anchor="<%= bool(features.anchor) %>"
+  data-code-copy="<%= bool(features.code_copy) %>"
+  data-image-zoom="<%= bool(features.image_zoom) %>"
+  data-reading-time="<%= bool(features.reading_time) %>"
+  data-back-to-top="<%= bool(features.back_to_top) %>"
+  data-math="<%= bool(math.enable) %>"
+>
+  <a class="skip-link" href="#swup">跳到正文</a>
+
+  <%- partial('_partials/icons') %>
+
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient-blob ambient-blob--one"></span>
+    <span class="ambient-blob ambient-blob--two"></span>
+    <span class="ambient-blob ambient-blob--three"></span>
+    <span class="ambient-grid"></span>
+  </div>
+  <div class="tide-line" aria-hidden="true"></div>
+
+  <div class="site-shell">
+    <%- partial('_partials/nav') %>
+
+    <div class="site-grid">
+      <aside class="sidebar" aria-label="站点信息">
+        <%- partial('_partials/sidebar') %>
+      </aside>
+
+      <main id="swup" class="main transition-main" tabindex="-1">
+        <div class="main-inner">
+          <%- body %>
+        </div>
+      </main>
+    </div>
+
+  </div>
+
+  <%- partial('_partials/search') %>
+
+  <div class="reading-progress" id="reading-progress" aria-hidden="true">
+    <span class="reading-progress-bar"></span>
+  </div>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="回到顶部" title="回到顶部" hidden>
+    <%- tide_icon('arrow-up') %>
+  </button>
+
+  <%- partial('_partials/scripts') %>
+</body>
+</html>

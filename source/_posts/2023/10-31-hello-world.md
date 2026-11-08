@@ -6,7 +6,6 @@ categories:
   - ⛺ 心灵之旅
   - 📝 博客日常
 tags: [博客, 日常]
-index_img: img/index/00001.jpg
 ---
 
 # 你好，世界

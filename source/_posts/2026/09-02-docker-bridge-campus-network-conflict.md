@@ -11,7 +11,6 @@ tags:
 categories:
   - 🔧 工具使用
   - 🔩 系统故障排查
-index_img: img/index/00034.jpg
 ---
 
 # 返校第一晚，校园网先给我来了个下马威

@@ -1,0 +1,54 @@
+<%
+  const posts = site.posts.sort('-date').toArray();
+  const groups = [];
+  posts.forEach(function (post) {
+    const year = String(post.date.year());
+    let group = groups.find(function (item) { return item.year === year; });
+    if (!group) {
+      group = { year: year, posts: [] };
+      groups.push(group);
+    }
+    group.posts.push(post);
+  });
+%>
+<article class="archive">
+  <header class="page-header card" data-reveal>
+    <p class="page-eyebrow">ARCHIVE</p>
+    <h1 class="page-title">归档</h1>
+    <p class="page-subtitle">所有文字，按时间漂流。</p>
+    <div class="archive-summary">
+      <span><strong><%= posts.length %></strong> 篇文章</span>
+      <span class="archive-dot">·</span>
+      <span><strong><%= groups.length %></strong> 个年份</span>
+    </div>
+    <nav class="year-nav" aria-label="按年份跳转">
+      <% groups.forEach(function (group) { %>
+        <a href="#year-<%= group.year %>"><%= group.year %></a>
+      <% }); %>
+    </nav>
+  </header>
+
+  <div class="archive-list">
+    <% groups.forEach(function (group) { %>
+      <section class="archive-year" id="year-<%= group.year %>" data-reveal>
+        <header class="archive-year-head">
+          <h2><%= group.year %></h2>
+          <span><%= group.posts.length %> 篇</span>
+        </header>
+        <ol class="archive-items">
+          <% group.posts.forEach(function (post) { %>
+            <% const cats = post.categories ? post.categories.toArray() : []; const cat = cats.length ? cats[cats.length - 1] : null; %>
+            <li class="archive-item">
+              <time datetime="<%= post.date.toISOString() %>"><%= date(post.date, 'MM-DD') %></time>
+              <span class="archive-line" aria-hidden="true"></span>
+              <a class="archive-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+              <% if (cat) { %>
+                <a class="archive-cat" href="<%- url_for(cat.path) %>"><%= cat.name %></a>
+              <% } %>
+            </li>
+          <% }); %>
+        </ol>
+      </section>
+    <% }); %>
+  </div>
+</article>

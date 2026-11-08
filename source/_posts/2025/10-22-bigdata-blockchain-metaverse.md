@@ -6,7 +6,6 @@ tags:
   - 区块链
   - 元宇宙
   - 技术热潮
-index_img: img/index/00024.jpg
 categories:
   - 📢 行业观察
   - 🔭 技术趋势与评论
