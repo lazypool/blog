@@ -108,6 +108,15 @@ Theme-level (`themes/tidepool/scripts/`):
 - New icons: add `<symbol id="i-xxx">` in `layout/_partials/icons.ejs` and use `tide_icon('xxx')`.
 - New pages: set `layout` in `source/_pages/<name>/index.md`.
 
+### Image Host Workflow
+
+- Keep post images local during development; `npm run server` must not rewrite or upload them.
+- Upload images with `npm run upload:image`; do not commit images or `.env.imgbed.host`.
+- Keep Markdown image paths relative. During `hexo generate`, `scripts/rewrite-images.js` rewrites them to `${IMGHOST_PUBLIC_BASE_URL}/posts/<year>/<slug>/<file>` before Hexo resolves post assets.
+- URL rewriting is opt-in: set `IMGHOST_ENABLED=true`. The default `false` keeps local paths.
+- CI only needs `IMGHOST_ENABLED=true` and `IMGHOST_PUBLIC_BASE_URL`; no SSH key is needed there.
+- Builds do not upload images automatically; uploads run from the development machine.
+
 ### Code Style
 
 - Markdown is reflowed by `tools/format-md.js`; JSON/YAML are formatted with Prettier.
@@ -161,6 +170,7 @@ Examples:
 - Escape math correctly and run `npm run lint:math` to check.
 - Images belong in the post folder under `source/` (`post_asset_folder: true`).
 - Post covers are generated from the post title via the DiceBear HTTP API (`themes/tidepool/scripts/cover.js`); do not add `index_img` front matter or store cover images under `source/_assets/img/index`.
+- Image-host URL rewriting is opt-in: set `IMGHOST_ENABLED=true` before `npm run build`; otherwise builds keep local image paths.
 - Swup replaces `#swup`; global components such as navigation, search, and footer must stay outside `#swup`.
 - The search index is generated at build time; run `npm run build` after changing search logic.
 - Hexo caches theme scripts when the server starts; restart `npm run server` after changing files under `themes/tidepool/scripts/`, including `cover.js`.

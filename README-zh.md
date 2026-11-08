@@ -116,17 +116,39 @@ Pages 等静态托管服务。
 `themes/tidepool/` 完成，不要在项目根目录新增 `css/`、`js/`，也不要往 `source/_assets`
 放 CSS/JS。
 
-## 图床
+## 博客图床
 
-文章图片不进入 Git，统一放在静态图床。复制 `.env.imgbed.example` 为
-`.env.imgbed.host`（已被 gitignore），填写主机、SSH 用户、本地私钥路径、远程根目录和公开基址。
+文章图片不进入 Git，流程如下：
 
-```bash
-npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
-```
+1. 图片放在文章的资源目录，Markdown 中使用本地相对路径：
 
-命令会输出可直接粘贴进 Markdown 的图片 URL。`npm run server` 预览时仍使用本地图片；
-`npm run build` 时才会把渲染后的文章图片地址替换为图床地址。
+   ```markdown
+   ![alt](./figure.png)
+   ```
+
+2. 用 `npm run server` 预览，使用本地图片，不会上传。
+3. 在开发机上传图片：
+
+   ```bash
+   npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
+   ```
+
+   脚本会输出公网 URL，但 Markdown 里仍保留本地路径；构建不会自动上传。
+4. 不要把文章图片提交到 Git。`.gitignore` 已忽略文章图片，GitHub 只保留文本和代码。
+5. 部署构建时如果没有本地图片，设置图床公开地址并开启重写：
+
+   ```bash
+   IMGHOST_ENABLED=true \
+   IMGHOST_PUBLIC_BASE_URL=https://lazypool-blog.imgbed.ttsd.online \
+   npm run build
+   ```
+
+   `hexo generate` 会在 Hexo 解析文章资源之前，把 Markdown 中的相对图片路径重写为
+   `posts/<year>/<slug>/<file>`。默认 `IMGHOST_ENABLED=false`，保留本地路径。
+6. 开发机凭证放在 `.env.imgbed.host`（已 gitignore），从 `.env.imgbed.example` 复制。
+   其中包含主机、SSH 用户、私钥路径、远程根目录和公开基址。不要提交私钥或该文件。
+
+文章封面由 DiceBear 根据标题生成，不属于这套图床流程。
 
 ## 致谢
 

@@ -36,10 +36,10 @@ function parseEnvFile(file) {
 }
 
 function loadImageHostEnv(required) {
-  const values = parseEnvFile(ENV_FILE);
+  const values = fs.existsSync(ENV_FILE) ? parseEnvFile(ENV_FILE) : {};
   const merged = { ...values };
-  for (const key of required) {
-    if (process.env[key]) merged[key] = process.env[key];
+  for (const [key, value] of Object.entries(process.env)) {
+    if (key.startsWith('IMGHOST_') && value) merged[key] = value;
   }
 
   const missing = required.filter((key) => !merged[key]);

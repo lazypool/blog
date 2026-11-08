@@ -121,17 +121,39 @@ must go through `themes/tidepool/`; do not add root-level `css/` or `js/`, and d
 
 ## Image Host
 
-Post images are kept out of git and served from a static image host. Copy
-`.env.imgbed.example` to `.env.imgbed.host` (gitignored) and fill in the host,
-SSH user, local private-key path, remote root and public base URL.
+Post images live outside git. The workflow is:
 
-```bash
-npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
-```
+1. Keep images in the post asset folder and reference them with local relative paths:
 
-The command prints the public Markdown URL. `npm run server` keeps local image
-paths for preview; `npm run build` rewrites rendered post images to the image
-host.
+   ```markdown
+   ![alt](./figure.png)
+   ```
+
+2. Preview with `npm run server`; local image files are used and no upload happens.
+3. Upload the image from the development machine:
+
+   ```bash
+   npm run upload:image -- source/_posts/2026/10-09-example/figure.png --slug example
+   ```
+
+   The script prints the public URL, but keep the Markdown path local. Builds do not upload automatically.
+4. Do not commit post images. `.gitignore` ignores post image files, so GitHub holds only text and code.
+5. For a deployment build without local images, set the public image base and enable rewriting:
+
+   ```bash
+   IMGHOST_ENABLED=true \
+   IMGHOST_PUBLIC_BASE_URL=https://lazypool-blog.imgbed.ttsd.online \
+   npm run build
+   ```
+
+   During `hexo generate`, relative Markdown image URLs are rewritten to
+   `posts/<year>/<slug>/<file>` before Hexo resolves post assets. The default
+   `IMGHOST_ENABLED=false` keeps local paths.
+6. Development credentials live in `.env.imgbed.host` (gitignored); start from
+   `.env.imgbed.example`. It stores the host, SSH user, private-key path, remote
+   root and public base URL. Never commit the private key or this file.
+
+Post covers are generated from post titles via DiceBear and are separate from this image-host workflow.
 
 ## Acknowledgements
 
