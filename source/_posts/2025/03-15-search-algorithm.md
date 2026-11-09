@@ -29,26 +29,7 @@ A\* 搜索。
 4. 目标测试 (goal test)：判断当前状态是否为目标状态。
 5. 路径成本 (path cost)：评估路径的代价。
 
-<svg width="200" height="200" viewBox="0 0 400 400">
-  <defs>
-    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-      <rect width="50" height="50" fill="#e0e0e0" stroke="#000000" stroke-width="1"></rect>
-    </pattern>
-  </defs>
-  <rect width="400" height="400" fill="url(#grid)"></rect>
-  <g fill="#000000">
-    <rect x="0" y="0" width="400" height="50"></rect>
-    <rect x="0" y="0" width="50" height="400"></rect>
-    <rect x="350" y="0" width="50" height="400"></rect>
-    <rect x="0" y="350" width="400" height="50"></rect>
-    <rect x="100" y="50" width="50" height="150"></rect>
-    <rect x="200" y="200" width="50" height="150"></rect>
-    <rect x="250" y="50" width="50" height="100"></rect>
-    <rect x="50" y="250" width="100" height="50"></rect>
-  </g>
-  <circle cx="75" cy="375" r="20" fill="#ff0000"></circle>
-  <rect x="350" y="50" width="50" height="50" fill="#00ff00"></rect>
-</svg>
+<img src="maze-search-example.png" alt="迷宫求解示例：红色圆点为起点，绿色方块为出口" width="200">
 
 > 示例：迷宫求解。初始状态：机器人在迷宫的起点。动作：向上、下、左、右移动。转换
 > 模型：根据移动方向更新机器人位置。目标测试：检查是否到达迷宫出口。路径成本：移

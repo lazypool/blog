@@ -10,6 +10,8 @@ date: 2026-10-07 16:00:00
 
 # Diff：基于分数与扩散的生成建模三篇奠基性论文
 
+<!-- markdownlint-disable MD049 -- CJK 词内强调只能用 *，_ 在汉字之间不生效 -->
+
 好久没有写过这种长篇幅博客了，趁国庆节重温了一下图像生成领域的一些论文，又有了很
 多新的感悟。本报告按三篇论文的原始章节顺序展开：
 
@@ -34,16 +36,15 @@ matching）学习数据分布的**分数**（score，即对数密度的梯度）
 
 DDPM 从变分推断一侧处理同一问题：它定义一个固定的高斯前向马尔可夫链来破坏信号，
 再训练一个高斯逆向链重建信号，并优化变分界。其核心发现是：对逆向过程均值采用某种
-特定参数化（即“$\epsilon$ 预测”）后，该变分界会变得<em>看起来像</em>多个噪声尺度
-上的去噪分数匹配，从而把两大流派联系起来。
+特定参数化（即“$\epsilon$ 预测”）后，该变分界会变得*看起来像*多个噪声尺度上的去
+噪分数匹配，从而把两大流派联系起来。
 
 Score-SDE 则彻底去掉了离散性：它用**连续时间随机微分方程（SDE）**取代有限的噪声
-尺度集合，证明 SMLD 与 DDPM 分别是<em>方差爆炸型（Variance
-Exploding）</em>与<em>方差保持型（Variance Preserving）</em>SDE 的离散化；它推导
-了仅依赖分数的逆向时间 SDE，并导出了可给出精确似然的**概率流常微分方程
-（probability-flow ODE）**。它还贡献了 PC 采样器（Predictor–Corrector
-Sampler）、sub-VP SDE，以及条件生成/逆问题求解。全文交叉引用记作 [SMLD,
-§4.2]、[DDPM, §3.4]、[Score-SDE, §4.3]。
+尺度集合，证明 SMLD 与 DDPM 分别是*方差爆炸型（Variance Exploding）*与*方差保持
+型（Variance Preserving）*SDE 的离散化；它推导了仅依赖分数的逆向时间 SDE，并导出
+了可给出精确似然的**概率流常微分方程（probability-flow ODE）**。它还贡献了 PC 采
+样器（Predictor–Corrector Sampler）、sub-VP SDE，以及条件生成/逆问题求解。全文交
+叉引用记作 [SMLD, §4.2]、[DDPM, §3.4]、[Score-SDE, §4.3]。
 
 ## SMLD
 
@@ -79,8 +80,8 @@ $s_\theta : \mathbb{R}^D \to \mathbb{R}^D$ 被训练来逼近数据分
 #### 用于分数估计的分数匹配
 
 分数匹配最初由 Hyvärinen 提出，用于直接从样本学习非归一化模型，其准则类似 Fisher
-散度。本文沿用先前工作，将其改造为直接估计分数，并刻意<em>不</em>把分数建模为基
-于能量的模型的梯度（以避免高阶梯度计算）。目标函数
+散度。本文沿用先前工作，将其改造为直接估计分数，并刻意*不*把分数建模为基于能量的
+模型的梯度（以避免高阶梯度计算）。目标函数
 
 $$
 \frac{1}{2} \mathbb{E}_{p_{\text{data}}}
@@ -104,7 +105,7 @@ $s_{\theta^\star}(x)$ 几乎处处等于 $\nabla_x \log p_{\text{data}}(x)$。�
 可扩展性：迹项在高维下代价高昂，因此论文讨论两种可扩展的变体。
 
 **去噪分数匹配（DSM）** 通过先用固定噪声分布 $q_\sigma(\tilde x \mid x)$ 扰动每
-个数据点、并匹配<em>扰动后</em>密度
+个数据点、并匹配*扰动后*密度
 $q_\sigma(\tilde x)= \int q_\sigma(\tilde x \mid x)p_{\text{data}}(x)dx$ 的分
 数，绕开了迹的计算。其目标等价于
 
@@ -126,8 +127,7 @@ $$
 $$
 
 其中 $p_v$ 是简单分布（如标准正态）。项 $v^\top \nabla_x s_\theta(x)v$ 可用前向
-模式自动微分高效计算。与 DSM 不同，SSM 面向<em>未扰动</em>数据分布，但计算量约多
-四倍。
+模式自动微分高效计算。与 DSM 不同，SSM 面向*未扰动*数据分布，但计算量约多四倍。
 
 #### 用 Langevin 动力学采样
 
@@ -140,7 +140,7 @@ $$
 
 当 $\epsilon \to 0$、$T \to \infty$ 时，在正则条件下 $\tilde x_T$ 成为精确样本；
 在有限 $\epsilon,T$ 下形式上需要 Metropolis–Hastings 校正，但实践中常可忽略。关
-键观察是：该更新<em>只需要分数</em>，因此若
+键观察是：该更新*只需要分数*，因此若
 $s_\theta \approx \nabla_x \log p_{\text{data}}$，便可近似地从 $p_{\text{data}}$
 采样——这正是整个框架的核心思想。
 
@@ -548,9 +548,9 @@ $$
 $$
 
 _目标是学习 $\mu_\theta(x_t,t)$ 和 $\Sigma_\theta(x_t,t)$，让其接近真实的
-$\tilde \mu_t(x_t,x_0)$ 和 $\tilde \beta_t$。<em>由于所有 KL 项都是高斯之间的比
-较，可用 Rao–Blackwell 化的闭式表达，从而无须高方差的蒙特卡洛估计</em>（SMLD：点
-我呢？）_。从上面的参数化形式来看，只需要采样 $x_0$ 和 $x_t$。两个多元正态分布
+$\tilde \mu_t(x_t,x_0)$ 和 $\tilde \beta_t$。*由于所有 KL 项都是高斯之间的比较，
+可用 Rao–Blackwell 化的闭式表达，从而无须高方差的蒙特卡洛估计*（SMLD：点我
+呢？）_。从上面的参数化形式来看，只需要采样 $x_0$ 和 $x_t$。两个多元正态分布
 （$x \in \mathbb{R}^b$）的 KL 散度的解析形式是：
 
 $$

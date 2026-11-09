@@ -181,9 +181,7 @@ require("lspconfig").clangd.setup({
 让我们从 Hello World 程序开始，简单比较一下 C 和 CUDA，理解下 CUDA 在实际编程上
 的特点。
 
-<table><tbody><tr><td>
-
-<b>C/C++</b>
+**C/C++**：
 
 ```cpp
 void c_hello(){
@@ -196,9 +194,7 @@ int main() {
 }
 ```
 
-</td><td>
-
-<b>CUDA</b>
+**CUDA**：
 
 ```cpp
 __global__ void cuda_hello(){
@@ -210,8 +206,6 @@ int main() {
     return 0;
 }
 ```
-
-</td></tr></tbody></table>
 
 可以看到主要区别有两点：一是函数声明/定义时使用 `__global__`，我们将其称作 **函
 数执行空间标识符**。二是调用函数时使用 `<<...>>`，我们将其称作 **执行配置**。实
