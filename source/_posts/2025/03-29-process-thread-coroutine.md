@@ -31,17 +31,9 @@ date: 2025-03-29 12:11:42
 - 程序计数器 PC、CPU 寄存器
 - 父进程 PID、子进程 PID，等等
 
-<div style="display:flex;"><div style="margin:auto auto;">
+![左：进程是执行中的程序；右：PCB 存储 OS 分配的资源](process-and-pcb.png)
 
-![进程是执行中的程序](what-is-process.webp)
-
-<p align="center">进程是执行中的程序</p>
-</div><div style="margin:auto auto;">
-
-![PCB 存储 OS 分配的资源](how-does-a-process-work.webp)
-
-<p align="center">PCB 存储 OS 分配的资源</p>
-</div></div>
+<p align="center">左：进程是执行中的程序；右：PCB 存储 OS 分配的资源</p>
 
 **OS 使用虚拟内存，利用硬盘空间来扩展内存容量。**物理内存不足时，OS 将部分不常用
 的内存数据写入硬盘上的虚拟内存文件，腾出物理内存空间来运行其他程序和数据。当需要
@@ -69,17 +61,9 @@ date: 2025-03-29 12:11:42
 - 独立堆栈：每个线程拥有独立的堆、栈空间和寄存器状态
 - 轻量级创建：线程创建通过 `clone()` 系统调用实现，比进程的 `fork()` 更高效
 
-<div style="display:flex;"><div style="margin:auto auto;">
+![左：多线程共享进程资源；右：线程拥有独立的执行上下文](process-thread-overview.png)
 
-![线程共享进程资源](multithreaded-process.svg)
-
-<p align="center">多线程共享进程资源</p>
-</div><div style="margin:auto auto;">
-
-![线程独立堆栈空间](thread-diagram.jpg)
-
-<p align="center">线程拥有独立的执行上下文</p>
-</div></div>
+<p align="center">左：多线程共享进程资源；右：线程拥有独立的执行上下文</p>
 
 **线程通过共享内存实现高效协作。**由于共享进程地址空间，线程间通信可直接访问共享
 内存，无需复杂 IPC 机制，只需要使用一些编程上的技法就可以完成通信： **互斥锁
