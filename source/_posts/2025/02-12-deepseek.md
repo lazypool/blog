@@ -25,8 +25,6 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在
 感兴趣的小伙伴可以去查看。以防万一，这里将它抄录在这里 **（从上至下，发布时间由
 新到旧）**。
 
-<div style="display:flex; justify-content:left"><div>
-
 - **2025.1**
   - DeepSeek-R1 👉 [论文链接🔗](https://arxiv.org/abs/2501.12948)
 - **2024.12**
@@ -40,9 +38,6 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在
 - **2024.7**
   - Let the Expert Stick to His Last 👉
     [论文链接🔗](https://arxiv.org/abs/2407.01906)
-
-</div><div>
-
 - **2024.6**
   - DeepSeek-Coder-V2 👉 [论文链接🔗](https://arxiv.org/abs/2406.11931)
   - DeepSeek-Prover 👉 [论文链接🔗](https://arxiv.org/abs/2406.14333)
@@ -54,8 +49,6 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在
   - DeepSeek-Coder 👉 [论文链接🔗](https://arxiv.org/abs/2401.14196)
   - DeepSeekMoE 👉 [论文链接🔗](https://arxiv.org/abs/2401.06066)
   - DeepSeekLLM 👉 [论文链接🔗](https://arxiv.org/abs/2401.02954)
-
-</div></div>
 
 ---
 
