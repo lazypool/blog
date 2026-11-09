@@ -38,6 +38,16 @@ home:
   title: ''
   albums: 1
 
+# Merge several years into one archive card; each note item is a paragraph.
+# archive:
+#   spans:
+#     - years: [2023, 2024]
+#       note:
+#         - 第一段
+#         - 第二段
+archive:
+  spans: []
+
 search:
   enable: true
   path: /search.json

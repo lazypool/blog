@@ -578,11 +578,33 @@ html.dark .hero-stat {
 }
 
 .archive-year {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 0.75rem 0.9rem 0.9rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--card-bg);
   box-shadow: var(--shadow-xs);
+}
+
+.archive-year-mark {
+  position: absolute;
+  top: -0.9rem;
+  right: 1.1rem;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--primary), transparent 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: var(--font-mono);
+  font-size: 5.6rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
 }
 
 .archive-year-head {
@@ -604,6 +626,69 @@ html.dark .hero-stat {
 .archive-year-head span {
   color: var(--text-mute);
   font-size: 0.7rem;
+}
+
+.archive-months {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.3rem;
+  padding: 0.7rem 0.6rem 0.35rem;
+}
+
+.archive-year.is-span .archive-months {
+  grid-template-columns: 2.4rem repeat(12, minmax(0, 1fr));
+}
+
+.archive-year.is-span .archive-months + .archive-months {
+  padding-top: 0.1rem;
+}
+
+.archive-months-year {
+  justify-content: flex-start;
+  color: var(--text-mute);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 0.6rem;
+}
+
+.archive-months li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.archive-month-bar {
+  width: 100%;
+  height: 0.32rem;
+  border-radius: var(--radius-full);
+  background: var(--heat-0);
+}
+
+.archive-months .level-1 .archive-month-bar {
+  background: var(--heat-1);
+}
+
+.archive-months .level-2 .archive-month-bar {
+  background: var(--heat-2);
+}
+
+.archive-months .level-3 .archive-month-bar {
+  background: var(--heat-3);
+}
+
+.archive-months .level-4 .archive-month-bar {
+  background: var(--heat-4);
+}
+
+.archive-month-label {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+}
+
+.archive-months li:not(.level-0) .archive-month-label {
+  color: var(--primary);
 }
 
 .archive-items {
@@ -669,6 +754,33 @@ html.dark .hero-stat {
 
 .archive-cat:hover {
   color: var(--primary);
+}
+
+.archive-note {
+  position: relative;
+  margin: 0.9rem 0.6rem 0.2rem;
+  padding: 1.1rem 1.2rem 1.1rem 1.6rem;
+  border-top: 1px dashed var(--divider);
+  color: var(--text-soft);
+  font-family: var(--font-article);
+  font-size: 0.86rem;
+  line-height: 1.95;
+  letter-spacing: 0.02em;
+}
+
+.archive-note p + p {
+  margin-top: 0.7em;
+}
+
+.archive-note::before {
+  content: "";
+  position: absolute;
+  top: 1.45rem;
+  bottom: 1.45rem;
+  left: 0.35rem;
+  width: 2px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, var(--primary-soft), var(--border-strong), transparent);
 }
 
 /* -- categories / tags --------------------------------------------------- */
@@ -1066,6 +1178,10 @@ html.dark .hero-stat {
 
   .archive-cat {
     display: none;
+  }
+
+  .archive-year-mark {
+    font-size: 4.2rem;
   }
 
   .archive-title {

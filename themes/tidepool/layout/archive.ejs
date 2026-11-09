@@ -1,15 +1,38 @@
 <%
   const posts = site.posts.sort('-date').toArray();
+  const spans = ((theme.archive && theme.archive.spans) || []).map(function (span) {
+    return {
+      years: (span.years || []).map(String).sort().reverse(),
+      note: [].concat(span.note || []).map(String)
+    };
+  });
   const groups = [];
+  const years = [];
   posts.forEach(function (post) {
     const year = String(post.date.year());
-    let group = groups.find(function (item) { return item.year === year; });
+    if (years.indexOf(year) === -1) years.push(year);
+    const span = spans.find(function (item) { return item.years.indexOf(year) !== -1; });
+    const key = span ? span.years.join('-') : year;
+    let group = groups.find(function (item) { return item.key === key; });
     if (!group) {
-      group = { year: year, posts: [] };
+      const spanYears = span ? span.years : [year];
+      const last = spanYears[spanYears.length - 1];
+      const first = spanYears[0];
+      group = {
+        key: key,
+        label: spanYears.length > 1 ? last + ' – ' + first : year,
+        short: spanYears.length > 1 ? last + '–' + first.slice(-2) : year,
+        mark: spanYears.length > 1 ? last.slice(-2) + '–' + first.slice(-2) : year,
+        note: span ? span.note : [],
+        strips: spanYears.map(function (y) { return { year: y, months: Array(12).fill(0) }; }),
+        posts: []
+      };
       groups.push(group);
     }
+    group.strips.find(function (strip) { return strip.year === year; }).months[post.date.month()] += 1;
     group.posts.push(post);
   });
+  const heatLevel = function (n) { return n === 0 ? 0 : n === 1 ? 1 : n === 2 ? 2 : n <= 4 ? 3 : 4; };
 %>
 <article class="archive">
   <header class="page-header card" data-reveal>
@@ -19,22 +42,36 @@
     <div class="archive-summary">
       <span><strong><%= posts.length %></strong> 篇文章</span>
       <span class="archive-dot">·</span>
-      <span><strong><%= groups.length %></strong> 个年份</span>
+      <span><strong><%= years.length %></strong> 个年份</span>
     </div>
     <nav class="year-nav" aria-label="按年份跳转">
       <% groups.forEach(function (group) { %>
-        <a href="#year-<%= group.year %>"><%= group.year %></a>
+        <a href="#year-<%= group.key %>"><%= group.short %></a>
       <% }); %>
     </nav>
   </header>
 
   <div class="archive-list">
     <% groups.forEach(function (group) { %>
-      <section class="archive-year" id="year-<%= group.year %>" data-reveal>
+      <section class="archive-year<%= group.strips.length > 1 ? ' is-span' : '' %>" id="year-<%= group.key %>" data-reveal>
+        <span class="archive-year-mark" aria-hidden="true"><%= group.mark %></span>
         <header class="archive-year-head">
-          <h2><%= group.year %></h2>
+          <h2><%= group.label %></h2>
           <span><%= group.posts.length %> 篇</span>
         </header>
+        <% group.strips.forEach(function (strip) { %>
+          <ol class="archive-months" aria-label="<%= strip.year %> 年每月文章数">
+            <% if (group.strips.length > 1) { %>
+              <li class="archive-months-year" aria-hidden="true"><%= strip.year %></li>
+            <% } %>
+            <% strip.months.forEach(function (count, i) { %>
+              <li class="level-<%= heatLevel(count) %>" title="<%= strip.year %> 年 <%= i + 1 %> 月 · <%= count %> 篇">
+                <span class="archive-month-bar"></span>
+                <span class="archive-month-label"><%= i + 1 %></span>
+              </li>
+            <% }); %>
+          </ol>
+        <% }); %>
         <ol class="archive-items">
           <% group.posts.forEach(function (post) { %>
             <% const cats = post.categories ? post.categories.toArray() : []; const cat = cats.length ? cats[cats.length - 1] : null; %>
@@ -48,6 +85,13 @@
             </li>
           <% }); %>
         </ol>
+        <% if (group.note.length) { %>
+          <aside class="archive-note">
+            <% group.note.forEach(function (paragraph) { %>
+              <p><%= paragraph %></p>
+            <% }); %>
+          </aside>
+        <% } %>
       </section>
     <% }); %>
   </div>
