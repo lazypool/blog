@@ -170,9 +170,10 @@ hexo.extend.filter.register('before_post_render', function (data) {
         if (first === listContentPos && /^(\s*(?:[-*+]|\d+\.)\s)/.test(line)) {
           // New sub-list item — fall through to flush.
         } else {
-          // Preserve indentation so ordered-list continuations stay aligned.
-          const indent = line.match(/^\s*/)[0];
-          buffer.push(indent + line.trim());
+          // Drop indentation: continuation lines are merged into the same
+          // output line, so keeping the indent would inject stray spaces
+          // (e.g. between two CJK characters) into the rendered text.
+          buffer.push(line.trim());
           continue;
         }
       }
