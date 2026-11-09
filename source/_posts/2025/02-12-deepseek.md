@@ -25,30 +25,30 @@ DeepSeek 官方已将其系列的相关文章整理出来，放在
 感兴趣的小伙伴可以去查看。以防万一，这里将它抄录在这里 **（从上至下，发布时间由
 新到旧）**。
 
-- **2025.1**
-  - DeepSeek-R1 👉 [论文链接🔗](https://arxiv.org/abs/2501.12948)
-- **2024.12**
-  - DeepSeek-V3 👉 [论文链接🔗](https://arxiv.org/abs/2412.19437)
-  - DeepSeek-VL2 👉 [论文链接🔗](https://arxiv.org/abs/2412.10302)
-- **2024.10 ~ 2024.11**
-  - JanusFlow 👉 [论文链接🔗](https://arxiv.org/abs/2411.07975)
-  - Janus 👉 [论文链接🔗](https://arxiv.org/abs/2410.13848)
-- **2024.8**
-  - DeepSeek-Prover-V1.5 👉 [论文链接🔗](https://arxiv.org/abs/2408.08152)
-- **2024.7**
-  - Let the Expert Stick to His Last 👉
-    [论文链接🔗](https://arxiv.org/abs/2407.01906)
-- **2024.6**
-  - DeepSeek-Coder-V2 👉 [论文链接🔗](https://arxiv.org/abs/2406.11931)
-  - DeepSeek-Prover 👉 [论文链接🔗](https://arxiv.org/abs/2406.14333)
-- **2024.5**
-  - DeepSeek-V2 👉 [论文链接🔗](https://arxiv.org/abs/2405.04434)
-- **2024.1 ~ 2024.3**
-  - DeepSeek-VL 👉 [论文链接🔗](https://arxiv.org/abs/2403.05525)
-  - DeepSeekMath 👉 [论文链接🔗](https://arxiv.org/abs/2402.03300)
-  - DeepSeek-Coder 👉 [论文链接🔗](https://arxiv.org/abs/2401.14196)
-  - DeepSeekMoE 👉 [论文链接🔗](https://arxiv.org/abs/2401.06066)
-  - DeepSeekLLM 👉 [论文链接🔗](https://arxiv.org/abs/2401.02954)
+- **2025.1**：[DeepSeek-R1][r1]
+- **2024.12**：[DeepSeek-V3][v3]、[DeepSeek-VL2][vl2]
+- **2024.10~2024.11**：[JanusFlow][janusflow]、[Janus][janus]
+- **2024.8**：[DeepSeek-Prover-V1.5][prover15]
+- **2024.7**：[Let the Expert Stick to His Last][expert]
+- **2024.6**：[DeepSeek-Coder-V2][coder2]、[DeepSeek-Prover][prover]
+- **2024.5**：[DeepSeek-V2][v2]
+- **2024.1~2024.3**：[DeepSeek-VL][vl]、[DeepSeekMath][math]、[DeepSeek-Coder][coder]、[DeepSeekMoE][moe]、[DeepSeekLLM][llm]
+
+[r1]: https://arxiv.org/abs/2501.12948
+[v3]: https://arxiv.org/abs/2412.19437
+[vl2]: https://arxiv.org/abs/2412.10302
+[janusflow]: https://arxiv.org/abs/2411.07975
+[janus]: https://arxiv.org/abs/2410.13848
+[prover15]: https://arxiv.org/abs/2408.08152
+[expert]: https://arxiv.org/abs/2407.01906
+[coder2]: https://arxiv.org/abs/2406.11931
+[prover]: https://arxiv.org/abs/2406.14333
+[v2]: https://arxiv.org/abs/2405.04434
+[vl]: https://arxiv.org/abs/2403.05525
+[math]: https://arxiv.org/abs/2402.03300
+[coder]: https://arxiv.org/abs/2401.14196
+[moe]: https://arxiv.org/abs/2401.06066
+[llm]: https://arxiv.org/abs/2401.02954
 
 ---
 
