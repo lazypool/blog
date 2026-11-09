@@ -134,7 +134,7 @@ $$
 容易掌控。
 
 <div>
-<table style="width:fit-content; margin:2.5em auto;"><tbody><tr><td>
+<table style="width:fit-content"><tbody><tr><td>
 
 <h6>无栈协程编译之前</h6>
 

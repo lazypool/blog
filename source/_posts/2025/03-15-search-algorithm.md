@@ -29,19 +29,6 @@ A\* 搜索。
 4. 目标测试 (goal test)：判断当前状态是否为目标状态。
 5. 路径成本 (path cost)：评估路径的代价。
 
-<div style="display:flex; justify-content:space-between;">
-<div>
-
-> 示例：迷宫求解
->
-> - 初始状态：机器人在迷宫的起点。
-> - 动作：向上、下、左、右移动。
-> - 转换模型：根据移动方向更新机器人位置。
-> - 目标测试：检查是否到达迷宫出口。
-> - 路径成本：移动次数或路径长度。
-
-</div>
-<div>
 <svg width="200" height="200" viewBox="0 0 400 400">
   <defs>
     <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
@@ -62,8 +49,10 @@ A\* 搜索。
   <circle cx="75" cy="375" r="20" fill="#ff0000"></circle>
   <rect x="350" y="50" width="50" height="50" fill="#00ff00"></rect>
 </svg>
-</div>
-</div>
+
+> 示例：迷宫求解。初始状态：机器人在迷宫的起点。动作：向上、下、左、右移动。转换
+> 模型：根据移动方向更新机器人位置。目标测试：检查是否到达迷宫出口。路径成本：移
+> 动次数或路径长度。
 
 针对搜索问题，通用的解法是将其转换为 **图搜索** 的形式。图搜索核心逻辑是：
 
