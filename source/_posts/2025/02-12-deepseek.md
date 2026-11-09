@@ -20,8 +20,6 @@ DeepSeek-R1 发布于 25 年 1 月份，当时中国人们差不多正在过年�
 文章（14 篇），但没有引起很多的关注。而 DeepSeek-R1 则是 DS 团队近两年的科技突破
 的集大成者。
 
-![虎鲸：DeepSeek 的 Logo](logo-deepseek.png)
-
 DeepSeek 官方已将其系列的相关文章整理出来，放在
 [Huggingface](https://huggingface.co/collections/Presidentlin/deepseek-papers-674c536aa6acddd9bc98c2ac)，
 感兴趣的小伙伴可以去查看。以防万一，这里将它抄录在这里 **（从上至下，发布时间由

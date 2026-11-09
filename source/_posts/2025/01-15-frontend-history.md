@@ -26,8 +26,6 @@ tags: [前端, 技术前瞻]
 Protype 之后，Dojo、ExtJS、MooTools 等库也陆续出现。当时前端开发模式是选择一个核
 心库，找一些组件，或者扒别人的脚本进行开发。
 
-![jQuery](jquery.png)
-
 **2006 年，jQuery 发布，它同样是一个 Javascript 基础类库。** 其刚发布之时，并没
 有如预想般吸引众多人使用。直到 2009 年 **Sizzle 选择器引擎** 研发成功，jQuery 才
 取得压倒性的优势、击败同期许多竞争对手。jQuery 的主要贡献分为三个方面：
@@ -62,8 +60,6 @@ jQuery 的风靡导致了些许问题。当时，前端工程师编写一个页�
 可以不用传统的后端就能自己写一个网站了！ **自此，Javascript 踏上了漫长的工程化道
 路。**
 
-![Nodejs](nodejs.png)
-
 2010 年，智能手机终端激增，移动优先设计理念兴起，响应式 Web 设计渐成主流。人们发
 现：用旧技术“套模板”后仍需另开发 api 供 APP 使用，不如直接开发 api，让网页也通过
 调用 api 实现。 **自此，前后端正式分家。** 后端成为了“CRUD Boy”，只负责提供
@@ -86,8 +82,6 @@ Knockout.js，苹果推出了 Ember.js。这三个框架都是 MVVM 框架，相
 一个简单的模块打包工具，并没有引起广泛关注。
 
 ## 版本之子入场，前端的业务场景不断膨胀 (2013~2014)
-
-![React VS Vue](react-vue.png)
 
 **2013 年，React 由 Facebook 发布。** React 主要用于构建 **单页面应用程序**
 _(SPA)_ 的交互式界面。它引入虚拟 DOM 的概念、组件化开发、单向数据流、使用 JSX 语
@@ -118,8 +112,6 @@ API，如语义化元素、表单空间、图形和多媒体元素以及各种 W
 基于 React 的框架，使用 JS 和 React 的语法构建同时运行在 iOS 和 Android 平台上的
 原生应用。**同年，GraphQL 发布。** 它通过自描述，避免了文档和版本控制的困难，使
 api 演进更加灵活和可控。
-
-![ES6](es6.png)
 
 在 ES6 这颗“定心丸”的影响下，Webpack 选择支持 ES Module，在前端社区迅速流行。特
 别是在 React 和 Vue 等流行框架的支持下，Webpack 逐渐成为前端开发的标配。而
@@ -160,8 +152,6 @@ Typescrpit 的加持下，为 JS 开发大型后端应用打下基础。
 uni-app 几乎一样。**此后，uni-app 和 Taro 成为国内开发多平台发布程序的两大重要支
 柱，在“疫情时期”发挥了重要的作用。**
 
-![vue3](vue3.png)
-
 2020 年，前端的技术生态完全成熟。**这一年，Vue3 发布。** Vue3 增加了组合式开发模
 式和 TS 支持，并引入了全新的 Composition API。**同年，现代化前端构建工具 Vite 推
 出。** Vite 利用模块热更新和按需编译等，为开发者提供了一种快速、轻量级、现代化的
@@ -187,13 +177,3 @@ Cursor 辅助下编程是自动挡。用 Devin 的感觉是自动驾驶……我
 个世纪，各种“所见即所得”的低代码工具曾取得一时的“爆火”。2017 年，imgcook 得到了
 铺天盖地的宣传。但最后他们都扫进了历史的尘埃，只有前端成功一路走到现在。或许，新
 出现的 ai 编程只不过是又一阵短暂的旋风，当喧嚣过去、投机消退，一切都会归于平静……
-
-<div align="center">
-  <img alt="html5" src="https://media.giphy.com/media/XAxylRMCdpbEWUAvr8/giphy.gif" width="100" title="html">
-  <img alt="css" src="https://media.giphy.com/media/fsEaZldNC8A1PJ3mwp/giphy.gif" width="100" title="css">
-  <img alt="VSCode" src="https://i.giphy.com/media/IdyAQJVN2kVPNUrojM/200.webp" width="100" title="vscode">
-  <img alt="python" src="https://i.giphy.com/media/LMt9638dO8dftAjtco/200.webp" width="100" title="python">
-  <img alt="javascript" src="https://media3.giphy.com/media/ln7z2eWriiQAllfVcn/200w.webp" width="100" title="javascript">
-  <img alt="sublime" src="https://media.giphy.com/media/jnDKffgCfGYOp6cMTK/giphy.gif" width="100" title="sublime">
-  <img alt="node" src="https://media.giphy.com/media/kdFc8fubgS31b8DsVu/giphy.gif" width="85" title="node">
-</div>
