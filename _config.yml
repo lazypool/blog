@@ -1,3 +1,4 @@
+---
 # Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
@@ -12,7 +13,8 @@ language: zh-CN
 timezone: ''
 
 # URL
-## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+## Set your site url here. For example, if you use GitHub Page, set url as
+## 'https://username.github.io/project'
 url: http://example.com
 permalink: :year/:month/:day/:title/
 # permalink: :title/
