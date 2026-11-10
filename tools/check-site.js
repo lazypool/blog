@@ -68,6 +68,29 @@ function stripCode(text) {
   return t;
 }
 
+const HTML_TAGS = new Set(
+  (
+    'a abbr address article aside audio b bdi bdo blockquote br button canvas caption center cite code col ' +
+    'colgroup data datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure font ' +
+    'footer form h1 h2 h3 h4 h5 h6 header hgroup hr i iframe img input ins kbd label legend li main mark ' +
+    'menu meter nav noscript object ol optgroup option output p picture pre progress q rp rt ruby s samp ' +
+    'script section select small source span strike strong style sub summary sup svg table tbody td ' +
+    'template textarea tfoot th thead time tr track u ul var video wbr ' +
+    'math mi mo mn mrow msup msub msubsup mfrac msqrt mroot mtext mspace mtable mtr mtd semantics annotation'
+  ).split(' ')
+);
+
+// Remove front matter, fenced/inline code and math so only prose HTML remains.
+function stripForHtmlCheck(text) {
+  let t = text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
+  t = t.replace(/```[\s\S]*?```/g, '');
+  t = t.replace(/~~~[\s\S]*?~~~/g, '');
+  t = t.replace(/`[^`\n]*`/g, '');
+  t = t.replace(/\$\$[\s\S]*?\$\$/g, '');
+  t = t.replace(/\$(?:\\.|[^$\n])+\$/g, '');
+  return t;
+}
+
 function cleanSrc(url) {
   url = url.replace(/\\/g, '/').split(/[?#]/)[0].trim();
   if (!url || /^(https?:|data:|#|\/\/)/i.test(url)) return null;
@@ -124,6 +147,20 @@ function main() {
     const body = stripCode(text);
     for (const m of body.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)) check(m[1], 'markdown 图片');
     for (const m of body.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)) check(m[1], '<img>');
+
+    // ---- 1b. no raw HTML in post prose ----
+    const prose = stripForHtmlCheck(text);
+    const rawTags = new Map();
+    for (const m of prose.matchAll(/<\/?([a-zA-Z][a-zA-Z0-9-]*)(?:\s[^<>]*?)?\/?>/g)) {
+      const name = m[1].toLowerCase();
+      if (HTML_TAGS.has(name)) rawTags.set(name, (rawTags.get(name) || 0) + 1);
+    }
+    const rawComments = [...prose.matchAll(/<!--[\s\S]*?-->/g)].length;
+    if (rawTags.size || rawComments) {
+      const parts = [...rawTags].map(([name, count]) => `<${name}>${count > 1 ? `x${count}` : ''}`);
+      if (rawComments) parts.push(`<!-- -->x${rawComments}`);
+      errs.push(`${rel}  内嵌 HTML: ${parts.join(', ')}`);
+    }
 
     // ---- 2. date vs folder/file name ----
     const relParts = rel.split('/');

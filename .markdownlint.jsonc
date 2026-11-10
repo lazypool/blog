@@ -22,9 +22,12 @@
   "MD024": {
     "siblings_only": true
   },
-  // MD033 (no inline HTML): posts embed MathML formulas, SVG diagrams, flex
-  // two-column layouts, raw <table> markup and <u>/<small> styling that plain
-  // Markdown cannot express. Rewriting them would lose formatting, so the rule
-  // stays disabled.
+  // MD049 (emphasis style): CJK text needs `*` (underscore does not emphasize
+  // between CJK characters), while English titles use `_`; allow both rather
+  // than forcing one marker everywhere.
+  "MD049": false,
+  // MD033 (no inline HTML): README badges and the centered header still use raw
+  // HTML. Post content is kept HTML-free by tools/check-site.js instead of this
+  // global rule, so the rule stays disabled for README.
   "MD033": false
 }
