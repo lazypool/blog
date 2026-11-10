@@ -210,7 +210,7 @@ Bank0、第 2 个字映射到 Bank1、…… 第 32 个字映射到 Bank31、第
 个 Bank 中的相同位置**，此时会触发 **广播机制**，不会引发冲突，因此也是 Bank
 Conflict Free 的。下图显示了一些跨步访问和广播机制的示例。
 
-![Bank Conflict 示例 1（左）与示例 2（右）](bank-conflict-examples.png)
+![Bank Conflict 示例](bank-conflict-examples.png)
 
 - 左 1：步长为单个 4Byte 字的线性寻址，无冲突。
 - 左 2：步长为两个 4Byte 字的线性寻址，冲突。（譬如线程 0 访问位置 0，线程 16 访

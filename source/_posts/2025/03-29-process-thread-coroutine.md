@@ -31,7 +31,7 @@ date: 2025-03-29 12:11:42
 - 程序计数器 PC、CPU 寄存器
 - 父进程 PID、子进程 PID，等等
 
-![左：进程是执行中的程序；右：PCB 存储 OS 分配的资源](process-and-pcb.png)
+![进程与 PCB](process-and-pcb.png)
 
 <p align="center">左：进程是执行中的程序；右：PCB 存储 OS 分配的资源</p>
 
@@ -61,7 +61,7 @@ date: 2025-03-29 12:11:42
 - 独立堆栈：每个线程拥有独立的堆、栈空间和寄存器状态
 - 轻量级创建：线程创建通过 `clone()` 系统调用实现，比进程的 `fork()` 更高效
 
-![左：多线程共享进程资源；右：线程拥有独立的执行上下文](process-thread-overview.png)
+![多线程与进程资源](process-thread-overview.png)
 
 <p align="center">左：多线程共享进程资源；右：线程拥有独立的执行上下文</p>
 

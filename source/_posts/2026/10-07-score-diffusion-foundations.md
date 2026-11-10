@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Diff：基于分数与扩散的生成建模三篇奠基性论文
+title: Diffusion：基于分数与扩散的生成建模三篇奠基性论文
 categories:
   - 📖 论文阅读
   - 👁️ CV 计算机视觉
@@ -8,7 +8,7 @@ tags: [人工智能, 生成模型, 扩散模型, Diffusion, Score Matching]
 date: 2026-10-07 16:00:00
 ---
 
-# Diff：基于分数与扩散的生成建模三篇奠基性论文
+# Diffusion：基于分数与扩散的生成建模三篇奠基性论文
 
 <!-- markdownlint-disable MD049 -- CJK 词内强调只能用 *，_ 在汉字之间不生效 -->
 
@@ -162,7 +162,7 @@ $s_\theta \approx \nabla_x \log p_{\text{data}}$，便可近似地从 $p_{\text{
 $\mathcal{N}(0,0.0001)$ 扰动数据（对 $[0,1]$ 像素而言肉眼不可辨）损失便收敛。这
 确认了“在 $\mathbb{R}^D$ 上具有全支撑”正是分数估计稳定的原因。
 
-![图 1（SMLD 原论文 Figure 1）：切片分数匹配（SSM）损失随迭代的变化；左为未加噪的原始数据，右为以 $\mathcal{N}(0,0.0001)$ 扰动后的数据。](smld_fig1.png)
+![图 1（SMLD Figure 1）](smld_fig1.png)
 
 #### 障碍二：低密度区域
 
@@ -187,7 +187,7 @@ $$
 $s_\theta \approx \nabla \log p_{\text{data}}$ 的区域）仅位于高密度处。也就是分
 数估计只有在数据集囊括的地方准确！~(废话)~
 
-![图 2（SMLD 原论文 Figure 2）：真实分数 $\nabla_x \log p_{\text{data}}(x)$（左）与训练所得 $s_\theta(x)$（右）；红色矩形标出两者近似相等的高密度区域。](smld_fig2.png)
+![图 2（SMLD Figure 2）](smld_fig2.png)
 
 ##### Langevin 动力学的混合缓慢
 
@@ -209,7 +209,7 @@ $$
 该结论通过把采样器与估计误差隔离开的受控实验得到确认。从这两个挑战出发，原论文提
 出了噪声条件分数网络。
 
-![图 3（SMLD 原论文 Figure 3）：高斯混合采样对比。(a) 精确采样；(b) 使用真值分数的朴素 Langevin 动力学（模态权重错误）；(c) 退火 Langevin 动力学（忠实恢复模态权重）。](smld_fig3.png)
+![图 3（SMLD Figure 3）](smld_fig3.png)
 
 ### 噪声条件分数网络：学习与推断
 
@@ -305,7 +305,7 @@ $$
 立、混合更快；来自 $q_{\sigma_1}$ 的样本位于高密度区，因而也是 $q_{\sigma_2}$ 的
 良好初值，如此逐级下降至 $q_{\sigma_L} \approx p_{\text{data}}$。
 
-![算法 1（SMLD 原论文 Algorithm 1）：退火 Langevin 动力学。](smld_algo1.png)
+![算法 1（SMLD）](smld_algo1.png)
 
 **$\alpha_i$ 的公式是怎么确定的呢？** 步长调度 $\alpha_i \propto \sigma_i^2$ 通
 过控制 Langevin 更新中的**信噪比**来论证：
@@ -323,7 +323,7 @@ $L = 10$、$\sigma_1 = 20$、$\sigma_{10} = 1$ 的玩具实验（图 3）确认�
 Langevin 能恢复正确的模态权重，而朴素 Langevin 失败——即它在经验上解决了 §3.2.2
 的混合缓慢问题。
 
-![图 4（SMLD 原论文 Figure 4）：退火 Langevin 动力学的中间样本，展示样本如何从纯随机噪声逐步演化为高质量图像。](smld_fig4.png)
+![图 4（SMLD Figure 4）](smld_fig4.png)
 
 ### 实验
 
@@ -340,7 +340,7 @@ $\epsilon \in[5 \times 10^{-6},5 \times 10^{-5}]$ 通常可行。
 素 Langevin）无法生成合理图像（附录 C.1）；论文解释：$0.01$ 足以规避流形问题，却
 太小，无法提供低密度区域的分数信息。
 
-![图 5（SMLD 原论文 Figure 5）：MNIST、CelebA、CIFAR-10 上的未筛选生成样本（自左至右）。](smld_fig5.png)
+![图 5（SMLD Figure 5）](smld_fig5.png)
 
 **CIFAR-10 定量结果（表 1）。** NCSN（无条件）达到 **Inception 8.87 ±
 0.12**、**FID 25.32**。基线：PixelCNN 4.60 / 65.93，PixelIQN 5.29 / 49.46，EBM
@@ -350,7 +350,7 @@ $\epsilon \in[5 \times 10^{-6},5 \times 10^{-5}]$ 通常可行。
 25.32 也具有竞争力（如与 SNGAN 相当）。MNIST 与 CelebA 的分数被省略，因为预处
 理/数据集约定不同，数字不可直接比较。
 
-![表 1（SMLD 原论文 Table 1）：CIFAR-10 上的 Inception 与 FID 分数。](smld_table1.png)
+![表 1（SMLD Table 1）](smld_table1.png)
 
 **图像修复（inpainting）。** 由于方法能处理任意形状遮挡，修复只需对退火 Langevin
 做简单修改（附录 B.3 / 算法 2）：用掩码 $m$ 标记已知像素，在每个水平上对给定图像
@@ -358,9 +358,9 @@ $\epsilon \in[5 \times 10^{-6},5 \times 10^{-5}]$ 通常可行。
 能按光栅扫描顺序补全的 PixelCNN 不同，NCSN 可处理任意形状；结果见图 6 与附录
 C.5。
 
-![算法 2（SMLD 原论文 Algorithm 2）：用退火 Langevin 动力学进行图像修复。](smld_algo2.png)
+![算法 2（SMLD）](smld_algo2.png)
 
-![图 6（SMLD 原论文 Figure 6）：图像修复。左为 CelebA，右为 CIFAR-10；每幅最左列为遮挡输入，最右列为原始图像。](smld_fig6.png)
+![图 6（SMLD Figure 6）](smld_fig6.png)
 
 ### 相关工作
 
@@ -420,7 +420,7 @@ Sohl-Dickstein 等）：一个用变分推断训练的、参数化的马尔可�
 指出：它们所提出的模型在似然上不具竞争力，且大部分无损码长花在了不可感知的细节
 上。
 
-![图 1（DDPM 原论文 Figure 1）：CelebA-HQ $256 \times 256$（左）与无条件 CIFAR-10（右）的生成样本。](ddpm_fig1.png)
+![图 1（DDPM Figure 1）](ddpm_fig1.png)
 
 ### 背景
 
@@ -662,7 +662,7 @@ $$
 . \tag{DDPM 式 12}
 $$
 
-![算法 1 与算法 2（DDPM 原论文 Algorithms 1–2）：左为训练过程，右为采样过程。](ddpm_algo1_2.png)
+![算法 1–2（DDPM）](ddpm_algo1_2.png)
 
 #### 与 Langevin 动力学采样的关联
 
@@ -768,9 +768,9 @@ PixelCNN++ 的 U-Net**，全程用**组归一化**，参数跨时间共享，用
 –/3.86/6.93。**结论是：在真变分界上训练能获得更好的码长，但简化目标带来最好的样
 本质量。**这由直接比较（表 1）及下述消融确认。
 
-![表 1 与表 2（DDPM 原论文 Tables 1–2）：左为 CIFAR-10 结果（NLL 以 bits/dim 计），右为无条件 CIFAR-10 逆向过程参数化与训练目标消融。](ddpm_table1_2.png)
+![表 1–2（DDPM）](ddpm_table1_2.png)
 
-![图 3 与图 4（DDPM 原论文 Figures 3–4）：左为 LSUN Church 样本（FID=7.89），右为 LSUN Bedroom 样本（FID=4.90）。](ddpm_fig3_4.png)
+![图 3–4（DDPM）](ddpm_fig3_4.png)
 
 #### 逆向过程参数化与训练目标消融
 
@@ -798,7 +798,7 @@ EBM/分数匹配的 AIS 估计）。既然样本质量仍然很高，作者推�
 度**与**失真 1.97 比特/维度**（在 $0$–$255$ 尺度上 RMSE 0.95），即超过一半的无损
 码长描述的是不可感知的失真。
 
-![图 5（DDPM 原论文 Figure 5）：无条件 CIFAR-10 测试集上的率失真随时间的变化（三幅子图分别为失真–时间、码率–时间与失真–码率）。](ddpm_fig5.png)
+![图 5（DDPM Figure 5）](ddpm_fig5.png)
 
 为探究率失真行为，作者引入**渐进式有损编码**（算法 3–4），假设存在诸如最小随机编
 码的收发过程，能平均用约 $D_{\mathrm{KL}}(q \| p)$ 比特传输 $x \sim q(x)$；按序
@@ -810,14 +810,14 @@ x_0 \approx \hat x_0 = \frac
 \tag{DDPM 式 15}
 $$
 
-![算法 3 与算法 4（DDPM 原论文 Algorithms 3–4）：渐进有损编码的发送与接收过程。](ddpm_algo3_4.png)
+![算法 3–4（DDPM）](ddpm_algo3_4.png)
 
 率失真曲线（图 5、表 4）显示失真在低码率区急剧下降，再次表明大部分比特用于不可感
 知细节。他们还进行了**渐进生成**：采样过程中预测 $\hat x_0$ 显示粗尺度特征先出
 现、细节最后出现；冻结 $x_t$ 并抽取 $x_0 \sim p_\theta(x_0 \mid x_t)$ 则显示小
 $t$ 保留大部分内容、大 $t$ 只保留粗特征。
 
-![表 4（DDPM 原论文 Table 4）：无条件 CIFAR-10 测试集率失真数值。](ddpm_table4.png)
+![表 4（DDPM Table 4）](ddpm_table4.png)
 
 **与自回归解码的联系。** 作者把变分界重写为
 
@@ -847,7 +847,7 @@ $\lambda$ 固定同一噪声）。在 CelebA-HQ $256 \times 256$、$t = 500$ 时
 重建质量高，插值能合理地改变姿态、肤色、发型、表情与背景（但不能改变眼镜）；更大
 $t$ 得到更粗、更多样的插值，$t = 1000$ 给出全新样本。
 
-![图 8（DDPM 原论文 Figure 8）：用 500 步扩散对 CelebA-HQ $256 \times 256$ 图像进行隐空间插值。](ddpm_fig8.png)
+![图 8（DDPM Figure 8）](ddpm_fig8.png)
 
 ### 相关工作
 
@@ -912,7 +912,7 @@ SMLD 与 DDPM 视为两个 SDE 离散化的**统一框架**。报告的主要结
 9.89**、**FID 2.20**、**2.99 比特/维度**，以及首个基于分数模型的高保真
 $1024 \times 1024$ 样本。
 
-![图 1（SDE 原论文 Figure 1）：求解逆向时间 SDE 即得到基于分数的生成模型；前向 SDE（数据→噪声）可逆，只需知道各中间时刻的分数 $\nabla_x \log p_t(x)$。](sde_fig1.png)
+![图 1（SDE Figure 1）](sde_fig1.png)
 
 ### 背景
 
@@ -1017,7 +1017,7 @@ $$
 度，$p_{st}(x(t)\mid x(s))$ 记转移核。通常 $p_T$ 是不含 $p_0$ 信息的无结构高斯先
 验（正态）。
 
-![图 2（SDE 原论文 Figure 2）：基于 SDE 的分数生成建模总览。前向 SDE 把数据映射到先验噪声，逆向 SDE 与相应的概率流 ODE 均可由分数 $\nabla_x \log p_t(x)$ 得到。](sde_fig2.png)
+![图 2（SDE Figure 2）](sde_fig2.png)
 
 #### 通过反转 SDE 生成样本
 
@@ -1175,7 +1175,7 @@ _这个公式是套用之前的逆向时间 SDE 公式，也就是 SDE 式 6 得
 CIFAR-10（表 1）上，原论文通过实验证明了，逆向扩散采样对 SMLD/VE 与 DDPM/VP 模型
 都略优于祖先采样。
 
-![表 1（SDE 原论文 Table 1）：CIFAR-10 上不同逆向 SDE 求解器的比较；阴影区域表示相同的计算量。](sde_table1.png)
+![表 1（SDE Table 1）](sde_table1.png)
 
 #### 预测器-校正器采样器
 
@@ -1198,11 +1198,11 @@ PC 采样器交替做两件事：
 实验结论：相同计算量下 C2000 最差；PC1000 计算翻倍，但总优于 P1000，通常也优于
 P2000；适当校正步下 PC 明显优于纯预测器。这里的 1000 和 2000 指采样步数。
 
-![算法 1（SDE 原论文 Algorithm 1）：预测器–校正器（PC）采样。](sde_algo1.png)
+![算法 1（SDE）](sde_algo1.png)
 
-![算法 2 与算法 3（SDE 原论文 Algorithms 2–3）：VE / VP SDE 的 PC 采样。](sde_algo2_3.png)
+![算法 2–3（SDE）](sde_algo2_3.png)
 
-![算法 4 与算法 5（SDE 原论文 Algorithms 4–5）：VE / VP SDE 的校正器算法。](sde_algo4_5.png)
+![算法 4–5（SDE）](sde_algo4_5.png)
 
 #### 概率流及其与神经常微分方程的联系
 
@@ -1234,7 +1234,7 @@ ODE 带来的 **额外收益**：1. 可做隐变量操控，如插值、温度�
 ODE 不用校正器时，其样本的 FID 质量通常不如 SDE 样本，这一点在高维 VE 在下尤其明
 显，且 ODE 的效果依赖于所选的 SDE。
 
-![图 3（SDE 原论文 Figure 3）：概率流 ODE 支持随数值精度变化的自适应步长快速采样（左）、在不损失质量的前提下减少分数函数评估次数（NFE，中），以及隐变量到图像的插值（右）。](sde_fig3.png)
+![图 3（SDE Figure 3）](sde_fig3.png)
 
 #### 架构改进
 
@@ -1284,7 +1284,7 @@ $(x(t),y)$ 由先从数据采样 $(x(0),y)$、再采样 $x(t)\sim p_{0t}(x(t)\mi
 到，并对不同时间步的交叉熵损失求和。作者用 Wide-ResNet-28-10 分类器、以随机傅里
 叶特征对 $\log \sigma_i$ 条件化，并在无条件 NCSN++ 上用 PC（2000 步）生成。
 
-![图 4（SDE 原论文 Figure 4）：左为 $32 \times 32$ CIFAR-10 的类条件样本（上四行为汽车、下四行为马）；右为 $256 \times 256$ LSUN 上的修复（上两行）与上色（下两行），首列为原图、次列为遮挡/灰度输入，其余列为采样补全结果。](sde_fig4.png)
+![图 4（SDE Figure 4）](sde_fig4.png)
 
 **修复（imputation）** 是条件采样的特例：设未知维度为 $\bar \Omega(x)$，把 SDE
 限制到这些维度，并把不可处理的 $\nabla_z \log p_t(z(t)\mid \Omega(x(0))= y)$ 用
@@ -1312,7 +1312,7 @@ $p_t(x(t)\mid y(t),y)\approx p_t(x(t)\mid y(t))$（小 $t$ 时 $y(t)\approx y$�
 $t$ 时近似误差在采样早期使用、影响较小）。把式 50 代入式 48 即可求解
 $p(x \mid y)$。
 
-![图 13（SDE 原论文 Figure 13）：通过求解条件逆向 SDE 得到的类条件样本（噪声条件分类器在各噪声尺度上的精度曲线见原论文）。](sde_fig13.png)
+![图 13（SDE Figure 13）](sde_fig13.png)
 
 ### 结论
 

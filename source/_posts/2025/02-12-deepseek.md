@@ -152,7 +152,7 @@ $$
 
 #### DeepSeekMoE
 
-![MoE 演进：从传统 MoE 到 DeepSeekMoE](deepseek-moe.png)
+![MoE 演进](deepseek-moe.png)
 
 **DeepSeek 对传统的 MoE 进行了改进**，主要有 4 点：
 
@@ -574,7 +574,7 @@ $$
 
 ## DeepSeek-V3 的表现：屠榜同行，时代先声？
 
-![DeepSeek-V3 在主要 Benchmark 上的表现](./performance.png)
+![DeepSeek-V3 结果](./performance.png)
 
 评估体系设计覆盖语言模型能力的多维度验证，构建了包含 **指令遵循
 （IFEval）**、**长文本处理（LongBench v2）**、**专业领域（GPQA、CNMO 数学奥
@@ -607,9 +607,9 @@ $$
 
 ### DeepSeek-R1-Zero 的自主演化过程
 
-![随着训练次数的增加 DeepSeek 的表现趋于优化](./deepseek-r1_zero_performance.png)
+![表现随训练变化](./deepseek-r1_zero_performance.png)
 
-![随着训练次数的增加 DeepSeek 的回答长度增加](./deepseek-r1_zero_reslength.png)
+![回答长度随训练变化](./deepseek-r1_zero_reslength.png)
 
 **DS 团队使用 Accuracy Rewards 和 Format Rewards 来作为 DeepSeek-R1-Zero 的奖励
 模型。** 这两个奖励模型都是基于模板的，前者衡量回答是否正确、后者衡量回答是否具
