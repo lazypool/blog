@@ -33,6 +33,10 @@ friends:
       url: https://blog.hanbings.io
       avatar: https://blog.hanbings.io/img/avatar.jpg
       intro: 🍀 这里是寒冰，很高兴认识你！
+    - name: FurryCoder
+      url: https://furrycoder.com/
+      avatar: https://avatars.githubusercontent.com/u/79406469
+      intro: furry coder, happy coding 🦀
 
 # 首页
 home:
