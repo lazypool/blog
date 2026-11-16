@@ -73,6 +73,7 @@ npm run server
 - `check-math.js`：KaTeX 语法与公式结构检查
 - `format-md.js`：段落重排、公式规范化
 - `check-site.js`：图片路径、日期目录、标签/分类卫生
+- `images.js`：图床状态、同步与下载（`npm test` 覆盖其逻辑）
 - `sync-source.js`：同步 `_pages` / `_assets`
 
 提交前运行 `npm run lint` 和 `npm run format`。当前 `npm run lint` 结果为 **0 error / 0 warning**。
@@ -127,23 +128,50 @@ Pages 等静态托管服务。
    ```
 
 2. 用 `npm run server` 预览，使用本地图片，不会上传。
-3. 在开发机上传图片：
+3. 在开发机同步图片：
 
    ```bash
-   npm run upload:images
+   npm run images:status   # 查看新增、修改、删除、缺失的图片
+   npm run images:sync     # 上传新增和修改过的图片
    ```
 
-   这会用一个 SFTP 连接同步 `source/_posts` 下的所有图片到
-   `posts/<year>/<slug>/<file>`。`<slug>` 与本地文章文件夹同名，包含 `MM-DD-`
-   前缀（例如 `10-09-example`）。默认跳过远程已存在的文件；可用
-   `--overwrite` 覆盖、`--dry-run` 预览，或用 `--slug` / `--year` 限制范围。
-   单张上传：
+   图片对应图床上的 `posts/<year>/<slug>/<file>`。`<slug>` 与本地文章文件夹同名，
+   包含 `MM-DD-` 前缀（例如 `10-09-example`）。图床在 `posts/` 旁保存
+   `.imgbed-manifest.json`（权限 0600），记录每张已上传图片的大小和 SHA-256。
+   同步时只读取这一个文件，对本地图片计算哈希，只上传有变化的图片：未变化的图片不会
+   产生任何远程请求，修改过的图片会覆盖远程副本（先传到临时文件名再重命名）。多台机器
+   共用同一份清单。上传失败的图片会在清单中标记为内容未知，下次同步会重试。图床上还没有
+   清单时，首次同步会扫描远程目录，并把本地图片全部重新上传一次，因为远程内容未知。
+
+   同一时间只允许一个同步修改图床。同步在整个运行期间持有清单旁的 `.imgbed-lock`，
+   其他机器持有锁时会立即失败；`status` 和 `--dry-run` 不需要锁。如果同步被强制终止
+   而留下锁文件，请到图床上手动删除它。
+
+   选项：`--dry-run` 只报告不修改；`--prune` 同时删除既不在本地、也没有文章引用的远程
+   图片（仍被文章引用的图片会被报告为缺失，永远不会被删除）；`--force` 上传范围内全部图片；`--scan`
+   用完整的远程目录列表校正清单（在图床上手动改过文件时使用）；`--year` / `--slug` /
+   文件路径用于限制范围：
 
    ```bash
-   npm run upload:images -- source/_posts/2026/10-09-example/figure.png
+   npm run images:sync -- --prune --dry-run
+   npm run images:sync -- source/_posts/2026/10-09-example/figure.png
    ```
 
-   脚本会输出公网 URL，但 Markdown 里仍保留本地路径；构建不会自动上传。
+   图床上还没有清单时会拒绝 `--prune`：首份清单来自远程目录列表，若本地是不完整的
+   克隆，会误删只存在于远程的图片。请先不带 `--prune` 同步一次，检查
+   `images:status`，再执行清理。同理，`--scan` 首次发现的远程图片不会在同一次运行中
+   被删除。`--scan` 只比较文件大小，因为 SFTP 不提供远程校验和：在图床上手动修改且
+   大小不变的图片无法被发现，请用 `--force` 重新上传。
+
+   只有指向文章文件夹内文件的行内 `![alt](file.png)` 和 `<img src="file.png">`
+   算作引用；代码块和 HTML 注释中的图片会被忽略，`{% asset_img %}` 标签和引用式图片
+   不会被识别。
+
+   新克隆的仓库先用 `npm run images:download` 恢复图片（走公网地址，不需要 SSH；
+   `--overwrite` 覆盖已有文件）。每张图片先写入临时文件，完整写入后才重命名到目标
+   位置，中断的下载不会留下残缺图片。命令行入口是 `tools/images.js`
+   （`npm run images -- --help`）。脚本会输出公网 URL，但 Markdown 里仍保留本地路径；
+   构建不会自动上传。
 4. 不要把文章图片提交到 Git。`.gitignore` 已忽略文章图片，GitHub 只保留文本和代码。
 5. 部署构建时如果没有本地图片，设置图床公开地址并开启重写：
 

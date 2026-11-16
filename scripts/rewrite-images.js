@@ -9,9 +9,13 @@
 
 'use strict';
 
-const { loadImageHostEnv } = require('../tools/imgbed-env');
-
-const IMAGE_EXT_RE = /\.(?:jpe?g|png|gif|webp|svg)$/i;
+const {
+  HTML_IMAGE_RE,
+  MARKDOWN_IMAGE_RE,
+  loadImageHostEnv,
+  mapOutsideCode,
+  relativeImage,
+} = require('../tools/imgbed');
 
 function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -31,31 +35,15 @@ function postLocation(data) {
   return null;
 }
 
-function relativeImage(href) {
-  if (!href || /^(?:[a-z]+:)?\/\//i.test(href) || /^(?:data:|#|\/)/i.test(href)) return '';
-  const file = href.replace(/\\/g, '/').replace(/^\.\//, '');
-  if (!IMAGE_EXT_RE.test(file) || file.includes('/') || file.includes('..') || file.startsWith('.')) {
-    return '';
-  }
-  return file;
-}
-
-function mapOutsideCode(text, map) {
-  return String(text || '')
-    .split(/(```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]*`)/g)
-    .map((part, i) => (i % 2 ? part : map(part)))
-    .join('');
-}
-
 function rewriteMarkdown(markdown, location, base) {
   const prefix = `${base}/posts/${location.year}/${location.slug}/`;
   return mapOutsideCode(markdown, (text) => {
     return text
-      .replace(/!\[([^\]]*)\]\(([^)\s]+)([^)]*)\)/g, (match, alt, href, tail) => {
+      .replace(MARKDOWN_IMAGE_RE, (match, alt, href, tail) => {
         const file = relativeImage(href);
         return file ? `![${alt}](${prefix}${file}${tail})` : match;
       })
-      .replace(/(<img\b[^>]*\bsrc=["'])([^"']+)(["'])/gi, (match, head, href, tail) => {
+      .replace(HTML_IMAGE_RE, (match, head, href, tail) => {
         const file = relativeImage(href);
         return file ? `${head}${prefix}${file}${tail}` : match;
       });

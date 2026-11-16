@@ -57,6 +57,7 @@ The theme focuses on:
 - `npm run lint:site` - check site configuration
 - `npm run format` - format code
 - `npm run fix` - automatically fix issues
+- `npm test` - run `node:test` unit tests for the tools
 
 ## Custom Scripts
 
@@ -71,10 +72,11 @@ Standalone CLI tools (`tools/`, not loaded by Hexo):
 - `tools/check-math.js` - check math formula formatting
 - `tools/check-site.js` - check site configuration and links
 - `tools/format-md.js` - format Markdown files
-- `tools/download-images.js` - restore post images from the image host into `source/_posts`
-- `tools/upload-images.js` - sync all post images, or specific files, to the image host
-- `tools/prune-images.js` - list or delete remote images that no longer exist locally
-- `tools/imgbed-env.js` - parse `.env.imgbed.host`
+- `tools/images.js` - image-host CLI: `status`, `sync` (`--prune`, `--force`, `--scan`, `--dry-run`) and `download`
+- `tools/imgbed.js` - network-free image-host logic: `.env.imgbed.host` parsing, path mapping, Markdown image references, hashing, manifest diff (also used by `scripts/rewrite-images.js`)
+- `tools/imgbed-sftp.js` - SFTP access: remote manifest, scan, upload, delete
+
+Tests (`npm test`, `node:test`): `test/*.test.js`.
 
 Theme-level (`themes/tidepool/scripts/`):
 
@@ -113,9 +115,22 @@ Theme-level (`themes/tidepool/scripts/`):
 ### Image Host Workflow
 
 - Keep post images local during development; `npm run server` must not rewrite or upload them.
-- Restore missing local images from the public image host with `npm run download:images`; existing files are skipped unless `--overwrite` is passed.
-- Sync images with `npm run upload:images` (all post images) or pass file paths for a subset; do not commit images or `.env.imgbed.host`.
-- Remove remote images whose local files were deleted with `npm run prune:images` (dry run by default); add `--delete --prune-empty-dirs` to actually remove them.
+- Restore missing local images from the public image host with `npm run images:download`; existing files are skipped unless `--overwrite` is passed.
+- Check what differs with `npm run images:status`; upload new and modified images with `npm run images:sync` (pass file paths, `--year` or `--slug` for a subset, `--dry-run` to preview).
+- Change detection uses `.imgbed-manifest.json` on the image host (size + SHA-256 per image);
+  unchanged images cause no remote request. Without a manifest, the first sync scans the remote
+  tree and re-uploads every local image once. Use `--scan` after editing the host by hand; it
+  compares sizes only, so re-upload a same-size hand edit with `--force`.
+- A sync that changes the host holds `.imgbed-lock` next to the manifest and fails fast if
+  another sync holds it; delete a stale lock on the host by hand. `status` and `--dry-run` take
+  no lock. A failed upload marks its manifest entry unknown so the next sync retries it.
+- Delete remote copies of locally deleted images with `npm run images:sync -- --prune` (preview with `--dry-run`). Images still referenced by a post are reported as missing and never pruned.
+  `--prune` is refused while the host has no manifest yet (sync once, review status, then prune),
+  and images that `--scan` finds for the first time are not pruned in the same run.
+- Only inline `![](file)` and `<img src="file">` references outside code blocks and HTML comments
+  count; `{% asset_img %}` and reference-style images are not recognized.
+- Downloads are atomic (temporary file, then rename), with a timeout.
+- Do not commit images, `.env.imgbed.host`, `.imgbed-manifest.json` or `.imgbed-lock`.
 - Keep Markdown image paths relative. During `hexo generate`,
   `scripts/rewrite-images.js` rewrites them to
   `${IMGHOST_PUBLIC_BASE_URL}/posts/<year>/<slug>/<file>` before Hexo resolves

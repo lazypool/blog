@@ -75,6 +75,7 @@ Content-quality scripts:
 - `check-math.js`: KaTeX syntax and math structure checks
 - `format-md.js`: paragraph reflow and math normalization
 - `check-site.js`: image paths, date folders and tag/category hygiene
+- `images.js`: image-host status, sync and download (`npm test` covers its logic)
 - `sync-source.js`: sync `_pages` and `_assets`
 
 Run `npm run lint` and `npm run format` before committing. The current `npm run lint` result is
@@ -130,24 +131,61 @@ Post images live outside git. The workflow is:
    ```
 
 2. Preview with `npm run server`; local image files are used and no upload happens.
-3. Upload images from the development machine:
+3. Sync images from the development machine:
 
    ```bash
-   npm run upload:images
+   npm run images:status   # what is new, modified, deleted or missing
+   npm run images:sync     # upload new and modified images
    ```
 
-   This syncs every image under `source/_posts` to
-   `posts/<year>/<slug>/<file>` over one SFTP connection. `<slug>` is the local
-   post folder name, including its `MM-DD-` prefix (for example
-   `10-09-example`). It skips existing remote files by default; use
-   `--overwrite` to replace them, `--dry-run` to preview, or `--slug` /
-   `--year` to limit the scope. The single-image form is:
+   Images map to `posts/<year>/<slug>/<file>` on the host. `<slug>` is the
+   local post folder name, including its `MM-DD-` prefix (for example
+   `10-09-example`). The host also keeps `.imgbed-manifest.json` (mode 0600,
+   next to `posts/`) with the size and SHA-256 of every uploaded image, so a
+   sync reads one file, hashes the local images and only uploads what changed:
+   unchanged images cost no remote request, modified images overwrite the
+   remote copy (uploaded to a temporary name, then renamed). Every machine sees
+   the same manifest. A failed upload marks its manifest entry as unknown, so
+   the next sync retries it. The first sync without a manifest scans the remote
+   tree and re-uploads every local image once, because the remote content is
+   unknown.
+
+   Only one sync may change the host at a time. A sync holds `.imgbed-lock`
+   (next to the manifest) for its whole run and fails fast if another machine
+   holds it; status and `--dry-run` do not need the lock. If a sync was killed
+   and left the lock behind, delete that file on the host by hand.
+
+   Options: `--dry-run` reports without changing anything, `--prune` also
+   deletes remote images that no local file and no post reference (images that a
+   post still references are reported as missing and never pruned), `--force`
+   uploads everything in scope, `--scan` reconciles the manifest with a full
+   remote listing (use it if files were changed on the host by hand), and
+   `--year` / `--slug` / file paths limit the scope:
 
    ```bash
-   npm run upload:images -- source/_posts/2026/10-09-example/figure.png
+   npm run images:sync -- --prune --dry-run
+   npm run images:sync -- source/_posts/2026/10-09-example/figure.png
    ```
 
-   The script prints public URLs, but keep the Markdown paths local. Builds do not upload automatically.
+   `--prune` is refused while the host has no manifest yet: that first manifest
+   comes from a listing, and a partial clone would otherwise delete remote-only
+   images. Run a plain sync, review `images:status`, then prune. For the same
+   reason, images that `--scan` finds for the first time are not pruned in that
+   run. `--scan` compares sizes only, because SFTP offers no remote checksum: a
+   hand edit on the host that keeps the file size is not detected, so re-upload
+   such an image with `--force`.
+
+   Only inline `![alt](file.png)` and `<img src="file.png">` references to files
+   in the post folder count as references; images inside code blocks or HTML
+   comments are ignored, and `{% asset_img %}` tags or reference-style images
+   are not recognized.
+
+   On a fresh clone, restore images first with `npm run images:download`
+   (public URL, no SSH; `--overwrite` replaces existing files). Each image is
+   written to a temporary file and renamed into place only when complete, so
+   an interrupted download never leaves a partial image behind. The CLI is
+   `tools/images.js` (`npm run images -- --help`). It prints public URLs, but
+   keep the Markdown paths local. Builds do not upload automatically.
 4. Do not commit post images. `.gitignore` ignores post image files, so GitHub holds only text and code.
 5. For a deployment build without local images, set the public image base and enable rewriting:
 
