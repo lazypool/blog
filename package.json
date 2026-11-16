@@ -42,7 +42,7 @@
     "ejs-lint": "^2.0.1",
     "katex": "^0.18.7",
     "markdownlint-cli2": "^0.24.1",
-    "prettier": "^3.8.3",
+    "prettier": "^3.10.1",
     "ssh2-sftp-client": "^12.1.1"
   },
   "prettier": {
