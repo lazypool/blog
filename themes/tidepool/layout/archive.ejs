@@ -3,6 +3,7 @@
   const spans = ((theme.archive && theme.archive.spans) || []).map(function (span) {
     return {
       years: (span.years || []).map(String).sort().reverse(),
+      image: String(span.image || ''),
       note: [].concat(span.note || []).map(String)
     };
   });
@@ -21,9 +22,10 @@
       group = {
         key: key,
         label: spanYears.length > 1 ? last + ' – ' + first : year,
-        short: spanYears.length > 1 ? last + '–' + first.slice(-2) : year,
+        navYears: spanYears.slice().reverse(),
         mark: spanYears.length > 1 ? last.slice(-2) + '–' + first.slice(-2) : year,
         note: span ? span.note : [],
+        image: span ? span.image : '',
         strips: spanYears.map(function (y) { return { year: y, months: Array(12).fill(0) }; }),
         posts: []
       };
@@ -46,7 +48,9 @@
     </div>
     <nav class="year-nav" aria-label="按年份跳转">
       <% groups.forEach(function (group) { %>
-        <a href="#year-<%= group.key %>"><%= group.short %></a>
+        <% group.navYears.forEach(function (y) { %>
+          <a href="#year-<%= group.key %>"><%= y %></a>
+        <% }); %>
       <% }); %>
     </nav>
   </header>
@@ -85,6 +89,11 @@
             </li>
           <% }); %>
         </ol>
+        <% if (group.image) { %>
+          <figure class="archive-image">
+            <img src="<%- url_for(group.image) %>" alt="" loading="lazy" decoding="async">
+          </figure>
+        <% } %>
         <% if (group.note.length) { %>
           <aside class="archive-note">
             <% group.note.forEach(function (paragraph) { %>
