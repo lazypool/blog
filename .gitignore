@@ -8,6 +8,8 @@ public/
 _multiconfig.yml
 source/_drafts/
 *.bak
+# 以下 source/ 目录是 _pages/ 与 _assets/ 在构建时镜像出来的产物；
+# 共享图片的真正源头在 source/_assets/img/ 下，会被正常跟踪，勿误判为被忽略。
 source/about/
 source/photo/
 source/css/

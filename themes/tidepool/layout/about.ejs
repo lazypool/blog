@@ -1,6 +1,6 @@
 <%
   const author = theme.author || {};
-  const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/basic/avatar.png');
+  const avatar = author.avatar ? url_for(author.avatar) : url_for('/img/avatar.png');
   const links = author.links || [];
   const friends = (theme.friends && theme.friends.items) || [];
   const friendsTitle = (theme.friends && theme.friends.title) || '友链';
