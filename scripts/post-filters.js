@@ -23,8 +23,8 @@
 // 1. CJK bold fix
 // ---------------------------------------------------------------------------
 
-// Word joiner: an invisible character that stops CommonMark from treating the
-// adjacent "*" as emphasis when it touches CJK punctuation.
+// Word joiner: an invisible character that changes how the marked renderer
+// classifies an adjacent "*" run so emphasis still renders around CJK text.
 const WORD_JOINER = '\u2060';
 
 const CJK_PUNCT = '\\u3000-\\u303f\\uff00-\\uffef\\u2018\\u2019\\u201c\\u201d';
@@ -33,9 +33,9 @@ const ASCII_PUNCT = '\\x21-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7B-\\x7E';
 hexo.extend.filter.register('before_post_render', function (data) {
   data.content = data.content.replace(
     new RegExp(
-      '(```[\\s\\S]*?```|`[^`]*`)|([' + CJK_PUNCT + '])(\\*+)(?=[^\\s*' + CJK_PUNCT + '])|' +
+      '(```[\\s\\S]*?```|`[^`]*`)|([' + CJK_PUNCT + '])(\\*+)(?=[^\\s*\\p{P}\\p{S}])|' +
       '(?<![' + ASCII_PUNCT + CJK_PUNCT + '*])(\\*+)([' + CJK_PUNCT + '])',
-      'g'
+      'gu'
     ),
     (match, code, punct, stars, stars2, punct2) => {
       if (code) return code;
