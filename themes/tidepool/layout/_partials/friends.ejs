@@ -18,7 +18,7 @@
           <li>
             <a class="friend-link" href="<%= friend.url %>" target="_blank" rel="noopener noreferrer">
               <% if (friend.avatar) { %>
-                <img class="friend-avatar" src="<%= friend.avatar %>" alt="" width="28" height="28" loading="lazy" decoding="async">
+                <img class="friend-avatar" data-src="<%= friend.avatar %>" alt="" width="28" height="28" decoding="async">
               <% } else { %>
                 <span class="friend-avatar friend-avatar--fallback"><%- tide_icon('link') %></span>
               <% } %>

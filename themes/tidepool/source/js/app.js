@@ -22,7 +22,8 @@
     monitor: '<svg class="icon" aria-hidden="true"><use href="#i-monitor"></use></svg>',
     copy: '<svg class="icon" aria-hidden="true"><use href="#i-copy"></use></svg>',
     check: '<svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>',
-    close: '<svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>'
+    close: '<svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>',
+    link: '<svg class="icon" aria-hidden="true"><use href="#i-link"></use></svg>'
   };
 
   const escapeHTML = (value) =>
@@ -261,12 +262,27 @@
    * Friends popover
    * ------------------------------------------------------------------ */
 
+  function loadFriendAvatars(scope) {
+    $$('img[data-src]', scope).forEach((img) => {
+      const src = img.getAttribute('data-src');
+      img.removeAttribute('data-src');
+      img.addEventListener('error', () => {
+        const fallback = document.createElement('span');
+        fallback.className = 'friend-avatar friend-avatar--fallback';
+        fallback.innerHTML = ICONS.link;
+        img.replaceWith(fallback);
+      }, { once: true });
+      img.src = src;
+    });
+  }
+
   function openFriends(pop, toggle) {
     closeFriends();
     window.clearTimeout(pop.friendsHideTimer);
     pop.closest('.sidebar')?.classList.add('is-friends-open');
     pop.classList.remove('is-closing');
     pop.hidden = false;
+    loadFriendAvatars(pop);
     window.requestAnimationFrame(() => pop.classList.add('is-open'));
     toggle.setAttribute('aria-expanded', 'true');
   }
@@ -308,6 +324,23 @@
     document.addEventListener('click', (event) => {
       if (!event.target.closest('.friends-wrap')) closeFriends();
     });
+
+    prefetchFriendAvatars();
+  }
+
+  function prefetchFriendAvatars() {
+    const prefetch = () => {
+      $$('img[data-src]').forEach((img) => {
+        const pre = new Image();
+        pre.onload = pre.onerror = null;
+        pre.src = img.getAttribute('data-src');
+      });
+    };
+    if (document.readyState === 'complete') {
+      window.setTimeout(prefetch, 300);
+    } else {
+      window.addEventListener('load', () => window.setTimeout(prefetch, 300), { once: true });
+    }
   }
 
   function closeFriends() {
